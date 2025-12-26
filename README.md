@@ -2,6 +2,7 @@
 
 ![Project Status](https://img.shields.io/badge/status-active-success.svg)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Screenshot Website](images/screenshot.png)
 
 > **"Where Strategy Meets Aesthetic."**
 
@@ -67,8 +68,7 @@ Karena proyek ini menggunakan Tailwind via CDN, Anda tidak perlu menginstal Node
 1. **Clone Repository**
 
 ```bash
-git clone [https://github.com/fauzantaufiq1211/fauzan-portfolio.git](https://github.com/fauzantaufiq1211/fauzan-portfolio.git)
-
+git clone [https://github.com/fauzantaufiq1211/fauzan-portfolio.git]'(https://github.com/fauzantaufiq1211/fauzan-portfolio.git)'
 ```
 
 2. **Buka Folder Proyek**
@@ -105,7 +105,7 @@ Cari tag `<form>` di bagian bawah `index.html` dan ganti URL `action` dengan URL
 
 ```html
 <form
-  action="[https://formspree.io/f/KODE_UNIK_ANDA](https://formspree.io/f/KODE_UNIK_ANDA)"
+  action="[https://formspree.io/f/xjgbdwrw]'(https://formspree.io/f/xjgbdwrw)'"
   method="POST"
 ></form>
 ```
