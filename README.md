@@ -1,12 +1,3 @@
-Tentu, ini adalah draf **README.md** yang profesional, lengkap, dan siap pakai untuk repository GitHub Anda.
-
-File ini dirancang agar siapa pun (rekruter atau developer lain) yang melihat kode Anda langsung paham bahwa proyek ini dibuat dengan struktur yang rapi dan logika yang canggih.
-
-Silakan buat file baru bernama `README.md` di folder proyek Anda, lalu _copy-paste_ kode di bawah ini:
-
----
-
-````markdown
 # ✨ Personal Portfolio Website
 
 ![Project Status](https://img.shields.io/badge/status-active-success.svg)
@@ -16,7 +7,7 @@ Silakan buat file baru bernama `README.md` di folder proyek Anda, lalu _copy-pas
 
 Website portofolio pribadi yang modern, responsif, dan interaktif. Dibangun untuk menampilkan pengalaman profesional, kepemimpinan organisasi, dan hasil karya kreatif (Portfolio Showcase) dengan pengalaman pengguna (UX) yang halus.
 
-🔗 **Live Demo:** [https://nama-project-anda.vercel.app](https://nama-project-anda.vercel.app) _(Ganti dengan link Vercel Anda nanti)_
+🔗 **Live Demo:** [https://fauzantaufiq.vercel.app](https://fauzantaufiq.vercel.app)
 
 ---
 
@@ -66,6 +57,7 @@ PORTFOLIO-WEBSITE/
 ├── 📄 index.html           # File utama (HTML + CSS + JS)
 └── 📄 README.md            # Dokumentasi proyek
 ```
+
 ````
 
 ---
@@ -77,7 +69,7 @@ Karena proyek ini menggunakan Tailwind via CDN, Anda tidak perlu menginstal Node
 1. **Clone Repository**
 
 ```bash
-git clone [https://github.com/username-anda/nama-repo.git](https://github.com/username-anda/nama-repo.git)
+git clone [https://github.com/fauzantaufiq1211/fauzan-portfolio.git] (https://github.com/fauzantaufiq1211/fauzan-portfolio.git)
 
 ```
 
@@ -145,3 +137,4 @@ Dibuat dengan ❤️ dan ☕.
 2.  **Screenshot (Opsional):** Jika Anda ingin README lebih keren, Anda bisa menambahkan screenshot tampilan website Anda di bagian bawah judul menggunakan kode: `![Screenshot Website](images/screenshot.png)`.
 
 ```
+````
