@@ -93,7 +93,7 @@ Buka file `index.html`, gulir ke bawah sampai bagian `<script>`. Cari variabel `
 {
     type: "Instagram Feed",
     img: "images/portfolio/proyek-baru.jpg",
-    link: "[https://instagram.com/](https://instagram.com/)...",
+    link: "https://instagram.com/...",
     btnText: "View Post"
 },
 
