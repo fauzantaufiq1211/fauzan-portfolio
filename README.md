@@ -67,7 +67,7 @@ Karena proyek ini menggunakan Tailwind via CDN, Anda tidak perlu menginstal Node
 1. **Clone Repository**
 
 ```bash
-git clone [https://github.com/fauzantaufiq1211/fauzan-portfolio.git] (https://github.com/fauzantaufiq1211/fauzan-portfolio.git)
+git clone [https://github.com/fauzantaufiq1211/fauzan-portfolio.git](https://github.com/fauzantaufiq1211/fauzan-portfolio.git)
 
 ```
 
@@ -127,11 +127,7 @@ Cari tag `<form>` di bagian bawah `index.html` dan ganti URL `action` dengan URL
 Dibuat dengan ❤️ dan ☕.
 </p>
 
-```
-
 ### Tips Tambahan:
 
 1.  **Ganti URL:** Jangan lupa ganti `https://nama-project-anda.vercel.app` dan `https://github.com/username-anda` dengan link asli milik Anda nanti.
 2.  **Screenshot (Opsional):** Jika Anda ingin README lebih keren, Anda bisa menambahkan screenshot tampilan website Anda di bagian bawah judul menggunakan kode: `![Screenshot Website](images/screenshot.png)`.
-
-```
