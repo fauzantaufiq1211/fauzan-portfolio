@@ -58,8 +58,6 @@ PORTFOLIO-WEBSITE/
 └── 📄 README.md            # Dokumentasi proyek
 ```
 
-````
-
 ---
 
 ## 💻 Cara Menjalankan di Lokal
@@ -137,4 +135,3 @@ Dibuat dengan ❤️ dan ☕.
 2.  **Screenshot (Opsional):** Jika Anda ingin README lebih keren, Anda bisa menambahkan screenshot tampilan website Anda di bagian bawah judul menggunakan kode: `![Screenshot Website](images/screenshot.png)`.
 
 ```
-````
