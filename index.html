@@ -62,6 +62,7 @@
       /* Agar scroll halaman halus */
       html {
         scroll-behavior: smooth;
+        scrollbar-width: thin;
         /* Dukungan untuk Firefox */
         scrollbar-width: thin;
         scrollbar-color: #b54f26 #f1f1f1;
@@ -267,7 +268,11 @@
       <div
         class="max-w-6xl mx-auto px-6 h-20 flex justify-between items-center"
       >
-        <a href="" class="block group transition-transform hover:scale-105">
+        <a
+          href="#"
+          onclick="window.scrollTo({ top: 0, behavior: 'smooth' }); return false;"
+          class="block group transition-transform hover:scale-105"
+        >
           <img
             src="images/ft-logo/ft-logo-black.svg"
             alt="FT Logo"
@@ -1320,6 +1325,27 @@
       </div>
     </section>
 
+    <button
+      id="back-to-top"
+      onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
+      class="fixed bottom-8 right-8 z-[100] p-4 bg-primary text-white rounded-full shadow-xl opacity-0 pointer-events-none translate-y-10 transition-all duration-500 hover:bg-[#9a421f] hover:scale-110 focus:outline-none group"
+      aria-label="Back to Top"
+    >
+      <svg
+        class="w-6 h-6 animate-bounce"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="3"
+          d="M5 10l7-7m0 0l7 7m-7-7v18"
+        ></path>
+      </svg>
+    </button>
+
     <script>
       // --- KODE LOADING SCREEN ---
       window.addEventListener("load", () => {
@@ -1384,6 +1410,40 @@
           // Mulai memantau
           observer.observe(targetSection);
         }
+
+        // --- SMOOTH SCROLL & CLEAN URL (NO HASH) ---
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+          anchor.addEventListener("click", function (e) {
+            // 1. Mencegah perilaku default (URL tidak akan berubah jadi /#about)
+            e.preventDefault();
+
+            const targetId = this.getAttribute("href");
+            if (targetId === "#") return; // Abaikan link kosong
+
+            const targetElement = document.querySelector(targetId);
+
+            if (targetElement) {
+              // 2. Menghitung posisi scroll dengan Offset (agar tidak ketutup Navbar)
+              // Tinggi Navbar Anda h-20 = 5rem = 80px (kurang lebih)
+              const headerOffset = 100;
+              const elementPosition = targetElement.getBoundingClientRect().top;
+              const offsetPosition =
+                elementPosition + window.pageYOffset - headerOffset;
+
+              // 3. Eksekusi Scroll Halus
+              window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth",
+              });
+
+              // 4. Khusus Mobile: Tutup menu setelah diklik
+              const mobileMenu = document.getElementById("mobile-menu");
+              if (mobileMenu && !mobileMenu.classList.contains("hidden")) {
+                mobileMenu.classList.add("hidden");
+              }
+            }
+          });
+        });
         function movePillTo(element) {
           // 1. Pindahkan Pill Hitam ke posisi elemen target
           // Kita kurangi sedikit offset agar pill berada tepat di tengah padding container
@@ -1874,6 +1934,28 @@
           slider.scrollBy({left: direction * slideWidth, behavior: "smooth"});
         }
       };
+      // --- BACK TO TOP BUTTON LOGIC ---
+      const backToTopBtn = document.getElementById("back-to-top");
+
+      window.addEventListener("scroll", () => {
+        // Jika scroll lebih dari 300px, munculkan tombol
+        if (window.scrollY > 300) {
+          backToTopBtn.classList.remove(
+            "opacity-0",
+            "pointer-events-none",
+            "translate-y-10"
+          );
+          backToTopBtn.classList.add("opacity-100", "translate-y-0");
+        } else {
+          // Jika di atas, sembunyikan tombol
+          backToTopBtn.classList.remove("opacity-100", "translate-y-0");
+          backToTopBtn.classList.add(
+            "opacity-0",
+            "pointer-events-none",
+            "translate-y-10"
+          );
+        }
+      });
     </script>
   </body>
 </html>
