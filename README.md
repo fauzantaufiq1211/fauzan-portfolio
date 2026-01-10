@@ -5,7 +5,7 @@
 ![Screenshot Website](images/screenshot.png)
 
 <p align="center">
-**"Where Strategy Meets Aesthetic."**
+<strong>"Where Strategy Meets Aesthetic."</strong>
 </p>
 
 Website portofolio pribadi yang telah bertransformasi dari situs statis menjadi **Aplikasi Web Dinamis**. Ditenagai oleh **Supabase** sebagai Backend-as-a-Service (BaaS), memungkinkan pengelolaan konten (CMS) secara _real-time_ tanpa perlu mengubah kode sumber (source code) untuk setiap pembaruan konten.
@@ -59,7 +59,7 @@ Pastikan Anda memiliki akun [Supabase](https://supabase.com) dan buat proyek bar
 
 ### **2\. Clone Repository**
 
-git clone \[https://github.com/fauzantaufiq1211/fauzan-portfolio.git\](https://github.com/fauzantaufiq1211/fauzan-portfolio.git)  
+git clone https://github.com/fauzantaufiq1211/fauzan-portfolio.git  
 cd fauzan-portfolio
 
 ### **3\. Konfigurasi Database (SQL Setup)**
@@ -89,7 +89,7 @@ Gunakan ekstensi **Live Server** di VS Code untuk menjalankan index.html.
 Anda tidak perlu lagi mengedit kode HTML untuk mengubah konten. Cukup buka **Table Editor** di Dashboard Supabase:
 
 - **Tambah Portfolio:** Isi tabel portfolio_items dan hubungkan dengan section_id yang sesuai.
-- **Update Experience:** Tambah baris di tabel experience. Centang is_featured untuk memberi pita "Featured" / "Volunteer".
+- **Update Experience:** Tambah baris di tabel experience. Centang is_featured untuk menandakan "Featured".
 - **Ganti CV:** Upload file PDF baru ke Storage, lalu update link di tabel/kode terkait.
 
 ## **🤝 Contact**
