@@ -92,7 +92,7 @@
         @apply text-primary font-bold tracking-[0.2em] uppercase text-sm mb-4;
       }
 
-      /* BADGE TYPES (FIXED) */
+      /* BADGE TYPES */
       .badge-work-type,
       .badge-work-remote {
         @apply inline-block px-3 py-1 bg-blue-50 text-blue-600 text-xs font-bold rounded-full border border-blue-100;
@@ -103,7 +103,6 @@
       .badge-work-volunteer {
         @apply inline-block px-3 py-1 bg-purple-50 text-purple-700 text-xs font-bold rounded-full border border-purple-100;
       }
-
       .badge-date {
         @apply inline-block px-3 py-1 bg-gray-100 text-gray-600 text-xs font-bold rounded-full;
       }
@@ -864,6 +863,7 @@
       </div>
     </div>
 
+    <!-- POPUP WINDOW FIX: ADDED ID 'popup-content' -->
     <div
       id="status-popup"
       class="fixed inset-0 z-[10000] hidden flex items-center justify-center p-4"
@@ -872,7 +872,9 @@
         class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity"
         onclick="closePopup()"
       ></div>
+      <!-- Perbaikan: Tambahkan ID popup-content di sini -->
       <div
+        id="popup-content"
         class="bg-white w-full max-w-sm rounded-2xl p-6 shadow-2xl relative transform transition-all duration-300 scale-90 opacity-0 flex flex-col items-center text-center"
       >
         <div
@@ -1654,6 +1656,7 @@
         const titleEl = document.getElementById("popup-title");
         const msgEl = document.getElementById("popup-message");
         const btnEl = document.getElementById("popup-btn");
+        const content = document.getElementById("popup-content"); // PERBAIKAN: Target ID Konten
 
         titleEl.innerText = title;
         msgEl.innerText = message;
@@ -1670,17 +1673,22 @@
             "w-full py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors font-bold";
           titleEl.className = "text-xl font-bold text-red-600 mb-2";
         }
+
         modal.classList.remove("hidden");
+        // PERBAIKAN: Animasi ke Konten, bukan overlay
         setTimeout(() => {
-          modal.firstElementChild.classList.remove("scale-90", "opacity-0");
-          modal.firstElementChild.classList.add("scale-100", "opacity-100");
+          content.classList.remove("scale-90", "opacity-0");
+          content.classList.add("scale-100", "opacity-100");
         }, 10);
       }
 
       window.closePopup = function () {
         const modal = document.getElementById("status-popup");
-        modal.firstElementChild.classList.remove("scale-100", "opacity-100");
-        modal.firstElementChild.classList.add("scale-90", "opacity-0");
+        const content = document.getElementById("popup-content");
+
+        content.classList.remove("scale-100", "opacity-100");
+        content.classList.add("scale-90", "opacity-0");
+
         setTimeout(() => {
           modal.classList.add("hidden");
         }, 300);
