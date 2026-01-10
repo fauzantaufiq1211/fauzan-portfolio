@@ -7,18 +7,18 @@
     <link
       rel="icon"
       type="image/svg+xml"
-      href="images/ft-logo/ft-logo-black.svg"
+      href="https://mrxttnlcpoixnvhngvtw.supabase.co/storage/v1/object/public/static/ft-logo/ft-logo-black.svg"
     />
     <link
       rel="icon"
       type="image/svg+xml"
-      href="images/ft-logo/ft-logo-black.svg"
+      href="https://mrxttnlcpoixnvhngvtw.supabase.co/storage/v1/object/public/static/ft-logo/ft-logo-black.svg"
       media="(prefers-color-scheme: light)"
     />
     <link
       rel="icon"
       type="image/svg+xml"
-      href="images/ft-logo/ft-logo-white.svg"
+      href="https://mrxttnlcpoixnvhngvtw.supabase.co/storage/v1/object/public/static/ft-logo/ft-logo-white.svg"
       media="(prefers-color-scheme: dark)"
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -28,6 +28,8 @@
       rel="stylesheet"
     />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <script>
       tailwind.config = {
         theme: {
@@ -38,13 +40,7 @@
               light: "#ffffff",
             },
             fontFamily: {
-              sans: [
-                "-apple-system",
-                "BlinkMacSystemFont",
-                "SF Pro Text",
-                "Inter",
-                "sans-serif",
-              ],
+              sans: ["-apple-system", "BlinkMacSystemFont", "SF Pro Text", "Inter", "sans-serif"],
             },
           },
         },
@@ -105,7 +101,7 @@
       .card-experience {
         @apply p-8 border border-gray-100 rounded-2xl bg-white hover:shadow-xl transition-all duration-300 relative overflow-hidden;
       }
-      .badge-work-type {
+      .badge-work-remote {
         @apply inline-block px-3 py-1 bg-blue-50 text-blue-600 text-xs font-bold rounded-full border border-blue-100;
       }
       .badge-work-onsite {
@@ -164,12 +160,30 @@
       }
 
       /* Portfolio System Layout */
+      .portfolio-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+      }
+
+      .project-card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      .project-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover; /* Agar gambar Supabase tidak gepeng */
+      }
+
       .company-showcase {
-        border-bottom: 1px solid #f3f4f6;
+        border-bottom: 0px solid #f3f4f6;
         padding-bottom: 3rem;
         margin-bottom: 3rem;
       }
-      .company-showcase:last-child {
+      .company-showcase:last-of-type {
         border-bottom: none;
         padding-bottom: 0;
         margin-bottom: 0;
@@ -246,16 +260,14 @@
       class="fixed inset-0 z-[9999] bg-white flex items-center justify-center transition-opacity duration-700"
     >
       <div class="relative flex items-center justify-center">
-        <div
-          class="absolute w-32 h-32 border-4 border-gray-100 rounded-full"
-        ></div>
+        <div class="absolute w-32 h-32 border-4 border-gray-100 rounded-full"></div>
 
         <div
           class="absolute w-32 h-32 border-4 border-primary border-t-transparent border-l-transparent rounded-full animate-spin"
         ></div>
 
         <img
-          src="images/ft-logo/ft-logo-black.svg"
+          src="https://mrxttnlcpoixnvhngvtw.supabase.co/storage/v1/object/public/static/ft-logo/ft-logo-black.svg"
           alt="FT Logo"
           class="relative z-10 w-12 h-auto object-contain animate-pulse"
         />
@@ -263,18 +275,16 @@
     </div>
 
     <nav
-      class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 transition-all duration-300"
+      class="fixed top-0 w-full z-[999] bg-white/90 backdrop-blur-md border-b border-gray-100 transition-all duration-300"
     >
-      <div
-        class="max-w-6xl mx-auto px-6 h-20 flex justify-between items-center"
-      >
+      <div class="max-w-6xl mx-auto px-6 h-20 flex justify-between items-center">
         <a
-          href="#"
+          href=""
           onclick="window.scrollTo({ top: 0, behavior: 'smooth' }); return false;"
           class="block group transition-transform hover:scale-105"
         >
           <img
-            src="images/ft-logo/ft-logo-black.svg"
+            src="https://mrxttnlcpoixnvhngvtw.supabase.co/storage/v1/object/public/static/ft-logo/ft-logo-black.svg"
             alt="FT Logo"
             class="h-10 w-auto object-contain group-hover:opacity-80 transition duration-300"
           />
@@ -318,12 +328,7 @@
           id="mobile-menu-button"
           class="md:hidden text-gray-900 focus:outline-none p-2 rounded-md hover:bg-gray-100"
         >
-          <svg
-            class="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
               stroke-linecap="round"
               stroke-linejoin="round"
@@ -354,9 +359,7 @@
             class="mobile-link text-base font-medium text-gray-600 hover:text-primary"
             >Portfolio</a
           >
-          <a
-            href="#contact"
-            class="mobile-link text-base font-medium text-primary font-bold"
+          <a href="#contact" class="mobile-link text-base font-medium text-primary font-bold"
             >Contact Me</a
           >
         </div>
@@ -368,7 +371,7 @@
     >
       <div class="absolute inset-0 -z-20 pointer-events-none overflow-hidden">
         <img
-          src="images/portrait/ft-portrait.png"
+          src="https://mrxttnlcpoixnvhngvtw.supabase.co/storage/v1/object/public/static/portrait/ft-portrait.png"
           alt=""
           class="w-full h-full object-cover grayscale opacity-10 scale-110 blur-[1px] mix-blend-luminosity"
         />
@@ -392,9 +395,7 @@
             <span>Social Media Strategist</span>
           </span>
 
-          <h1
-            class="text-4xl lg:text-6xl font-extrabold leading-tight tracking-tight text-black"
-          >
+          <h1 class="text-4xl lg:text-6xl font-extrabold leading-tight tracking-tight text-black">
             Creating Visual <br />Stories with
             <span class="text-primary relative"
               >Impact.
@@ -416,11 +417,9 @@
           <p
             class="text-gray-600 text-left text-lg md:text-xl leading-relaxed max-w-xl mx-auto md:mx-0"
           >
-            A creative planner and humble individual adaptable to dynamic
-            environments. As a
-            <strong>Digital Business Management</strong> student at BINUS
-            University, I combine high self-confidence with a passion for
-            transforming ideas into visual reality using
+            A creative planner and humble individual adaptable to dynamic environments. As a
+            <strong>Digital Business Management</strong> student at BINUS University, I combine high
+            self-confidence with a passion for transforming ideas into visual reality using
             <strong>Adobe Creative Suite</strong>, <strong>Figma</strong>,
             <strong>Canva</strong> and so on.
           </p>
@@ -428,29 +427,25 @@
           <p
             class="text-gray-600 text-left text-lg md:text-xl leading-relaxed max-w-xl mx-auto md:mx-0"
           >
-            I'm <strong>Muhammad Fauzan Taufiq</strong>, your passionate digital
-            creator dedicated to bringing imagination to life through compelling
-            visuals and strategic storytelling. Welcome to my
-            <strong>Portfolio Website</strong>. Explore my work and let's create
+            I'm <strong>Muhammad Fauzan Taufiq</strong>, your passionate digital creator dedicated
+            to bringing imagination to life through compelling visuals and strategic storytelling.
+            Welcome to my <strong>Portfolio Website</strong>. Explore my work and let's create
             something extraordinary together!
           </p>
 
-          <div
-            class="flex flex-wrap gap-4 pt-4 justify-center md:justify-start"
-          >
+          <div class="flex flex-wrap gap-4 pt-4 justify-center md:justify-start">
             <a
               href="#portfolio"
               class="group relative inline-flex items-center justify-center px-8 py-3.5 text-base font-semibold text-white transition-all duration-300 bg-primary rounded-full hover:bg-primary/90 hover:shadow-lg hover:-translate-y-1"
             >
               View My Works
             </a>
-            <a
-              href="https://drive.google.com/file/d/1IKj67DMz0SzGd_0q5Rezx2Yqet6h39BA/view?usp=sharings"
-              target="_blank"
-              class="inline-flex items-center justify-center px-8 py-3.5 text-base font-semibold text-gray-900 transition-all duration-300 bg-white border-2 border-gray-200 rounded-full hover:border-primary hover:text-primary hover:shadow-md hover:-translate-y-1"
+            <button
+              onclick="openResume()"
+              class="inline-flex items-center justify-center px-8 py-3.5 text-base font-semibold text-gray-900 transition-all duration-300 bg-white border-2 border-gray-200 rounded-full hover:border-primary hover:text-primary hover:shadow-md hover:-translate-y-1 cursor-pointer"
             >
               My Full Resume
-            </a>
+            </button>
           </div>
         </div>
 
@@ -462,7 +457,7 @@
               class="absolute inset-0 bg-gray-100 rounded-[2.5rem] -rotate-6 scale-105 translate-x-4 translate-y-4 transition-transform duration-500 hover:rotate-0 -z-10"
             ></div>
             <img
-              src="images/portrait/ft-portrait.png"
+              src="https://mrxttnlcpoixnvhngvtw.supabase.co/storage/v1/object/public/static/portrait/ft-portrait.png"
               alt="Muhammad Fauzan Taufiq"
               class="relative z-10 w-full h-full object-cover rounded-[2rem] shadow-2xl bg-white transition-transform duration-500 hover:-translate-y-1"
             />
@@ -488,17 +483,14 @@
         <div class="flex flex-col md:flex-row gap-16">
           <div class="w-full md:w-1/2 space-y-6">
             <h2 class="section-label">About Me</h2>
-            <h3
-              class="text-3xl md:text-4xl font-extrabold leading-tight text-white"
-            >
+            <h3 class="text-3xl md:text-4xl font-extrabold leading-tight text-white">
               Problem Solver with <br />A Creative Soul.
             </h3>
             <p class="text-gray-400 leading-relaxed text-lg">
-              I believe there is no problem that cannot be solved if handled
-              calmly. With a background in both
-              <strong>Information Systems</strong> and
-              <strong>Digital Business</strong>, I possess a unique blend of
-              technical logic and creative flair.
+              I believe there is no problem that cannot be solved if handled calmly. With a
+              background in both
+              <strong>Information Systems</strong> and <strong>Digital Business</strong>, I possess
+              a unique blend of technical logic and creative flair.
             </p>
 
             <div class="pt-8">
@@ -508,214 +500,20 @@
               </h4>
 
               <div
+                id="competencies-arsenal-container"
                 class="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-5 gap-6 mb-8"
               >
-                <div
-                  class="group flex flex-col items-center text-center gap-3 cursor-pointer"
-                >
-                  <div
-                    class="w-14 h-14 bg-[#00005b] border border-gray-800 rounded-2xl flex items-center justify-center transition-all duration-300 group-hover:border-[#9999FF] group-hover:shadow-[0_0_20px_rgba(153,153,255,0.3)] group-hover:-translate-y-1"
-                  >
-                    <img
-                      src="images/creative-arsenal/after-effects-logo.svg"
-                      alt="After Effects"
-                      class="w-8 h-8 object-contain transition-transform duration-300 group-hover:scale-110"
-                    />
-                  </div>
-                  <span
-                    class="text-[10px] leading-tight uppercase tracking-widest text-gray-500 font-medium group-hover:text-[#9999FF] transition-colors max-w-[100px]"
-                  >
-                    After Effects
-                  </span>
-                </div>
-
-                <div
-                  class="group flex flex-col items-center gap-2 cursor-pointer"
-                >
-                  <div
-                    class="w-14 h-14 bg-[#261300] border border-gray-800 rounded-2xl flex items-center justify-center transition-all duration-300 group-hover:border-[#FF9A00] group-hover:shadow-[0_0_20px_rgba(255,154,0,0.3)] group-hover:-translate-y-1"
-                  >
-                    <img
-                      src="images/creative-arsenal/illustrator-logo.svg"
-                      alt="Illustrator"
-                      class="w-8 h-8 object-contain transition-transform duration-300 group-hover:scale-110"
-                    />
-                  </div>
-                  <span
-                    class="text-[10px] leading-tight uppercase tracking-widest text-gray-500 font-medium group-hover:text-[#FF9A00] transition-colors max-w-[100px]"
-                  >
-                    Illustrator
-                  </span>
-                </div>
-
-                <div
-                  class="group flex flex-col items-center gap-2 cursor-pointer"
-                >
-                  <div
-                    class="w-14 h-14 bg-[#49021f] border border-gray-800 rounded-2xl flex items-center justify-center transition-all duration-300 group-hover:border-[#FF3366] group-hover:shadow-[0_0_20px_rgba(255,51,102,0.3)] group-hover:-translate-y-1"
-                  >
-                    <img
-                      src="images/creative-arsenal/indesign-logo.svg"
-                      alt="InDesign"
-                      class="w-8 h-8 object-contain transition-transform duration-300 group-hover:scale-110"
-                    />
-                  </div>
-                  <span
-                    class="text-[10px] leading-tight uppercase tracking-widest text-gray-500 font-medium group-hover:text-[#9999FF] transition-colors max-w-[100px]"
-                  >
-                    InDesign
-                  </span>
-                </div>
-
-                <div
-                  class="group flex flex-col items-center gap-2 cursor-pointer"
-                >
-                  <div
-                    class="w-14 h-14 bg-[#001E36] border border-gray-800 rounded-2xl flex items-center justify-center transition-all duration-300 group-hover:border-[#31A8FF] group-hover:shadow-[0_0_20px_rgba(49,168,255,0.3)] group-hover:-translate-y-1"
-                  >
-                    <img
-                      src="images/creative-arsenal/lightroom-logo.svg"
-                      alt="Lightroom"
-                      class="w-8 h-8 object-contain transition-transform duration-300 group-hover:scale-110"
-                    />
-                  </div>
-                  <span
-                    class="text-[10px] leading-tight uppercase tracking-widest text-gray-500 font-medium group-hover:text-[#9999FF] transition-colors max-w-[100px]"
-                  >
-                    Lightroom
-                  </span>
-                </div>
-
-                <div
-                  class="group flex flex-col items-center gap-2 cursor-pointer"
-                >
-                  <div
-                    class="w-14 h-14 bg-[#001E36] border border-gray-800 rounded-2xl flex items-center justify-center transition-all duration-300 group-hover:border-[#31A8FF] group-hover:shadow-[0_0_20px_rgba(49,168,255,0.3)] group-hover:-translate-y-1"
-                  >
-                    <img
-                      src="images/creative-arsenal/photoshop-logo.svg"
-                      alt="Photoshop"
-                      class="w-8 h-8 object-contain transition-transform duration-300 group-hover:scale-110"
-                    />
-                  </div>
-                  <span
-                    class="text-[10px] leading-tight uppercase tracking-widest text-gray-500 font-medium group-hover:text-[#9999FF] transition-colors max-w-[100px]"
-                  >
-                    Photoshop
-                  </span>
-                </div>
-
-                <div
-                  class="group flex flex-col items-center gap-2 cursor-pointer"
-                >
-                  <div
-                    class="w-14 h-14 bg-[#2d0442] border border-gray-800 rounded-2xl flex items-center justify-center transition-all duration-300 group-hover:border-[#EA77FF] group-hover:shadow-[0_0_20px_rgba(234,119,255,0.3)] group-hover:-translate-y-1"
-                  >
-                    <img
-                      src="images/creative-arsenal/premiere-pro-logo.svg"
-                      alt="Premiere Pro"
-                      class="w-8 h-8 object-contain transition-transform duration-300 group-hover:scale-110"
-                    />
-                  </div>
-                  <span
-                    class="text-[10px] leading-tight uppercase tracking-widest text-gray-500 text-center font-medium group-hover:text-[#EA77FF] transition-colors max-w-[100px]"
-                  >
-                    Premiere Pro
-                  </span>
-                </div>
-
-                <div
-                  class="group flex flex-col items-center gap-2 cursor-pointer"
-                >
-                  <div
-                    class="w-14 h-14 bg-gray-900 border border-gray-800 rounded-2xl flex items-center justify-center transition-all duration-300 group-hover:border-[#00D4FF] group-hover:shadow-[0_0_20px_rgba(0,212,255,0.3)] group-hover:-translate-y-1"
-                  >
-                    <img
-                      src="images/creative-arsenal/affinity-logo.svg"
-                      alt="Affinity"
-                      class="w-8 h-8 object-contain transition-transform duration-300 group-hover:scale-110"
-                    />
-                  </div>
-                  <span
-                    class="text-[10px] leading-tight uppercase tracking-widest text-gray-500 font-medium group-hover:text-[#00D4FF] transition-colors max-w-[100px]"
-                  >
-                    Affinity
-                  </span>
-                </div>
-
-                <div
-                  class="group flex flex-col items-center gap-2 cursor-pointer"
-                >
-                  <div
-                    class="w-14 h-14 bg-gray-900 border border-gray-800 rounded-2xl flex items-center justify-center transition-all duration-300 group-hover:border-[#00C4CC] group-hover:shadow-[0_0_20px_rgba(0,196,204,0.3)] group-hover:-translate-y-1"
-                  >
-                    <img
-                      src="images/creative-arsenal/canva-logo.svg"
-                      alt="Canva"
-                      class="w-8 h-8 object-contain transition-transform duration-300 group-hover:scale-110"
-                    />
-                  </div>
-                  <span
-                    class="text-[10px] leading-tight uppercase tracking-widest text-gray-500 font-medium group-hover:text-[#00C4CC] transition-colors max-w-[100px]"
-                  >
-                    Canva
-                  </span>
-                </div>
-
-                <div
-                  class="group flex flex-col items-center gap-2 cursor-pointer"
-                >
-                  <div
-                    class="w-14 h-14 bg-gray-900 border border-gray-800 rounded-2xl flex items-center justify-center transition-all duration-300 group-hover:border-[#F24E1E] group-hover:shadow-[0_0_20px_rgba(242,78,30,0.3)] group-hover:-translate-y-1"
-                  >
-                    <img
-                      src="images/creative-arsenal/figma-logo.svg"
-                      alt="Figma"
-                      class="w-8 h-8 object-contain transition-transform duration-300 group-hover:scale-110"
-                    />
-                  </div>
-                  <span
-                    class="text-[10px] leading-tight uppercase tracking-widest text-gray-500 font-medium group-hover:text-[#F24E1E] transition-colors max-w-[100px]"
-                  >
-                    Figma
-                  </span>
+                <!-- JavaScript will inject content here -->
+                <div class="col-span-5 text-center text-gray-600 animate-pulse">
+                  Loading tools...
                 </div>
               </div>
 
-              <h5
-                class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4"
-              >
+              <h5 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">
                 Other Competencies
               </h5>
-              <div class="flex flex-wrap gap-2">
-                <span
-                  class="px-4 py-2 bg-gray-900 border border-gray-800 text-gray-300 rounded-lg text-sm hover:border-primary hover:text-primary transition-colors cursor-default"
-                  >Basic Motion</span
-                >
-                <span
-                  class="px-4 py-2 bg-gray-900 border border-gray-800 text-gray-300 rounded-lg text-sm hover:border-primary hover:text-primary transition-colors cursor-default"
-                  >Brand Guideline Adherence</span
-                >
-                <span
-                  class="px-4 py-2 bg-gray-900 border border-gray-800 text-gray-300 rounded-lg text-sm hover:border-primary hover:text-primary transition-colors cursor-default"
-                  >Content Adaptation</span
-                >
-                <span
-                  class="px-4 py-2 bg-gray-900 border border-gray-800 text-gray-300 rounded-lg text-sm hover:border-primary hover:text-primary transition-colors cursor-default"
-                  >File Delivery & Versioning</span
-                >
-                <span
-                  class="px-4 py-2 bg-gray-900 border border-gray-800 text-gray-300 rounded-lg text-sm hover:border-primary hover:text-primary transition-colors cursor-default"
-                  >Layout & Typography</span
-                >
-                <span
-                  class="px-4 py-2 bg-gray-900 border border-gray-800 text-gray-300 rounded-lg text-sm hover:border-primary hover:text-primary transition-colors cursor-default"
-                  >Project Management</span
-                >
-                <span
-                  class="px-4 py-2 bg-gray-900 border border-gray-800 text-gray-300 rounded-lg text-sm hover:border-primary hover:text-primary transition-colors cursor-default"
-                  >Social Content Design</span
-                >
+              <div id="competencies-other-container" class="flex flex-wrap gap-2">
+                <!-- JavaScript will inject content here -->
               </div>
             </div>
           </div>
@@ -723,86 +521,10 @@
           <div class="w-full md:w-1/2">
             <h2 class="section-label">Education Journey</h2>
 
-            <div class="relative border-l-2 border-gray-800 ml-3 space-y-10">
-              <div class="relative pl-8 group">
-                <span
-                  class="absolute -left-[9px] top-1.5 h-4 w-4 rounded-full bg-primary ring-4 ring-black"
-                ></span>
-
-                <h4 class="text-xl font-bold text-white leading-tight">
-                  <a
-                    href="https://online.binus.ac.id"
-                    target="_blank"
-                    class="hover:text-primary transition-all"
-                    >BINUS University</a
-                  >
-                </h4>
-                <p class="text-primary font-bold text-sm mt-1 mb-2">
-                  Aug 2024 - Present
-                </p>
-                <div class="text-gray-400 text-sm space-y-1">
-                  <p class="font-semibold text-gray-200">
-                    Digital Business Management
-                  </p>
-                  <p
-                    class="bg-gray-800 border border-gray-700 text-gray-300 px-2 py-0.5 rounded w-fit text-xs font-medium"
-                  >
-                    GPA: 3.58
-                  </p>
-                </div>
-              </div>
-
-              <div class="relative pl-8 group">
-                <span
-                  class="absolute -left-[9px] top-1.5 h-4 w-4 rounded-full bg-gray-600 ring-4 ring-black group-hover:bg-primary transition-colors"
-                ></span>
-
-                <h4 class="text-xl font-bold text-white leading-tight">
-                  <a
-                    href="https://ub.ac.id"
-                    target="_blank"
-                    class="hover:text-primary transition-all"
-                    >Brawijaya University</a
-                  >
-                </h4>
-                <p class="text-gray-500 font-medium text-sm mt-1 mb-2">
-                  Aug 2022 - Aug 2025
-                </p>
-                <div class="text-gray-400 text-sm space-y-1">
-                  <p class="font-semibold text-gray-200">Information System</p>
-                  <p
-                    class="bg-gray-800 border border-gray-700 text-gray-300 px-2 py-0.5 rounded w-fit text-xs font-medium"
-                  >
-                    GPA: 2.77
-                  </p>
-                </div>
-              </div>
-
-              <div class="relative pl-8 group">
-                <span
-                  class="absolute -left-[9px] top-1.5 h-4 w-4 rounded-full bg-gray-600 ring-4 ring-black group-hover:bg-primary transition-colors"
-                ></span>
-
-                <h4 class="text-xl font-bold text-white leading-tight">
-                  <a
-                    href="https://smantiboo.sch.id"
-                    target="_blank"
-                    class="hover:text-primary transition-all"
-                    >SMAN 3 Bogor</a
-                  >
-                </h4>
-                <p class="text-gray-500 font-medium text-sm mt-1 mb-2">
-                  July 2019 - June 2022
-                </p>
-                <div class="text-gray-400 text-sm space-y-1">
-                  <p class="font-semibold text-gray-200">Science Major (IPA)</p>
-                  <p
-                    class="bg-gray-800 border border-gray-700 text-gray-300 px-2 py-0.5 rounded w-fit text-xs font-medium"
-                  >
-                    Score: 88.93
-                  </p>
-                </div>
-              </div>
+            <!-- DYNAMIC CONTENT: EDUCATION -->
+            <div id="education-list" class="relative border-l-2 border-gray-800 ml-3 space-y-10">
+              <!-- JavaScript will inject content here -->
+              <div class="pl-8 text-gray-500 animate-pulse">Loading education history...</div>
             </div>
           </div>
         </div>
@@ -814,9 +536,7 @@
         <div class="mb-16 md:flex md:justify-between md:items-end">
           <div class="max-w-2xl">
             <h2 class="section-label">Professional Career</h2>
-            <h3
-              class="text-3xl md:text-4xl font-extrabold leading-tight text-black"
-            >
+            <h3 class="text-3xl md:text-4xl font-extrabold leading-tight text-black">
               Work Experience
             </h3>
           </div>
@@ -825,229 +545,19 @@
           </p>
         </div>
 
-        <div class="grid grid-cols-1 gap-8">
-          <div
-            class="p-8 border border-gray-100 rounded-2xl bg-gray-50 hover:bg-white hover:shadow-xl transition-all duration-300 relative overflow-hidden"
-          >
-            <div
-              class="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-bl-full -mr-4 -mt-4"
-            ></div>
-
-            <div
-              class="flex flex-col md:flex-row justify-between md:items-center mb-4 gap-2 relative z-10"
-            >
-              <h4 class="text-xl font-bold text-black">
-                Digital Specialist Staff
-              </h4>
-              <div class="flex gap-2">
-                <span class="badge-work-onsite">On-site</span>
-                <span class="badge-date">Nov 2024 - Present</span>
-              </div>
-            </div>
-
-            <p class="text-lg font-medium text-gray-700 mb-4">
-              <a
-                href="https://chemistry.id"
-                target="_blank"
-                class="hover:text-primary transition-colors flex items-center gap-2 w-fit"
-              >
-                Brandoctors Indonesia
-              </a>
-              <span class="text-gray-400 text-sm font-normal ml-1"
-                >DKI Jakarta</span
-              >
-            </p>
-            <ul
-              class="list-disc list-outside ml-5 text-gray-600 space-y-2 text-sm leading-relaxed"
-            >
-              <li>
-                Focus on creating visually appealing designs for social media
-                publications including Instagram, X, and Facebook.
-              </li>
-              <li>
-                Turn client briefs into creative content that is aesthetically
-                pleasing and effective in communicating with the audience.
-              </li>
-              <li>
-                Utilize <strong>Adobe Illustrator</strong> and
-                <strong>Photoshop</strong> to design elements that capture
-                attention on dynamic digital platforms.
-              </li>
-            </ul>
-          </div>
-
-          <div
-            class="p-8 border border-gray-100 rounded-2xl bg-white hover:shadow-xl transition-all duration-300"
-          >
-            <div
-              class="flex flex-col md:flex-row justify-between md:items-center mb-4 gap-2"
-            >
-              <h4 class="text-xl font-bold text-black">
-                Freelance Graphic Designer
-              </h4>
-              <div class="flex gap-2">
-                <span class="badge-work-type">Remote</span>
-                <span class="badge-date">Dec 2024 - Apr 2025</span>
-              </div>
-            </div>
-            <p class="text-lg font-medium text-gray-700 mb-4">
-              <a
-                href="https://qrcoach.id"
-                target="_blank"
-                class="hover:text-primary transition-colors flex items-center gap-2 w-fit"
-              >
-                Quality Resources Coach
-              </a>
-              <span class="text-gray-400 text-sm font-normal ml-1"
-                >DKI Jakarta</span
-              >
-            </p>
-            <ul
-              class="list-disc list-outside ml-5 text-gray-600 space-y-2 text-sm leading-relaxed"
-            >
-              <li>
-                Designed educational and career-focused content (e.g., Time
-                Blocking, Collaboration Strategy) for social media.
-              </li>
-              <li>
-                Ensured visual consistency with brand guidelines while
-                delivering informative messages.
-              </li>
-            </ul>
-          </div>
-
-          <div
-            class="p-8 border border-gray-100 rounded-2xl bg-white hover:shadow-xl transition-all duration-300"
-          >
-            <div
-              class="flex flex-col md:flex-row justify-between md:items-center mb-4 gap-2"
-            >
-              <h4 class="text-xl font-bold text-black">
-                Freelance Graphic Designer
-              </h4>
-              <div class="flex gap-2">
-                <span class="badge-work-type">Remote</span>
-                <span class="badge-date">Dec 2024 - Apr 2025</span>
-              </div>
-            </div>
-            <p class="text-lg font-medium text-gray-700 mb-4">
-              <a
-                href="https://bullionspot.id"
-                target="_blank"
-                class="hover:text-primary transition-colors flex items-center gap-2 w-fit"
-              >
-                Bullionspot
-              </a>
-              <span class="text-gray-400 text-sm font-normal ml-1"
-                >DKI Jakarta</span
-              >
-            </p>
-            <ul
-              class="list-disc list-outside ml-5 text-gray-600 space-y-2 text-sm leading-relaxed"
-            >
-              <li>
-                Designed visually appealing content for social media
-                publications, specifically for Instagram feeds.
-              </li>
-              <li>
-                Expertly used <strong>Canva</strong> and
-                <strong>Figma</strong> to turn client briefs into effective
-                communication assets.
-              </li>
-            </ul>
-          </div>
-
-          <div
-            class="p-8 border border-gray-100 rounded-2xl bg-white hover:shadow-xl transition-all duration-300"
-          >
-            <div
-              class="flex flex-col md:flex-row justify-between md:items-center mb-4 gap-2"
-            >
-              <h4 class="text-xl font-bold text-black">
-                Freelance Graphic Designer
-              </h4>
-              <div class="flex gap-2">
-                <span class="badge-work-type">Remote</span>
-                <span class="badge-date">Dec 2024 - Apr 2025</span>
-              </div>
-            </div>
-            <p class="text-lg font-medium text-gray-700 mb-4">
-              <a
-                href="https://instagram.com/ds_brilliantpare"
-                target="_blank"
-                class="hover:text-primary transition-colors flex items-center gap-2 w-fit"
-              >
-                Deutsche Sprache Brilliant
-              </a>
-              <span class="text-gray-400 text-sm font-normal ml-1"
-                >Kediri, East Java</span
-              >
-            </p>
-            <ul
-              class="list-disc list-outside ml-5 text-gray-600 space-y-2 text-sm leading-relaxed"
-            >
-              <li>
-                Created engaging visual content for German language learning
-                (e.g., Fun Facts, Study Tips) and promotional materials.
-              </li>
-              <li>
-                Managed layout and typography to make educational content easy
-                to digest for the audience.
-              </li>
-            </ul>
-          </div>
-
-          <div
-            class="p-8 border border-gray-100 rounded-2xl bg-white border-l-4 border-l-gray-300 hover:border-l-primary transition-colors shadow-sm"
-          >
-            <div
-              class="flex flex-col md:flex-row justify-between md:items-center mb-4 gap-2"
-            >
-              <h4 class="text-xl font-bold text-black">
-                Graphic Designer Staff (Volunteer)
-              </h4>
-              <div class="flex gap-2">
-                <span class="badge-work-type">Remote</span>
-                <span class="badge-date">Nov 2024 - Apr 2025</span>
-              </div>
-            </div>
-            <p class="text-lg font-medium text-gray-700 mb-4">
-              <a
-                href="https://instagram.com/grahitaid"
-                target="_blank"
-                class="hover:text-primary transition-colors flex items-center gap-2 w-fit"
-              >
-                Grahita
-              </a>
-              <span class="text-gray-400 text-sm font-normal ml-1"
-                >Palembang, South Sumatra</span
-              >
-            </p>
-            <ul
-              class="list-disc list-outside ml-5 text-gray-600 space-y-2 text-sm leading-relaxed"
-            >
-              <li>
-                Transformed ideas into visually appealing designs for Instagram
-                feed posts.
-              </li>
-              <li>
-                Collaborated with Social Media Manager to create impactful
-                content supporting communication objectives.
-              </li>
-            </ul>
+        <!-- DYNAMIC CONTENT: EXPERIENCE -->
+        <div id="experience-list" class="grid grid-cols-1 gap-8">
+          <!-- JavaScript will inject content here -->
+          <div class="p-8 border border-gray-100 rounded-2xl bg-gray-50 text-center text-gray-400">
+            Loading work experience...
           </div>
         </div>
       </div>
     </section>
 
-    <section
-      id="org-leadership"
-      class="py-20 bg-primary text-white transition-colors duration-500"
-    >
+    <section id="org-leadership" class="py-20 bg-primary text-white transition-colors duration-500">
       <div class="max-w-6xl mx-auto px-6">
-        <h2
-          class="text-white/80 font-extrabold tracking-widest uppercase text-sm mb-8 text-center"
-        >
+        <h2 class="text-white/80 font-extrabold tracking-widest uppercase text-sm mb-8 text-center">
           Organizational Leadership
         </h2>
 
@@ -1057,18 +567,18 @@
           >
             <div class="flex items-start justify-between mb-4">
               <h4 class="font-bold text-xl leading-snug">Vice Chairman</h4>
-              <span
-                class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-bold rounded-full"
+              <span class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-bold rounded-full"
                 >2020 - 2021</span
               >
             </div>
             <p class="text-primary font-medium text-sm mb-4">
-              ROHIS Al-Ghufran SMAN 3 Bogor
+              <a href="https://www.instagram.com/rohissman3bogor/" target="_blank"
+                >ROHIS Al-Ghufran SMAN 3 Bogor</a
+              >
             </p>
             <p class="text-gray-600 text-sm leading-relaxed">
-              Led student regeneration programs and revised bylaws through
-              democratic deliberation (MLB) to align with Pancasila and Islamic
-              values.
+              Led student regeneration programs and revised bylaws through democratic deliberation
+              (MLB) to align with Pancasila and Islamic values.
             </p>
           </div>
 
@@ -1076,21 +586,19 @@
             class="bg-white text-black p-8 rounded-2xl shadow-lg border border-white/20 transform hover:-translate-y-1 transition-transform duration-300"
           >
             <div class="flex items-start justify-between mb-4">
-              <h4 class="font-bold text-xl leading-snug">
-                Vice Chairman of Public Relations
-              </h4>
-              <span
-                class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-bold rounded-full"
+              <h4 class="font-bold text-xl leading-snug">Vice Chairman of Public Relations</h4>
+              <span class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-bold rounded-full"
                 >2020 - 2021</span
               >
             </div>
             <p class="text-primary font-medium text-sm mb-4">
-              TRIPLE Magazine SMAN 3 Bogor
+              <a href="https://www.instagram.com/triple.magazine/" target="_blank"
+                >TRIPLE Magazine SMAN 3 Bogor</a
+              >
             </p>
             <p class="text-gray-600 text-sm leading-relaxed">
-              Revolutionized the journalism program into an engaging
-              extracurricular activity and was elected by acclamation through
-              democratic election.
+              Revolutionized the journalism program into an engaging extracurricular activity and
+              was elected by acclamation through democratic election.
             </p>
           </div>
         </div>
@@ -1105,9 +613,8 @@
             Where Strategy Meets Aesthetic.
           </h3>
           <p class="text-gray-500 max-w-2xl text-lg leading-relaxed">
-            A curated selection of digital experiences and visual storytelling.
-            Transforming complex ideas into scroll-stopping content that drives
-            real engagement.
+            A curated selection of digital experiences and visual storytelling. Transforming complex
+            ideas into scroll-stopping content that drives real engagement.
           </p>
         </div>
 
@@ -1117,22 +624,15 @@
       </div>
     </section>
 
-    <section
-      id="contact"
-      class="py-24 md:py-32 bg-black text-white relative overflow-hidden"
-    >
+    <section id="contact" class="py-24 md:py-32 bg-black text-white relative overflow-hidden">
       <div
         class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] -z-10 opacity-40 pointer-events-none"
       ></div>
 
       <div class="max-w-6xl mx-auto px-6">
-        <div
-          class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start"
-        >
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
           <div class="text-left">
-            <h2
-              class="text-primary font-bold tracking-[0.2em] uppercase text-sm mb-4"
-            >
+            <h2 class="text-primary font-bold tracking-[0.2em] uppercase text-sm mb-4">
               Get in Touch
             </h2>
             <h3 class="text-4xl md:text-5xl font-extrabold leading-tight mb-6">
@@ -1140,9 +640,8 @@
               <span class="text-primary">Iconic</span> Together.
             </h3>
             <p class="text-gray-400 text-lg leading-relaxed mb-10">
-              Open for collaborations, freelance projects, or just a casual chat
-              about creativity. Whether you have a specific idea or need a fresh
-              perspective, I'm here.
+              Open for collaborations, freelance projects, or just a casual chat about creativity.
+              Whether you have a specific idea or need a fresh perspective, I'm here.
             </p>
 
             <div class="flex flex-col sm:flex-row gap-4 mb-12">
@@ -1153,12 +652,7 @@
                 <div
                   class="w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-full bg-white/10 text-white group-hover:bg-primary transition-colors"
                 >
-                  <svg
-                    class="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
                       stroke-linecap="round"
                       stroke-linejoin="round"
@@ -1168,12 +662,8 @@
                   </svg>
                 </div>
                 <div>
-                  <p class="text-xs text-gray-400 uppercase tracking-wider">
-                    Drop me an e-mail
-                  </p>
-                  <p class="text-white font-medium text-sm">
-                    fauzantaufiq1211@gmail.com
-                  </p>
+                  <p class="text-xs text-gray-400 uppercase tracking-wider">Drop me an e-mail</p>
+                  <p class="text-white font-medium text-sm">fauzantaufiq1211@gmail.com</p>
                 </div>
               </a>
 
@@ -1192,32 +682,24 @@
                   </svg>
                 </div>
                 <div>
-                  <p class="text-xs text-gray-400 uppercase tracking-wider">
-                    Chat on WhatsApp
-                  </p>
-                  <p class="text-white font-medium text-sm">
-                    +62 851 5605 5303
-                  </p>
+                  <p class="text-xs text-gray-400 uppercase tracking-wider">Chat on WhatsApp</p>
+                  <p class="text-white font-medium text-sm">+62 851 5605 5303</p>
                 </div>
               </a>
             </div>
 
             <div class="text-center md:text-left">
-              <p
-                class="text-gray-500 text-sm mb-6 uppercase tracking-widest font-bold"
-              >
+              <p class="text-gray-500 text-sm mb-6 uppercase tracking-widest font-bold">
                 Connect on Social
               </p>
-              <div
-                class="flex gap-6 items-center justify-center md:justify-start"
-              >
+              <div class="flex gap-6 items-center justify-center md:justify-start">
                 <a
                   href="https://linkedin.com/in/fauzantaufiq"
                   target="_blank"
                   class="opacity-60 hover:opacity-100 hover:scale-110 transition-all duration-300"
                 >
                   <img
-                    src="images/contact/linkedin-logo.svg"
+                    src="https://mrxttnlcpoixnvhngvtw.supabase.co/storage/v1/object/public/static/contact/linkedin-logo.svg"
                     alt="LinkedIn"
                     class="w-6 h-6 object-contain brightness-0 invert"
                   />
@@ -1228,7 +710,7 @@
                   class="opacity-60 hover:opacity-100 hover:scale-110 transition-all duration-300"
                 >
                   <img
-                    src="images/contact/behance-logo.svg"
+                    src="https://mrxttnlcpoixnvhngvtw.supabase.co/storage/v1/object/public/static/contact/behance-logo.svg"
                     alt="Behance"
                     class="w-6 h-6 object-contain brightness-0 invert"
                   />
@@ -1239,7 +721,7 @@
                   class="opacity-60 hover:opacity-100 hover:scale-110 transition-all duration-300"
                 >
                   <img
-                    src="images/contact/instagram-logo.svg"
+                    src="https://mrxttnlcpoixnvhngvtw.supabase.co/storage/v1/object/public/static/contact/instagram-logo.svg"
                     alt="Instagram"
                     class="w-6 h-6 object-contain brightness-0 invert"
                   />
@@ -1248,14 +730,12 @@
             </div>
           </div>
 
+          <!-- FORM CONTACT DIUBAH AGAR MENGGUNAKAN SUPABASE (ACTION DIHAPUS) -->
           <form
-            action="https://formspree.io/f/xjgbdwrw"
-            method="POST"
+            id="contact-form"
             class="bg-white/5 border border-white/10 p-8 rounded-[2rem] backdrop-blur-md shadow-2xl"
           >
-            <h4 class="text-xl font-bold text-white mb-6">
-              Send a message here!
-            </h4>
+            <h4 class="text-xl font-bold text-white mb-6">Send a message here!</h4>
 
             <div class="space-y-5">
               <div>
@@ -1319,24 +799,25 @@
         <div
           class="mt-20 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-center text-gray-600 text-sm text-center gap-1"
         >
-          <p>Copyright &copy; 2025 Muhammad Fauzan Taufiq.</p>
+          <p>
+            Copyright &copy; 2026
+            <a href="" class="text-gray-600 hover:text-primary transition-colors"
+              >Muhammad Fauzan Taufiq.</a
+            >
+          </p>
           <p>All rights reserved.</p>
         </div>
       </div>
     </section>
 
+    <!-- BACK TO TOP -->
     <button
       id="back-to-top"
       onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
       class="fixed bottom-8 right-8 z-[100] p-4 bg-primary text-white rounded-full shadow-xl opacity-0 pointer-events-none translate-y-10 transition-all duration-500 hover:bg-[#9a421f] hover:scale-110 focus:outline-none group"
       aria-label="Back to Top"
     >
-      <svg
-        class="w-6 h-6 animate-bounce"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
+      <svg class="w-6 h-6 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path
           stroke-linecap="round"
           stroke-linejoin="round"
@@ -1346,562 +827,639 @@
       </svg>
     </button>
 
-    <script>
-      // --- KODE LOADING SCREEN ---
-      window.addEventListener("load", () => {
-        const loader = document.getElementById("loader");
+    <!-- MODAL DOKUMEN UNIVERSAL (Untuk Resume & Portfolio PDF) -->
+    <!-- Catatan: Kita hanya pakai SATU modal untuk semua dokumen agar hemat kode -->
+    <div id="document-modal" class="fixed inset-0 z-[9999] hidden">
+      <div
+        class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity"
+        onclick="closeDocument()"
+      ></div>
 
-        // Beri sedikit jeda agar animasi terlihat (opsional, bisa dihapus timeout-nya)
-        setTimeout(() => {
-          loader.classList.add("opacity-0", "pointer-events-none");
+      <div class="relative w-full h-full flex items-center justify-center p-4">
+        <div
+          class="bg-white w-[95%] h-[85%] md:w-full md:max-w-5xl md:h-[90vh] rounded-2xl overflow-hidden shadow-2xl relative flex flex-col transition-all transform scale-100"
+        >
+          <div
+            class="flex justify-between items-center p-3 md:p-4 border-b border-gray-100 bg-gray-50 z-10 shrink-0"
+          >
+            <h3
+              id="document-title"
+              class="font-bold text-gray-800 text-sm md:text-lg truncate max-w-[60%]"
+            >
+              Document Preview
+            </h3>
 
-          // Hapus elemen dari DOM setelah efek transisi selesai (0.7 detik)
-          setTimeout(() => {
-            loader.style.display = "none";
-          }, 700);
-        }, 1000); // Durasi loading minimal 1 detik
-      });
+            <div class="flex items-center gap-2">
+              <a
+                id="document-download-btn"
+                href="#"
+                target="_blank"
+                class="px-3 py-1.5 bg-primary text-white text-[10px] md:text-xs font-bold rounded-lg hover:bg-[#9a421f] transition-colors flex items-center gap-1 md:gap-2"
+              >
+                <svg
+                  class="w-3 h-3 md:w-4 md:h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                  ></path>
+                </svg>
+                <span>Download / Open</span>
+              </a>
 
-      // 1. Mengambil elemen tombol dan menu dari HTML
-      const btn = document.getElementById("mobile-menu-button");
-      const menu = document.getElementById("mobile-menu");
-      const links = document.querySelectorAll(".mobile-link");
+              <button
+                onclick="closeDocument()"
+                class="p-1.5 text-gray-500 hover:text-red-500 hover:bg-red-50 rounded-full transition-all"
+              >
+                <svg
+                  class="w-5 h-5 md:w-6 md:h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </div>
 
-      // 2. Menambahkan fungsi: Jika tombol diklik, menu muncul/hilang
-      btn.addEventListener("click", () => {
-        menu.classList.toggle("hidden");
-      });
-
-      // 3. Menambahkan fungsi: Jika salah satu menu diklik, menu otomatis tertutup
-      links.forEach((link) => {
-        link.addEventListener("click", () => {
-          menu.classList.add("hidden");
-        });
-      });
-      // --- SLIDING NAVIGATION LOGIC ---
-      document.addEventListener("DOMContentLoaded", () => {
-        const navContainer = document.getElementById("nav-container");
-        const pill = document.getElementById("nav-pill");
-        const links = document.querySelectorAll(".nav-link");
-        const defaultLink = document.getElementById("default-link");
-
-        // --- DYNAMIC SCROLLBAR COLOR CHANGER ---
-        // Mencari section yang background-nya Orange
-        const targetSection = document.getElementById("org-leadership");
-
-        if (targetSection) {
-          // Membuat "CCTV" pemantau
-          const observer = new IntersectionObserver(
-            (entries) => {
-              entries.forEach((entry) => {
-                // Jika section Orange terlihat di layar (min 10% area)
-                if (entry.isIntersecting) {
-                  // Ubah scrollbar body jadi hitam
-                  document.body.classList.add("scrollbar-black");
-                } else {
-                  // Jika sudah lewat, kembalikan ke warna asli (Terracotta)
-                  document.body.classList.remove("scrollbar-black");
-                }
-              });
-            },
-            {threshold: [0.1, 0.9]}
-          ); // Deteksi saat masuk dan keluar
-
-          // Mulai memantau
-          observer.observe(targetSection);
-        }
-
-        // --- SMOOTH SCROLL & CLEAN URL (NO HASH) ---
-        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-          anchor.addEventListener("click", function (e) {
-            // 1. Mencegah perilaku default (URL tidak akan berubah jadi /#about)
-            e.preventDefault();
-
-            const targetId = this.getAttribute("href");
-            if (targetId === "#") return; // Abaikan link kosong
-
-            const targetElement = document.querySelector(targetId);
-
-            if (targetElement) {
-              // 2. Menghitung posisi scroll dengan Offset (agar tidak ketutup Navbar)
-              // Tinggi Navbar Anda h-20 = 5rem = 80px (kurang lebih)
-              const headerOffset = 100;
-              const elementPosition = targetElement.getBoundingClientRect().top;
-              const offsetPosition =
-                elementPosition + window.pageYOffset - headerOffset;
-
-              // 3. Eksekusi Scroll Halus
-              window.scrollTo({
-                top: offsetPosition,
-                behavior: "smooth",
-              });
-
-              // 4. Khusus Mobile: Tutup menu setelah diklik
-              const mobileMenu = document.getElementById("mobile-menu");
-              if (mobileMenu && !mobileMenu.classList.contains("hidden")) {
-                mobileMenu.classList.add("hidden");
-              }
-            }
-          });
-        });
-        function movePillTo(element) {
-          // 1. Pindahkan Pill Hitam ke posisi elemen target
-          // Kita kurangi sedikit offset agar pill berada tepat di tengah padding container
-          const paddingLeft = 6; // Sesuaikan dengan p-1.5 (6px) pada container
-
-          pill.style.width = `${element.offsetWidth}px`;
-          pill.style.left = `${element.offsetLeft}px`;
-          pill.style.opacity = "1";
-
-          // 2. Ubah Warna Teks
-          // Semua link jadi abu-abu
-          links.forEach((link) => {
-            link.classList.remove("text-white");
-            link.classList.add("text-gray-600");
-          });
-
-          // Link yang sedang aktif jadi putih
-          element.classList.remove("text-gray-600");
-          element.classList.add("text-white");
-        }
-
-        // Event Listeners
-        links.forEach((link) => {
-          // Saat Mouse Masuk ke salah satu link
-          link.addEventListener("mouseenter", () => {
-            movePillTo(link);
-          });
-        });
-
-        // Saat Mouse Keluar dari Container Navbar
-        navContainer.addEventListener("mouseleave", () => {
-          movePillTo(defaultLink); // Kembali ke Contact
-        });
-
-        // --- INISIALISASI ---
-        // Jalankan sekali saat web baru dibuka agar Contact langsung hitam
-        // Beri sedikit delay agar rendering CSS selesai
-        setTimeout(() => {
-          // Set posisi awal tanpa transisi agar tidak terlihat "terbang" dari kiri
-          pill.style.transition = "none";
-          movePillTo(defaultLink);
-
-          // Kembalikan transisi setelah posisi awal ter-set
-          setTimeout(() => {
-            pill.style.transition = "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)";
-          }, 50);
-        }, 100);
-      });
-
-      // --- SISTEM PORTOFOLIO OTOMATIS (DATA ARRAY) ---
-      document.addEventListener("DOMContentLoaded", () => {
-        // 1. DATA PROJECT (DATABASE MINI ANDA)
-        // Di sini tempat Anda menambah/mengurangi pekerjaan dengan mudah!
-        const portfolioData = [
-          {
-            id: "brandoctors",
-            company: "Brandoctors Indonesia",
-            badge: "On-site Staff",
-            badgeClass: "bg-green-100 text-green-700",
-            tagline: "Visualizing Public Trust.",
-            desc: 'Bridging the gap between official authority and digital-first audiences. I crafted a modern visual system for the <a href="https://pom.go.id" target="_blank"><strong>Badan Pengawas Obat dan Makanan Republik Indonesia (BPOM RI)</strong></a> campaign to make public health data more accessible, relatable, and high-impact.',
-            // Masukkan sebanyak mungkin karya di sini:
-            works: [
-              {
-                type: "Instagram Feed",
-                img: "images/portfolio/bpom/feed-bpom-1.jpg",
-                link: "https://www.instagram.com/p/DOh7xrek4WM/",
-                btnText: "View Post",
-              },
-              {
-                type: "Instagram Feed",
-                img: "images/portfolio/bpom/feed-bpom-2.jpg",
-                link: "https://www.instagram.com/p/DOyTwUkkTh0/",
-                btnText: "View Post",
-              },
-              {
-                type: "Instagram Feed",
-                img: "images/portfolio/bpom/feed-bpom-3.jpg",
-                link: "https://www.instagram.com/p/DO8UNb0k5ly/",
-                btnText: "View Post",
-              },
-              {
-                type: "Instagram Story",
-                img: "images/portfolio/bpom/story-bpom-1.png",
-                link: "images/portfolio/bpom/story-bpom-1.png",
-                btnText: "View Story",
-              },
-              {
-                type: "Instagram Story",
-                img: "images/portfolio/bpom/story-bpom-2.png",
-                link: "images/portfolio/bpom/story-bpom-2.png",
-                btnText: "View Story",
-              },
-              {
-                type: "Instagram Story",
-                img: "images/portfolio/bpom/story-bpom-3.png",
-                link: "images/portfolio/bpom/story-bpom-3.png",
-                btnText: "View Story",
-              },
-              {
-                type: "Instagram Story",
-                img: "images/portfolio/bpom/story-bpom-4.png",
-                link: "images/portfolio/bpom/story-bpom-4.png",
-                btnText: "View Story",
-              },
-              {
-                type: "Instagram Story",
-                img: "images/portfolio/bpom/story-bpom-5.png",
-                link: "images/portfolio/bpom/story-bpom-5.png",
-                btnText: "View Story",
-              },
-              {
-                type: "Instagram Story",
-                img: "images/portfolio/bpom/story-bpom-6.png",
-                link: "images/portfolio/bpom/story-bpom-6.png",
-                btnText: "View Story",
-              },
-              {
-                type: "Web Banner",
-                img: "images/portfolio/bpom/web-banner-bpom-1.png",
-                link: "images/portfolio/bpom/web-banner-bpom-1.png",
-                btnText: "View Banner",
-              },
-              {
-                type: "Web Banner",
-                img: "images/portfolio/bpom/web-banner-bpom-2.png",
-                link: "images/portfolio/bpom/web-banner-bpom-2.png",
-                btnText: "View Banner",
-              },
-            ],
-          },
-          {
-            id: "bullionspot",
-            company: "Bullionspot",
-            badge: "Remote Freelance",
-            badgeClass: "bg-blue-100 text-blue-700",
-            tagline: "Making Finance Aesthetic.",
-            desc: "Finance, Simplified & Viral. Who says wealth management has to be boring? I transformed complex financial data into 'clean-girl' aesthetic carousels that educate the youth without the headache.",
-            works: [
-              {
-                type: "Instagram Feed",
-                img: "images/portfolio/bullionspot/bullionspot-feed-1.png",
-                link: "https://www.instagram.com/p/DGnet1Rpcbx/",
-                btnText: "View Post",
-              },
-              {
-                type: "Instagram Feed",
-                img: "images/portfolio/bullionspot/bullionspot-feed-2.png",
-                link: "https://www.instagram.com/p/DEC1ysWpi_j/",
-                btnText: "View Post",
-              },
-              {
-                type: "Instagram Feed",
-                img: "images/portfolio/bullionspot/bullionspot-feed-3.png",
-                link: "https://www.instagram.com/p/DF_1yFpJedj/",
-                btnText: "View Post",
-              },
-              {
-                type: "Instagram Feed",
-                img: "images/portfolio/bullionspot/bullionspot-feed-4.png",
-                link: "https://www.instagram.com/p/DGKh_M2p7k2/",
-                btnText: "View Post",
-              },
-
-              {
-                type: "Instagram Story",
-                img: "images/portfolio/bullionspot/bullionspot-story-1.png",
-                link: "images/portfolio/bullionspot/bullionspot-story-1.png",
-                btnText: "View Story",
-              },
-              {
-                type: "Instagram Story",
-                img: "images/portfolio/bullionspot/bullionspot-story-2.png",
-                link: "images/portfolio/bullionspot/bullionspot-story-2.png",
-                btnText: "View Story",
-              },
-              {
-                type: "Instagram Story",
-                img: "images/portfolio/bullionspot/bullionspot-story-3.png",
-                link: "images/portfolio/bullionspot/bullionspot-story-3.png",
-                btnText: "View Story",
-              },
-              {
-                type: "Instagram Story",
-                img: "images/portfolio/bullionspot/bullionspot-story-4.png",
-                link: "images/portfolio/bullionspot/bullionspot-story-4.png",
-                btnText: "View Story",
-              },
-              {
-                type: "Instagram Story",
-                img: "images/portfolio/bullionspot/bullionspot-story-5.png",
-                link: "images/portfolio/bullionspot/bullionspot-story-5.png",
-                btnText: "View Story",
-              },
-              {
-                type: "Instagram Story",
-                img: "images/portfolio/bullionspot/bullionspot-story-6.png",
-                link: "images/portfolio/bullionspot/bullionspot-story-6.png",
-                btnText: "View Story",
-              },
-              {
-                type: "Instagram Story",
-                img: "images/portfolio/bullionspot/bullionspot-story-7.png",
-                link: "images/portfolio/bullionspot/bullionspot-story-7.png",
-                btnText: "View Story",
-              },
-              {
-                type: "Instagram Story",
-                img: "images/portfolio/bullionspot/bullionspot-story-8.png",
-                link: "images/portfolio/bullionspot/bullionspot-story-8.png",
-                btnText: "View Story",
-              },
-              {
-                type: "Instagram Story",
-                img: "images/portfolio/bullionspot/bullionspot-story-9.png",
-                link: "images/portfolio/bullionspot/bullionspot-story-9.png",
-                btnText: "View Story",
-              },
-            ],
-          },
-          {
-            id: "qrcoach",
-            company: "Quality Resources Coach",
-            badge: "Remote Freelance",
-            badgeClass: "bg-blue-100 text-blue-700",
-            tagline: "Designing Career Growth.",
-            desc: "Leveling up the professional vibe for QR Coach. I designed a cohesive brand identity for career-driven individuals.",
-            works: [
-              {
-                type: "Instagram Feed",
-                img: "images/portfolio/qr/qr-feed-1.jpg",
-                link: "https://www.instagram.com/p/DFNOO1kSDvp/",
-                btnText: "View Post",
-              },
-              {
-                type: "Instagram Feed",
-                img: "images/portfolio/qr/qr-feed-2.jpg",
-                link: "https://www.instagram.com/p/DF7TInMyUFj/",
-                btnText: "View Post",
-              },
-              {
-                type: "Instagram Feed",
-                img: "images/portfolio/qr/qr-feed-3.jpg",
-                link: "https://www.instagram.com/p/DHpzD_mSnGM/",
-                btnText: "View Post",
-              },
-              {
-                type: "Instagram Feed",
-                img: "images/portfolio/qr/qr-feed-4.jpg",
-                link: "https://www.instagram.com/p/DHcTH4evNAT/",
-                btnText: "View Post",
-              },
-              {
-                type: "Instagram Feed",
-                img: "images/portfolio/qr/qr-feed-5.jpg",
-                link: "https://www.instagram.com/p/DEoSjHyy3va/",
-                btnText: "View Post",
-              },
-              {
-                type: "Instagram Feed",
-                img: "images/portfolio/qr/qr-feed-6.jpg",
-                link: "https://www.instagram.com/p/DFUDIlEytaI/",
-                btnText: "View Post",
-              },
-              {
-                type: "Company Business Card",
-                img: "images/portfolio/qr/qr-business-card.jpg",
-                link: "images/portfolio/qr/qr-business-card.jpg",
-                btnText: "View Card",
-              },
-            ],
-          },
-          {
-            id: "ds",
-            company: "Deutsche Sprache Brilliant",
-            badge: "Remote Freelance",
-            badgeClass: "bg-blue-100 text-blue-700",
-            tagline: "Language Learning, Reimagined.",
-            desc: "Breaking the barrier of language learning through design. Digestible, high-impact social assets.",
-            works: [
-              {
-                type: "Instagram Feed",
-                img: "images/portfolio/ds/ds-feed-1.jpg",
-                link: "https://www.instagram.com/p/DGKcOUsvMsH/",
-                btnText: "View Post",
-              },
-              {
-                type: "Instagram Feed",
-                img: "images/portfolio/ds/ds-feed-2.png",
-                link: "https://www.instagram.com/p/DFpSc49vq5K/",
-                btnText: "View Post",
-              },
-              {
-                type: "Instagram Feed",
-                img: "images/portfolio/ds/ds-feed-3.jpg",
-                link: "https://www.instagram.com/p/DD9yo8oPnS8/",
-                btnText: "View Post",
-              },
-              {
-                type: "Instagram Feed",
-                img: "images/portfolio/ds/ds-feed-4.jpg",
-                link: "https://www.instagram.com/p/DFM3cgyvgNu/",
-                btnText: "View Post",
-              },
-              {
-                type: "Instagram Feed",
-                img: "images/portfolio/ds/ds-feed-5.jpg",
-                link: "https://www.instagram.com/p/DD_FuwGvAJ1/",
-                btnText: "View Post",
-              },
-              {
-                type: "Instagram Story",
-                img: "images/portfolio/ds/ds-story-1.png",
-                link: "images/portfolio/ds/ds-story-1.png",
-                btnText: "View Story",
-              },
-              {
-                type: "Voucher Design",
-                img: "images/portfolio/ds/ds-voucher-1.jpg",
-                link: "images/portfolio/ds/ds-voucher-1.jpg",
-                btnText: "View Story",
-              },
-              {
-                type: "Voucher Design",
-                img: "images/portfolio/ds/ds-voucher-2.jpg",
-                link: "images/portfolio/ds/ds-voucher-2.jpg",
-                btnText: "View Story",
-              },
-            ],
-          },
-          {
-            id: "grahita",
-            company: "Grahita",
-            badge: "Volunteer",
-            badgeClass: "bg-gray-100 text-gray-600",
-            tagline: "Advocacy in Every Pixel.",
-            desc: "Humanizing social issues through strategic design. Leveraging visual communication to spark conversations.",
-            works: [
-              {
-                type: "Instagram Feed",
-                img: "images/portfolio/grahita/grahita-feed-1.png",
-                link: "https://www.instagram.com/p/DHfwagaTVof/",
-                btnText: "View Post",
-              },
-              {
-                type: "Instagram Feed",
-                img: "images/portfolio/grahita/grahita-feed-2.png",
-                link: "https://www.instagram.com/p/DGm8vnUPjNS/",
-                btnText: "View Post",
-              },
-              {
-                type: "Instagram Feed",
-                img: "images/portfolio/grahita/grahita-feed-3.png",
-                link: "https://www.instagram.com/p/DC52Ys7Pq2l/",
-                btnText: "View Post",
-              },
-              {
-                type: "Instagram Feed",
-                img: "images/portfolio/grahita/grahita-feed-4.png",
-                link: "https://www.instagram.com/p/DFKn-pZPDu9/",
-                btnText: "View Post",
-              },
-              {
-                type: "Instagram Feed",
-                img: "images/portfolio/grahita/grahita-feed-5.png",
-                link: "https://www.instagram.com/p/DEGoR1bTTI7/",
-                btnText: "View Post",
-              },
-              {
-                type: "Instagram Story",
-                img: "images/portfolio/grahita/grahita-story-1.png",
-                link: "images/portfolio/grahita/grahita-story-1.png",
-                btnText: "View Story",
-              },
-              {
-                type: "Instagram Story",
-                img: "images/portfolio/grahita/grahita-story-2.png",
-                link: "images/portfolio/grahita/grahita-story-2.png",
-                btnText: "View Story",
-              },
-              {
-                type: "Instagram Story",
-                img: "images/portfolio/grahita/grahita-story-3.png",
-                link: "images/portfolio/grahita/grahita-story-3.png",
-                btnText: "View Story",
-              },
-            ],
-          },
-        ];
-
-        // 2. FUNGSI GENERATOR HTML (RENDERER)
-        const container = document.getElementById("portfolio-container");
-        let htmlContent = "";
-
-        portfolioData.forEach((item) => {
-          const slidesHtml = item.works
-            .map(
-              (work) => `
-    <div class="work-slide">
-        <span class="slide-badge">
-            ${work.type}
-        </span>
-        <img src="${work.img}" alt="${work.type}" class="slide-image">
-        <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-30">
-            <a href="${work.link}" target="_blank" class="btn-action">
-                ${work.btnText}
-            </a>
+          <div class="flex-1 w-full h-full bg-gray-100 relative overflow-hidden">
+            <iframe
+              id="document-frame"
+              src=""
+              class="w-full h-full border-0 absolute inset-0"
+              allow="autoplay"
+            >
+            </iframe>
+          </div>
         </div>
+      </div>
     </div>
-`
+
+    <!-- LIGHTBOX MODAL (GAMBAR - LOGIKA TERPISAH) -->
+    <div
+      id="lightbox-modal"
+      class="fixed inset-0 z-[9999] hidden transition-all duration-300 opacity-0 pointer-events-none"
+    >
+      <div
+        class="absolute inset-0 bg-black/80 backdrop-blur-md transition-opacity duration-300"
+        onclick="closeLightbox()"
+      ></div>
+      <button
+        onclick="closeLightbox()"
+        class="absolute top-6 right-6 z-50 text-white/70 hover:text-white transition-colors bg-black/20 hover:bg-black/50 rounded-full p-2"
+      >
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"
+          ></path>
+        </svg>
+      </button>
+      <button
+        onclick="changeImage(-1)"
+        class="absolute left-4 top-1/2 -translate-y-1/2 z-50 p-3 text-white/70 hover:text-white bg-black/20 hover:bg-black/50 rounded-full transition-all hover:scale-110 hidden md:block"
+      >
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15 19l-7-7 7-7"
+          ></path>
+        </svg>
+      </button>
+      <button
+        onclick="changeImage(1)"
+        class="absolute right-4 top-1/2 -translate-y-1/2 z-50 p-3 text-white/70 hover:text-white bg-black/20 hover:bg-black/50 rounded-full transition-all hover:scale-110 hidden md:block"
+      >
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 5l7 7-7 7"
+          ></path>
+        </svg>
+      </button>
+      <div
+        class="relative w-full h-full flex items-center justify-center p-4"
+        onclick="closeLightbox()"
+      >
+        <img
+          id="lightbox-image"
+          src=""
+          alt="Preview"
+          onclick="event.stopPropagation()"
+          class="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl scale-95 transition-transform duration-300 select-none"
+        />
+        <div
+          class="absolute bottom-6 left-1/2 -translate-x-1/2 bg-black/50 text-white px-4 py-1 rounded-full text-sm backdrop-blur-sm pointer-events-none"
+        >
+          <span id="lightbox-counter">1 / 1</span>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // ===========================================
+      // 1. SUPABASE CONFIGURATION
+      // ===========================================
+      const SUPABASE_URL = "https://mrxttnlcpoixnvhngvtw.supabase.co";
+      const SUPABASE_KEY =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yeHR0bmxjcG9peG52aG5ndnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc5MDM2MDIsImV4cCI6MjA4MzQ3OTYwMn0.1tK-18DVOokyI_uDiqkelHmALgmgeVyI9JXwPgt5sQM";
+      const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+      // ===========================================
+      // 2. GLOBAL VARIABLES
+      // ===========================================
+      let portfolioGalleries = {};
+      let currentGalleryId = null;
+      let currentImageIndex = 0;
+
+      // ===========================================
+      // 3. NEW DYNAMIC CONTENT FETCHERS
+      // ===========================================
+
+      // A. Fetch Competencies (Arsenal & Other)
+      async function fetchCompetencies() {
+        const arsenalContainer = document.getElementById("competencies-arsenal-container");
+        const otherContainer = document.getElementById("competencies-other-container");
+
+        try {
+          const { data, error } = await supabaseClient
+            .from("competencies")
+            .select("*")
+            .order("sort_order", { ascending: true });
+          if (error) throw error;
+
+          // Render Arsenal (Icons)
+          const arsenalData = data.filter((item) => item.category === "arsenal");
+          arsenalContainer.innerHTML = arsenalData
+            .map(
+              (item) => `
+                <div class="group flex flex-col items-center text-center gap-3 cursor-pointer">
+                  <div class="w-14 h-14 border border-gray-800 rounded-2xl flex items-center justify-center transition-all duration-300 group-hover:-translate-y-1" 
+                       style="background-color: ${item.bg_color};"
+                       onmouseover="this.style.borderColor='${item.border_color}'; this.style.boxShadow='0 0 20px ${item.border_color}4D'"
+                       onmouseout="this.style.borderColor='rgb(31, 41, 55)'; this.style.boxShadow='none'">
+                    <img src="${item.icon_url}" alt="${item.name}" class="w-8 h-8 object-contain transition-transform duration-300 group-hover:scale-110" />
+                  </div>
+                  <span class="text-[10px] leading-tight uppercase tracking-widest text-gray-500 font-medium transition-colors max-w-[100px]"
+                        onmouseover="this.style.color='${item.border_color}'"
+                        onmouseout="this.style.color='rgb(107, 114, 128)'">
+                    ${item.name}
+                  </span>
+                </div>
+            `
             )
             .join("");
 
-          // Masukkan ke dalam template Section Perusahaan
-          htmlContent += `
-        <div class="company-showcase">
-            <div class="flex flex-col lg:flex-row gap-12">
-                <div class="w-full lg:w-1/3">
-                    <div class="lg:sticky lg:top-32">
-                        <span class="text-xs font-bold ${item.badgeClass} px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-4">${item.badge}</span>
-                        <h4 class="text-3xl font-bold text-black mb-2">${item.company}</h4>
-                        <p class="text-gray-500 text-sm font-bold uppercase tracking-widest mb-6">${item.tagline}</p>
-                        <p class="text-gray-600 text-sm leading-relaxed mb-8">
-                            ${item.desc}
+          // Render Other Competencies (Tags)
+          const otherData = data.filter((item) => item.category === "other");
+          otherContainer.innerHTML = otherData
+            .map(
+              (item) => `
+                <span class="px-4 py-2 bg-gray-900 border border-gray-800 text-gray-300 rounded-lg text-sm hover:border-primary hover:text-primary transition-colors cursor-default">
+                  ${item.name}
+                </span>
+            `
+            )
+            .join("");
+        } catch (err) {
+          console.error("Gagal load competencies:", err);
+        }
+      }
+
+      // B. Fetch Education
+      async function fetchEducation() {
+        const container = document.getElementById("education-list");
+        try {
+          const { data, error } = await supabaseClient
+            .from("education")
+            .select("*")
+            .order("sort_order", { ascending: true });
+          if (error) throw error;
+
+          container.innerHTML = data
+            .map((edu) => {
+              const dotClass = edu.is_active
+                ? "bg-primary ring-4 ring-black"
+                : "bg-gray-600 ring-4 ring-black group-hover:bg-primary transition-colors";
+
+              return `
+                <div class="relative pl-8 group">
+                    <span class="absolute -left-[9px] top-1.5 h-4 w-4 rounded-full ${dotClass}"></span>
+                    <h4 class="text-xl font-bold text-white leading-tight">
+                        <a href="${
+                          edu.institution_link
+                        }" target="_blank" class="hover:text-primary transition-all">${
+                edu.institution
+              }</a>
+                    </h4>
+                    <p class="text-${
+                      edu.is_active ? "primary font-bold" : "gray-500 font-medium"
+                    } text-sm mt-1 mb-2">${edu.period}</p>
+                    <div class="text-gray-400 text-sm space-y-1">
+                        <p class="font-semibold text-gray-200">${edu.degree}</p>
+                        <p class="bg-gray-800 border border-gray-700 text-gray-300 px-2 py-0.5 rounded w-fit text-xs font-medium">
+                            ${edu.score_label}: ${edu.score_value}
                         </p>
                     </div>
-                </div>
-                
-                <div class="w-full lg:w-2/3 relative group">
-                    <button class="nav-arrow nav-prev hidden lg:flex" onclick="moveSlide('${item.id}', -1)">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    </button>
-                    <button class="nav-arrow nav-next hidden lg:flex" onclick="moveSlide('${item.id}', 1)">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    </button>
+                </div>`;
+            })
+            .join("");
+        } catch (err) {
+          console.error("Gagal load education:", err);
+        }
+      }
 
-                    <div id="slider-${item.id}" class="work-slider h-[400px] lg:h-[550px] shadow-xl rounded-[2.5rem] overflow-hidden border border-gray-100 bg-gray-50/50">
-                        ${slidesHtml}
+      // C. Fetch Experience
+      async function fetchExperience() {
+        const container = document.getElementById("experience-list");
+        try {
+          const { data, error } = await supabaseClient
+            .from("experience")
+            .select("*")
+            .order("sort_order", { ascending: true });
+          if (error) throw error;
+
+          container.innerHTML = data
+            .map((exp) => {
+              // Dekorasi sudut untuk featured items
+              const decoration = exp.is_featured
+                ? `<div class="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-bl-full -mr-4 -mt-4"></div>`
+                : "";
+
+              // Parse JSON description array
+              let descList = "";
+              if (exp.description) {
+                try {
+                  const points =
+                    typeof exp.description === "string"
+                      ? JSON.parse(exp.description)
+                      : exp.description;
+                  descList = points.map((pt) => `<li>${pt}</li>`).join("");
+                } catch (e) {
+                  descList = `<li>${exp.description}</li>`;
+                }
+              }
+
+              return `
+                <div class="p-8 border border-gray-100 rounded-2xl ${
+                  exp.is_featured
+                    ? "bg-gray-50 hover:bg-white relative overflow-hidden"
+                    : "bg-white"
+                } hover:shadow-xl transition-all duration-300">
+                    ${decoration}
+                    <div class="flex flex-col md:flex-row justify-between md:items-center mb-4 gap-2 relative z-10">
+                        <h4 class="text-xl font-bold text-black">${exp.role}</h4>
+                        <div class="flex gap-2">
+                            <span class="${exp.type_class}">${exp.type}</span>
+                            <span class="badge-date">${exp.period}</span>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
-        `;
+                    <p class="text-lg font-medium text-gray-700 mb-4">
+                        <a href="${
+                          exp.company_link
+                        }" target="_blank" class="hover:text-primary transition-colors flex items-center gap-2 w-fit">
+                            ${exp.company}
+                        </a>
+                        <span class="text-gray-400 text-sm font-normal ml-1">${exp.location}</span>
+                    </p>
+                    <ul class="list-disc list-outside ml-5 text-gray-600 space-y-2 text-sm leading-relaxed">
+                        ${descList}
+                    </ul>
+                </div>`;
+            })
+            .join("");
+        } catch (err) {
+          console.error("Gagal load experience:", err);
+        }
+      }
+
+      // ===========================================
+      // 4. EXISTING LOGIC (Portfolio, Modal, etc)
+      // ===========================================
+
+      // ... (Kode Portfolio Fetcher sama seperti sebelumnya) ...
+      async function fetchportfolioFromSupabase() {
+        const container = document.getElementById("portfolio-container");
+        container.innerHTML =
+          '<div class="text-center py-20 text-gray-500 animate-pulse">Sedang mengambil data terbaru...</div>';
+        try {
+          const { data, error } = await supabaseClient
+            .from("portfolio_sections")
+            .select(`*, works: portfolio_items(*)`)
+            .order("sort_order", { ascending: true });
+          if (error) throw error;
+          if (!data || data.length === 0) {
+            container.innerHTML =
+              '<div class="text-center py-20 text-gray-500">Belum ada data portfolio.</div>';
+            return;
+          }
+          const formattedData = data.map((section) => {
+            const sortedWorks = section.works
+              ? section.works.sort((a, b) => a.sort_order - b.sort_order)
+              : [];
+            return {
+              id: section.id,
+              title: section.title,
+              company: section.title,
+              desc: section.description,
+              tagline: section.tagline,
+              badge: section.badge,
+              badgeClass: section.badge_class,
+              layout: section.layout,
+              works: sortedWorks.map((item) => ({
+                title: item.title,
+                img: item.image_url,
+                link: item.link_url,
+                desc: item.description,
+                category: item.category,
+                type: item.type,
+                btnText: item.button_text || "View",
+              })),
+            };
+          });
+          renderportfolio(formattedData);
+        } catch (err) {
+          console.error("Gagal mengambil data:", err);
+          container.innerHTML = `<p class="text-center text-red-500">Error: ${err.message}</p>`;
+        }
+      }
+
+      function renderportfolio(data) {
+        portfolioGalleries = {};
+        const container = document.getElementById("portfolio-container");
+        let htmlContent = "";
+        if (!data || data.length === 0) return;
+        data.forEach((item) => {
+          let sectionGallery = [];
+          portfolioGalleries[item.id] = sectionGallery;
+          const isImageFile = (url) => {
+            if (!url) return false;
+            return url.match(/\.(jpeg|jpg|gif|png|webp|svg)$/i) != null;
+          };
+          const createCardAction = (work, sectionId) => {
+            if (
+              work.link &&
+              (work.link.includes("drive.google.com") || work.link.toLowerCase().endsWith(".pdf"))
+            ) {
+              return `href="#" onclick="openDocument('${work.link}', '${work.title}'); return false;"`;
+            } else if (
+              work.link &&
+              (work.link.includes("http") || work.link.includes("www")) &&
+              !isImageFile(work.link) &&
+              work.link !== work.img
+            ) {
+              return `href="${work.link}" target="_blank"`;
+            } else {
+              const imgSrc = isImageFile(work.link) ? work.link : work.img;
+              sectionGallery.push({ src: imgSrc, title: work.title });
+              const localIndex = sectionGallery.length - 1;
+              return `href="#" onclick="openLightbox('${sectionId}', ${localIndex}); return false;"`;
+            }
+          };
+          const createActionButton = (work, sectionId) => {
+            if (
+              work.link &&
+              (work.link.includes("drive.google.com") || work.link.toLowerCase().endsWith(".pdf"))
+            ) {
+              return `<button onclick="openDocument('${work.link}', '${work.type}'); return false;" class="btn-action">${work.btnText}</button>`;
+            } else if (
+              work.link &&
+              (work.link.includes("http") || work.link.includes("www")) &&
+              !isImageFile(work.link) &&
+              work.link !== work.img
+            ) {
+              return `<a href="${work.link}" target="_blank" class="btn-action">${work.btnText}</a>`;
+            } else {
+              const imgSrc = isImageFile(work.link) ? work.link : work.img;
+              let localIndex = sectionGallery.findIndex((img) => img.src === imgSrc);
+              if (localIndex === -1) {
+                sectionGallery.push({ src: imgSrc, title: work.type });
+                localIndex = sectionGallery.length - 1;
+              }
+              return `<button onclick="openLightbox('${sectionId}', ${localIndex}); return false;" class="btn-action">${work.btnText}</button>`;
+            }
+          };
+          if (item.layout === "grid") {
+            const cardsHtml = item.works
+              .map(
+                (work) => `
+                <a ${createCardAction(
+                  work,
+                  item.id
+                )} class="group relative flex flex-col bg-gray-50 rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                    <div class="h-48 sm:h-56 w-full overflow-hidden relative">
+                        <img src="${work.img}" alt="${
+                  work.title
+                }" class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors"></div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <span class="text-[10px] font-bold text-primary uppercase tracking-widest mb-2">${
+                          work.category || "Portfolio"
+                        }</span>
+                        <h4 class="text-lg font-bold text-black group-hover:text-primary transition-colors mb-2">${
+                          work.title
+                        }</h4>
+                        <p class="text-sm text-gray-500 line-clamp-2">${work.desc || ""}</p>
+                        <div class="mt-4 pt-4 border-t border-gray-100 flex items-center text-xs font-bold text-gray-400 group-hover:text-primary transition-colors">
+                            View Project <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </div>
+                    </div>
+                </a>`
+              )
+              .join("");
+            htmlContent += `
+                <div>
+                    <div class="py-16 md:py-24 relative flex items-center">
+                        <div class="flex-grow border-t border-gray-200 opacity-70"></div>
+                        <span class="flex-shrink mx-6 text-gray-400 uppercase text-[10px] md:text-xs font-bold tracking-[0.3em] flex items-center gap-2">
+                            <span class="text-primary text-base">✦</span> ${
+                              item.tagline || "Explore"
+                            } <span class="text-primary text-base">✦</span>
+                        </span>
+                        <div class="flex-grow border-t border-gray-200 opacity-70"></div>
+                    </div>
+                    <div class="text-center max-w-3xl mx-auto mb-12">
+                        <h4 class="text-3xl md:text-4xl font-extrabold text-black mb-4">${
+                          item.title
+                        }</h4>
+                        <p class="text-gray-500 leading-relaxed">${item.desc}</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">${cardsHtml}</div>
+                </div>`;
+          } else {
+            const slidesHtml = item.works
+              .map(
+                (work) => `
+                <div class="work-slide">
+                    <span class="slide-badge">${work.type}</span>
+                    <img src="${work.img}" alt="${work.type}" class="slide-image">
+                    <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-30">
+                        ${createActionButton(work, item.id)}
+                    </div>
+                </div>`
+              )
+              .join("");
+            htmlContent += `
+                <div class="company-showcase">
+                    <div class="flex flex-col lg:flex-row gap-12">
+                        <div class="w-full lg:w-1/3">
+                            <div class="lg:sticky lg:top-32">
+                                <span class="text-xs font-bold ${
+                                  item.badgeClass || "bg-gray-100 text-gray-600"
+                                } px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-4">${
+              item.badge || "Project"
+            }</span>
+                                <h4 class="text-3xl font-bold text-black mb-2">${item.company}</h4>
+                                <p class="text-gray-500 text-sm font-bold uppercase tracking-widest mb-6">${
+                                  item.tagline
+                                }</p>
+                                <p class="text-gray-600 text-sm leading-relaxed mb-8">${
+                                  item.desc
+                                }</p>
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-2/3 relative group">
+                            <button class="nav-arrow nav-prev hidden lg:flex" onclick="moveSlide('${
+                              item.id
+                            }', -1)">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </button>
+                            <button class="nav-arrow nav-next hidden lg:flex" onclick="moveSlide('${
+                              item.id
+                            }', 1)">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </button>
+                            <div id="slider-${
+                              item.id
+                            }" class="work-slider h-[400px] lg:h-[550px] shadow-xl rounded-[2.5rem] overflow-hidden border border-gray-100 bg-gray-50/50">
+                                ${slidesHtml}
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+          }
         });
-
-        // Masukkan hasil generate ke HTML
         container.innerHTML = htmlContent;
-
-        // 3. AKTIFKAN FITUR DRAG & SLIDE SETELAH HTML DIBUAT
         initSliders();
-      });
+      }
 
-      // FUNGSI INTERAKSI (Drag & Tombol Panah)
+      // ... (Helper & Modal Functions sama seperti sebelumnya) ...
+      const getScrollbarWidth = () => window.innerWidth - document.documentElement.clientWidth;
+      const lockScroll = () => {
+        const scrollbarWidth = getScrollbarWidth();
+        document.body.style.paddingRight = `${scrollbarWidth}px`;
+        const navbar = document.querySelector("nav");
+        if (navbar) navbar.style.paddingRight = `${scrollbarWidth}px`;
+        document.body.style.overflow = "hidden";
+      };
+      const unlockScroll = () => {
+        document.body.style.paddingRight = "0px";
+        const navbar = document.querySelector("nav");
+        if (navbar) navbar.style.paddingRight = "0px";
+        document.body.style.overflow = "auto";
+      };
+      function openDocument(url, title) {
+        const modal = document.getElementById("document-modal");
+        const frame = document.getElementById("document-frame");
+        const titleElem = document.getElementById("document-title");
+        const downloadBtn = document.getElementById("document-download-btn");
+        if (titleElem) titleElem.innerText = title || "Document Preview";
+        if (downloadBtn) downloadBtn.href = url;
+        const isMobile = window.innerWidth < 768;
+        if (isMobile) {
+          frame.src = `https://docs.google.com/gview?url=${encodeURIComponent(url)}&embedded=true`;
+        } else {
+          frame.src = url + "#toolbar=0";
+        }
+        modal.classList.remove("hidden");
+        lockScroll();
+      }
+      function closeDocument() {
+        const modal = document.getElementById("document-modal");
+        const frame = document.getElementById("document-frame");
+        modal.classList.add("hidden");
+        frame.src = "";
+        unlockScroll();
+      }
+      function openResume() {
+        const resumeUrl =
+          "https://mrxttnlcpoixnvhngvtw.supabase.co/storage/v1/object/public/static/cv/cv-ats-fauzan-english.pdf";
+        openDocument(resumeUrl, "My Resume");
+      }
+      function openLightbox(sectionId, index) {
+        const modal = document.getElementById("lightbox-modal");
+        const img = document.getElementById("lightbox-image");
+        const counter = document.getElementById("lightbox-counter");
+        currentGalleryId = sectionId;
+        currentImageIndex = index;
+        const currentGallery = portfolioGalleries[currentGalleryId];
+        if (!currentGallery || currentGallery.length === 0) return;
+        img.src = currentGallery[currentImageIndex].src;
+        counter.innerText = `${currentImageIndex + 1} / ${currentGallery.length}`;
+        modal.classList.remove("hidden");
+        modal.classList.remove("pointer-events-none");
+        setTimeout(() => {
+          modal.classList.remove("opacity-0");
+          img.classList.remove("scale-95");
+          img.classList.add("scale-100");
+        }, 10);
+        lockScroll();
+      }
+      function changeImage(direction) {
+        const img = document.getElementById("lightbox-image");
+        const counter = document.getElementById("lightbox-counter");
+        const currentGallery = portfolioGalleries[currentGalleryId];
+        if (!currentGallery) return;
+        img.classList.remove("scale-100");
+        img.classList.add("scale-95", "opacity-50");
+        setTimeout(() => {
+          currentImageIndex += direction;
+          if (currentImageIndex >= currentGallery.length) currentImageIndex = 0;
+          else if (currentImageIndex < 0) currentImageIndex = currentGallery.length - 1;
+          img.src = currentGallery[currentImageIndex].src;
+          counter.innerText = `${currentImageIndex + 1} / ${currentGallery.length}`;
+          img.onload = () => {
+            img.classList.remove("scale-95", "opacity-50");
+            img.classList.add("scale-100", "opacity-100");
+          };
+        }, 200);
+      }
+      function closeLightbox() {
+        const modal = document.getElementById("lightbox-modal");
+        const img = document.getElementById("lightbox-image");
+        modal.classList.add("opacity-0");
+        modal.classList.add("pointer-events-none");
+        img.classList.remove("scale-100");
+        img.classList.add("scale-95");
+        setTimeout(() => {
+          modal.classList.add("hidden");
+          img.src = "";
+          currentGalleryId = null;
+        }, 300);
+        unlockScroll();
+      }
       function initSliders() {
         document.querySelectorAll(".work-slider").forEach((slider) => {
           let isDown = false;
           let startX, scrollLeft;
-
           slider.addEventListener("mousedown", (e) => {
             isDown = true;
             slider.style.cursor = "grabbing";
@@ -1925,35 +1483,69 @@
           });
         });
       }
-
-      // Fungsi Navigasi Panah Global
       window.moveSlide = function (id, direction) {
         const slider = document.getElementById(`slider-${id}`);
         if (slider) {
           const slideWidth = slider.offsetWidth;
-          slider.scrollBy({left: direction * slideWidth, behavior: "smooth"});
+          slider.scrollBy({ left: direction * slideWidth, behavior: "smooth" });
         }
       };
-      // --- BACK TO TOP BUTTON LOGIC ---
-      const backToTopBtn = document.getElementById("back-to-top");
 
-      window.addEventListener("scroll", () => {
-        // Jika scroll lebih dari 300px, munculkan tombol
-        if (window.scrollY > 300) {
-          backToTopBtn.classList.remove(
-            "opacity-0",
-            "pointer-events-none",
-            "translate-y-10"
-          );
-          backToTopBtn.classList.add("opacity-100", "translate-y-0");
-        } else {
-          // Jika di atas, sembunyikan tombol
-          backToTopBtn.classList.remove("opacity-100", "translate-y-0");
-          backToTopBtn.classList.add(
-            "opacity-0",
-            "pointer-events-none",
-            "translate-y-10"
-          );
+      // --- EVENTS ---
+      document.addEventListener("DOMContentLoaded", () => {
+        fetchportfolioFromSupabase();
+        // --- NEW: Panggil fungsi dinamis baru ---
+        fetchCompetencies();
+        fetchEducation();
+        fetchExperience();
+
+        const loader = document.getElementById("loader");
+        setTimeout(() => {
+          loader.classList.add("opacity-0", "pointer-events-none");
+          setTimeout(() => {
+            loader.style.display = "none";
+          }, 700);
+        }, 1000);
+
+        // ... (Contact form logic, scroll logic tetap sama) ...
+        const contactForm = document.getElementById("contact-form");
+        if (contactForm) {
+          contactForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            submitBtn.innerText = "Sending...";
+            submitBtn.disabled = true;
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const message = document.getElementById("message").value;
+            try {
+              const { error } = await supabaseClient
+                .from("messages")
+                .insert([{ name, email, message }]);
+              if (error) throw error;
+              alert("Pesan berhasil terkirim!");
+              contactForm.reset();
+            } catch (err) {
+              console.error(err);
+              alert("Gagal mengirim pesan. Cek koneksi internet Anda dan coba lagi.");
+            } finally {
+              submitBtn.innerText = "Send Message";
+              submitBtn.disabled = false;
+            }
+          });
+        }
+      });
+
+      document.addEventListener("keydown", function (event) {
+        const lightboxModal = document.getElementById("lightbox-modal");
+        const docModal = document.getElementById("document-modal");
+        if (event.key === "Escape") {
+          if (docModal && !docModal.classList.contains("hidden")) closeDocument();
+          if (lightboxModal && !lightboxModal.classList.contains("hidden")) closeLightbox();
+        }
+        if (lightboxModal && !lightboxModal.classList.contains("hidden")) {
+          if (event.key === "ArrowRight") changeImage(1);
+          if (event.key === "ArrowLeft") changeImage(-1);
         }
       });
     </script>

@@ -1,0 +1,37 @@
+{
+  "workbench.colorTheme": "GitHub Dark Default",
+
+  // 1. PENGATURAN TAILWIND CSS
+  // Mencegah VS Code memberi warning "Unknown at rule" pada @tailwind, @apply, dll.
+  "css.validate": false,
+  "css.lint.unknownAtRules": "ignore",
+  "scss.lint.unknownAtRules": "ignore",
+  "less.lint.unknownAtRules": "ignore",
+
+  // 2. PENGATURAN FORMATTING (PRETTIER)
+  // Mengaktifkan format otomatis saat Save
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+
+  // Khusus file HTML, pastikan pakai Prettier
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+
+  // 3. EMMET & SUGGESTIONS
+  // Agar saran koding Tailwind muncul cepat di dalam class HTML
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "tailwindCSS.includeLanguages": {
+    "html": "html",
+    "javascript": "javascript"
+  },
+  "files.associations": {
+    "*.css": "tailwindcss"
+  }
+}

@@ -1,115 +1,98 @@
-# ✨ Personal Portfolio Website
+# **✨ Personal Portfolio Website (Dynamic Version)**
 
 ![Project Status](https://img.shields.io/badge/status-active-success.svg)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Screenshot Website](images/screenshot.png)
 
-> **"Where Strategy Meets Aesthetic."**
+<p align="center">
+**"Where Strategy Meets Aesthetic."**
+</p>
 
-Website portofolio pribadi yang modern, responsif, dan interaktif. Dibangun untuk menampilkan pengalaman profesional, kepemimpinan organisasi, dan hasil karya kreatif (Portfolio Showcase) dengan pengalaman pengguna (UX) yang halus.
+Website portofolio pribadi yang telah bertransformasi dari situs statis menjadi **Aplikasi Web Dinamis**. Ditenagai oleh **Supabase** sebagai Backend-as-a-Service (BaaS), memungkinkan pengelolaan konten (CMS) secara _real-time_ tanpa perlu mengubah kode sumber (source code) untuk setiap pembaruan konten.
 
 🔗 **Live Demo:** [https://fauzantaufiq.vercel.app](https://fauzantaufiq.vercel.app)
 
----
+## **🚀 Fitur Unggulan**
 
-## 🚀 Fitur Unggulan
+### **⚡ Backend & Dinamis (Baru)**
 
-Website ini bukan sekadar HTML statis biasa. Di dalamnya terdapat logika JavaScript kustom untuk meningkatkan interaktivitas:
+- **Supabase Integration:** Seluruh data (Portfolio, Pengalaman Kerja, Pendidikan, Skill) diambil secara dinamis dari database PostgreSQL.
+- **Cloud Asset Storage:** Gambar dan dokumen PDF (CV) di-hosting di Supabase Storage, bukan lagi di folder lokal, membuat loading lebih cepat dan manajemen aset lebih mudah.
+- **Database-Driven UI:** Menambah proyek baru atau pengalaman kerja cukup dengan menambah baris di tabel database (mirip Excel/Spreadsheet).
+- **Contact Form Database:** Pesan dari pengunjung langsung tersimpan ke tabel database messages, aman dan terpusat.
 
-### 🎨 UI/UX Interaktif
+### **🎨 UI/UX Interaktif**
 
-- **Sliding Pill Navigation:** Navigasi bar dengan efek "kapsul" yang bergerak mengikuti posisi _hover_ mouse (desktop) dan kembali ke posisi "Contact" saat mouse keluar.
-- **Chameleon Scrollbar:** Scrollbar browser otomatis berubah warna dari _Terracotta_ menjadi _Hitam_ saat melewati bagian dengan latar belakang berwarna sama (untuk menjaga kontras).
-- **Apple Ecosystem Fonts:** Menggunakan strategi _Font Stack_ yang memprioritaskan font "San Francisco" pada perangkat Apple dan "Inter" pada perangkat lain.
+- **Smart Modal System:** Preview dokumen PDF dan galeri gambar (Lightbox) menggunakan logika deteksi tipe file otomatis.
+- **Anti-Layout Shift:** Mekanisme penguncian scrollbar kustom untuk mencegah halaman "bergeser" saat modal dibuka.
+- **Sliding Pill Navigation:** Navigasi bar dengan efek kapsul yang responsif.
+- **Chameleon Scrollbar:** Warna scrollbar beradaptasi dengan tema bagian (Section) yang sedang dilihat.
 
-### 📱 Fully Responsive
+## **🛠️ Teknologi yang Digunakan**
 
-- **Mobile-First Approach:** Layout grid yang fleksibel (Stacking pada mobile, Row pada desktop).
-- **Touch-Friendly Sliders:** Galeri portofolio dapat digeser (_swipe_) menggunakan jari pada layar sentuh.
+- **Frontend:**
+  - HTML5 (Semantik)
+  - Tailwind CSS (via CDN)
+  - Vanilla JavaScript (ES6+)
+- **Backend:**
+  - **Supabase** (PostgreSQL Database)
+  - Supabase Storage (File Hosting)
+  - Supabase Auth (Row Level Security)
 
-### ⚡ Data-Driven Content
+## **🗄️ Struktur Database (Schema)**
 
-- **Automated Portfolio Rendering:** Tidak ada kode HTML repetitif. Seluruh konten portofolio disimpan dalam **JavaScript Array (JSON Object)**, sehingga menambah proyek baru cukup dengan menambah satu baris data.
+Proyek ini menggunakan tabel-tabel berikut di Supabase:
 
-### 📬 Functional Form
+| Nama Tabel | Deskripsi |  
+| portfolio_sections | Kategori utama portfolio (Header, Judul, Layout). |  
+| portfolio_items | Item karya/gambar yang berelasi dengan section. |  
+| competencies | Daftar skill (Creative Arsenal & Other) beserta ikonnya. |  
+| education | Riwayat pendidikan. |  
+| experience | Riwayat pengalaman kerja (mendukung fitur "Featured"). |  
+| messages | Menyimpan pesan masuk dari Contact Form. |
 
-- **Contact Form:** Terintegrasi dengan **Formspree** untuk pengiriman pesan langsung ke email tanpa backend server.
+## **💻 Cara Menjalankan di Lokal**
 
----
+### **1\. Persiapan Awal**
 
-## 🛠️ Teknologi yang Digunakan
+Pastikan Anda memiliki akun [Supabase](https://supabase.com) dan buat proyek baru.
 
-- **HTML5:** Struktur semantik dan aksesibel.
-- **Tailwind CSS (CDN):** Framework _Utility-First_ untuk styling yang cepat dan konsisten.
-- **Vanilla JavaScript (ES6+):** Logika interaksi tanpa ketergantungan _library_ pihak ketiga yang berat.
-- **Vercel:** Platform deployment dan hosting (Edge Network).
+### **2\. Clone Repository**
 
----
+git clone \[https://github.com/fauzantaufiq1211/fauzan-portfolio.git\](https://github.com/fauzantaufiq1211/fauzan-portfolio.git)  
+cd fauzan-portfolio
 
-## 📂 Struktur Folder
+### **3\. Konfigurasi Database (SQL Setup)**
 
-```text
-PORTFOLIO-WEBSITE/
-├── 📂 images/              # Aset gambar (Logo, Foto, Portfolio)
-│   ├── 📂 contact/         # Ikon sosial media
-│   ├── 📂 creative-arsenal/# Logo software
-│   ├── 📂 ft-logo/         # Logo personal
-│   └── 📂 portfolio/       # Gambar hasil karya
-├── 📄 index.html           # File utama (HTML + CSS + JS)
-└── 📄 README.md            # Dokumentasi proyek
-```
+Buka menu SQL Editor di Dashboard Supabase Anda, lalu jalankan perintah SQL untuk membuat tabel.  
+(Anda dapat meminta file setup_database.sql lengkap kepada pemilik repositori jika belum disertakan).
 
----
+### **4\. Konfigurasi Storage**
 
-## 💻 Cara Menjalankan di Lokal
+1. Buat Bucket baru bernama static-assets dan portfolio-images.
+2. Pastikan akses bucket diatur ke **Public**.
+3. Upload aset gambar Anda ke bucket tersebut.
 
-Karena proyek ini menggunakan Tailwind via CDN, Anda tidak perlu menginstal Node.js atau NPM.
+### **5\. Hubungkan API Key**
 
-1. **Clone Repository**
+Buka file index.html, cari bagian konfigurasi Supabase, dan ganti dengan milik Anda:
 
-```bash
-git clone https://github.com/fauzantaufiq1211/fauzan-portfolio.git
-```
+const SUPABASE_URL \= "https://\[PROJECT-ID\].supabase.co";  
+const SUPABASE_KEY \= "\[YOUR-ANON-PUBLIC-KEY\]";
 
-2. **Buka Folder Proyek**
-   Buka folder tersebut di Visual Studio Code.
-3. **Jalankan dengan Live Server**
+### **6\. Jalankan Project**
 
-- Install ekstensi **Live Server** di VS Code.
-- Buka `index.html`.
-- Klik kanan -> **"Open with Live Server"**.
-- Website akan berjalan di `http://127.0.0.1:5500`.
+Gunakan ekstensi **Live Server** di VS Code untuk menjalankan index.html.
 
----
+## **⚙️ Cara Mengelola Konten (CMS)**
 
-## ⚙️ Cara Mengupdate Konten
+Anda tidak perlu lagi mengedit kode HTML untuk mengubah konten. Cukup buka **Table Editor** di Dashboard Supabase:
 
-### 1. Menambah Proyek Portofolio Baru
+- **Tambah Portfolio:** Isi tabel portfolio_items dan hubungkan dengan section_id yang sesuai.
+- **Update Experience:** Tambah baris di tabel experience. Centang is_featured untuk memberi pita "Featured" / "Volunteer".
+- **Ganti CV:** Upload file PDF baru ke Storage, lalu update link di tabel/kode terkait.
 
-Buka file `index.html`, gulir ke bawah sampai bagian `<script>`. Cari variabel `const portfolioData`. Tambahkan objek baru di dalam array `works`:
-
-```javascript
-// Contoh penambahan karya baru:
-{
-    type: "Instagram Feed",
-    img: "images/portfolio/proyek-baru.jpg",
-    link: "https://instagram.com/...",
-    btnText: "View Post"
-},
-
-```
-
-### 2. Mengatur Formulir Kontak
-
-Cari tag `<form>` di bagian bawah `index.html` dan ganti URL `action` dengan URL Formspree Anda sendiri:
-
-```html
-<form action="https://formspree.io/f/xjgbdwrw" method="POST"></form>
-```
-
----
-
-## 🤝 Contact
+## **🤝 Contact**
 
 **Muhammad Fauzan Taufiq**
 
@@ -118,8 +101,6 @@ Cari tag `<form>` di bagian bawah `index.html` dan ganti URL `action` dengan URL
 - 💼 LinkedIn: [linkedin.com/in/fauzantaufiq](https://linkedin.com/in/fauzantaufiq)
 - 📷 Instagram: [@fauzan.taufiqq](https://instagram.com/fauzan.taufiqq)
 
----
-
 <p align="center">
-Dibuat dengan ❤️ dan ☕.
+Dibuat dengan ❤️, ☕, dan kekuatan Cloud Database.
 </p>
