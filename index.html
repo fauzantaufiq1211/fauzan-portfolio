@@ -813,7 +813,6 @@
     <!-- BACK TO TOP -->
     <button
       id="back-to-top"
-      onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
       class="fixed bottom-8 right-8 z-[100] p-4 bg-primary text-white rounded-full shadow-xl opacity-0 pointer-events-none translate-y-10 transition-all duration-500 hover:bg-[#9a421f] hover:scale-110 focus:outline-none group"
       aria-label="Back to Top"
     >
@@ -1546,6 +1545,199 @@
         if (lightboxModal && !lightboxModal.classList.contains("hidden")) {
           if (event.key === "ArrowRight") changeImage(1);
           if (event.key === "ArrowLeft") changeImage(-1);
+        }
+      });
+
+      /**
+       * NAV-LOGIC.JS
+       * Mengatur semua perilaku Navigasi:
+       * 1. Mobile Menu Toggle
+       * 2. Sliding Pill Animation (Kotak Hitam)
+       * 3. Smooth Scroll tanpa mengubah URL (Hash)
+       * 4. Scroll Spy (Ubah warna scrollbar)
+       */
+
+      // Menunggu seluruh aset (gambar/font) selesai dimuat agar perhitungan posisi akurat
+      window.addEventListener("load", () => {
+        initMobileMenu();
+        initNavbarPill();
+        initSmoothScroll();
+        initScrollSpy();
+      });
+
+      // 1. INIT MOBILE MENU
+      function initMobileMenu() {
+        const btn = document.getElementById("mobile-menu-button");
+        const menu = document.getElementById("mobile-menu");
+        const links = document.querySelectorAll(".mobile-link");
+
+        if (btn && menu) {
+          // Toggle menu saat tombol burger diklik
+          btn.addEventListener("click", () => {
+            menu.classList.toggle("hidden");
+          });
+
+          // Tutup menu saat salah satu link diklik
+          links.forEach((link) => {
+            link.addEventListener("click", () => {
+              menu.classList.add("hidden");
+            });
+          });
+        }
+      }
+
+      // 2. INIT NAVBAR PILL (KOTAK HITAM)
+      function initNavbarPill() {
+        const navContainer = document.getElementById("nav-container");
+        const pill = document.getElementById("nav-pill");
+        const navLinks = document.querySelectorAll(".nav-link");
+        const defaultLink = document.getElementById("default-link"); // Pastikan link Contact punya ID ini
+
+        // Safety check: Jika elemen tidak ada, stop fungsi
+        if (!navContainer || !pill || !defaultLink) return;
+
+        // Fungsi: Pindahkan Pill ke elemen target
+        function movePillTo(element) {
+          // Hitung posisi dan lebar target
+          const width = element.offsetWidth;
+          const left = element.offsetLeft;
+
+          // Terapkan ke Pill
+          pill.style.width = `${width}px`;
+          pill.style.left = `${left}px`;
+          pill.style.opacity = "1"; // Munculkan pill
+
+          // Ubah styling text link
+          navLinks.forEach((link) => {
+            link.classList.remove("text-white");
+            link.classList.add("text-gray-600");
+          });
+
+          // Highlight elemen yang aktif
+          element.classList.remove("text-gray-600");
+          element.classList.add("text-white");
+        }
+
+        // A. Set Posisi Awal (Default: Contact)
+        // Kita beri sedikit delay agar CSS rendering stabil
+        setTimeout(() => {
+          pill.style.transition = "none"; // Matikan animasi saat load awal
+          movePillTo(defaultLink);
+
+          // Nyalakan animasi kembali setelah posisi set
+          setTimeout(() => {
+            pill.style.transition = "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)";
+          }, 100);
+        }, 100);
+
+        // B. Event Hover (Mouse Masuk)
+        navLinks.forEach((link) => {
+          link.addEventListener("mouseenter", () => movePillTo(link));
+        });
+
+        // C. Event Mouse Leave (Mouse Keluar dari Container Nav)
+        navContainer.addEventListener("mouseleave", () => {
+          movePillTo(defaultLink); // Kembali ke default (Contact)
+        });
+
+        // D. Event Resize Window (Agar posisi tetap akurat saat layar diubah)
+        window.addEventListener("resize", () => {
+          // Matikan transisi sebentar agar responsif
+          pill.style.transition = "none";
+          movePillTo(defaultLink);
+          setTimeout(() => {
+            pill.style.transition = "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)";
+          }, 300);
+        });
+      }
+
+      // 3. INIT SMOOTH SCROLL (BERSIH TANPA HASH URL)
+      function initSmoothScroll() {
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+          anchor.addEventListener("click", function (e) {
+            const targetId = this.getAttribute("href");
+
+            // Abaikan jika href hanya "#"
+            if (targetId === "#") return;
+
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+              // PENTING: Mencegah browser menambahkan /#about ke URL bar
+              e.preventDefault();
+
+              // Hitung posisi offset (agar tidak tertutup navbar)
+              const headerOffset = 100; // Sesuaikan tinggi navbar Anda
+              const elementPosition = targetElement.getBoundingClientRect().top;
+              const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+              // Lakukan Scroll Halus
+              window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth",
+              });
+
+              // Tutup menu mobile jika sedang terbuka (UX tambahan)
+              const mobileMenu = document.getElementById("mobile-menu");
+              if (mobileMenu && !mobileMenu.classList.contains("hidden")) {
+                mobileMenu.classList.add("hidden");
+              }
+            }
+          });
+        });
+      }
+
+      // 4. INIT SCROLL SPY (Scrollbar Chameleon)
+      function initScrollSpy() {
+        const targetSection = document.getElementById("org-leadership");
+        if (targetSection) {
+          const observer = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                // Jika section target terlihat, ubah scrollbar jadi hitam
+                if (entry.isIntersecting) {
+                  document.body.classList.add("scrollbar-black");
+                } else {
+                  document.body.classList.remove("scrollbar-black");
+                }
+              });
+            },
+            { threshold: [0.1, 0.9] } // Trigger saat 10% atau 90% elemen terlihat
+          );
+          observer.observe(targetSection);
+        }
+      }
+
+      /**
+       * BACK-TO-TOP.JS
+       * Mengatur visibilitas dan fungsi tombol kembali ke atas.
+       */
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const backToTopBtn = document.getElementById("back-to-top");
+
+        if (backToTopBtn) {
+          // 1. Event Scroll: Tampilkan/Sembunyikan Tombol
+          window.addEventListener("scroll", () => {
+            if (window.scrollY > 300) {
+              // Tampilkan tombol (Hapus class sembunyi, tambah class tampil)
+              backToTopBtn.classList.remove("opacity-0", "pointer-events-none", "translate-y-10");
+              backToTopBtn.classList.add("opacity-100", "translate-y-0");
+            } else {
+              // Sembunyikan tombol
+              backToTopBtn.classList.remove("opacity-100", "translate-y-0");
+              backToTopBtn.classList.add("opacity-0", "pointer-events-none", "translate-y-10");
+            }
+          });
+
+          // 2. Event Click: Scroll Halus ke Atas
+          // (Ini menggantikan onclick="window.scrollTo..." di HTML agar lebih bersih)
+          backToTopBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            window.scrollTo({
+              top: 0,
+              behavior: "smooth",
+            });
+          });
         }
       });
     </script>
