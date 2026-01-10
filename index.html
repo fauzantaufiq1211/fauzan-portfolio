@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fauzan Taufiq's Portfolio</title>
+
+    <!-- FAVICON -->
     <link
       rel="icon"
       type="image/svg+xml"
@@ -21,6 +23,7 @@
       href="https://mrxttnlcpoixnvhngvtw.supabase.co/storage/v1/object/public/static/ft-logo/ft-logo-white.svg"
       media="(prefers-color-scheme: dark)"
     />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -49,81 +52,11 @@
 
     <style type="text/tailwindcss">
       /* --- BASE STYLES --- */
-      .inter-font {
-        font-family: "Inter", sans-serif;
-        font-optical-sizing: auto;
-        font-weight: 900;
-        font-style: normal;
-      }
-      /* Agar scroll halaman halus */
       html {
         scroll-behavior: smooth;
         scrollbar-width: thin;
-        /* Dukungan untuk Firefox */
-        scrollbar-width: thin;
         scrollbar-color: #b54f26 #f1f1f1;
       }
-      /* Kustomisasi Scrollbar untuk Chrome, Edge, & Safari */
-      ::-webkit-scrollbar {
-        width: 12px; /* Lebar scrollbar */
-      }
-      ::-webkit-scrollbar-track {
-        background: #f9fafb; /* Warna latar belakang trek (abu-abu sangat muda) */
-      }
-      ::-webkit-scrollbar-thumb {
-        background-color: #b54f26; /* Warna Primary (Terracotta) */
-        border-radius: 20px; /* Membuat sudut bulat */
-        border: 3px solid #f9fafb; /* Memberi jarak (padding) dengan border putih/abu */
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background-color: #9a421f; /* Warna saat mouse diarahkan (sedikit lebih gelap) */
-      }
-      /* CSS Baru untuk Bintang Berputar Lambat */
-      .animate-spin-slow {
-        animation: spin 8s linear infinite; /* Berputar penuh dalam 8 detik */
-      }
-      @keyframes spin {
-        from {
-          transform: rotate(0deg);
-        }
-        to {
-          transform: rotate(360deg);
-        }
-      }
-      /* --- CUSTOM COMPONENTS (@apply) --- */
-
-      /* 1. Typography */
-      .section-label {
-        @apply text-primary font-bold tracking-[0.2em] uppercase text-sm mb-4;
-      }
-
-      /* 2. Experience Section */
-      .card-experience {
-        @apply p-8 border border-gray-100 rounded-2xl bg-white hover:shadow-xl transition-all duration-300 relative overflow-hidden;
-      }
-      .badge-work-remote {
-        @apply inline-block px-3 py-1 bg-blue-50 text-blue-600 text-xs font-bold rounded-full border border-blue-100;
-      }
-      .badge-work-onsite {
-        @apply inline-block px-3 py-1 bg-green-50 text-green-700 text-xs font-bold rounded-full border border-green-100;
-      }
-      .badge-date {
-        @apply inline-block px-3 py-1 bg-gray-100 text-gray-600 text-xs font-bold rounded-full;
-      }
-
-      /* 3. Portfolio JS Slider Components */
-      .slide-badge {
-        @apply absolute top-6 left-8 z-20 bg-black/70 backdrop-blur-md text-white text-[10px] px-3 py-1 rounded-full font-bold uppercase tracking-widest shadow-sm;
-      }
-      .slide-image {
-        @apply max-h-[80%] w-auto rounded-xl shadow-lg border-2 border-white object-contain bg-white;
-      }
-      .btn-action {
-        @apply px-6 py-2.5 bg-primary text-white font-bold rounded-full text-xs shadow-lg hover:scale-105 transition-transform whitespace-nowrap;
-      }
-
-      /* --- LAYOUT UTILS --- */
-      /* Scrollbar Styling */
       ::-webkit-scrollbar {
         width: 12px;
       }
@@ -135,18 +68,13 @@
         border-radius: 20px;
         border: 3px solid #f9fafb;
       }
-
-      /* --- TAMBAHAN BARU: Mode Scrollbar Hitam (Kontras) --- */
-      body.scrollbar-black::-webkit-scrollbar-thumb {
-        background-color: #1a1a1a !important; /* Berubah jadi Hitam */
-        border: 3px solid #b54f26; /* Border jadi Orange agar tetap estetik */
-      }
-
       ::-webkit-scrollbar-thumb:hover {
         background-color: #9a421f;
       }
-
-      /* Animations */
+      body.scrollbar-black::-webkit-scrollbar-thumb {
+        background-color: #1a1a1a !important;
+        border: 3px solid #b54f26;
+      }
       .animate-spin-slow {
         animation: spin 8s linear infinite;
       }
@@ -159,36 +87,39 @@
         }
       }
 
-      /* Portfolio System Layout */
-      .portfolio-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 20px;
+      /* --- COMPONENTS --- */
+      .section-label {
+        @apply text-primary font-bold tracking-[0.2em] uppercase text-sm mb-4;
       }
 
-      .project-card {
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        overflow: hidden;
+      /* BADGE TYPES (FIXED) */
+      .badge-work-type,
+      .badge-work-remote {
+        @apply inline-block px-3 py-1 bg-blue-50 text-blue-600 text-xs font-bold rounded-full border border-blue-100;
+      }
+      .badge-work-onsite {
+        @apply inline-block px-3 py-1 bg-green-50 text-green-700 text-xs font-bold rounded-full border border-green-100;
+      }
+      .badge-work-volunteer {
+        @apply inline-block px-3 py-1 bg-purple-50 text-purple-700 text-xs font-bold rounded-full border border-purple-100;
       }
 
-      .project-image {
-        width: 100%;
-        height: 200px;
-        object-fit: cover; /* Agar gambar Supabase tidak gepeng */
+      .badge-date {
+        @apply inline-block px-3 py-1 bg-gray-100 text-gray-600 text-xs font-bold rounded-full;
       }
 
-      .company-showcase {
-        border-bottom: 0px solid #f3f4f6;
-        padding-bottom: 3rem;
-        margin-bottom: 3rem;
+      /* Slider Components */
+      .slide-badge {
+        @apply absolute top-6 left-8 z-20 bg-black/70 backdrop-blur-md text-white text-[10px] px-3 py-1 rounded-full font-bold uppercase tracking-widest shadow-sm;
       }
-      .company-showcase:last-of-type {
-        border-bottom: none;
-        padding-bottom: 0;
-        margin-bottom: 0;
+      .slide-image {
+        @apply max-h-[80%] w-auto rounded-xl shadow-lg border-2 border-white object-contain bg-white;
+      }
+      .btn-action {
+        @apply px-6 py-2.5 bg-primary text-white font-bold rounded-full text-xs shadow-lg hover:scale-105 transition-transform whitespace-nowrap;
       }
 
+      /* Layout Utils */
       .work-slider {
         display: flex !important;
         flex-direction: row !important;
@@ -211,7 +142,6 @@
       .work-slider:active {
         cursor: grabbing;
       }
-
       .work-slide {
         flex: 0 0 100% !important;
         width: 100%;
@@ -226,7 +156,6 @@
         background: #f9fafb;
         border-radius: 1.5rem;
       }
-
       .nav-arrow {
         position: absolute;
         top: 50%;
@@ -251,21 +180,30 @@
       .nav-next {
         right: 1rem;
       }
+      .company-showcase {
+        border-bottom: 0px solid #f3f4f6;
+        padding-bottom: 3rem;
+        margin-bottom: 3rem;
+      }
+      .company-showcase:last-of-type {
+        border-bottom: none;
+        padding-bottom: 0;
+        margin-bottom: 0;
+      }
     </style>
   </head>
 
   <body class="bg-light text-dark font-sans antialiased">
+    <!-- LOADER -->
     <div
       id="loader"
       class="fixed inset-0 z-[9999] bg-white flex items-center justify-center transition-opacity duration-700"
     >
       <div class="relative flex items-center justify-center">
         <div class="absolute w-32 h-32 border-4 border-gray-100 rounded-full"></div>
-
         <div
           class="absolute w-32 h-32 border-4 border-primary border-t-transparent border-l-transparent rounded-full animate-spin"
         ></div>
-
         <img
           src="https://mrxttnlcpoixnvhngvtw.supabase.co/storage/v1/object/public/static/ft-logo/ft-logo-black.svg"
           alt="FT Logo"
@@ -274,6 +212,7 @@
       </div>
     </div>
 
+    <!-- NAVBAR -->
     <nav
       class="fixed top-0 w-full z-[999] bg-white/90 backdrop-blur-md border-b border-gray-100 transition-all duration-300"
     >
@@ -290,6 +229,7 @@
           />
         </a>
 
+        <!-- MENU DESKTOP -->
         <div
           class="hidden md:flex items-center relative bg-gray-100/50 rounded-full p-1.5"
           id="nav-container"
@@ -297,7 +237,7 @@
           <div
             id="nav-pill"
             class="absolute bg-black rounded-full transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]"
-            style="height: calc(100% - 12px); opacity: 0"
+            style="height: calc(100% - 12px); opacity: 0; pointer-events: none"
           ></div>
           <a
             href="#about"
@@ -314,14 +254,12 @@
             class="nav-link relative z-10 px-6 py-2.5 text-sm font-semibold text-gray-600 transition-colors duration-200 rounded-full text-center"
             >Portfolio</a
           >
-
           <a
             href="#contact"
             id="default-link"
             class="nav-link relative z-10 px-6 py-2.5 text-sm font-semibold text-gray-600 transition-colors duration-200 rounded-full text-center"
+            >Contact</a
           >
-            Contact
-          </a>
         </div>
 
         <button
@@ -339,6 +277,7 @@
         </button>
       </div>
 
+      <!-- MOBILE MENU -->
       <div
         id="mobile-menu"
         class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full left-0 top-20 shadow-lg"
@@ -366,6 +305,7 @@
       </div>
     </nav>
 
+    <!-- HERO SECTION -->
     <section
       class="min-h-screen flex items-center relative overflow-hidden bg-white pt-24 pb-24 md:py-0"
     >
@@ -390,16 +330,13 @@
           <span
             class="inline-flex flex-col md:flex-row items-center gap-1 md:gap-2 py-2 px-5 rounded-2xl md:rounded-full bg-primary/10 text-primary text-sm font-bold tracking-wide uppercase"
           >
-            <span>Digital Creative Specialist</span>
-            <span class="hidden md:inline">•</span>
-            <span>Social Media Strategist</span>
+            <span>Digital Creative Specialist</span><span class="hidden md:inline">•</span
+            ><span>Social Media Strategist</span>
           </span>
-
           <h1 class="text-4xl lg:text-6xl font-extrabold leading-tight tracking-tight text-black">
             Creating Visual <br />Stories with
             <span class="text-primary relative"
-              >Impact.
-              <svg
+              >Impact.<svg
                 class="absolute w-full h-3 bottom-1 left-0 text-primary/20 -z-10"
                 viewBox="0 0 100 10"
                 preserveAspectRatio="none"
@@ -409,11 +346,9 @@
                   stroke="currentColor"
                   stroke-width="8"
                   fill="none"
-                />
-              </svg>
-            </span>
+                /></svg
+            ></span>
           </h1>
-
           <p
             class="text-gray-600 text-left text-lg md:text-xl leading-relaxed max-w-xl mx-auto md:mx-0"
           >
@@ -423,23 +358,12 @@
             <strong>Adobe Creative Suite</strong>, <strong>Figma</strong>,
             <strong>Canva</strong> and so on.
           </p>
-
-          <p
-            class="text-gray-600 text-left text-lg md:text-xl leading-relaxed max-w-xl mx-auto md:mx-0"
-          >
-            I'm <strong>Muhammad Fauzan Taufiq</strong>, your passionate digital creator dedicated
-            to bringing imagination to life through compelling visuals and strategic storytelling.
-            Welcome to my <strong>Portfolio Website</strong>. Explore my work and let's create
-            something extraordinary together!
-          </p>
-
           <div class="flex flex-wrap gap-4 pt-4 justify-center md:justify-start">
             <a
               href="#portfolio"
               class="group relative inline-flex items-center justify-center px-8 py-3.5 text-base font-semibold text-white transition-all duration-300 bg-primary rounded-full hover:bg-primary/90 hover:shadow-lg hover:-translate-y-1"
+              >View My Works</a
             >
-              View My Works
-            </a>
             <button
               onclick="openResume()"
               class="inline-flex items-center justify-center px-8 py-3.5 text-base font-semibold text-gray-900 transition-all duration-300 bg-white border-2 border-gray-200 rounded-full hover:border-primary hover:text-primary hover:shadow-md hover:-translate-y-1 cursor-pointer"
@@ -448,7 +372,6 @@
             </button>
           </div>
         </div>
-
         <div
           class="w-full md:w-5/12 flex justify-center md:justify-end relative mt-14 md:mt-0 pb-8 md:pb-0"
         >
@@ -458,7 +381,7 @@
             ></div>
             <img
               src="https://mrxttnlcpoixnvhngvtw.supabase.co/storage/v1/object/public/static/portrait/ft-portrait.png"
-              alt="Muhammad Fauzan Taufiq"
+              alt="Profile"
               class="relative z-10 w-full h-full object-cover rounded-[2rem] shadow-2xl bg-white transition-transform duration-500 hover:-translate-y-1"
             />
             <div class="absolute -top-6 -right-6 z-20">
@@ -478,6 +401,7 @@
       </div>
     </section>
 
+    <!-- ABOUT SECTION -->
     <section id="about" class="py-20 md:py-32 bg-black text-white">
       <div class="max-w-6xl mx-auto px-6">
         <div class="flex flex-col md:flex-row gap-16">
@@ -488,42 +412,31 @@
             </h3>
             <p class="text-gray-400 leading-relaxed text-lg">
               I believe there is no problem that cannot be solved if handled calmly. With a
-              background in both
-              <strong>Information Systems</strong> and <strong>Digital Business</strong>, I possess
-              a unique blend of technical logic and creative flair.
+              background in both <strong>Information Systems</strong> and
+              <strong>Digital Business</strong>, I possess a unique blend of technical logic and
+              creative flair.
             </p>
-
             <div class="pt-8">
               <h4 class="text-white font-bold mb-6 flex items-center gap-2">
-                <span class="w-8 h-1 bg-primary rounded-full"></span>
-                Creative Arsenal
+                <span class="w-8 h-1 bg-primary rounded-full"></span>Creative Arsenal
               </h4>
-
               <div
                 id="competencies-arsenal-container"
                 class="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-5 gap-6 mb-8"
               >
-                <!-- JavaScript will inject content here -->
                 <div class="col-span-5 text-center text-gray-600 animate-pulse">
                   Loading tools...
                 </div>
               </div>
-
               <h5 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">
                 Other Competencies
               </h5>
-              <div id="competencies-other-container" class="flex flex-wrap gap-2">
-                <!-- JavaScript will inject content here -->
-              </div>
+              <div id="competencies-other-container" class="flex flex-wrap gap-2"></div>
             </div>
           </div>
-
           <div class="w-full md:w-1/2">
             <h2 class="section-label">Education Journey</h2>
-
-            <!-- DYNAMIC CONTENT: EDUCATION -->
             <div id="education-list" class="relative border-l-2 border-gray-800 ml-3 space-y-10">
-              <!-- JavaScript will inject content here -->
               <div class="pl-8 text-gray-500 animate-pulse">Loading education history...</div>
             </div>
           </div>
@@ -531,6 +444,7 @@
       </div>
     </section>
 
+    <!-- EXPERIENCE SECTION -->
     <section id="experience" class="py-20 md:py-32 bg-white">
       <div class="max-w-6xl mx-auto px-6">
         <div class="mb-16 md:flex md:justify-between md:items-end">
@@ -544,10 +458,7 @@
             Focused on Creative & Digital Strategy
           </p>
         </div>
-
-        <!-- DYNAMIC CONTENT: EXPERIENCE -->
         <div id="experience-list" class="grid grid-cols-1 gap-8">
-          <!-- JavaScript will inject content here -->
           <div class="p-8 border border-gray-100 rounded-2xl bg-gray-50 text-center text-gray-400">
             Loading work experience...
           </div>
@@ -555,12 +466,12 @@
       </div>
     </section>
 
+    <!-- ORGANIZATION LEADERSHIP -->
     <section id="org-leadership" class="py-20 bg-primary text-white transition-colors duration-500">
       <div class="max-w-6xl mx-auto px-6">
         <h2 class="text-white/80 font-extrabold tracking-widest uppercase text-sm mb-8 text-center">
           Organizational Leadership
         </h2>
-
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div
             class="bg-white text-black p-8 rounded-2xl shadow-lg border border-white/20 transform hover:-translate-y-1 transition-transform duration-300"
@@ -581,7 +492,6 @@
               (MLB) to align with Pancasila and Islamic values.
             </p>
           </div>
-
           <div
             class="bg-white text-black p-8 rounded-2xl shadow-lg border border-white/20 transform hover:-translate-y-1 transition-transform duration-300"
           >
@@ -605,6 +515,7 @@
       </div>
     </section>
 
+    <!-- PORTFOLIO SECTION -->
     <section id="portfolio" class="py-24 md:py-32 bg-white">
       <div class="max-w-6xl mx-auto px-6">
         <div class="mb-20">
@@ -617,18 +528,17 @@
             ideas into scroll-stopping content that drives real engagement.
           </p>
         </div>
-
         <div id="portfolio-container">
           <div class="text-center py-20 text-gray-400">Loading Projects...</div>
         </div>
       </div>
     </section>
 
+    <!-- CONTACT SECTION -->
     <section id="contact" class="py-24 md:py-32 bg-black text-white relative overflow-hidden">
       <div
         class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] -z-10 opacity-40 pointer-events-none"
       ></div>
-
       <div class="max-w-6xl mx-auto px-6">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
           <div class="text-left">
@@ -636,14 +546,11 @@
               Get in Touch
             </h2>
             <h3 class="text-4xl md:text-5xl font-extrabold leading-tight mb-6">
-              Let's Create Something <br />
-              <span class="text-primary">Iconic</span> Together.
+              Let's Create Something <br /><span class="text-primary">Iconic</span> Together.
             </h3>
             <p class="text-gray-400 text-lg leading-relaxed mb-10">
               Open for collaborations, freelance projects, or just a casual chat about creativity.
-              Whether you have a specific idea or need a fresh perspective, I'm here.
             </p>
-
             <div class="flex flex-col sm:flex-row gap-4 mb-12">
               <a
                 href="mailto:fauzantaufiq1211@gmail.com"
@@ -666,7 +573,6 @@
                   <p class="text-white font-medium text-sm">fauzantaufiq1211@gmail.com</p>
                 </div>
               </a>
-
               <a
                 href="https://wa.me/6285156055303"
                 target="_blank"
@@ -687,7 +593,6 @@
                 </div>
               </a>
             </div>
-
             <div class="text-center md:text-left">
               <p class="text-gray-500 text-sm mb-6 uppercase tracking-widest font-bold">
                 Connect on Social
@@ -697,54 +602,44 @@
                   href="https://linkedin.com/in/fauzantaufiq"
                   target="_blank"
                   class="opacity-60 hover:opacity-100 hover:scale-110 transition-all duration-300"
-                >
-                  <img
+                  ><img
                     src="https://mrxttnlcpoixnvhngvtw.supabase.co/storage/v1/object/public/static/contact/linkedin-logo.svg"
                     alt="LinkedIn"
                     class="w-6 h-6 object-contain brightness-0 invert"
-                  />
-                </a>
+                /></a>
                 <a
                   href="https://behance.net/fauzantaufiq"
                   target="_blank"
                   class="opacity-60 hover:opacity-100 hover:scale-110 transition-all duration-300"
-                >
-                  <img
+                  ><img
                     src="https://mrxttnlcpoixnvhngvtw.supabase.co/storage/v1/object/public/static/contact/behance-logo.svg"
                     alt="Behance"
                     class="w-6 h-6 object-contain brightness-0 invert"
-                  />
-                </a>
+                /></a>
                 <a
                   href="https://instagram.com/fauzan.taufiqq"
                   target="_blank"
                   class="opacity-60 hover:opacity-100 hover:scale-110 transition-all duration-300"
-                >
-                  <img
+                  ><img
                     src="https://mrxttnlcpoixnvhngvtw.supabase.co/storage/v1/object/public/static/contact/instagram-logo.svg"
                     alt="Instagram"
                     class="w-6 h-6 object-contain brightness-0 invert"
-                  />
-                </a>
+                /></a>
               </div>
             </div>
           </div>
-
-          <!-- FORM CONTACT DIUBAH AGAR MENGGUNAKAN SUPABASE (ACTION DIHAPUS) -->
           <form
             id="contact-form"
             class="bg-white/5 border border-white/10 p-8 rounded-[2rem] backdrop-blur-md shadow-2xl"
           >
             <h4 class="text-xl font-bold text-white mb-6">Send a message here!</h4>
-
             <div class="space-y-5">
               <div>
                 <label
                   for="name"
                   class="block text-gray-400 text-xs font-bold uppercase tracking-wider mb-2"
                   >Full Name</label
-                >
-                <input
+                ><input
                   type="text"
                   name="name"
                   id="name"
@@ -753,30 +648,41 @@
                   class="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-300"
                 />
               </div>
-
-              <div>
-                <label
-                  for="email"
-                  class="block text-gray-400 text-xs font-bold uppercase tracking-wider mb-2"
-                  >E-mail</label
-                >
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  required
-                  placeholder="name@example.com"
-                  class="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-300"
-                />
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div>
+                  <label
+                    for="email"
+                    class="block text-gray-400 text-xs font-bold uppercase tracking-wider mb-2"
+                    >E-mail</label
+                  ><input
+                    type="email"
+                    name="email"
+                    id="email"
+                    required
+                    placeholder="name@example.com"
+                    class="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-300"
+                  />
+                </div>
+                <div>
+                  <label
+                    for="phone"
+                    class="block text-gray-400 text-xs font-bold uppercase tracking-wider mb-2"
+                    >Phone Number</label
+                  ><input
+                    type="text"
+                    name="phone"
+                    id="phone"
+                    placeholder="+62..."
+                    class="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-300"
+                  />
+                </div>
               </div>
-
               <div>
                 <label
                   for="message"
                   class="block text-gray-400 text-xs font-bold uppercase tracking-wider mb-2"
                   >Message</label
-                >
-                <textarea
+                ><textarea
                   name="message"
                   id="message"
                   rows="4"
@@ -785,7 +691,6 @@
                   class="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-300 resize-none"
                 ></textarea>
               </div>
-
               <button
                 type="submit"
                 class="w-full py-4 bg-primary text-white font-bold rounded-xl shadow-lg shadow-primary/20 hover:bg-[#9a421f] hover:shadow-primary/40 hover:-translate-y-1 transition-all duration-300 uppercase tracking-widest text-sm"
@@ -795,7 +700,6 @@
             </div>
           </form>
         </div>
-
         <div
           class="mt-20 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-center text-gray-600 text-sm text-center gap-1"
         >
@@ -826,14 +730,12 @@
       </svg>
     </button>
 
-    <!-- MODAL DOKUMEN UNIVERSAL (Untuk Resume & Portfolio PDF) -->
-    <!-- Catatan: Kita hanya pakai SATU modal untuk semua dokumen agar hemat kode -->
+    <!-- MODALS & POPUPS -->
     <div id="document-modal" class="fixed inset-0 z-[9999] hidden">
       <div
         class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity"
         onclick="closeDocument()"
       ></div>
-
       <div class="relative w-full h-full flex items-center justify-center p-4">
         <div
           class="bg-white w-[95%] h-[85%] md:w-full md:max-w-5xl md:h-[90vh] rounded-2xl overflow-hidden shadow-2xl relative flex flex-col transition-all transform scale-100"
@@ -847,15 +749,13 @@
             >
               Document Preview
             </h3>
-
             <div class="flex items-center gap-2">
               <a
                 id="document-download-btn"
                 href="#"
                 target="_blank"
                 class="px-3 py-1.5 bg-primary text-white text-[10px] md:text-xs font-bold rounded-lg hover:bg-[#9a421f] transition-colors flex items-center gap-1 md:gap-2"
-              >
-                <svg
+                ><svg
                   class="w-3 h-3 md:w-4 md:h-4"
                   fill="none"
                   stroke="currentColor"
@@ -866,12 +766,9 @@
                     stroke-linejoin="round"
                     stroke-width="2"
                     d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-                  ></path>
-                </svg>
-                <span>Download / Open</span>
-              </a>
-
-              <button
+                  ></path></svg
+                ><span>Download / Open</span></a
+              ><button
                 onclick="closeDocument()"
                 class="p-1.5 text-gray-500 hover:text-red-500 hover:bg-red-50 rounded-full transition-all"
               >
@@ -891,21 +788,18 @@
               </button>
             </div>
           </div>
-
           <div class="flex-1 w-full h-full bg-gray-100 relative overflow-hidden">
             <iframe
               id="document-frame"
               src=""
               class="w-full h-full border-0 absolute inset-0"
               allow="autoplay"
-            >
-            </iframe>
+            ></iframe>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- LIGHTBOX MODAL (GAMBAR - LOGIKA TERPISAH) -->
     <div
       id="lightbox-modal"
       class="fixed inset-0 z-[9999] hidden transition-all duration-300 opacity-0 pointer-events-none"
@@ -925,9 +819,8 @@
             stroke-width="2"
             d="M6 18L18 6M6 6l12 12"
           ></path>
-        </svg>
-      </button>
-      <button
+        </svg></button
+      ><button
         onclick="changeImage(-1)"
         class="absolute left-4 top-1/2 -translate-y-1/2 z-50 p-3 text-white/70 hover:text-white bg-black/20 hover:bg-black/50 rounded-full transition-all hover:scale-110 hidden md:block"
       >
@@ -938,9 +831,8 @@
             stroke-width="2"
             d="M15 19l-7-7 7-7"
           ></path>
-        </svg>
-      </button>
-      <button
+        </svg></button
+      ><button
         onclick="changeImage(1)"
         class="absolute right-4 top-1/2 -translate-y-1/2 z-50 p-3 text-white/70 hover:text-white bg-black/20 hover:bg-black/50 rounded-full transition-all hover:scale-110 hidden md:block"
       >
@@ -972,6 +864,58 @@
       </div>
     </div>
 
+    <div
+      id="status-popup"
+      class="fixed inset-0 z-[10000] hidden flex items-center justify-center p-4"
+    >
+      <div
+        class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity"
+        onclick="closePopup()"
+      ></div>
+      <div
+        class="bg-white w-full max-w-sm rounded-2xl p-6 shadow-2xl relative transform transition-all duration-300 scale-90 opacity-0 flex flex-col items-center text-center"
+      >
+        <div
+          id="popup-icon-success"
+          class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-4 hidden"
+        >
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="3"
+              d="M5 13l4 4L19 7"
+            ></path>
+          </svg>
+        </div>
+        <div
+          id="popup-icon-error"
+          class="w-16 h-16 bg-red-100 text-red-600 rounded-full flex items-center justify-center mb-4 hidden"
+        >
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="3"
+              d="M6 18L18 6M6 6l12 12"
+            ></path>
+          </svg>
+        </div>
+        <h3 id="popup-title" class="text-xl font-bold text-gray-800 mb-2">Title</h3>
+        <p id="popup-message" class="text-gray-600 text-sm mb-6 leading-relaxed">
+          Message goes here.
+        </p>
+        <button
+          id="popup-btn"
+          onclick="closePopup()"
+          class="w-full py-2 bg-gray-800 text-white rounded-lg hover:bg-black transition-colors font-bold"
+        >
+          OK
+        </button>
+      </div>
+    </div>
+
+    <!-- MAIN SCRIPT: ALL LOGIC INTEGRATED HERE -->
     <script>
       // ===========================================
       // 1. SUPABASE CONFIGURATION
@@ -989,14 +933,42 @@
       let currentImageIndex = 0;
 
       // ===========================================
-      // 3. NEW DYNAMIC CONTENT FETCHERS
+      // 3. INITIALIZATION (On Load)
+      // ===========================================
+      document.addEventListener("DOMContentLoaded", () => {
+        fetchportfolioFromSupabase();
+        fetchCompetencies();
+        fetchEducation();
+        fetchExperience();
+        initBackToTop();
+        initContactForm();
+        initSmoothScroll();
+        initScrollSpy();
+        initMobileMenu();
+
+        // Loader Hide Logic
+        const loader = document.getElementById("loader");
+        window.addEventListener("load", () => {
+          setTimeout(() => {
+            loader.classList.add("opacity-0", "pointer-events-none");
+            setTimeout(() => {
+              loader.style.display = "none";
+            }, 700);
+          }, 1000);
+
+          // Init Nav Pill after resources loaded
+          initNavbarPill();
+        });
+      });
+
+      // ===========================================
+      // 4. DATA FETCHERS (Supabase)
       // ===========================================
 
-      // A. Fetch Competencies (Arsenal & Other)
+      // A. Competencies
       async function fetchCompetencies() {
         const arsenalContainer = document.getElementById("competencies-arsenal-container");
         const otherContainer = document.getElementById("competencies-other-container");
-
         try {
           const { data, error } = await supabaseClient
             .from("competencies")
@@ -1004,45 +976,30 @@
             .order("sort_order", { ascending: true });
           if (error) throw error;
 
-          // Render Arsenal (Icons)
           const arsenalData = data.filter((item) => item.category === "arsenal");
           arsenalContainer.innerHTML = arsenalData
             .map(
               (item) => `
                 <div class="group flex flex-col items-center text-center gap-3 cursor-pointer">
-                  <div class="w-14 h-14 border border-gray-800 rounded-2xl flex items-center justify-center transition-all duration-300 group-hover:-translate-y-1" 
-                       style="background-color: ${item.bg_color};"
-                       onmouseover="this.style.borderColor='${item.border_color}'; this.style.boxShadow='0 0 20px ${item.border_color}4D'"
-                       onmouseout="this.style.borderColor='rgb(31, 41, 55)'; this.style.boxShadow='none'">
-                    <img src="${item.icon_url}" alt="${item.name}" class="w-8 h-8 object-contain transition-transform duration-300 group-hover:scale-110" />
-                  </div>
-                  <span class="text-[10px] leading-tight uppercase tracking-widest text-gray-500 font-medium transition-colors max-w-[100px]"
-                        onmouseover="this.style.color='${item.border_color}'"
-                        onmouseout="this.style.color='rgb(107, 114, 128)'">
-                    ${item.name}
-                  </span>
-                </div>
-            `
+                  <div class="w-14 h-14 border border-gray-800 rounded-2xl flex items-center justify-center transition-all duration-300 group-hover:-translate-y-1" style="background-color: ${item.bg_color};" onmouseover="this.style.borderColor='${item.border_color}'; this.style.boxShadow='0 0 20px ${item.border_color}4D'" onmouseout="this.style.borderColor='rgb(31, 41, 55)'; this.style.boxShadow='none'"><img src="${item.icon_url}" alt="${item.name}" class="w-8 h-8 object-contain transition-transform duration-300 group-hover:scale-110" /></div>
+                  <span class="text-[10px] leading-tight uppercase tracking-widest text-gray-500 font-medium transition-colors max-w-[100px]" onmouseover="this.style.color='${item.border_color}'" onmouseout="this.style.color='rgb(107, 114, 128)'">${item.name}</span>
+                </div>`
             )
             .join("");
 
-          // Render Other Competencies (Tags)
           const otherData = data.filter((item) => item.category === "other");
           otherContainer.innerHTML = otherData
             .map(
-              (item) => `
-                <span class="px-4 py-2 bg-gray-900 border border-gray-800 text-gray-300 rounded-lg text-sm hover:border-primary hover:text-primary transition-colors cursor-default">
-                  ${item.name}
-                </span>
-            `
+              (item) =>
+                `<span class="px-4 py-2 bg-gray-900 border border-gray-800 text-gray-300 rounded-lg text-sm hover:border-primary hover:text-primary transition-colors cursor-default">${item.name}</span>`
             )
             .join("");
         } catch (err) {
-          console.error("Gagal load competencies:", err);
+          console.error("Error loading competencies:", err);
         }
       }
 
-      // B. Fetch Education
+      // B. Education
       async function fetchEducation() {
         const container = document.getElementById("education-list");
         try {
@@ -1051,41 +1008,36 @@
             .select("*")
             .order("sort_order", { ascending: true });
           if (error) throw error;
-
           container.innerHTML = data
             .map((edu) => {
               const dotClass = edu.is_active
                 ? "bg-primary ring-4 ring-black"
                 : "bg-gray-600 ring-4 ring-black group-hover:bg-primary transition-colors";
-
               return `
                 <div class="relative pl-8 group">
                     <span class="absolute -left-[9px] top-1.5 h-4 w-4 rounded-full ${dotClass}"></span>
-                    <h4 class="text-xl font-bold text-white leading-tight">
-                        <a href="${
-                          edu.institution_link
-                        }" target="_blank" class="hover:text-primary transition-all">${
+                    <h4 class="text-xl font-bold text-white leading-tight"><a href="${
+                      edu.institution_link
+                    }" target="_blank" class="hover:text-primary transition-all">${
                 edu.institution
-              }</a>
-                    </h4>
+              }</a></h4>
                     <p class="text-${
                       edu.is_active ? "primary font-bold" : "gray-500 font-medium"
                     } text-sm mt-1 mb-2">${edu.period}</p>
-                    <div class="text-gray-400 text-sm space-y-1">
-                        <p class="font-semibold text-gray-200">${edu.degree}</p>
-                        <p class="bg-gray-800 border border-gray-700 text-gray-300 px-2 py-0.5 rounded w-fit text-xs font-medium">
-                            ${edu.score_label}: ${edu.score_value}
-                        </p>
-                    </div>
+                    <div class="text-gray-400 text-sm space-y-1"><p class="font-semibold text-gray-200">${
+                      edu.degree
+                    }</p><p class="bg-gray-800 border border-gray-700 text-gray-300 px-2 py-0.5 rounded w-fit text-xs font-medium">${
+                edu.score_label
+              }: ${edu.score_value}</p></div>
                 </div>`;
             })
             .join("");
         } catch (err) {
-          console.error("Gagal load education:", err);
+          console.error("Error loading education:", err);
         }
       }
 
-      // C. Fetch Experience
+      // C. Experience (FIXED FEATURED STYLE & BADGES)
       async function fetchExperience() {
         const container = document.getElementById("experience-list");
         try {
@@ -1097,12 +1049,11 @@
 
           container.innerHTML = data
             .map((exp) => {
-              // Dekorasi sudut untuk featured items
-              const decoration = exp.is_featured
-                ? `<div class="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-bl-full -mr-4 -mt-4"></div>`
-                : "";
+              // FEATURED STYLE: Simple & Aesthetic (Border Kiri Orange, Background Hangat) - NO RIBBON
+              const containerClass = exp.is_featured
+                ? "p-8 border-l-4 border-l-primary border-t border-r border-b border-gray-100 bg-orange-50/30 rounded-r-2xl rounded-l-md hover:shadow-xl transition-all duration-300 relative overflow-hidden"
+                : "p-8 border border-gray-100 rounded-2xl bg-white hover:shadow-xl transition-all duration-300 relative overflow-hidden";
 
-              // Parse JSON description array
               let descList = "";
               if (exp.description) {
                 try {
@@ -1116,44 +1067,41 @@
                 }
               }
 
+              // BADGE CLASS FALLBACK
+              // Jika database kosong, kita tentukan manual berdasarkan teks tipe
+              let badgeClass = exp.type_class;
+              if (!badgeClass) {
+                const typeLower = exp.type.toLowerCase();
+                if (typeLower.includes("remote")) badgeClass = "badge-work-remote";
+                else if (typeLower.includes("on-site") || typeLower.includes("onsite"))
+                  badgeClass = "badge-work-onsite";
+                else if (typeLower.includes("volunteer")) badgeClass = "badge-work-volunteer";
+                else badgeClass = "badge-work-type";
+              }
+
               return `
-                <div class="p-8 border border-gray-100 rounded-2xl ${
-                  exp.is_featured
-                    ? "bg-gray-50 hover:bg-white relative overflow-hidden"
-                    : "bg-white"
-                } hover:shadow-xl transition-all duration-300">
-                    ${decoration}
+                <div class="${containerClass}">
                     <div class="flex flex-col md:flex-row justify-between md:items-center mb-4 gap-2 relative z-10">
                         <h4 class="text-xl font-bold text-black">${exp.role}</h4>
                         <div class="flex gap-2">
-                            <span class="${exp.type_class}">${exp.type}</span>
+                            <span class="${badgeClass}">${exp.type}</span>
                             <span class="badge-date">${exp.period}</span>
                         </div>
                     </div>
-                    <p class="text-lg font-medium text-gray-700 mb-4">
-                        <a href="${
-                          exp.company_link
-                        }" target="_blank" class="hover:text-primary transition-colors flex items-center gap-2 w-fit">
-                            ${exp.company}
-                        </a>
+                    <p class="text-lg font-medium text-gray-700 mb-4 relative z-10">
+                        <a href="${exp.company_link}" target="_blank" class="hover:text-primary transition-colors flex items-center gap-2 w-fit">${exp.company}</a>
                         <span class="text-gray-400 text-sm font-normal ml-1">${exp.location}</span>
                     </p>
-                    <ul class="list-disc list-outside ml-5 text-gray-600 space-y-2 text-sm leading-relaxed">
-                        ${descList}
-                    </ul>
+                    <ul class="list-disc list-outside ml-5 text-gray-600 space-y-2 text-sm leading-relaxed relative z-10">${descList}</ul>
                 </div>`;
             })
             .join("");
         } catch (err) {
-          console.error("Gagal load experience:", err);
+          console.error("Error loading experience:", err);
         }
       }
 
-      // ===========================================
-      // 4. EXISTING LOGIC (Portfolio, Modal, etc)
-      // ===========================================
-
-      // ... (Kode Portfolio Fetcher sama seperti sebelumnya) ...
+      // D. Portfolio
       async function fetchportfolioFromSupabase() {
         const container = document.getElementById("portfolio-container");
         container.innerHTML =
@@ -1195,7 +1143,7 @@
           });
           renderportfolio(formattedData);
         } catch (err) {
-          console.error("Gagal mengambil data:", err);
+          console.error("Error loading portfolio:", err);
           container.innerHTML = `<p class="text-center text-red-500">Error: ${err.message}</p>`;
         }
       }
@@ -1205,6 +1153,7 @@
         const container = document.getElementById("portfolio-container");
         let htmlContent = "";
         if (!data || data.length === 0) return;
+
         data.forEach((item) => {
           let sectionGallery = [];
           portfolioGalleries[item.id] = sectionGallery;
@@ -1212,6 +1161,7 @@
             if (!url) return false;
             return url.match(/\.(jpeg|jpg|gif|png|webp|svg)$/i) != null;
           };
+
           const createCardAction = (work, sectionId) => {
             if (
               work.link &&
@@ -1232,6 +1182,7 @@
               return `href="#" onclick="openLightbox('${sectionId}', ${localIndex}); return false;"`;
             }
           };
+
           const createActionButton = (work, sectionId) => {
             if (
               work.link &&
@@ -1255,6 +1206,7 @@
               return `<button onclick="openLightbox('${sectionId}', ${localIndex}); return false;" class="btn-action">${work.btnText}</button>`;
             }
           };
+
           if (item.layout === "grid") {
             const cardsHtml = item.works
               .map(
@@ -1277,80 +1229,65 @@
                           work.title
                         }</h4>
                         <p class="text-sm text-gray-500 line-clamp-2">${work.desc || ""}</p>
-                        <div class="mt-4 pt-4 border-t border-gray-100 flex items-center text-xs font-bold text-gray-400 group-hover:text-primary transition-colors">
-                            View Project <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                        </div>
+                        <div class="mt-4 pt-4 border-t border-gray-100 flex items-center text-xs font-bold text-gray-400 group-hover:text-primary transition-colors">View Project <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></div>
                     </div>
                 </a>`
               )
               .join("");
             htmlContent += `
                 <div>
-                    <div class="py-16 md:py-24 relative flex items-center">
+                    <div class="py-16 md:py-24 relative flex items-center justify-center">
                         <div class="flex-grow border-t border-gray-200 opacity-70"></div>
-                        <span class="flex-shrink mx-6 text-gray-400 uppercase text-[10px] md:text-xs font-bold tracking-[0.3em] flex items-center gap-2">
+                        <span class="flex-shrink mx-3 md:mx-6 text-gray-400 uppercase text-[10px] md:text-xs font-bold tracking-[0.15em] md:tracking-[0.3em] flex items-center justify-center gap-2 text-center">
                             <span class="text-primary text-base">✦</span> ${
                               item.tagline || "Explore"
                             } <span class="text-primary text-base">✦</span>
                         </span>
                         <div class="flex-grow border-t border-gray-200 opacity-70"></div>
                     </div>
-                    <div class="text-center max-w-3xl mx-auto mb-12">
-                        <h4 class="text-3xl md:text-4xl font-extrabold text-black mb-4">${
-                          item.title
-                        }</h4>
-                        <p class="text-gray-500 leading-relaxed">${item.desc}</p>
-                    </div>
+                    <div class="text-center max-w-3xl mx-auto mb-12"><h4 class="text-3xl md:text-4xl font-extrabold text-black mb-4">${
+                      item.title
+                    }</h4><p class="text-gray-500 leading-relaxed">${item.desc}</p></div>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">${cardsHtml}</div>
                 </div>`;
           } else {
             const slidesHtml = item.works
               .map(
                 (work) => `
-                <div class="work-slide">
-                    <span class="slide-badge">${work.type}</span>
-                    <img src="${work.img}" alt="${work.type}" class="slide-image">
-                    <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-30">
-                        ${createActionButton(work, item.id)}
-                    </div>
-                </div>`
+                <div class="work-slide"><span class="slide-badge">${work.type}</span><img src="${
+                  work.img
+                }" alt="${
+                  work.type
+                }" class="slide-image"><div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-30">${createActionButton(
+                  work,
+                  item.id
+                )}</div></div>`
               )
               .join("");
             htmlContent += `
                 <div class="company-showcase">
                     <div class="flex flex-col lg:flex-row gap-12">
                         <div class="w-full lg:w-1/3">
-                            <div class="lg:sticky lg:top-32">
-                                <span class="text-xs font-bold ${
-                                  item.badgeClass || "bg-gray-100 text-gray-600"
-                                } px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-4">${
+                            <div class="lg:sticky lg:top-32"><span class="text-xs font-bold ${
+                              item.badgeClass || "bg-gray-100 text-gray-600"
+                            } px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-4">${
               item.badge || "Project"
-            }</span>
-                                <h4 class="text-3xl font-bold text-black mb-2">${item.company}</h4>
-                                <p class="text-gray-500 text-sm font-bold uppercase tracking-widest mb-6">${
-                                  item.tagline
-                                }</p>
-                                <p class="text-gray-600 text-sm leading-relaxed mb-8">${
-                                  item.desc
-                                }</p>
-                            </div>
+            }</span><h4 class="text-3xl font-bold text-black mb-2">${
+              item.company
+            }</h4><p class="text-gray-500 text-sm font-bold uppercase tracking-widest mb-6">${
+              item.tagline
+            }</p><p class="text-gray-600 text-sm leading-relaxed mb-8">${item.desc}</p></div>
                         </div>
                         <div class="w-full lg:w-2/3 relative group">
                             <button class="nav-arrow nav-prev hidden lg:flex" onclick="moveSlide('${
                               item.id
-                            }', -1)">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                            </button>
+                            }', -1)"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
                             <button class="nav-arrow nav-next hidden lg:flex" onclick="moveSlide('${
                               item.id
-                            }', 1)">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                            </button>
+                            }', 1)"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
                             <div id="slider-${
                               item.id
-                            }" class="work-slider h-[400px] lg:h-[550px] shadow-xl rounded-[2.5rem] overflow-hidden border border-gray-100 bg-gray-50/50">
-                                ${slidesHtml}
-                            </div>
+                            }" class="work-slider h-[400px] lg:h-[550px] shadow-xl rounded-[2.5rem] overflow-hidden border border-gray-100 bg-gray-50/50">${slidesHtml}</div>
                         </div>
                     </div>
                 </div>`;
@@ -1360,13 +1297,49 @@
         initSliders();
       }
 
-      // ... (Helper & Modal Functions sama seperti sebelumnya) ...
+      function initSliders() {
+        document.querySelectorAll(".work-slider").forEach((slider) => {
+          let isDown = false;
+          let startX, scrollLeft;
+          slider.addEventListener("mousedown", (e) => {
+            isDown = true;
+            slider.style.cursor = "grabbing";
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+          });
+          slider.addEventListener("mouseleave", () => {
+            isDown = false;
+            slider.style.cursor = "grab";
+          });
+          slider.addEventListener("mouseup", () => {
+            isDown = false;
+            slider.style.cursor = "grab";
+          });
+          slider.addEventListener("mousemove", (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 2;
+            slider.scrollLeft = scrollLeft - walk;
+          });
+        });
+      }
+      window.moveSlide = function (id, direction) {
+        const slider = document.getElementById(`slider-${id}`);
+        if (slider) {
+          const slideWidth = slider.offsetWidth;
+          slider.scrollBy({ left: direction * slideWidth, behavior: "smooth" });
+        }
+      };
+
+      // ===========================================
+      // 5. HELPER FUNCTIONS (MODAL, SCROLL)
+      // ===========================================
       const getScrollbarWidth = () => window.innerWidth - document.documentElement.clientWidth;
       const lockScroll = () => {
-        const scrollbarWidth = getScrollbarWidth();
-        document.body.style.paddingRight = `${scrollbarWidth}px`;
+        document.body.style.paddingRight = `${getScrollbarWidth()}px`;
         const navbar = document.querySelector("nav");
-        if (navbar) navbar.style.paddingRight = `${scrollbarWidth}px`;
+        if (navbar) navbar.style.paddingRight = `${getScrollbarWidth()}px`;
         document.body.style.overflow = "hidden";
       };
       const unlockScroll = () => {
@@ -1375,6 +1348,7 @@
         if (navbar) navbar.style.paddingRight = "0px";
         document.body.style.overflow = "auto";
       };
+
       function openDocument(url, title) {
         const modal = document.getElementById("document-modal");
         const frame = document.getElementById("document-frame");
@@ -1403,6 +1377,7 @@
           "https://mrxttnlcpoixnvhngvtw.supabase.co/storage/v1/object/public/static/cv/cv-ats-fauzan-english.pdf";
         openDocument(resumeUrl, "My Resume");
       }
+
       function openLightbox(sectionId, index) {
         const modal = document.getElementById("lightbox-modal");
         const img = document.getElementById("lightbox-image");
@@ -1455,85 +1430,6 @@
         }, 300);
         unlockScroll();
       }
-      function initSliders() {
-        document.querySelectorAll(".work-slider").forEach((slider) => {
-          let isDown = false;
-          let startX, scrollLeft;
-          slider.addEventListener("mousedown", (e) => {
-            isDown = true;
-            slider.style.cursor = "grabbing";
-            startX = e.pageX - slider.offsetLeft;
-            scrollLeft = slider.scrollLeft;
-          });
-          slider.addEventListener("mouseleave", () => {
-            isDown = false;
-            slider.style.cursor = "grab";
-          });
-          slider.addEventListener("mouseup", () => {
-            isDown = false;
-            slider.style.cursor = "grab";
-          });
-          slider.addEventListener("mousemove", (e) => {
-            if (!isDown) return;
-            e.preventDefault();
-            const x = e.pageX - slider.offsetLeft;
-            const walk = (x - startX) * 2;
-            slider.scrollLeft = scrollLeft - walk;
-          });
-        });
-      }
-      window.moveSlide = function (id, direction) {
-        const slider = document.getElementById(`slider-${id}`);
-        if (slider) {
-          const slideWidth = slider.offsetWidth;
-          slider.scrollBy({ left: direction * slideWidth, behavior: "smooth" });
-        }
-      };
-
-      // --- EVENTS ---
-      document.addEventListener("DOMContentLoaded", () => {
-        fetchportfolioFromSupabase();
-        // --- NEW: Panggil fungsi dinamis baru ---
-        fetchCompetencies();
-        fetchEducation();
-        fetchExperience();
-
-        const loader = document.getElementById("loader");
-        setTimeout(() => {
-          loader.classList.add("opacity-0", "pointer-events-none");
-          setTimeout(() => {
-            loader.style.display = "none";
-          }, 700);
-        }, 1000);
-
-        // ... (Contact form logic, scroll logic tetap sama) ...
-        const contactForm = document.getElementById("contact-form");
-        if (contactForm) {
-          contactForm.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const submitBtn = contactForm.querySelector('button[type="submit"]');
-            submitBtn.innerText = "Sending...";
-            submitBtn.disabled = true;
-            const name = document.getElementById("name").value;
-            const email = document.getElementById("email").value;
-            const message = document.getElementById("message").value;
-            try {
-              const { error } = await supabaseClient
-                .from("messages")
-                .insert([{ name, email, message }]);
-              if (error) throw error;
-              alert("Pesan berhasil terkirim!");
-              contactForm.reset();
-            } catch (err) {
-              console.error(err);
-              alert("Gagal mengirim pesan. Cek koneksi internet Anda dan coba lagi.");
-            } finally {
-              submitBtn.innerText = "Send Message";
-              submitBtn.disabled = false;
-            }
-          });
-        }
-      });
 
       document.addEventListener("keydown", function (event) {
         const lightboxModal = document.getElementById("lightbox-modal");
@@ -1548,36 +1444,39 @@
         }
       });
 
-      /**
-       * NAV-LOGIC.JS
-       * Mengatur semua perilaku Navigasi:
-       * 1. Mobile Menu Toggle
-       * 2. Sliding Pill Animation (Kotak Hitam)
-       * 3. Smooth Scroll tanpa mengubah URL (Hash)
-       * 4. Scroll Spy (Ubah warna scrollbar)
-       */
+      // ===========================================
+      // 6. UI LOGIC (Nav, Contact, BackToTop)
+      // ===========================================
 
-      // Menunggu seluruh aset (gambar/font) selesai dimuat agar perhitungan posisi akurat
-      window.addEventListener("load", () => {
-        initMobileMenu();
-        initNavbarPill();
-        initSmoothScroll();
-        initScrollSpy();
-      });
+      // A. Back To Top
+      function initBackToTop() {
+        const backToTopBtn = document.getElementById("back-to-top");
+        if (backToTopBtn) {
+          window.addEventListener("scroll", () => {
+            if (window.scrollY > 300) {
+              backToTopBtn.classList.remove("opacity-0", "pointer-events-none", "translate-y-10");
+              backToTopBtn.classList.add("opacity-100", "translate-y-0");
+            } else {
+              backToTopBtn.classList.remove("opacity-100", "translate-y-0");
+              backToTopBtn.classList.add("opacity-0", "pointer-events-none", "translate-y-10");
+            }
+          });
+          backToTopBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          });
+        }
+      }
 
-      // 1. INIT MOBILE MENU
+      // B. Mobile Menu
       function initMobileMenu() {
         const btn = document.getElementById("mobile-menu-button");
         const menu = document.getElementById("mobile-menu");
         const links = document.querySelectorAll(".mobile-link");
-
         if (btn && menu) {
-          // Toggle menu saat tombol burger diklik
           btn.addEventListener("click", () => {
             menu.classList.toggle("hidden");
           });
-
-          // Tutup menu saat salah satu link diklik
           links.forEach((link) => {
             link.addEventListener("click", () => {
               menu.classList.add("hidden");
@@ -1586,63 +1485,38 @@
         }
       }
 
-      // 2. INIT NAVBAR PILL (KOTAK HITAM)
+      // C. Nav Pill
       function initNavbarPill() {
         const navContainer = document.getElementById("nav-container");
         const pill = document.getElementById("nav-pill");
         const navLinks = document.querySelectorAll(".nav-link");
-        const defaultLink = document.getElementById("default-link"); // Pastikan link Contact punya ID ini
-
-        // Safety check: Jika elemen tidak ada, stop fungsi
+        const defaultLink = document.getElementById("default-link");
         if (!navContainer || !pill || !defaultLink) return;
-
-        // Fungsi: Pindahkan Pill ke elemen target
         function movePillTo(element) {
-          // Hitung posisi dan lebar target
-          const width = element.offsetWidth;
-          const left = element.offsetLeft;
-
-          // Terapkan ke Pill
-          pill.style.width = `${width}px`;
-          pill.style.left = `${left}px`;
-          pill.style.opacity = "1"; // Munculkan pill
-
-          // Ubah styling text link
+          pill.style.width = `${element.offsetWidth}px`;
+          pill.style.left = `${element.offsetLeft}px`;
+          pill.style.opacity = "1";
           navLinks.forEach((link) => {
             link.classList.remove("text-white");
             link.classList.add("text-gray-600");
           });
-
-          // Highlight elemen yang aktif
           element.classList.remove("text-gray-600");
           element.classList.add("text-white");
         }
-
-        // A. Set Posisi Awal (Default: Contact)
-        // Kita beri sedikit delay agar CSS rendering stabil
         setTimeout(() => {
-          pill.style.transition = "none"; // Matikan animasi saat load awal
+          pill.style.transition = "none";
           movePillTo(defaultLink);
-
-          // Nyalakan animasi kembali setelah posisi set
           setTimeout(() => {
             pill.style.transition = "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)";
           }, 100);
         }, 100);
-
-        // B. Event Hover (Mouse Masuk)
         navLinks.forEach((link) => {
           link.addEventListener("mouseenter", () => movePillTo(link));
         });
-
-        // C. Event Mouse Leave (Mouse Keluar dari Container Nav)
         navContainer.addEventListener("mouseleave", () => {
-          movePillTo(defaultLink); // Kembali ke default (Contact)
+          movePillTo(defaultLink);
         });
-
-        // D. Event Resize Window (Agar posisi tetap akurat saat layar diubah)
         window.addEventListener("resize", () => {
-          // Matikan transisi sebentar agar responsif
           pill.style.transition = "none";
           movePillTo(defaultLink);
           setTimeout(() => {
@@ -1651,32 +1525,19 @@
         });
       }
 
-      // 3. INIT SMOOTH SCROLL (BERSIH TANPA HASH URL)
+      // D. Smooth Scroll
       function initSmoothScroll() {
         document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
           anchor.addEventListener("click", function (e) {
             const targetId = this.getAttribute("href");
-
-            // Abaikan jika href hanya "#"
             if (targetId === "#") return;
-
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
-              // PENTING: Mencegah browser menambahkan /#about ke URL bar
               e.preventDefault();
-
-              // Hitung posisi offset (agar tidak tertutup navbar)
-              const headerOffset = 100; // Sesuaikan tinggi navbar Anda
+              const headerOffset = 100;
               const elementPosition = targetElement.getBoundingClientRect().top;
               const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-              // Lakukan Scroll Halus
-              window.scrollTo({
-                top: offsetPosition,
-                behavior: "smooth",
-              });
-
-              // Tutup menu mobile jika sedang terbuka (UX tambahan)
+              window.scrollTo({ top: offsetPosition, behavior: "smooth" });
               const mobileMenu = document.getElementById("mobile-menu");
               if (mobileMenu && !mobileMenu.classList.contains("hidden")) {
                 mobileMenu.classList.add("hidden");
@@ -1686,14 +1547,13 @@
         });
       }
 
-      // 4. INIT SCROLL SPY (Scrollbar Chameleon)
+      // E. Scroll Spy
       function initScrollSpy() {
         const targetSection = document.getElementById("org-leadership");
         if (targetSection) {
           const observer = new IntersectionObserver(
             (entries) => {
               entries.forEach((entry) => {
-                // Jika section target terlihat, ubah scrollbar jadi hitam
                 if (entry.isIntersecting) {
                   document.body.classList.add("scrollbar-black");
                 } else {
@@ -1701,45 +1561,130 @@
                 }
               });
             },
-            { threshold: [0.1, 0.9] } // Trigger saat 10% atau 90% elemen terlihat
+            { threshold: [0.1, 0.9] }
           );
           observer.observe(targetSection);
         }
       }
 
-      /**
-       * BACK-TO-TOP.JS
-       * Mengatur visibilitas dan fungsi tombol kembali ke atas.
-       */
+      // F. Contact Form
+      function initContactForm() {
+        const contactForm = document.getElementById("contact-form");
+        const phoneInput = document.getElementById("phone");
 
-      document.addEventListener("DOMContentLoaded", () => {
-        const backToTopBtn = document.getElementById("back-to-top");
-
-        if (backToTopBtn) {
-          // 1. Event Scroll: Tampilkan/Sembunyikan Tombol
-          window.addEventListener("scroll", () => {
-            if (window.scrollY > 300) {
-              // Tampilkan tombol (Hapus class sembunyi, tambah class tampil)
-              backToTopBtn.classList.remove("opacity-0", "pointer-events-none", "translate-y-10");
-              backToTopBtn.classList.add("opacity-100", "translate-y-0");
-            } else {
-              // Sembunyikan tombol
-              backToTopBtn.classList.remove("opacity-100", "translate-y-0");
-              backToTopBtn.classList.add("opacity-0", "pointer-events-none", "translate-y-10");
+        // Logic HP
+        if (phoneInput) {
+          phoneInput.addEventListener("input", function (e) {
+            let value = this.value.replace(/[^0-9+]/g, "");
+            if (!value.startsWith("+")) {
+              value = "+" + value.replace(/\+/g, "");
+            }
+            this.value = value;
+          });
+          phoneInput.addEventListener("focus", function () {
+            if (this.value === "") {
+              this.value = "+62";
             }
           });
-
-          // 2. Event Click: Scroll Halus ke Atas
-          // (Ini menggantikan onclick="window.scrollTo..." di HTML agar lebih bersih)
-          backToTopBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            window.scrollTo({
-              top: 0,
-              behavior: "smooth",
-            });
+          phoneInput.addEventListener("blur", function () {
+            if (this.value === "+62") {
+              this.value = "";
+            }
           });
         }
-      });
+
+        // Logic Submit
+        if (contactForm) {
+          contactForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerText;
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const phone = document.getElementById("phone").value;
+            const message = document.getElementById("message").value;
+
+            // Validasi
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+              showPopup("error", "Format Email Salah", "Mohon masukkan alamat email yang valid.");
+              return;
+            }
+            if (phone.length < 10) {
+              showPopup(
+                "error",
+                "Nomor HP Tidak Valid",
+                "Mohon masukkan nomor HP lengkap dengan kode negara."
+              );
+              return;
+            }
+
+            try {
+              submitBtn.innerText = "Sending...";
+              submitBtn.disabled = true;
+              const { error } = await supabaseClient
+                .from("messages")
+                .insert([{ name, email, phone, message }]);
+              if (error) throw error;
+              showPopup(
+                "success",
+                "Pesan Terkirim!",
+                "Terima kasih telah menghubungi saya. Saya akan membalas secepatnya."
+              );
+              contactForm.reset();
+            } catch (err) {
+              console.error("Error:", err);
+              showPopup(
+                "error",
+                "Gagal Mengirim",
+                "Terjadi kesalahan sistem. Silakan coba lagi nanti."
+              );
+            } finally {
+              submitBtn.innerText = originalText;
+              submitBtn.disabled = false;
+            }
+          });
+        }
+      }
+
+      function showPopup(type, title, message) {
+        const modal = document.getElementById("status-popup");
+        const iconSuccess = document.getElementById("popup-icon-success");
+        const iconError = document.getElementById("popup-icon-error");
+        const titleEl = document.getElementById("popup-title");
+        const msgEl = document.getElementById("popup-message");
+        const btnEl = document.getElementById("popup-btn");
+
+        titleEl.innerText = title;
+        msgEl.innerText = message;
+        if (type === "success") {
+          iconSuccess.classList.remove("hidden");
+          iconError.classList.add("hidden");
+          btnEl.className =
+            "w-full py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors font-bold";
+          titleEl.className = "text-xl font-bold text-green-600 mb-2";
+        } else {
+          iconSuccess.classList.add("hidden");
+          iconError.classList.remove("hidden");
+          btnEl.className =
+            "w-full py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors font-bold";
+          titleEl.className = "text-xl font-bold text-red-600 mb-2";
+        }
+        modal.classList.remove("hidden");
+        setTimeout(() => {
+          modal.firstElementChild.classList.remove("scale-90", "opacity-0");
+          modal.firstElementChild.classList.add("scale-100", "opacity-100");
+        }, 10);
+      }
+
+      window.closePopup = function () {
+        const modal = document.getElementById("status-popup");
+        modal.firstElementChild.classList.remove("scale-100", "opacity-100");
+        modal.firstElementChild.classList.add("scale-90", "opacity-0");
+        setTimeout(() => {
+          modal.classList.add("hidden");
+        }, 300);
+      };
     </script>
   </body>
 </html>
