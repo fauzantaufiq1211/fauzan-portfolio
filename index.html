@@ -720,6 +720,18 @@
           </p>
           <p>All rights reserved.</p>
         </div>
+
+        <div
+          class="mt- 5 pt-5 flex flex-col md:flex-row justify-center text-gray-600 text-sm text-center flex gap-6"
+        >
+          <button onclick="openLegal('terms')" class="hover:text-gray-200 transition-colors">
+            <strong>Terms of Service</strong>
+          </button>
+          <span>•</span>
+          <button onclick="openLegal('privacy')" class="hover:text-gray-200 transition-colors">
+            <strong>Privacy Policy</strong>
+          </button>
+        </div>
       </div>
     </section>
 
@@ -924,6 +936,59 @@
         >
           OK
         </button>
+      </div>
+    </div>
+
+    <!-- LEGAL MODAL (Terms & Privacy) -->
+    <div
+      id="legal-modal"
+      class="fixed inset-0 z-[10001] hidden flex items-center justify-center p-4"
+    >
+      <!-- Overlay -->
+      <div
+        class="absolute inset-0 bg-black/90 backdrop-blur-md transition-opacity"
+        onclick="closeLegal()"
+      ></div>
+
+      <!-- Content Container -->
+      <div
+        class="bg-white w-full max-w-2xl h-[80vh] rounded-2xl shadow-2xl relative z-10 flex flex-col transform transition-all duration-300 scale-95 opacity-0"
+      >
+        <!-- Header -->
+        <div class="flex justify-between items-center p-6 border-b border-gray-100">
+          <h3 id="legal-title" class="text-2xl font-bold text-gray-900">Legal Title</h3>
+          <button
+            onclick="closeLegal()"
+            class="p-2 bg-gray-100 hover:bg-red-50 text-gray-500 hover:text-red-500 rounded-full transition-colors"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              ></path>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Scrollable Body -->
+        <div
+          id="legal-content"
+          class="flex-1 overflow-y-auto p-6 text-gray-600 text-sm leading-relaxed space-y-4"
+        >
+          <!-- Content injected via JS -->
+        </div>
+
+        <!-- Footer -->
+        <div class="p-4 border-t border-gray-100 bg-gray-50 rounded-b-2xl flex justify-end">
+          <button
+            onclick="closeLegal()"
+            class="px-6 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors text-sm font-bold"
+          >
+            I Understand
+          </button>
+        </div>
       </div>
     </div>
 
@@ -1691,6 +1756,66 @@
           content.classList.remove("scale-90", "opacity-0");
           content.classList.add("scale-100", "opacity-100");
         }, 10);
+      }
+
+      // ===========================================
+      // 7. LEGAL MODAL LOGIC (Terms & Privacy)
+      // ===========================================
+
+      // Data Konten (HTML Text)
+      const legalContent = {
+        terms: `
+          <p><strong>1. Introduction</strong><br>Welcome to Muhammad Fauzan Taufiq's Portfolio Website. By accessing this website, you agree to be bound by these Terms of Service.</p>
+          <p><strong>2. Intellectual Property</strong><br>All content on this website, including text, graphics, logos, images, and software, is the property of Muhammad Fauzan Taufiq unless otherwise stated (e.g., client work). You may not reproduce, distribute, or exploit any content without prior written permission.</p>
+          <p><strong>3. Use of Portfolio</strong><br>The works displayed are for demonstration purposes only. They represent my personal skills and professional experience. Some projects may be conceptual or academic in nature.</p>
+          <p><strong>4. Limitation of Liability</strong><br>This website is provided "as is". I am not liable for any errors, omissions, or technical issues that may arise during your visit.</p>
+          <p><strong>5. Contact</strong><br>For any inquiries regarding usage rights, please contact me via the form provided on this website.</p>
+        `,
+        privacy: `
+          <p><strong>1. Information Collection</strong><br>This website does not require user registration. However, if you use the contact form, the personal information you provide (Name, Email, Phone Number) will be stored in my database (Supabase) solely for the purpose of replying to your inquiry.</p>
+          <p><strong>2. Use of Information</strong><br>I do not sell, trade, or rent your personal identification information to others. Your data is strictly used for professional communication.</p>
+          <p><strong>3. Third-Party Services</strong><br>This website uses third-party services like Supabase (for database/storage) and Google Docs Viewer (for PDF previews). These services may collect standard usage data (IP addresses) for security and analytics.</p>
+          <p><strong>4. Cookies</strong><br>This website functions as a static portfolio and does not use aggressive tracking cookies for advertising purposes.</p>
+          <p><strong>5. Your Rights</strong><br>You have the right to request the deletion of any message data you have sent via the contact form. Please contact me directly to process this request.</p>
+        `,
+      };
+
+      function openLegal(type) {
+        const modal = document.getElementById("legal-modal");
+        const titleEl = document.getElementById("legal-title");
+        const contentEl = document.getElementById("legal-content");
+        const modalBox = modal.querySelector("div[class*='transform']"); // Target inner box
+
+        // Set Content
+        if (type === "terms") {
+          titleEl.innerText = "Terms of Service";
+          contentEl.innerHTML = legalContent.terms;
+        } else {
+          titleEl.innerText = "Privacy Policy";
+          contentEl.innerHTML = legalContent.privacy;
+        }
+
+        // Show & Animate
+        modal.classList.remove("hidden");
+        lockScroll(); // Reuse existing helper
+
+        setTimeout(() => {
+          modalBox.classList.remove("scale-95", "opacity-0");
+          modalBox.classList.add("scale-100", "opacity-100");
+        }, 10);
+      }
+
+      function closeLegal() {
+        const modal = document.getElementById("legal-modal");
+        const modalBox = modal.querySelector("div[class*='transform']");
+
+        modalBox.classList.remove("scale-100", "opacity-100");
+        modalBox.classList.add("scale-95", "opacity-0");
+
+        setTimeout(() => {
+          modal.classList.add("hidden");
+          unlockScroll(); // Reuse existing helper
+        }, 300);
       }
 
       window.closePopup = function () {
