@@ -1035,12 +1035,13 @@
               }</a></h4>
                     <p class="text-${
                       edu.is_active ? "primary font-bold" : "gray-500 font-medium"
-                    } text-sm mt-1 mb-2">${edu.period}</p>
+                    } text-sm mt-1 mb-1">${edu.period}</p>
                     <div class="text-gray-400 text-sm space-y-1"><p class="font-semibold text-gray-200">${
                       edu.degree
                     }</p><p class="bg-gray-800 border border-gray-700 text-gray-300 px-2 py-0.5 rounded w-fit text-xs font-medium">${
                 edu.score_label
               }: ${edu.score_value}</p></div>
+                    <div class="text-gray-400 text-xs leading-relaxed mt-2">${edu.description}</div>
                 </div>`;
             })
             .join("");
