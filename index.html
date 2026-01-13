@@ -78,6 +78,12 @@
     </script>
 
     <style type="text/tailwindcss">
+      body {
+        -webkit-user-select: none; /* Safari */
+        -ms-user-select: none; /* IE 10 and IE 11 */
+        user-select: none; /* Standard syntax */
+      }
+
       /* --- BASE STYLES --- */
       html {
         scroll-behavior: smooth;
@@ -1069,811 +1075,843 @@
           // Init Nav Pill after resources loaded
           initNavbarPill();
         });
-      });
 
-      // ===========================================
-      // 4. DATA FETCHERS (Supabase)
-      // ===========================================
+        // ===========================================
+        // 4. DATA FETCHERS (Supabase)
+        // ===========================================
 
-      // A. Competencies
-      async function fetchCompetencies() {
-        const arsenalContainer = document.getElementById("competencies-arsenal-container");
-        const otherContainer = document.getElementById("competencies-other-container");
-        try {
-          const { data, error } = await supabaseClient
-            .from("competencies")
-            .select("*")
-            .order("sort_order", { ascending: true });
-          if (error) throw error;
+        // A. Competencies
+        async function fetchCompetencies() {
+          const arsenalContainer = document.getElementById("competencies-arsenal-container");
+          const otherContainer = document.getElementById("competencies-other-container");
+          try {
+            const { data, error } = await supabaseClient
+              .from("competencies")
+              .select("*")
+              .order("sort_order", { ascending: true });
+            if (error) throw error;
 
-          const arsenalData = data.filter((item) => item.category === "arsenal");
-          arsenalContainer.innerHTML = arsenalData
-            .map(
-              (item) => `
-                <div class="group flex flex-col items-center text-center gap-3 cursor-pointer">
-                  <div class="w-14 h-14 border border-gray-800 rounded-2xl flex items-center justify-center transition-all duration-300 group-hover:-translate-y-1" style="background-color: ${item.bg_color};" onmouseover="this.style.borderColor='${item.border_color}'; this.style.boxShadow='0 0 20px ${item.border_color}4D'" onmouseout="this.style.borderColor='rgb(31, 41, 55)'; this.style.boxShadow='none'"><img src="${item.icon_url}" alt="${item.name}" class="w-8 h-8 object-contain transition-transform duration-300 group-hover:scale-110" /></div>
-                  <span class="text-[10px] leading-tight uppercase tracking-widest text-gray-500 font-medium transition-colors max-w-[100px]" onmouseover="this.style.color='${item.border_color}'" onmouseout="this.style.color='rgb(107, 114, 128)'">${item.name}</span>
-                </div>`
-            )
-            .join("");
+            const arsenalData = data.filter((item) => item.category === "arsenal");
+            arsenalContainer.innerHTML = arsenalData
+              .map(
+                (item) => `
+                      <div class="group flex flex-col items-center text-center gap-3 cursor-pointer">
+                        <div class="w-14 h-14 border border-gray-800 rounded-2xl flex items-center justify-center transition-all duration-300 group-hover:-translate-y-1" style="background-color: ${item.bg_color};" onmouseover="this.style.borderColor='${item.border_color}'; this.style.boxShadow='0 0 20px ${item.border_color}4D'" onmouseout="this.style.borderColor='rgb(31, 41, 55)'; this.style.boxShadow='none'"><img src="${item.icon_url}" alt="${item.name}" class="w-8 h-8 object-contain transition-transform duration-300 group-hover:scale-110" /></div>
+                        <span class="text-[10px] leading-tight uppercase tracking-widest text-gray-500 font-medium transition-colors max-w-[100px]" onmouseover="this.style.color='${item.border_color}'" onmouseout="this.style.color='rgb(107, 114, 128)'">${item.name}</span>
+                      </div>`
+              )
+              .join("");
 
-          const otherData = data.filter((item) => item.category === "other");
-          otherContainer.innerHTML = otherData
-            .map(
-              (item) =>
-                `<span class="px-4 py-2 bg-gray-900 border border-gray-800 text-gray-300 rounded-lg text-sm hover:border-primary hover:text-primary transition-colors cursor-default">${item.name}</span>`
-            )
-            .join("");
-        } catch (err) {
-          console.error("Error loading competencies:", err);
+            const otherData = data.filter((item) => item.category === "other");
+            otherContainer.innerHTML = otherData
+              .map(
+                (item) =>
+                  `<span class="px-4 py-2 bg-gray-900 border border-gray-800 text-gray-300 rounded-lg text-sm hover:border-primary hover:text-primary transition-colors cursor-default">${item.name}</span>`
+              )
+              .join("");
+          } catch (err) {
+            console.error("Error loading competencies:", err);
+          }
         }
-      }
 
-      // B. Education
-      async function fetchEducation() {
-        const container = document.getElementById("education-list");
-        try {
-          const { data, error } = await supabaseClient
-            .from("education")
-            .select("*")
-            .order("sort_order", { ascending: true });
-          if (error) throw error;
-          container.innerHTML = data
-            .map((edu) => {
-              const dotClass = edu.is_active
-                ? "bg-primary ring-4 ring-black"
-                : "bg-gray-600 ring-4 ring-black group-hover:bg-primary transition-colors";
-              return `
-                <div class="relative pl-8 group">
-                    <span class="absolute -left-[9px] top-1.5 h-4 w-4 rounded-full ${dotClass}"></span>
-                    <h4 class="text-xl font-bold text-white leading-tight"><a href="${
-                      edu.institution_link
-                    }" target="_blank" class="hover:text-primary transition-all">${
-                edu.institution
-              }</a></h4>
-                    <p class="text-${
-                      edu.is_active ? "primary font-bold" : "gray-500 font-medium"
-                    } text-sm mt-1 mb-1">${edu.period}</p>
-                    <div class="text-gray-400 text-sm space-y-1"><p class="font-semibold text-gray-200">${
-                      edu.degree
-                    }</p><p class="bg-gray-800 border border-gray-700 text-gray-300 px-2 py-0.5 rounded w-fit text-xs font-medium">${
-                edu.score_label
-              }: ${edu.score_value}</p></div>
-                    <div class="text-gray-400 text-xs leading-relaxed mt-2">${edu.description}</div>
-                </div>`;
-            })
-            .join("");
-        } catch (err) {
-          console.error("Error loading education:", err);
+        // B. Education
+        async function fetchEducation() {
+          const container = document.getElementById("education-list");
+          try {
+            const { data, error } = await supabaseClient
+              .from("education")
+              .select("*")
+              .order("sort_order", { ascending: true });
+            if (error) throw error;
+            container.innerHTML = data
+              .map((edu) => {
+                const dotClass = edu.is_active
+                  ? "bg-primary ring-4 ring-black"
+                  : "bg-gray-600 ring-4 ring-black group-hover:bg-primary transition-colors";
+                return `
+                      <div class="relative pl-8 group">
+                          <span class="absolute -left-[9px] top-1.5 h-4 w-4 rounded-full ${dotClass}"></span>
+                          <h4 class="text-xl font-bold text-white leading-tight"><a href="${
+                            edu.institution_link
+                          }" target="_blank" class="hover:text-primary transition-all">${
+                  edu.institution
+                }</a></h4>
+                          <p class="text-${
+                            edu.is_active ? "primary font-bold" : "gray-500 font-medium"
+                          } text-sm mt-1 mb-1">${edu.period}</p>
+                          <div class="text-gray-400 text-sm space-y-1"><p class="font-semibold text-gray-200">${
+                            edu.degree
+                          }</p><p class="bg-gray-800 border border-gray-700 text-gray-300 px-2 py-0.5 rounded w-fit text-xs font-medium">${
+                  edu.score_label
+                }: ${edu.score_value}</p></div>
+                          <div class="text-gray-400 text-xs leading-relaxed mt-2">${
+                            edu.description
+                          }</div>
+                      </div>`;
+              })
+              .join("");
+          } catch (err) {
+            console.error("Error loading education:", err);
+          }
         }
-      }
 
-      // C. Experience (FIXED FEATURED STYLE & BADGES)
-      async function fetchExperience() {
-        const container = document.getElementById("experience-list");
-        try {
-          const { data, error } = await supabaseClient
-            .from("experience")
-            .select("*")
-            .order("sort_order", { ascending: true });
-          if (error) throw error;
+        // C. Experience (FIXED FEATURED STYLE & BADGES)
+        async function fetchExperience() {
+          const container = document.getElementById("experience-list");
+          try {
+            const { data, error } = await supabaseClient
+              .from("experience")
+              .select("*")
+              .order("sort_order", { ascending: true });
+            if (error) throw error;
 
-          container.innerHTML = data
-            .map((exp) => {
-              // FEATURED STYLE: Simple & Aesthetic (Border Kiri Orange, Background Hangat) - NO RIBBON
-              const containerClass = exp.is_featured
-                ? "p-8 border-l-4 border-l-primary border-t border-r border-b border-gray-100 bg-orange-50/30 rounded-r-2xl rounded-l-md hover:shadow-xl transition-all duration-300 relative overflow-hidden"
-                : "p-8 border border-gray-100 rounded-2xl bg-white hover:shadow-xl transition-all duration-300 relative overflow-hidden";
+            container.innerHTML = data
+              .map((exp) => {
+                // FEATURED STYLE: Simple & Aesthetic (Border Kiri Orange, Background Hangat) - NO RIBBON
+                const containerClass = exp.is_featured
+                  ? "p-8 border-l-4 border-l-primary border-t border-r border-b border-gray-100 bg-orange-50/30 rounded-r-2xl rounded-l-md hover:shadow-xl transition-all duration-300 relative overflow-hidden"
+                  : "p-8 border border-gray-100 rounded-2xl bg-white hover:shadow-xl transition-all duration-300 relative overflow-hidden";
 
-              let descList = "";
-              if (exp.description) {
-                try {
-                  const points =
-                    typeof exp.description === "string"
-                      ? JSON.parse(exp.description)
-                      : exp.description;
-                  descList = points.map((pt) => `<li>${pt}</li>`).join("");
-                } catch (e) {
-                  descList = `<li>${exp.description}</li>`;
+                let descList = "";
+                if (exp.description) {
+                  try {
+                    const points =
+                      typeof exp.description === "string"
+                        ? JSON.parse(exp.description)
+                        : exp.description;
+                    descList = points.map((pt) => `<li>${pt}</li>`).join("");
+                  } catch (e) {
+                    descList = `<li>${exp.description}</li>`;
+                  }
                 }
-              }
 
-              // BADGE CLASS FALLBACK
-              // Jika database kosong, kita tentukan manual berdasarkan teks tipe
-              let badgeClass = exp.type_class;
-              if (!badgeClass) {
-                const typeLower = exp.type.toLowerCase();
-                if (typeLower.includes("remote")) badgeClass = "badge-work-remote";
-                else if (typeLower.includes("on-site") || typeLower.includes("onsite"))
-                  badgeClass = "badge-work-onsite";
-                else if (typeLower.includes("volunteer")) badgeClass = "badge-work-volunteer";
-                else badgeClass = "badge-work-type";
-              }
+                // BADGE CLASS FALLBACK
+                // Jika database kosong, kita tentukan manual berdasarkan teks tipe
+                let badgeClass = exp.type_class;
+                if (!badgeClass) {
+                  const typeLower = exp.type.toLowerCase();
+                  if (typeLower.includes("remote")) badgeClass = "badge-work-remote";
+                  else if (typeLower.includes("on-site") || typeLower.includes("onsite"))
+                    badgeClass = "badge-work-onsite";
+                  else if (typeLower.includes("volunteer")) badgeClass = "badge-work-volunteer";
+                  else badgeClass = "badge-work-type";
+                }
 
-              return `
-                <div class="${containerClass}">
-                    <div class="flex flex-col md:flex-row justify-between md:items-center mb-4 gap-2 relative z-10">
-                        <h4 class="text-xl font-bold text-black">${exp.role}</h4>
-                        <div class="flex gap-2">
-                            <span class="${badgeClass}">${exp.type}</span>
-                            <span class="badge-date">${exp.period}</span>
-                        </div>
-                    </div>
-                    <p class="text-lg font-medium text-gray-700 mb-4 relative z-10">
-                        <a href="${exp.company_link}" target="_blank" class="hover:text-primary transition-colors flex items-center gap-2 w-fit">${exp.company}</a>
-                        <span class="text-gray-400 text-sm font-normal ml-1">${exp.location}</span>
-                    </p>
-                    <ul class="list-disc list-outside ml-5 text-gray-600 space-y-2 text-sm leading-relaxed relative z-10">${descList}</ul>
-                </div>`;
-            })
-            .join("");
-        } catch (err) {
-          console.error("Error loading experience:", err);
-        }
-      }
-
-      // D. Portfolio
-      async function fetchportfolioFromSupabase() {
-        const container = document.getElementById("portfolio-container");
-        container.innerHTML =
-          '<div class="text-center py-20 text-gray-500 animate-pulse">Sedang mengambil data terbaru...</div>';
-        try {
-          const { data, error } = await supabaseClient
-            .from("portfolio_sections")
-            .select(`*, works: portfolio_items(*)`)
-            .order("sort_order", { ascending: true });
-          if (error) throw error;
-          if (!data || data.length === 0) {
-            container.innerHTML =
-              '<div class="text-center py-20 text-gray-500">Belum ada data portfolio.</div>';
-            return;
+                return `
+                      <div class="${containerClass}">
+                          <div class="flex flex-col md:flex-row justify-between md:items-center mb-4 gap-2 relative z-10">
+                              <h4 class="text-xl font-bold text-black">${exp.role}</h4>
+                              <div class="flex gap-2">
+                                  <span class="${badgeClass}">${exp.type}</span>
+                                  <span class="badge-date">${exp.period}</span>
+                              </div>
+                          </div>
+                          <p class="text-lg font-medium text-gray-700 mb-4 relative z-10">
+                              <a href="${exp.company_link}" target="_blank" class="hover:text-primary transition-colors flex items-center gap-2 w-fit">${exp.company}</a>
+                              <span class="text-gray-400 text-sm font-normal ml-1">${exp.location}</span>
+                          </p>
+                          <ul class="list-disc list-outside ml-5 text-gray-600 space-y-2 text-sm leading-relaxed relative z-10">${descList}</ul>
+                      </div>`;
+              })
+              .join("");
+          } catch (err) {
+            console.error("Error loading experience:", err);
           }
-          const formattedData = data.map((section) => {
-            const sortedWorks = section.works
-              ? section.works.sort((a, b) => a.sort_order - b.sort_order)
-              : [];
-            return {
-              id: section.id,
-              title: section.title,
-              company: section.title,
-              desc: section.description,
-              tagline: section.tagline,
-              badge: section.badge,
-              badgeClass: section.badge_class,
-              layout: section.layout,
-              works: sortedWorks.map((item) => ({
-                title: item.title,
-                img: item.image_url,
-                link: item.link_url,
-                desc: item.description,
-                category: item.category,
-                type: item.type,
-                btnText: item.button_text || "View",
-              })),
+        }
+
+        // D. Portfolio
+        async function fetchportfolioFromSupabase() {
+          const container = document.getElementById("portfolio-container");
+          container.innerHTML =
+            '<div class="text-center py-20 text-gray-500 animate-pulse">Sedang mengambil data terbaru...</div>';
+          try {
+            const { data, error } = await supabaseClient
+              .from("portfolio_sections")
+              .select(`*, works: portfolio_items(*)`)
+              .order("sort_order", { ascending: true });
+            if (error) throw error;
+            if (!data || data.length === 0) {
+              container.innerHTML =
+                '<div class="text-center py-20 text-gray-500">Belum ada data portfolio.</div>';
+              return;
+            }
+            const formattedData = data.map((section) => {
+              const sortedWorks = section.works
+                ? section.works.sort((a, b) => a.sort_order - b.sort_order)
+                : [];
+              return {
+                id: section.id,
+                title: section.title,
+                company: section.title,
+                desc: section.description,
+                tagline: section.tagline,
+                badge: section.badge,
+                badgeClass: section.badge_class,
+                layout: section.layout,
+                works: sortedWorks.map((item) => ({
+                  title: item.title,
+                  img: item.image_url,
+                  link: item.link_url,
+                  desc: item.description,
+                  category: item.category,
+                  type: item.type,
+                  btnText: item.button_text || "View",
+                })),
+              };
+            });
+            renderportfolio(formattedData);
+          } catch (err) {
+            console.error("Error loading portfolio:", err);
+            container.innerHTML = `<p class="text-center text-red-500">Error: ${err.message}</p>`;
+          }
+        }
+
+        function renderportfolio(data) {
+          portfolioGalleries = {};
+          const container = document.getElementById("portfolio-container");
+          let htmlContent = "";
+          if (!data || data.length === 0) return;
+
+          data.forEach((item) => {
+            let sectionGallery = [];
+            portfolioGalleries[item.id] = sectionGallery;
+            const isImageFile = (url) => {
+              if (!url) return false;
+              return url.match(/\.(jpeg|jpg|gif|png|webp|svg)$/i) != null;
             };
-          });
-          renderportfolio(formattedData);
-        } catch (err) {
-          console.error("Error loading portfolio:", err);
-          container.innerHTML = `<p class="text-center text-red-500">Error: ${err.message}</p>`;
-        }
-      }
 
-      function renderportfolio(data) {
-        portfolioGalleries = {};
-        const container = document.getElementById("portfolio-container");
-        let htmlContent = "";
-        if (!data || data.length === 0) return;
-
-        data.forEach((item) => {
-          let sectionGallery = [];
-          portfolioGalleries[item.id] = sectionGallery;
-          const isImageFile = (url) => {
-            if (!url) return false;
-            return url.match(/\.(jpeg|jpg|gif|png|webp|svg)$/i) != null;
-          };
-
-          const createCardAction = (work, sectionId) => {
-            if (
-              work.link &&
-              (work.link.includes("drive.google.com") || work.link.toLowerCase().endsWith(".pdf"))
-            ) {
-              return `href="#" onclick="openDocument('${work.link}', '${work.title}'); return false;"`;
-            } else if (
-              work.link &&
-              (work.link.includes("http") || work.link.includes("www")) &&
-              !isImageFile(work.link) &&
-              work.link !== work.img
-            ) {
-              return `href="${work.link}" target="_blank"`;
-            } else {
-              const imgSrc = isImageFile(work.link) ? work.link : work.img;
-              sectionGallery.push({ src: imgSrc, title: work.title });
-              const localIndex = sectionGallery.length - 1;
-              return `href="#" onclick="openLightbox('${sectionId}', ${localIndex}); return false;"`;
-            }
-          };
-
-          const createActionButton = (work, sectionId) => {
-            if (
-              work.link &&
-              (work.link.includes("drive.google.com") || work.link.toLowerCase().endsWith(".pdf"))
-            ) {
-              return `<button onclick="openDocument('${work.link}', '${work.type}'); return false;" class="btn-action">${work.btnText}</button>`;
-            } else if (
-              work.link &&
-              (work.link.includes("http") || work.link.includes("www")) &&
-              !isImageFile(work.link) &&
-              work.link !== work.img
-            ) {
-              return `<a href="${work.link}" target="_blank" class="btn-action">${work.btnText}</a>`;
-            } else {
-              const imgSrc = isImageFile(work.link) ? work.link : work.img;
-              let localIndex = sectionGallery.findIndex((img) => img.src === imgSrc);
-              if (localIndex === -1) {
-                sectionGallery.push({ src: imgSrc, title: work.type });
-                localIndex = sectionGallery.length - 1;
+            const createCardAction = (work, sectionId) => {
+              if (
+                work.link &&
+                (work.link.includes("drive.google.com") || work.link.toLowerCase().endsWith(".pdf"))
+              ) {
+                return `href="#" onclick="openDocument('${work.link}', '${work.title}'); return false;"`;
+              } else if (
+                work.link &&
+                (work.link.includes("http") || work.link.includes("www")) &&
+                !isImageFile(work.link) &&
+                work.link !== work.img
+              ) {
+                return `href="${work.link}" target="_blank"`;
+              } else {
+                const imgSrc = isImageFile(work.link) ? work.link : work.img;
+                sectionGallery.push({ src: imgSrc, title: work.title });
+                const localIndex = sectionGallery.length - 1;
+                return `href="#" onclick="openLightbox('${sectionId}', ${localIndex}); return false;"`;
               }
-              return `<button onclick="openLightbox('${sectionId}', ${localIndex}); return false;" class="btn-action">${work.btnText}</button>`;
-            }
-          };
+            };
 
-          if (item.layout === "grid") {
-            const cardsHtml = item.works
-              .map(
-                (work) => `
-                <a ${createCardAction(
-                  work,
-                  item.id
-                )} class="group relative flex flex-col bg-gray-50 rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                    <div class="h-48 sm:h-56 w-full overflow-hidden relative">
-                        <img src="${work.img}" alt="${
-                  work.title
-                }" class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110">
-                        <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors"></div>
-                    </div>
-                    <div class="p-6 flex-1 flex flex-col">
-                        <span class="text-[10px] font-bold text-primary uppercase tracking-widest mb-2">${
-                          work.category || "Portfolio"
-                        }</span>
-                        <h4 class="text-lg font-bold text-black group-hover:text-primary transition-colors mb-2">${
-                          work.title
-                        }</h4>
-                        <p class="text-sm text-gray-500 line-clamp-2">${work.desc || ""}</p>
-                        <div class="mt-4 pt-4 border-t border-gray-100 flex items-center text-xs font-bold text-gray-400 group-hover:text-primary transition-colors">View Project <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></div>
-                    </div>
-                </a>`
-              )
-              .join("");
-            htmlContent += `
-                <div>
-                    <div class="py-16 md:py-24 relative flex items-center justify-center">
-                        <div class="flex-grow border-t border-gray-200 opacity-70"></div>
-                        <span class="flex-shrink mx-3 md:mx-6 text-gray-400 uppercase text-[10px] md:text-xs font-bold tracking-[0.15em] md:tracking-[0.3em] flex items-center justify-center gap-2 text-center">
-                            <span class="text-primary text-base">✦</span> ${
-                              item.tagline || "Explore"
-                            } <span class="text-primary text-base">✦</span>
-                        </span>
-                        <div class="flex-grow border-t border-gray-200 opacity-70"></div>
-                    </div>
-                    <div class="text-center max-w-3xl mx-auto mb-12"><h4 class="text-3xl md:text-4xl font-extrabold text-black mb-4">${
-                      item.title
-                    }</h4><p class="text-gray-500 leading-relaxed">${item.desc}</p></div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">${cardsHtml}</div>
-                </div>`;
-          } else {
-            const slidesHtml = item.works
-              .map(
-                (work) => `
-                <div class="work-slide"><span class="slide-badge">${work.type}</span><img src="${
-                  work.img
-                }" alt="${
-                  work.type
-                }" class="slide-image"><div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-30">${createActionButton(
-                  work,
-                  item.id
-                )}</div></div>`
-              )
-              .join("");
-            htmlContent += `
-                <div class="company-showcase">
-                    <div class="flex flex-col lg:flex-row gap-12">
-                        <div class="w-full lg:w-1/3">
-                            <div class="lg:sticky lg:top-32"><span class="text-xs font-bold ${
-                              item.badgeClass || "bg-gray-100 text-gray-600"
-                            } px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-4">${
-              item.badge || "Project"
-            }</span><h4 class="text-3xl font-bold text-black mb-2">${
-              item.company
-            }</h4><p class="text-gray-500 text-sm font-bold uppercase tracking-widest mb-6">${
-              item.tagline
-            }</p><p class="text-gray-600 text-sm leading-relaxed mb-8">${item.desc}</p></div>
-                        </div>
-                        <div class="w-full lg:w-2/3 relative group">
-                            <button class="nav-arrow nav-prev hidden lg:flex" onclick="moveSlide('${
-                              item.id
-                            }', -1)"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                            <button class="nav-arrow nav-next hidden lg:flex" onclick="moveSlide('${
-                              item.id
-                            }', 1)"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-                            <div id="slider-${
-                              item.id
-                            }" class="work-slider h-[400px] lg:h-[550px] shadow-xl rounded-[2.5rem] overflow-hidden border border-gray-100 bg-gray-50/50">${slidesHtml}</div>
-                        </div>
-                    </div>
-                </div>`;
-          }
-        });
-        container.innerHTML = htmlContent;
-        initSliders();
-      }
+            const createActionButton = (work, sectionId) => {
+              if (
+                work.link &&
+                (work.link.includes("drive.google.com") || work.link.toLowerCase().endsWith(".pdf"))
+              ) {
+                return `<button onclick="openDocument('${work.link}', '${work.type}'); return false;" class="btn-action">${work.btnText}</button>`;
+              } else if (
+                work.link &&
+                (work.link.includes("http") || work.link.includes("www")) &&
+                !isImageFile(work.link) &&
+                work.link !== work.img
+              ) {
+                return `<a href="${work.link}" target="_blank" class="btn-action">${work.btnText}</a>`;
+              } else {
+                const imgSrc = isImageFile(work.link) ? work.link : work.img;
+                let localIndex = sectionGallery.findIndex((img) => img.src === imgSrc);
+                if (localIndex === -1) {
+                  sectionGallery.push({ src: imgSrc, title: work.type });
+                  localIndex = sectionGallery.length - 1;
+                }
+                return `<button onclick="openLightbox('${sectionId}', ${localIndex}); return false;" class="btn-action">${work.btnText}</button>`;
+              }
+            };
 
-      function initSliders() {
-        document.querySelectorAll(".work-slider").forEach((slider) => {
-          let isDown = false;
-          let startX, scrollLeft;
-          slider.addEventListener("mousedown", (e) => {
-            isDown = true;
-            slider.style.cursor = "grabbing";
-            startX = e.pageX - slider.offsetLeft;
-            scrollLeft = slider.scrollLeft;
-          });
-          slider.addEventListener("mouseleave", () => {
-            isDown = false;
-            slider.style.cursor = "grab";
-          });
-          slider.addEventListener("mouseup", () => {
-            isDown = false;
-            slider.style.cursor = "grab";
-          });
-          slider.addEventListener("mousemove", (e) => {
-            if (!isDown) return;
-            e.preventDefault();
-            const x = e.pageX - slider.offsetLeft;
-            const walk = (x - startX) * 2;
-            slider.scrollLeft = scrollLeft - walk;
-          });
-        });
-      }
-      window.moveSlide = function (id, direction) {
-        const slider = document.getElementById(`slider-${id}`);
-        if (slider) {
-          const slideWidth = slider.offsetWidth;
-          slider.scrollBy({ left: direction * slideWidth, behavior: "smooth" });
-        }
-      };
-
-      // ===========================================
-      // 5. HELPER FUNCTIONS (MODAL, SCROLL)
-      // ===========================================
-      const getScrollbarWidth = () => window.innerWidth - document.documentElement.clientWidth;
-      const lockScroll = () => {
-        document.body.style.paddingRight = `${getScrollbarWidth()}px`;
-        const navbar = document.querySelector("nav");
-        if (navbar) navbar.style.paddingRight = `${getScrollbarWidth()}px`;
-        document.body.style.overflow = "hidden";
-      };
-      const unlockScroll = () => {
-        document.body.style.paddingRight = "0px";
-        const navbar = document.querySelector("nav");
-        if (navbar) navbar.style.paddingRight = "0px";
-        document.body.style.overflow = "auto";
-      };
-
-      function openDocument(url, title) {
-        const modal = document.getElementById("document-modal");
-        const frame = document.getElementById("document-frame");
-        const titleElem = document.getElementById("document-title");
-        const downloadBtn = document.getElementById("document-download-btn");
-        if (titleElem) titleElem.innerText = title || "Document Preview";
-        if (downloadBtn) downloadBtn.href = url;
-        const isMobile = window.innerWidth < 768;
-        if (isMobile) {
-          frame.src = `https://docs.google.com/gview?url=${encodeURIComponent(url)}&embedded=true`;
-        } else {
-          frame.src = url + "#toolbar=0";
-        }
-        modal.classList.remove("hidden");
-        lockScroll();
-      }
-      function closeDocument() {
-        const modal = document.getElementById("document-modal");
-        const frame = document.getElementById("document-frame");
-        modal.classList.add("hidden");
-        frame.src = "";
-        unlockScroll();
-      }
-      function openResume() {
-        const resumeUrl =
-          "https://mrxttnlcpoixnvhngvtw.supabase.co/storage/v1/object/public/static/cv/cv-ats-fauzan-english.pdf";
-        openDocument(resumeUrl, "My Full Resume");
-      }
-
-      function openLightbox(sectionId, index) {
-        const modal = document.getElementById("lightbox-modal");
-        const img = document.getElementById("lightbox-image");
-        const counter = document.getElementById("lightbox-counter");
-        currentGalleryId = sectionId;
-        currentImageIndex = index;
-        const currentGallery = portfolioGalleries[currentGalleryId];
-        if (!currentGallery || currentGallery.length === 0) return;
-        img.src = currentGallery[currentImageIndex].src;
-        counter.innerText = `${currentImageIndex + 1} / ${currentGallery.length}`;
-        modal.classList.remove("hidden");
-        modal.classList.remove("pointer-events-none");
-        setTimeout(() => {
-          modal.classList.remove("opacity-0");
-          img.classList.remove("scale-95");
-          img.classList.add("scale-100");
-        }, 10);
-        lockScroll();
-      }
-      function changeImage(direction) {
-        const img = document.getElementById("lightbox-image");
-        const counter = document.getElementById("lightbox-counter");
-        const currentGallery = portfolioGalleries[currentGalleryId];
-        if (!currentGallery) return;
-        img.classList.remove("scale-100");
-        img.classList.add("scale-95", "opacity-50");
-        setTimeout(() => {
-          currentImageIndex += direction;
-          if (currentImageIndex >= currentGallery.length) currentImageIndex = 0;
-          else if (currentImageIndex < 0) currentImageIndex = currentGallery.length - 1;
-          img.src = currentGallery[currentImageIndex].src;
-          counter.innerText = `${currentImageIndex + 1} / ${currentGallery.length}`;
-          img.onload = () => {
-            img.classList.remove("scale-95", "opacity-50");
-            img.classList.add("scale-100", "opacity-100");
-          };
-        }, 200);
-      }
-      function closeLightbox() {
-        const modal = document.getElementById("lightbox-modal");
-        const img = document.getElementById("lightbox-image");
-        modal.classList.add("opacity-0");
-        modal.classList.add("pointer-events-none");
-        img.classList.remove("scale-100");
-        img.classList.add("scale-95");
-        setTimeout(() => {
-          modal.classList.add("hidden");
-          img.src = "";
-          currentGalleryId = null;
-        }, 300);
-        unlockScroll();
-      }
-
-      document.addEventListener("keydown", function (event) {
-        const lightboxModal = document.getElementById("lightbox-modal");
-        const docModal = document.getElementById("document-modal");
-        if (event.key === "Escape") {
-          if (docModal && !docModal.classList.contains("hidden")) closeDocument();
-          if (lightboxModal && !lightboxModal.classList.contains("hidden")) closeLightbox();
-        }
-        if (lightboxModal && !lightboxModal.classList.contains("hidden")) {
-          if (event.key === "ArrowRight") changeImage(1);
-          if (event.key === "ArrowLeft") changeImage(-1);
-        }
-      });
-
-      // ===========================================
-      // 6. UI LOGIC (Nav, Contact, BackToTop)
-      // ===========================================
-
-      // A. Back To Top
-      function initBackToTop() {
-        const backToTopBtn = document.getElementById("back-to-top");
-        if (backToTopBtn) {
-          window.addEventListener("scroll", () => {
-            if (window.scrollY > 300) {
-              backToTopBtn.classList.remove("opacity-0", "pointer-events-none", "translate-y-10");
-              backToTopBtn.classList.add("opacity-100", "translate-y-0");
+            if (item.layout === "grid") {
+              const cardsHtml = item.works
+                .map(
+                  (work) => `
+                      <a ${createCardAction(
+                        work,
+                        item.id
+                      )} class="group relative flex flex-col bg-gray-50 rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                          <div class="h-48 sm:h-56 w-full overflow-hidden relative">
+                              <img src="${work.img}" alt="${
+                    work.title
+                  }" class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110">
+                              <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors"></div>
+                          </div>
+                          <div class="p-6 flex-1 flex flex-col">
+                              <span class="text-[10px] font-bold text-primary uppercase tracking-widest mb-2">${
+                                work.category || "Portfolio"
+                              }</span>
+                              <h4 class="text-lg font-bold text-black group-hover:text-primary transition-colors mb-2">${
+                                work.title
+                              }</h4>
+                              <p class="text-sm text-gray-500 line-clamp-2">${work.desc || ""}</p>
+                              <div class="mt-4 pt-4 border-t border-gray-100 flex items-center text-xs font-bold text-gray-400 group-hover:text-primary transition-colors">View Project <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></div>
+                          </div>
+                      </a>`
+                )
+                .join("");
+              htmlContent += `
+                      <div>
+                          <div class="py-16 md:py-24 relative flex items-center justify-center">
+                              <div class="flex-grow border-t border-gray-200 opacity-70"></div>
+                              <span class="flex-shrink mx-3 md:mx-6 text-gray-400 uppercase text-[10px] md:text-xs font-bold tracking-[0.15em] md:tracking-[0.3em] flex items-center justify-center gap-2 text-center">
+                                  <span class="text-primary text-base">✦</span> ${
+                                    item.tagline || "Explore"
+                                  } <span class="text-primary text-base">✦</span>
+                              </span>
+                              <div class="flex-grow border-t border-gray-200 opacity-70"></div>
+                          </div>
+                          <div class="text-center max-w-3xl mx-auto mb-12"><h4 class="text-3xl md:text-4xl font-extrabold text-black mb-4">${
+                            item.title
+                          }</h4><p class="text-gray-500 leading-relaxed">${item.desc}</p></div>
+                          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">${cardsHtml}</div>
+                      </div>`;
             } else {
-              backToTopBtn.classList.remove("opacity-100", "translate-y-0");
-              backToTopBtn.classList.add("opacity-0", "pointer-events-none", "translate-y-10");
+              const slidesHtml = item.works
+                .map(
+                  (work) => `
+                      <div class="work-slide"><span class="slide-badge">${
+                        work.type
+                      }</span><img src="${work.img}" alt="${
+                    work.type
+                  }" class="slide-image"><div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-30">${createActionButton(
+                    work,
+                    item.id
+                  )}</div></div>`
+                )
+                .join("");
+              htmlContent += `
+                      <div class="company-showcase">
+                          <div class="flex flex-col lg:flex-row gap-12">
+                              <div class="w-full lg:w-1/3">
+                                  <div class="lg:sticky lg:top-32"><span class="text-xs font-bold ${
+                                    item.badgeClass || "bg-gray-100 text-gray-600"
+                                  } px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-4">${
+                item.badge || "Project"
+              }</span><h4 class="text-3xl font-bold text-black mb-2">${
+                item.company
+              }</h4><p class="text-gray-500 text-sm font-bold uppercase tracking-widest mb-6">${
+                item.tagline
+              }</p><p class="text-gray-600 text-sm leading-relaxed mb-8">${item.desc}</p></div>
+                              </div>
+                              <div class="w-full lg:w-2/3 relative group">
+                                  <button class="nav-arrow nav-prev hidden lg:flex" onclick="moveSlide('${
+                                    item.id
+                                  }', -1)"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                                  <button class="nav-arrow nav-next hidden lg:flex" onclick="moveSlide('${
+                                    item.id
+                                  }', 1)"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                                  <div id="slider-${
+                                    item.id
+                                  }" class="work-slider h-[400px] lg:h-[550px] shadow-xl rounded-[2.5rem] overflow-hidden border border-gray-100 bg-gray-50/50">${slidesHtml}</div>
+                              </div>
+                          </div>
+                      </div>`;
             }
           });
-          backToTopBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: "smooth" });
-          });
+          container.innerHTML = htmlContent;
+          initSliders();
         }
-      }
 
-      // B. Mobile Menu
-      function initMobileMenu() {
-        const btn = document.getElementById("mobile-menu-button");
-        const menu = document.getElementById("mobile-menu");
-        const links = document.querySelectorAll(".mobile-link");
-        if (btn && menu) {
-          btn.addEventListener("click", () => {
-            menu.classList.toggle("hidden");
-          });
-          links.forEach((link) => {
-            link.addEventListener("click", () => {
-              menu.classList.add("hidden");
+        function initSliders() {
+          document.querySelectorAll(".work-slider").forEach((slider) => {
+            let isDown = false;
+            let startX, scrollLeft;
+            slider.addEventListener("mousedown", (e) => {
+              isDown = true;
+              slider.style.cursor = "grabbing";
+              startX = e.pageX - slider.offsetLeft;
+              scrollLeft = slider.scrollLeft;
+            });
+            slider.addEventListener("mouseleave", () => {
+              isDown = false;
+              slider.style.cursor = "grab";
+            });
+            slider.addEventListener("mouseup", () => {
+              isDown = false;
+              slider.style.cursor = "grab";
+            });
+            slider.addEventListener("mousemove", (e) => {
+              if (!isDown) return;
+              e.preventDefault();
+              const x = e.pageX - slider.offsetLeft;
+              const walk = (x - startX) * 2;
+              slider.scrollLeft = scrollLeft - walk;
             });
           });
         }
-      }
+        window.moveSlide = function (id, direction) {
+          const slider = document.getElementById(`slider-${id}`);
+          if (slider) {
+            const slideWidth = slider.offsetWidth;
+            slider.scrollBy({ left: direction * slideWidth, behavior: "smooth" });
+          }
+        };
 
-      // C. Nav Pill
-      function initNavbarPill() {
-        const navContainer = document.getElementById("nav-container");
-        const pill = document.getElementById("nav-pill");
-        const navLinks = document.querySelectorAll(".nav-link");
-        const defaultLink = document.getElementById("default-link");
-        if (!navContainer || !pill || !defaultLink) return;
-        function movePillTo(element) {
-          pill.style.width = `${element.offsetWidth}px`;
-          pill.style.left = `${element.offsetLeft}px`;
-          pill.style.opacity = "1";
-          navLinks.forEach((link) => {
-            link.classList.remove("text-white");
-            link.classList.add("text-gray-600");
-          });
-          element.classList.remove("text-gray-600");
-          element.classList.add("text-white");
+        // ===========================================
+        // 5. HELPER FUNCTIONS (MODAL, SCROLL)
+        // ===========================================
+        const getScrollbarWidth = () => window.innerWidth - document.documentElement.clientWidth;
+        const lockScroll = () => {
+          document.body.style.paddingRight = `${getScrollbarWidth()}px`;
+          const navbar = document.querySelector("nav");
+          if (navbar) navbar.style.paddingRight = `${getScrollbarWidth()}px`;
+          document.body.style.overflow = "hidden";
+        };
+        const unlockScroll = () => {
+          document.body.style.paddingRight = "0px";
+          const navbar = document.querySelector("nav");
+          if (navbar) navbar.style.paddingRight = "0px";
+          document.body.style.overflow = "auto";
+        };
+
+        function openDocument(url, title) {
+          const modal = document.getElementById("document-modal");
+          const frame = document.getElementById("document-frame");
+          const titleElem = document.getElementById("document-title");
+          const downloadBtn = document.getElementById("document-download-btn");
+          if (titleElem) titleElem.innerText = title || "Document Preview";
+          if (downloadBtn) downloadBtn.href = url;
+          const isMobile = window.innerWidth < 768;
+          if (isMobile) {
+            frame.src = `https://docs.google.com/gview?url=${encodeURIComponent(
+              url
+            )}&embedded=true`;
+          } else {
+            frame.src = url + "#toolbar=0";
+          }
+          modal.classList.remove("hidden");
+          lockScroll();
         }
-        setTimeout(() => {
-          pill.style.transition = "none";
-          movePillTo(defaultLink);
+        function closeDocument() {
+          const modal = document.getElementById("document-modal");
+          const frame = document.getElementById("document-frame");
+          modal.classList.add("hidden");
+          frame.src = "";
+          unlockScroll();
+        }
+        function openResume() {
+          const resumeUrl =
+            "https://mrxttnlcpoixnvhngvtw.supabase.co/storage/v1/object/public/static/cv/cv-ats-fauzan-english.pdf";
+          openDocument(resumeUrl, "My Full Resume");
+        }
+
+        function openLightbox(sectionId, index) {
+          const modal = document.getElementById("lightbox-modal");
+          const img = document.getElementById("lightbox-image");
+          const counter = document.getElementById("lightbox-counter");
+          currentGalleryId = sectionId;
+          currentImageIndex = index;
+          const currentGallery = portfolioGalleries[currentGalleryId];
+          if (!currentGallery || currentGallery.length === 0) return;
+          img.src = currentGallery[currentImageIndex].src;
+          counter.innerText = `${currentImageIndex + 1} / ${currentGallery.length}`;
+          modal.classList.remove("hidden");
+          modal.classList.remove("pointer-events-none");
           setTimeout(() => {
-            pill.style.transition = "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)";
-          }, 100);
-        }, 100);
-        navLinks.forEach((link) => {
-          link.addEventListener("mouseenter", () => movePillTo(link));
-        });
-        navContainer.addEventListener("mouseleave", () => {
-          movePillTo(defaultLink);
-        });
-        window.addEventListener("resize", () => {
-          pill.style.transition = "none";
-          movePillTo(defaultLink);
+            modal.classList.remove("opacity-0");
+            img.classList.remove("scale-95");
+            img.classList.add("scale-100");
+          }, 10);
+          lockScroll();
+        }
+        function changeImage(direction) {
+          const img = document.getElementById("lightbox-image");
+          const counter = document.getElementById("lightbox-counter");
+          const currentGallery = portfolioGalleries[currentGalleryId];
+          if (!currentGallery) return;
+          img.classList.remove("scale-100");
+          img.classList.add("scale-95", "opacity-50");
           setTimeout(() => {
-            pill.style.transition = "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)";
+            currentImageIndex += direction;
+            if (currentImageIndex >= currentGallery.length) currentImageIndex = 0;
+            else if (currentImageIndex < 0) currentImageIndex = currentGallery.length - 1;
+            img.src = currentGallery[currentImageIndex].src;
+            counter.innerText = `${currentImageIndex + 1} / ${currentGallery.length}`;
+            img.onload = () => {
+              img.classList.remove("scale-95", "opacity-50");
+              img.classList.add("scale-100", "opacity-100");
+            };
+          }, 200);
+        }
+        function closeLightbox() {
+          const modal = document.getElementById("lightbox-modal");
+          const img = document.getElementById("lightbox-image");
+          modal.classList.add("opacity-0");
+          modal.classList.add("pointer-events-none");
+          img.classList.remove("scale-100");
+          img.classList.add("scale-95");
+          setTimeout(() => {
+            modal.classList.add("hidden");
+            img.src = "";
+            currentGalleryId = null;
           }, 300);
-        });
-      }
+          unlockScroll();
+        }
 
-      // D. Smooth Scroll
-      function initSmoothScroll() {
-        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-          anchor.addEventListener("click", function (e) {
-            const targetId = this.getAttribute("href");
-            if (targetId === "#") return;
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-              e.preventDefault();
-              const headerOffset = 100;
-              const elementPosition = targetElement.getBoundingClientRect().top;
-              const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-              window.scrollTo({ top: offsetPosition, behavior: "smooth" });
-              const mobileMenu = document.getElementById("mobile-menu");
-              if (mobileMenu && !mobileMenu.classList.contains("hidden")) {
-                mobileMenu.classList.add("hidden");
+        document.addEventListener("keydown", function (event) {
+          const lightboxModal = document.getElementById("lightbox-modal");
+          const docModal = document.getElementById("document-modal");
+          if (event.key === "Escape") {
+            if (docModal && !docModal.classList.contains("hidden")) closeDocument();
+            if (lightboxModal && !lightboxModal.classList.contains("hidden")) closeLightbox();
+          }
+          if (lightboxModal && !lightboxModal.classList.contains("hidden")) {
+            if (event.key === "ArrowRight") changeImage(1);
+            if (event.key === "ArrowLeft") changeImage(-1);
+          }
+        });
+
+        // ===========================================
+        // 6. UI LOGIC (Nav, Contact, BackToTop)
+        // ===========================================
+
+        // A. Back To Top
+        function initBackToTop() {
+          const backToTopBtn = document.getElementById("back-to-top");
+          if (backToTopBtn) {
+            window.addEventListener("scroll", () => {
+              if (window.scrollY > 300) {
+                backToTopBtn.classList.remove("opacity-0", "pointer-events-none", "translate-y-10");
+                backToTopBtn.classList.add("opacity-100", "translate-y-0");
+              } else {
+                backToTopBtn.classList.remove("opacity-100", "translate-y-0");
+                backToTopBtn.classList.add("opacity-0", "pointer-events-none", "translate-y-10");
               }
-            }
-          });
-        });
-      }
+            });
+            backToTopBtn.addEventListener("click", (e) => {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            });
+          }
+        }
 
-      // E. Scroll Spy
-      function initScrollSpy() {
-        const targetSection = document.getElementById("org-leadership");
-        if (targetSection) {
-          const observer = new IntersectionObserver(
-            (entries) => {
-              entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                  document.body.classList.add("scrollbar-black");
-                } else {
-                  document.body.classList.remove("scrollbar-black");
-                }
+        // B. Mobile Menu
+        function initMobileMenu() {
+          const btn = document.getElementById("mobile-menu-button");
+          const menu = document.getElementById("mobile-menu");
+          const links = document.querySelectorAll(".mobile-link");
+          if (btn && menu) {
+            btn.addEventListener("click", () => {
+              menu.classList.toggle("hidden");
+            });
+            links.forEach((link) => {
+              link.addEventListener("click", () => {
+                menu.classList.add("hidden");
               });
-            },
-            { threshold: [0.1, 0.9] }
-          );
-          observer.observe(targetSection);
-        }
-      }
-
-      // F. Contact Form
-      function initContactForm() {
-        const contactForm = document.getElementById("contact-form");
-        const phoneInput = document.getElementById("phone");
-
-        // Logic HP
-        if (phoneInput) {
-          phoneInput.addEventListener("input", function (e) {
-            let value = this.value.replace(/[^0-9+]/g, "");
-            if (!value.startsWith("+")) {
-              value = "+" + value.replace(/\+/g, "");
-            }
-            this.value = value;
-          });
-          phoneInput.addEventListener("focus", function () {
-            if (this.value === "") {
-              this.value = "+62";
-            }
-          });
-          phoneInput.addEventListener("blur", function () {
-            if (this.value === "+62") {
-              this.value = "";
-            }
-          });
+            });
+          }
         }
 
-        // Logic Submit
-        if (contactForm) {
-          contactForm.addEventListener("submit", async (e) => {
+        // C. Nav Pill
+        function initNavbarPill() {
+          const navContainer = document.getElementById("nav-container");
+          const pill = document.getElementById("nav-pill");
+          const navLinks = document.querySelectorAll(".nav-link");
+          const defaultLink = document.getElementById("default-link");
+          if (!navContainer || !pill || !defaultLink) return;
+          function movePillTo(element) {
+            pill.style.width = `${element.offsetWidth}px`;
+            pill.style.left = `${element.offsetLeft}px`;
+            pill.style.opacity = "1";
+            navLinks.forEach((link) => {
+              link.classList.remove("text-white");
+              link.classList.add("text-gray-600");
+            });
+            element.classList.remove("text-gray-600");
+            element.classList.add("text-white");
+          }
+          setTimeout(() => {
+            pill.style.transition = "none";
+            movePillTo(defaultLink);
+            setTimeout(() => {
+              pill.style.transition = "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)";
+            }, 100);
+          }, 100);
+          navLinks.forEach((link) => {
+            link.addEventListener("mouseenter", () => movePillTo(link));
+          });
+          navContainer.addEventListener("mouseleave", () => {
+            movePillTo(defaultLink);
+          });
+          window.addEventListener("resize", () => {
+            pill.style.transition = "none";
+            movePillTo(defaultLink);
+            setTimeout(() => {
+              pill.style.transition = "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)";
+            }, 300);
+          });
+        }
+
+        // D. Smooth Scroll
+        function initSmoothScroll() {
+          document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+            anchor.addEventListener("click", function (e) {
+              const targetId = this.getAttribute("href");
+              if (targetId === "#") return;
+              const targetElement = document.querySelector(targetId);
+              if (targetElement) {
+                e.preventDefault();
+                const headerOffset = 100;
+                const elementPosition = targetElement.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+                const mobileMenu = document.getElementById("mobile-menu");
+                if (mobileMenu && !mobileMenu.classList.contains("hidden")) {
+                  mobileMenu.classList.add("hidden");
+                }
+              }
+            });
+          });
+        }
+
+        // E. Scroll Spy
+        function initScrollSpy() {
+          const targetSection = document.getElementById("org-leadership");
+          if (targetSection) {
+            const observer = new IntersectionObserver(
+              (entries) => {
+                entries.forEach((entry) => {
+                  if (entry.isIntersecting) {
+                    document.body.classList.add("scrollbar-black");
+                  } else {
+                    document.body.classList.remove("scrollbar-black");
+                  }
+                });
+              },
+              { threshold: [0.1, 0.9] }
+            );
+            observer.observe(targetSection);
+          }
+        }
+
+        // F. Contact Form
+        function initContactForm() {
+          const contactForm = document.getElementById("contact-form");
+          const phoneInput = document.getElementById("phone");
+
+          // Logic HP
+          if (phoneInput) {
+            phoneInput.addEventListener("input", function (e) {
+              let value = this.value.replace(/[^0-9+]/g, "");
+              if (!value.startsWith("+")) {
+                value = "+" + value.replace(/\+/g, "");
+              }
+              this.value = value;
+            });
+            phoneInput.addEventListener("focus", function () {
+              if (this.value === "") {
+                this.value = "+62";
+              }
+            });
+            phoneInput.addEventListener("blur", function () {
+              if (this.value === "+62") {
+                this.value = "";
+              }
+            });
+          }
+
+          // Logic Submit
+          if (contactForm) {
+            contactForm.addEventListener("submit", async (e) => {
+              e.preventDefault();
+              const submitBtn = contactForm.querySelector('button[type="submit"]');
+              const originalText = submitBtn.innerText;
+              const name = document.getElementById("name").value;
+              const email = document.getElementById("email").value;
+              const phone = document.getElementById("phone").value;
+              const message = document.getElementById("message").value;
+
+              // Validasi
+              const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+              if (!emailRegex.test(email)) {
+                showPopup("error", "Format Email Salah", "Mohon masukkan alamat email yang valid.");
+                return;
+              }
+              if (phone.length < 10) {
+                showPopup(
+                  "error",
+                  "Nomor HP Tidak Valid",
+                  "Mohon masukkan nomor HP lengkap dengan kode negara."
+                );
+                return;
+              }
+
+              try {
+                submitBtn.innerText = "Sending...";
+                submitBtn.disabled = true;
+                const { error } = await supabaseClient
+                  .from("messages")
+                  .insert([{ name, email, phone, message }]);
+                if (error) throw error;
+                showPopup(
+                  "success",
+                  "Pesan Terkirim!",
+                  "Terima kasih telah menghubungi saya. Saya akan membalas secepatnya."
+                );
+                contactForm.reset();
+              } catch (err) {
+                console.error("Error:", err);
+                showPopup(
+                  "error",
+                  "Gagal Mengirim",
+                  "Terjadi kesalahan sistem. Silakan coba lagi nanti."
+                );
+              } finally {
+                submitBtn.innerText = originalText;
+                submitBtn.disabled = false;
+              }
+            });
+          }
+        }
+
+        function showPopup(type, title, message) {
+          const modal = document.getElementById("status-popup");
+          const iconSuccess = document.getElementById("popup-icon-success");
+          const iconError = document.getElementById("popup-icon-error");
+          const titleEl = document.getElementById("popup-title");
+          const msgEl = document.getElementById("popup-message");
+          const btnEl = document.getElementById("popup-btn");
+          const content = document.getElementById("popup-content"); // PERBAIKAN: Target ID Konten
+
+          titleEl.innerText = title;
+          msgEl.innerText = message;
+          if (type === "success") {
+            iconSuccess.classList.remove("hidden");
+            iconError.classList.add("hidden");
+            btnEl.className =
+              "w-full py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors font-bold";
+            titleEl.className = "text-xl font-bold text-green-600 mb-2";
+          } else {
+            iconSuccess.classList.add("hidden");
+            iconError.classList.remove("hidden");
+            btnEl.className =
+              "w-full py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors font-bold";
+            titleEl.className = "text-xl font-bold text-red-600 mb-2";
+          }
+
+          modal.classList.remove("hidden");
+          // PERBAIKAN: Animasi ke Konten, bukan overlay
+          setTimeout(() => {
+            content.classList.remove("scale-90", "opacity-0");
+            content.classList.add("scale-100", "opacity-100");
+          }, 10);
+        }
+
+        // ===========================================
+        // 7. LEGAL MODAL LOGIC (Terms & Privacy)
+        // ===========================================
+
+        // Data Konten (HTML Text)
+        const legalContent = {
+          terms: `
+                <p><strong>1. Introduction</strong><br>Welcome to Muhammad Fauzan Taufiq's Portfolio Website. By accessing this website, you agree to be bound by these Terms of Service.</p>
+                <p><strong>2. Intellectual Property</strong><br>All content on this website, including text, graphics, logos, images, and software, is the property of Muhammad Fauzan Taufiq unless otherwise stated (e.g., client work). You may not reproduce, distribute, or exploit any content without prior written permission.</p>
+                <p><strong>3. Use of Portfolio</strong><br>The works displayed are for demonstration purposes only. They represent my personal skills and professional experience. Some projects may be conceptual or academic in nature.</p>
+                <p><strong>4. Limitation of Liability</strong><br>This website is provided "as is". I am not liable for any errors, omissions, or technical issues that may arise during your visit.</p>
+                <p><strong>5. Contact</strong><br>For any inquiries regarding usage rights, please contact me via the form provided on this website.</p>
+              `,
+          privacy: `
+                <p><strong>1. Information Collection</strong><br>This website does not require user registration. However, if you use the contact form, the personal information you provide (Name, Email, Phone Number) will be stored in my database (Supabase) solely for the purpose of replying to your inquiry.</p>
+                <p><strong>2. Use of Information</strong><br>I do not sell, trade, or rent your personal identification information to others. Your data is strictly used for professional communication.</p>
+                <p><strong>3. Third-Party Services</strong><br>This website uses third-party services like Supabase (for database/storage) and Google Docs Viewer (for PDF previews). These services may collect standard usage data (IP addresses) for security and analytics.</p>
+                <p><strong>4. Cookies</strong><br>This website functions as a static portfolio and does not use aggressive tracking cookies for advertising purposes.</p>
+                <p><strong>5. Your Rights</strong><br>You have the right to request the deletion of any message data you have sent via the contact form. Please contact me directly to process this request.</p>
+              `,
+        };
+
+        function openLegal(type) {
+          const modal = document.getElementById("legal-modal");
+          const titleEl = document.getElementById("legal-title");
+          const contentEl = document.getElementById("legal-content");
+          const modalBox = modal.querySelector("div[class*='transform']"); // Target inner box
+
+          // Set Content
+          if (type === "terms") {
+            titleEl.innerText = "Terms of Service";
+            contentEl.innerHTML = legalContent.terms;
+          } else {
+            titleEl.innerText = "Privacy Policy";
+            contentEl.innerHTML = legalContent.privacy;
+          }
+
+          // Show & Animate
+          modal.classList.remove("hidden");
+          lockScroll(); // Reuse existing helper
+
+          setTimeout(() => {
+            modalBox.classList.remove("scale-95", "opacity-0");
+            modalBox.classList.add("scale-100", "opacity-100");
+          }, 10);
+        }
+
+        function closeLegal() {
+          const modal = document.getElementById("legal-modal");
+          const modalBox = modal.querySelector("div[class*='transform']");
+
+          modalBox.classList.remove("scale-100", "opacity-100");
+          modalBox.classList.add("scale-95", "opacity-0");
+
+          setTimeout(() => {
+            modal.classList.add("hidden");
+            unlockScroll(); // Reuse existing helper
+          }, 300);
+        }
+
+        window.closePopup = function () {
+          const modal = document.getElementById("status-popup");
+          const content = document.getElementById("popup-content");
+
+          content.classList.remove("scale-100", "opacity-100");
+          content.classList.add("scale-90", "opacity-0");
+
+          setTimeout(() => {
+            modal.classList.add("hidden");
+          }, 300);
+        };
+
+        window.va =
+          window.va ||
+          function () {
+            (window.vaq = window.vaq || []).push(arguments);
+          };
+
+        window.si =
+          window.si ||
+          function () {
+            (window.siq = window.siq || []).push(arguments);
+          };
+
+        // 1. Matikan Klik Kanan (Context Menu)
+        document.addEventListener("contextmenu", (e) => {
+          e.preventDefault();
+          // Opsional: Tampilkan pesan peringatan
+          // alert("Mohon maaf, fitur klik kanan dinonaktifkan.");
+        });
+
+        // 2. Matikan Seleksi Teks (Highlight)
+        document.addEventListener("selectstart", (e) => {
+          e.preventDefault();
+        });
+
+        // 3. Matikan Shortcut Keyboard
+        document.addEventListener("keydown", (e) => {
+          // Ctrl+C (Copy), Ctrl+V (Paste), Ctrl+U (View Source), Ctrl+S (Save), F12 (DevTools)
+          if (
+            (e.ctrlKey && (e.key === "c" || e.key === "C")) ||
+            (e.ctrlKey && (e.key === "v" || e.key === "V")) ||
+            (e.ctrlKey && (e.key === "u" || e.key === "U")) ||
+            (e.ctrlKey && (e.key === "s" || e.key === "S")) ||
+            e.key === "F12"
+          ) {
             e.preventDefault();
-            const submitBtn = contactForm.querySelector('button[type="submit"]');
-            const originalText = submitBtn.innerText;
-            const name = document.getElementById("name").value;
-            const email = document.getElementById("email").value;
-            const phone = document.getElementById("phone").value;
-            const message = document.getElementById("message").value;
-
-            // Validasi
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-              showPopup("error", "Format Email Salah", "Mohon masukkan alamat email yang valid.");
-              return;
-            }
-            if (phone.length < 10) {
-              showPopup(
-                "error",
-                "Nomor HP Tidak Valid",
-                "Mohon masukkan nomor HP lengkap dengan kode negara."
-              );
-              return;
-            }
-
-            try {
-              submitBtn.innerText = "Sending...";
-              submitBtn.disabled = true;
-              const { error } = await supabaseClient
-                .from("messages")
-                .insert([{ name, email, phone, message }]);
-              if (error) throw error;
-              showPopup(
-                "success",
-                "Pesan Terkirim!",
-                "Terima kasih telah menghubungi saya. Saya akan membalas secepatnya."
-              );
-              contactForm.reset();
-            } catch (err) {
-              console.error("Error:", err);
-              showPopup(
-                "error",
-                "Gagal Mengirim",
-                "Terjadi kesalahan sistem. Silakan coba lagi nanti."
-              );
-            } finally {
-              submitBtn.innerText = originalText;
-              submitBtn.disabled = false;
-            }
-          });
-        }
-      }
-
-      function showPopup(type, title, message) {
-        const modal = document.getElementById("status-popup");
-        const iconSuccess = document.getElementById("popup-icon-success");
-        const iconError = document.getElementById("popup-icon-error");
-        const titleEl = document.getElementById("popup-title");
-        const msgEl = document.getElementById("popup-message");
-        const btnEl = document.getElementById("popup-btn");
-        const content = document.getElementById("popup-content"); // PERBAIKAN: Target ID Konten
-
-        titleEl.innerText = title;
-        msgEl.innerText = message;
-        if (type === "success") {
-          iconSuccess.classList.remove("hidden");
-          iconError.classList.add("hidden");
-          btnEl.className =
-            "w-full py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors font-bold";
-          titleEl.className = "text-xl font-bold text-green-600 mb-2";
-        } else {
-          iconSuccess.classList.add("hidden");
-          iconError.classList.remove("hidden");
-          btnEl.className =
-            "w-full py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors font-bold";
-          titleEl.className = "text-xl font-bold text-red-600 mb-2";
-        }
-
-        modal.classList.remove("hidden");
-        // PERBAIKAN: Animasi ke Konten, bukan overlay
-        setTimeout(() => {
-          content.classList.remove("scale-90", "opacity-0");
-          content.classList.add("scale-100", "opacity-100");
-        }, 10);
-      }
-
-      // ===========================================
-      // 7. LEGAL MODAL LOGIC (Terms & Privacy)
-      // ===========================================
-
-      // Data Konten (HTML Text)
-      const legalContent = {
-        terms: `
-          <p><strong>1. Introduction</strong><br>Welcome to Muhammad Fauzan Taufiq's Portfolio Website. By accessing this website, you agree to be bound by these Terms of Service.</p>
-          <p><strong>2. Intellectual Property</strong><br>All content on this website, including text, graphics, logos, images, and software, is the property of Muhammad Fauzan Taufiq unless otherwise stated (e.g., client work). You may not reproduce, distribute, or exploit any content without prior written permission.</p>
-          <p><strong>3. Use of Portfolio</strong><br>The works displayed are for demonstration purposes only. They represent my personal skills and professional experience. Some projects may be conceptual or academic in nature.</p>
-          <p><strong>4. Limitation of Liability</strong><br>This website is provided "as is". I am not liable for any errors, omissions, or technical issues that may arise during your visit.</p>
-          <p><strong>5. Contact</strong><br>For any inquiries regarding usage rights, please contact me via the form provided on this website.</p>
-        `,
-        privacy: `
-          <p><strong>1. Information Collection</strong><br>This website does not require user registration. However, if you use the contact form, the personal information you provide (Name, Email, Phone Number) will be stored in my database (Supabase) solely for the purpose of replying to your inquiry.</p>
-          <p><strong>2. Use of Information</strong><br>I do not sell, trade, or rent your personal identification information to others. Your data is strictly used for professional communication.</p>
-          <p><strong>3. Third-Party Services</strong><br>This website uses third-party services like Supabase (for database/storage) and Google Docs Viewer (for PDF previews). These services may collect standard usage data (IP addresses) for security and analytics.</p>
-          <p><strong>4. Cookies</strong><br>This website functions as a static portfolio and does not use aggressive tracking cookies for advertising purposes.</p>
-          <p><strong>5. Your Rights</strong><br>You have the right to request the deletion of any message data you have sent via the contact form. Please contact me directly to process this request.</p>
-        `,
-      };
-
-      function openLegal(type) {
-        const modal = document.getElementById("legal-modal");
-        const titleEl = document.getElementById("legal-title");
-        const contentEl = document.getElementById("legal-content");
-        const modalBox = modal.querySelector("div[class*='transform']"); // Target inner box
-
-        // Set Content
-        if (type === "terms") {
-          titleEl.innerText = "Terms of Service";
-          contentEl.innerHTML = legalContent.terms;
-        } else {
-          titleEl.innerText = "Privacy Policy";
-          contentEl.innerHTML = legalContent.privacy;
-        }
-
-        // Show & Animate
-        modal.classList.remove("hidden");
-        lockScroll(); // Reuse existing helper
-
-        setTimeout(() => {
-          modalBox.classList.remove("scale-95", "opacity-0");
-          modalBox.classList.add("scale-100", "opacity-100");
-        }, 10);
-      }
-
-      function closeLegal() {
-        const modal = document.getElementById("legal-modal");
-        const modalBox = modal.querySelector("div[class*='transform']");
-
-        modalBox.classList.remove("scale-100", "opacity-100");
-        modalBox.classList.add("scale-95", "opacity-0");
-
-        setTimeout(() => {
-          modal.classList.add("hidden");
-          unlockScroll(); // Reuse existing helper
-        }, 300);
-      }
-
-      window.closePopup = function () {
-        const modal = document.getElementById("status-popup");
-        const content = document.getElementById("popup-content");
-
-        content.classList.remove("scale-100", "opacity-100");
-        content.classList.add("scale-90", "opacity-0");
-
-        setTimeout(() => {
-          modal.classList.add("hidden");
-        }, 300);
-      };
-
-      window.va =
-        window.va ||
-        function () {
-          (window.vaq = window.vaq || []).push(arguments);
-        };
-
-      window.si =
-        window.si ||
-        function () {
-          (window.siq = window.siq || []).push(arguments);
-        };
+            // Opsional: Tampilkan pesan peringatan
+            // alert("Shortcut ini dinonaktifkan.");
+          }
+        });
+      });
     </script>
     <script defer src="/_vercel/insights/script.js"></script>
     <script defer src="/_vercel/speed-insights/script.js"></script>
