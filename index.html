@@ -747,7 +747,11 @@
         class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity"
         onclick="closeDocument()"
       ></div>
-      <div class="relative w-full h-full flex items-center justify-center p-4">
+      <!-- PERBAIKAN DI SINI: Tambah onclick pada wrapper -->
+      <div
+        class="relative w-full h-full flex items-center justify-center p-4"
+        onclick="if(event.target === this) closeDocument()"
+      >
         <div
           class="bg-white w-[95%] h-[85%] md:w-full md:max-w-5xl md:h-[90vh] rounded-2xl overflow-hidden shadow-2xl relative flex flex-col transition-all transform scale-100"
         >
@@ -761,25 +765,7 @@
               Document Preview
             </h3>
             <div class="flex items-center gap-2">
-              <a
-                id="document-download-btn"
-                href="#"
-                target="_blank"
-                class="px-3 py-1.5 bg-primary text-white text-[10px] md:text-xs font-bold rounded-lg hover:bg-[#9a421f] transition-colors flex items-center gap-1 md:gap-2"
-                ><svg
-                  class="w-3 h-3 md:w-4 md:h-4"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                  <polyline points="15 3 21 3 21 9"></polyline>
-                  <line x1="10" y1="14" x2="21" y2="3"></line></svg
-                ><span>Open in new tab</span></a
-              ><button
+              <button
                 onclick="closeDocument()"
                 class="p-1.5 text-gray-500 hover:text-red-500 hover:bg-red-50 rounded-full transition-all"
               >
@@ -927,9 +913,12 @@
       </div>
     </div>
 
+    <!-- LEGAL MODAL -->
+    <!-- PERBAIKAN DI SINI: Tambah onclick pada container utama -->
     <div
       id="legal-modal"
       class="fixed inset-0 z-[10001] hidden flex items-center justify-center p-4"
+      onclick="if(event.target === this) closeLegal()"
     >
       <div
         class="absolute inset-0 bg-black/90 backdrop-blur-md transition-opacity"
@@ -954,6 +943,7 @@
             </svg>
           </button>
         </div>
+
         <div
           id="legal-content"
           class="flex-1 overflow-y-auto p-6 text-gray-600 text-sm leading-relaxed space-y-4"
@@ -1697,6 +1687,26 @@
           });
         }
       }
+
+      // KEYBOARD EVENT LISTENER (Esc & Arrows)
+      document.addEventListener("keydown", function (event) {
+        const lightboxModal = document.getElementById("lightbox-modal");
+        const docModal = document.getElementById("document-modal");
+        const legalModal = document.getElementById("legal-modal"); // Tambahan baru
+
+        // Tombol Esc untuk menutup semua jenis modal
+        if (event.key === "Escape") {
+          if (docModal && !docModal.classList.contains("hidden")) closeDocument();
+          if (lightboxModal && !lightboxModal.classList.contains("hidden")) window.closeLightbox(); // Gunakan window.closeLightbox
+          if (legalModal && !legalModal.classList.contains("hidden")) closeLegal(); // Tambahan baru
+        }
+
+        // Tombol Panah Kanan/Kiri untuk Lightbox
+        if (lightboxModal && !lightboxModal.classList.contains("hidden")) {
+          if (event.key === "ArrowRight") changeImage(1);
+          if (event.key === "ArrowLeft") changeImage(-1);
+        }
+      });
 
       // ANTI-COPY SCRIPT
       document.addEventListener("contextmenu", (event) => event.preventDefault());
