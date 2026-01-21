@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
   <head>
     <meta charset="UTF-8" />
@@ -214,7 +214,10 @@
       <div class="max-w-6xl mx-auto px-6 h-20 flex justify-between items-center">
         <a
           href=""
-          onclick="window.scrollTo({ top: 0, behavior: 'smooth' }); return false;"
+          onclick="
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            return false;
+          "
           class="block group transition-transform hover:scale-105"
         >
           <img
@@ -750,7 +753,7 @@
       <!-- PERBAIKAN DI SINI: Tambah onclick pada wrapper -->
       <div
         class="relative w-full h-full flex items-center justify-center p-4"
-        onclick="if(event.target === this) closeDocument()"
+        onclick="if (event.target === this) closeDocument();"
       >
         <div
           class="bg-white w-[95%] h-[85%] md:w-full md:max-w-5xl md:h-[90vh] rounded-2xl overflow-hidden shadow-2xl relative flex flex-col transition-all transform scale-100"
@@ -918,7 +921,7 @@
     <div
       id="legal-modal"
       class="fixed inset-0 z-[10001] hidden flex items-center justify-center p-4"
-      onclick="if(event.target === this) closeLegal()"
+      onclick="if (event.target === this) closeLegal();"
     >
       <div
         class="absolute inset-0 bg-black/90 backdrop-blur-md transition-opacity"
@@ -1195,14 +1198,14 @@
           arsenalContainer.innerHTML = arsenalData
             .map(
               (item) =>
-                `<div class="group flex flex-col items-center text-center gap-3 cursor-pointer"><div class="w-14 h-14 border border-gray-800 rounded-2xl flex items-center justify-center transition-all duration-300 group-hover:-translate-y-1" style="background-color: ${item.bg_color};" onmouseover="this.style.borderColor='${item.border_color}'; this.style.boxShadow='0 0 20px ${item.border_color}4D'" onmouseout="this.style.borderColor='rgb(31, 41, 55)'; this.style.boxShadow='none'"><img src="${item.icon_url}" alt="${item.name}" class="w-8 h-8 object-contain transition-transform duration-300 group-hover:scale-110" /></div><span class="text-[10px] leading-tight uppercase tracking-widest text-gray-500 font-medium transition-colors max-w-[100px]" onmouseover="this.style.color='${item.border_color}'" onmouseout="this.style.color='rgb(107, 114, 128)'">${item.name}</span></div>`
+                `<div class="group flex flex-col items-center text-center gap-3 cursor-pointer"><div class="w-14 h-14 border border-gray-800 rounded-2xl flex items-center justify-center transition-all duration-300 group-hover:-translate-y-1" style="background-color: ${item.bg_color};" onmouseover="this.style.borderColor='${item.border_color}'; this.style.boxShadow='0 0 20px ${item.border_color}4D'" onmouseout="this.style.borderColor='rgb(31, 41, 55)'; this.style.boxShadow='none'"><img src="${item.icon_url}" alt="${item.name}" class="w-8 h-8 object-contain transition-transform duration-300 group-hover:scale-110" /></div><span class="text-[10px] leading-tight uppercase tracking-widest text-gray-500 font-medium transition-colors max-w-[100px]" onmouseover="this.style.color='${item.border_color}'" onmouseout="this.style.color='rgb(107, 114, 128)'">${item.name}</span></div>`,
             )
             .join("");
           const otherData = data.filter((item) => item.category === "other");
           otherContainer.innerHTML = otherData
             .map(
               (item) =>
-                `<span class="px-4 py-2 bg-gray-900 border border-gray-800 text-gray-300 rounded-lg text-sm hover:border-primary hover:text-primary transition-colors cursor-default">${item.name}</span>`
+                `<span class="px-4 py-2 bg-gray-900 border border-gray-800 text-gray-300 rounded-lg text-sm hover:border-primary hover:text-primary transition-colors cursor-default">${item.name}</span>`,
             )
             .join("");
         } catch (err) {
@@ -1402,21 +1405,21 @@
                 (work) => `
               <a ${createCardAction(
                 work,
-                item.id
+                item.id,
               )} class="group relative flex flex-col bg-gray-50 rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                   <div class="h-48 sm:h-56 w-full overflow-hidden relative"><img src="${
                     work.img
                   }" alt="${
-                  work.title
-                }" class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"><div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors"></div></div>
+                    work.title
+                  }" class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"><div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors"></div></div>
                   <div class="p-6 flex-1 flex flex-col"><span class="text-[10px] font-bold text-primary uppercase tracking-widest mb-2">${
                     work.category || "Portfolio"
                   }</span><h4 class="text-lg font-bold text-black group-hover:text-primary transition-colors mb-2">${
-                  work.title
-                }</h4><p class="text-sm text-gray-500 line-clamp-2">${
-                  work.desc || ""
-                }</p><div class="mt-4 pt-4 border-t border-gray-100 flex items-center text-xs font-bold text-gray-400 group-hover:text-primary transition-colors">View Project <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></div></div>
-              </a>`
+                    work.title
+                  }</h4><p class="text-sm text-gray-500 line-clamp-2">${
+                    work.desc || ""
+                  }</p><div class="mt-4 pt-4 border-t border-gray-100 flex items-center text-xs font-bold text-gray-400 group-hover:text-primary transition-colors">View Project <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></div></div>
+              </a>`,
               )
               .join("");
             htmlContent += `<div><div class="py-16 md:py-24 relative flex items-center justify-center"><div class="flex-grow border-t border-gray-200 opacity-70"></div><span class="flex-shrink mx-3 md:mx-6 text-gray-400 uppercase text-[10px] md:text-xs font-bold tracking-[0.15em] md:tracking-[0.3em] flex items-center justify-center gap-2 text-center"><span class="text-primary text-base">✦</span> ${
@@ -1436,8 +1439,8 @@
                     work.type
                   }" class="slide-image"><div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-30">${createActionButton(
                     work,
-                    item.id
-                  )}</div></div>`
+                    item.id,
+                  )}</div></div>`,
               )
               .join("");
             htmlContent += `<div class="company-showcase"><div class="flex flex-col lg:flex-row gap-12"><div class="w-full lg:w-1/3"><div class="lg:sticky lg:top-32"><span class="text-xs font-bold ${
@@ -1610,7 +1613,7 @@
                 }
               });
             },
-            { threshold: [0.1, 0.9] }
+            { threshold: [0.1, 0.9] },
           );
           observer.observe(targetSection);
         }
@@ -1656,7 +1659,7 @@
               showPopup(
                 "error",
                 "Nomor HP Tidak Valid",
-                "Mohon masukkan nomor HP lengkap dengan kode negara."
+                "Mohon masukkan nomor HP lengkap dengan kode negara.",
               );
               return;
             }
@@ -1670,7 +1673,7 @@
               showPopup(
                 "success",
                 "Pesan Terkirim!",
-                "Terima kasih telah menghubungi saya. Saya akan membalas secepatnya."
+                "Terima kasih telah menghubungi saya. Saya akan membalas secepatnya.",
               );
               contactForm.reset();
             } catch (err) {
@@ -1678,7 +1681,7 @@
               showPopup(
                 "error",
                 "Gagal Mengirim",
-                "Terjadi kesalahan sistem. Silakan coba lagi nanti."
+                "Terjadi kesalahan sistem. Silakan coba lagi nanti.",
               );
             } finally {
               submitBtn.innerText = originalText;
