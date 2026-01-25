@@ -1,0 +1,13 @@
+Security Contacts
+
+Contact: mailto:contact@fauzantaufiq.my.id
+Contact: mailto:fauzantaufiq1211@gmail.com
+
+Policy
+
+Expires: 2026-12-31T23:59:00.000Z
+Preferred-Languages: id, en
+
+Canonical URI
+
+Canonical: https://www.google.com/url?sa=E&source=gmail&q=https://fauzantaufiq.my.id/.well-known/security.txt
