@@ -10,7 +10,7 @@
 
 Website portofolio pribadi yang telah bertransformasi dari situs statis menjadi **Aplikasi Web Dinamis**. Ditenagai oleh **Supabase** sebagai Backend-as-a-Service (BaaS), memungkinkan pengelolaan konten (CMS) secara _real-time_ tanpa perlu mengubah kode sumber (source code) untuk setiap pembaruan konten.
 
-🔗 **Live Demo:** [https://fauzantaufiq.vercel.app](https://fauzantaufiq.vercel.app)
+🔗 **Live Demo:** [https://fauzantaufiq.web.id](https://fauzantaufiq.web.id)
 
 ## **🚀 Fitur Unggulan**
 
@@ -18,7 +18,8 @@ Website portofolio pribadi yang telah bertransformasi dari situs statis menjadi 
 
 - **Supabase Integration:** Seluruh data (Portfolio, Pengalaman Kerja, Pendidikan, Skill) diambil secara dinamis dari database PostgreSQL.
 - **Cloud Asset Storage:** Gambar dan dokumen PDF (CV) di-hosting di Supabase Storage, bukan lagi di folder lokal, membuat loading lebih cepat dan manajemen aset lebih mudah.
-- **Database-Driven UI:** Menambah proyek baru atau pengalaman kerja cukup dengan menambah baris di tabel database (mirip Excel/Spreadsheet).
+- **Database-Driven UI:** Seluruh komponen dirender berdasarkan data di database, memungkinkan update konten yang instan.
+- **Dedicated Admin Dashboard:** Dilengkapi dengan panel admin kustom untuk mengelola konten secara langsung dengan UI/UX premium (termasuk secure login, password toggle, animated backgrounds, dan clean routing via Vercel).
 - **Contact Form Database:** Pesan dari pengunjung langsung tersimpan ke tabel database messages, aman dan terpusat.
 
 ### **🎨 UI/UX Interaktif**
@@ -86,7 +87,19 @@ Gunakan ekstensi **Live Server** di VS Code untuk menjalankan index.html.
 
 ## **⚙️ Cara Mengelola Konten (CMS)**
 
-Anda tidak perlu lagi mengedit kode HTML untuk mengubah konten. Cukup buka **Table Editor** di Dashboard Supabase:
+Terdapat dua cara untuk mengelola konten website:
+
+### **1\. Melalui Admin Dashboard (Direkomendasikan)**
+
+Akses halaman `/admin` (misalnya `https://fauzantaufiq.web.id/admin`) untuk masuk ke panel admin khusus. Anda dapat:
+
+- Melakukan login aman terintegrasi dengan Supabase Auth.
+- Melihat ringkasan dan statistik konten melalui Quick Navigation.
+- Melakukan operasi CRUD (Create, Read, Update, Delete) untuk Portfolio, Experience, Education, dan Competencies melalui antarmuka yang modern.
+
+### **2\. Melalui Supabase Table Editor**
+
+Anda juga dapat membuka **Table Editor** di Dashboard Supabase untuk akses data mentah:
 
 - **Tambah Portfolio:** Isi tabel portfolio_items dan hubungkan dengan section_id yang sesuai.
 - **Update Experience:** Tambah baris di tabel experience. Centang is_featured untuk menandakan "Featured".
