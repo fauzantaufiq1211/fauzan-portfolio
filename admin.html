@@ -6,6 +6,25 @@
     <title>Admin Dashboard — Fauzan Portfolio</title>
     <meta name="robots" content="noindex, nofollow" />
 
+    <!-- FAVICON -->
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%205000%205000%22%3E%3Cpath%20d%3D%22M4416.67%200H583.33C262.5%200%200%20262.5%200%20583.33v3833.34C0%204737.5%20262.5%205000%20583.33%205000s583.33-262.5%20583.33-583.33V3000h833.33c275%200%20500-225%20500-500v1916.67c0%20320.83%20262.5%20583.33%20583.33%20583.33s583.33-262.5%20583.33-583.33v-3250h750c320.83%200%20583.33-262.5%20583.33-583.33S4737.48.01%204416.65.01ZM2500%202500c0-275-225-500-500-500h-833.33v-833.33H2500z%22%20style%3D%22fill%3A%23fff%22%2F%3E%3C%2Fsvg%3E"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%205000%205000%22%3E%3Cpath%20d%3D%22M4416.67%200H583.33C262.5%200%200%20262.5%200%20583.33v3833.34C0%204737.5%20262.5%205000%20583.33%205000s583.33-262.5%20583.33-583.33V3000h833.33c275%200%20500-225%20500-500v1916.67c0%20320.83%20262.5%20583.33%20583.33%20583.33s583.33-262.5%20583.33-583.33v-3250h750c320.83%200%20583.33-262.5%20583.33-583.33S4737.48.01%204416.65.01ZM2500%202500c0-275-225-500-500-500h-833.33v-833.33H2500z%22%2F%3E%3C%2Fsvg%3E"
+      media="(prefers-color-scheme: light)"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%205000%205000%22%3E%3Cpath%20d%3D%22M4416.67%200H583.33C262.5%200%200%20262.5%200%20583.33v3833.34C0%204737.5%20262.5%205000%20583.33%205000s583.33-262.5%20583.33-583.33V3000h833.33c275%200%20500-225%20500-500v1916.67c0%20320.83%20262.5%20583.33%20583.33%20583.33s583.33-262.5%20583.33-583.33v-3250h750c320.83%200%20583.33-262.5%20583.33-583.33S4737.48.01%204416.65.01ZM2500%202500c0-275-225-500-500-500h-833.33v-833.33H2500z%22%20style%3D%22fill%3A%23fff%22%2F%3E%3C%2Fsvg%3E"
+      media="(prefers-color-scheme: dark)"
+    />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -484,20 +503,152 @@
         height: 1px;
         background: linear-gradient(90deg, #252530, transparent 80%);
       }
+
+      /* Login background enhancements */
+      .login-orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(80px);
+        opacity: 0.15;
+        pointer-events: none;
+        animation: orbFloat 8s ease-in-out infinite;
+      }
+      .login-orb-1 {
+        width: 400px;
+        height: 400px;
+        background: #b54f26;
+        top: -10%;
+        right: -5%;
+        animation-delay: 0s;
+      }
+      .login-orb-2 {
+        width: 300px;
+        height: 300px;
+        background: #d4724a;
+        bottom: -10%;
+        left: -5%;
+        animation-delay: -3s;
+      }
+      .login-orb-3 {
+        width: 200px;
+        height: 200px;
+        background: #e8956a;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation-delay: -5s;
+        opacity: 0.08;
+      }
+      @keyframes orbFloat {
+        0%,
+        100% {
+          transform: translate(0, 0) scale(1);
+        }
+        33% {
+          transform: translate(15px, -20px) scale(1.05);
+        }
+        66% {
+          transform: translate(-10px, 15px) scale(0.95);
+        }
+      }
+      .login-grid {
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        background-size: 60px 60px;
+        pointer-events: none;
+        mask-image: radial-gradient(
+          ellipse at center,
+          black 30%,
+          transparent 70%
+        );
+        -webkit-mask-image: radial-gradient(
+          ellipse at center,
+          black 30%,
+          transparent 70%
+        );
+      }
+
+      /* Admin loader */
+      .admin-loader {
+        transition:
+          opacity 0.6s ease,
+          visibility 0.6s ease;
+      }
+      .admin-loader.fade-out {
+        opacity: 0;
+        visibility: hidden;
+      }
     </style>
   </head>
 
   <body class="antialiased">
+    <!-- ===== ADMIN LOADER ===== -->
+    <div
+      id="admin-loader"
+      class="admin-loader fixed inset-0 z-[9999] bg-[#0a0a0c] flex items-center justify-center"
+    >
+      <div class="relative flex items-center justify-center">
+        <div
+          class="absolute w-24 h-24 border-2 border-border rounded-full"
+        ></div>
+        <div
+          class="absolute w-24 h-24 border-2 border-primary border-t-transparent border-l-transparent rounded-full"
+          style="animation: spinSlow 1s linear infinite"
+        ></div>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 5000 5000"
+          class="relative z-10 w-8 h-8"
+          style="animation: pulseGlow 2s ease-in-out infinite"
+        >
+          <path
+            d="M4416.67 0H583.33C262.5 0 0 262.5 0 583.33v3833.34C0 4737.5 262.5 5000 583.33 5000s583.33-262.5 583.33-583.33V3000h833.33c275 0 500-225 500-500v1916.67c0 320.83 262.5 583.33 583.33 583.33s583.33-262.5 583.33-583.33v-3250h750c320.83 0 583.33-262.5 583.33-583.33S4737.48.01 4416.65.01ZM2500 2500c0-275-225-500-500-500h-833.33v-833.33H2500z"
+            fill="#ffffff"
+          />
+        </svg>
+      </div>
+    </div>
+
     <!-- ===== LOGIN SCREEN ===== -->
     <div
       id="login-screen"
-      class="min-h-screen flex items-center justify-center px-4 login-bg"
+      class="min-h-screen flex items-center justify-center px-4 login-bg relative overflow-hidden"
     >
-      <div class="w-full max-w-md animate-fadeInUp">
+      <!-- Animated background orbs -->
+      <div class="login-orb login-orb-1"></div>
+      <div class="login-orb login-orb-2"></div>
+      <div class="login-orb login-orb-3"></div>
+      <div class="login-grid"></div>
+
+      <div class="w-full max-w-md animate-fadeInUp relative z-10">
+        <!-- Back to portfolio link -->
+        <a
+          href="/"
+          class="inline-flex items-center gap-2 text-text-muted hover:text-primary text-xs font-semibold uppercase tracking-wider mb-8 transition-colors duration-300 group"
+        >
+          <svg
+            class="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-300"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M10 19l-7-7m0 0l7-7m-7 7h18"
+            />
+          </svg>
+          Back to Portfolio
+        </a>
+
         <div class="text-center mb-10">
           <div
-            class="inline-flex items-center justify-center w-18 h-18 bg-surface-raised border border-border rounded-2xl mb-6 shadow-2xl animate-float"
-            style="width: 72px; height: 72px"
+            class="inline-flex items-center justify-center bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/25 rounded-2xl mb-6 shadow-2xl animate-float"
+            style="width: 76px; height: 76px"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -506,7 +657,7 @@
             >
               <path
                 d="M4416.67 0H583.33C262.5 0 0 262.5 0 583.33v3833.34C0 4737.5 262.5 5000 583.33 5000s583.33-262.5 583.33-583.33V3000h833.33c275 0 500-225 500-500v1916.67c0 320.83 262.5 583.33 583.33 583.33s583.33-262.5 583.33-583.33v-3250h750c320.83 0 583.33-262.5 583.33-583.33S4737.48.01 4416.65.01ZM2500 2500c0-275-225-500-500-500h-833.33v-833.33H2500z"
-                fill="#d4724a"
+                fill="#ffffff"
               />
             </svg>
           </div>
@@ -518,7 +669,9 @@
           </p>
         </div>
 
-        <div class="glass-strong rounded-2xl p-8 shadow-2xl">
+        <div
+          class="glass-strong rounded-2xl p-8 shadow-2xl border border-white/[0.06]"
+        >
           <form id="login-form" class="space-y-5">
             <div>
               <label
@@ -538,13 +691,56 @@
                 class="block text-[11px] font-semibold text-text-secondary uppercase tracking-wider mb-2"
                 >Password</label
               >
-              <input
-                type="password"
-                id="login-password"
-                required
-                placeholder="••••••••"
-                class="form-input w-full px-4 py-3 bg-surface border border-border rounded-xl text-text-primary placeholder-text-muted focus:outline-none text-sm"
-              />
+              <div class="relative">
+                <input
+                  type="password"
+                  id="login-password"
+                  required
+                  placeholder="••••••••"
+                  class="form-input w-full px-4 py-3 pr-12 bg-surface border border-border rounded-xl text-text-primary placeholder-text-muted focus:outline-none text-sm"
+                />
+                <button
+                  type="button"
+                  id="password-toggle"
+                  onclick="togglePasswordVisibility()"
+                  class="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 text-text-muted hover:text-text-primary rounded-lg hover:bg-surface-overlay transition-all duration-200"
+                  tabindex="-1"
+                >
+                  <svg
+                    id="eye-icon"
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.8"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"
+                    />
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                  </svg>
+                  <svg
+                    id="eye-off-icon"
+                    class="w-5 h-5 hidden"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.8"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div
               id="login-error"
@@ -553,13 +749,13 @@
             <button
               type="submit"
               id="login-btn"
-              class="btn-primary w-full py-3.5 bg-primary text-white font-bold rounded-xl text-sm uppercase tracking-wider"
+              class="btn-primary w-full py-3.5 bg-primary text-white font-bold rounded-full text-sm uppercase tracking-wider hover:shadow-lg hover:shadow-primary/25 transition-all duration-300"
             >
               Sign In
             </button>
           </form>
         </div>
-        <p class="text-center text-text-muted text-xs mt-6 opacity-60">
+        <p class="text-center text-text-muted text-xs mt-8 opacity-50">
           Copyright &copy; 2026 Muhammad Fauzan Taufiq. All Rights Reserved.
         </p>
       </div>
@@ -629,7 +825,7 @@
       >
         <div class="p-5 border-b border-border flex items-center gap-3">
           <div
-            class="w-10 h-10 bg-primary/12 border border-primary/25 rounded-xl flex items-center justify-center flex-shrink-0 animate-pulseGlow"
+            class="w-10 h-10 bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/25 rounded-xl flex items-center justify-center flex-shrink-0 animate-pulseGlow"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -638,7 +834,7 @@
             >
               <path
                 d="M4416.67 0H583.33C262.5 0 0 262.5 0 583.33v3833.34C0 4737.5 262.5 5000 583.33 5000s583.33-262.5 583.33-583.33V3000h833.33c275 0 500-225 500-500v1916.67c0 320.83 262.5 583.33 583.33 583.33s583.33-262.5 583.33-583.33v-3250h750c320.83 0 583.33-262.5 583.33-583.33S4737.48.01 4416.65.01ZM2500 2500c0-275-225-500-500-500h-833.33v-833.33H2500z"
-                fill="#d4724a"
+                fill="#ffffff"
               />
             </svg>
           </div>
@@ -792,7 +988,27 @@
           </button>
         </nav>
 
-        <div class="p-3 border-t border-border">
+        <div class="p-3 border-t border-border space-y-1">
+          <a
+            href="/"
+            target="_blank"
+            class="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-text-secondary hover:text-primary hover:bg-primary/8 transition-all"
+          >
+            <svg
+              class="w-[18px] h-[18px]"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.8"
+                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+              />
+            </svg>
+            Visit Site
+          </a>
           <button
             onclick="handleLogout()"
             class="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-text-secondary hover:text-red-400 hover:bg-red-500/8 transition-all"
@@ -812,6 +1028,11 @@
             </svg>
             Sign Out
           </button>
+          <p
+            class="text-[10px] text-text-muted text-center pt-2 pb-1 opacity-50"
+          >
+            Copyright &copy; 2026 Muhammad Fauzan Taufiq. All rights reserved.
+          </p>
         </div>
       </aside>
 
@@ -1648,28 +1869,35 @@
               <div class="space-y-2">
                 <button onclick="navigateTo('portfolio-sections')" class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-surface-overlay transition-colors group">
                   <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 bg-violet-500/10 rounded-lg flex items-center justify-center"><svg class="w-4 h-4 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2"/></svg></div>
+                    <div class="w-8 h-8 bg-violet-500/10 rounded-lg flex items-center justify-center"><svg class="w-4 h-4 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg></div>
                     <span class="text-sm text-text-secondary group-hover:text-text-primary transition-colors">Portfolio Sections</span>
                   </div>
                   <svg class="w-4 h-4 text-text-muted group-hover:text-text-secondary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                 </button>
                 <button onclick="navigateTo('portfolio-items')" class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-surface-overlay transition-colors group">
                   <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center"><svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14"/></svg></div>
+                    <div class="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center"><svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg></div>
                     <span class="text-sm text-text-secondary group-hover:text-text-primary transition-colors">Portfolio Items</span>
                   </div>
                   <svg class="w-4 h-4 text-text-muted group-hover:text-text-secondary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                 </button>
                 <button onclick="navigateTo('experience')" class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-surface-overlay transition-colors group">
                   <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 bg-blue-500/10 rounded-lg flex items-center justify-center"><svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745"/></svg></div>
+                    <div class="w-8 h-8 bg-blue-500/10 rounded-lg flex items-center justify-center"><svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></div>
                     <span class="text-sm text-text-secondary group-hover:text-text-primary transition-colors">Experience</span>
+                  </div>
+                  <svg class="w-4 h-4 text-text-muted group-hover:text-text-secondary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </button>
+                <button onclick="navigateTo('education')" class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-surface-overlay transition-colors group">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-emerald-500/10 rounded-lg flex items-center justify-center"><svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"/></svg></div>
+                    <span class="text-sm text-text-secondary group-hover:text-text-primary transition-colors">Education</span>
                   </div>
                   <svg class="w-4 h-4 text-text-muted group-hover:text-text-secondary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                 </button>
                 <button onclick="navigateTo('competencies')" class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-surface-overlay transition-colors group">
                   <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 bg-amber-500/10 rounded-lg flex items-center justify-center"><svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0"/></svg></div>
+                    <div class="w-8 h-8 bg-amber-500/10 rounded-lg flex items-center justify-center"><svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.573-1.066z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div>
                     <span class="text-sm text-text-secondary group-hover:text-text-primary transition-colors">Competencies</span>
                   </div>
                   <svg class="w-4 h-4 text-text-muted group-hover:text-text-secondary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
@@ -2464,6 +2692,37 @@
           )
             closeModal();
         }
+      });
+
+      // ========================================
+      // PASSWORD TOGGLE
+      // ========================================
+      function togglePasswordVisibility() {
+        const passwordInput = document.getElementById("login-password");
+        const eyeIcon = document.getElementById("eye-icon");
+        const eyeOffIcon = document.getElementById("eye-off-icon");
+        if (passwordInput.type === "password") {
+          passwordInput.type = "text";
+          eyeIcon.classList.add("hidden");
+          eyeOffIcon.classList.remove("hidden");
+        } else {
+          passwordInput.type = "password";
+          eyeIcon.classList.remove("hidden");
+          eyeOffIcon.classList.add("hidden");
+        }
+      }
+
+      // ========================================
+      // LOADER
+      // ========================================
+      window.addEventListener("load", () => {
+        setTimeout(() => {
+          const loader = document.getElementById("admin-loader");
+          if (loader) {
+            loader.classList.add("fade-out");
+            setTimeout(() => loader.remove(), 600);
+          }
+        }, 500);
       });
 
       // ========================================
