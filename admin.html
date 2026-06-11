@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Dashboard — Fauzan Portfolio</title>
+    <title>Admin Dashboard — Fauzan Taufiq's Portfolio</title>
     <meta name="robots" content="noindex, nofollow" />
 
     <!-- FAVICON -->
@@ -42,15 +42,15 @@
               primary: "#b54f26",
               "primary-light": "#d4724a",
               "primary-dark": "#8a3a1a",
-              surface: "#0a0a0c",
-              "surface-raised": "#111114",
-              "surface-overlay": "#1a1a20",
-              "surface-hover": "#222230",
-              border: "#252530",
-              "border-light": "#35354a",
-              "text-primary": "#f0f0f5",
-              "text-secondary": "#9898a8",
-              "text-muted": "#5e5e72",
+              surface: "var(--surface)",
+              "surface-raised": "var(--surface-raised)",
+              "surface-overlay": "var(--surface-overlay)",
+              "surface-hover": "var(--surface-hover)",
+              border: "var(--border)",
+              "border-light": "var(--border-light)",
+              "text-primary": "var(--text-primary)",
+              "text-secondary": "var(--text-secondary)",
+              "text-muted": "var(--text-muted)",
             },
             fontFamily: {
               sans: [
@@ -67,17 +67,81 @@
     </script>
 
     <style>
+      /* ===== THEME VARIABLES ===== */
+      :root,
+      [data-theme="dark"] {
+        --surface: #0a0a0c;
+        --surface-raised: #111114;
+        --surface-overlay: #1a1a20;
+        --surface-hover: #222230;
+        --border: #252530;
+        --border-light: #35354a;
+        --text-primary: #f0f0f5;
+        --text-secondary: #9898a8;
+        --text-muted: #5e5e72;
+        --glass-bg: rgba(17, 17, 20, 0.7);
+        --glass-strong-bg: rgba(17, 17, 20, 0.85);
+        --glass-border: rgba(255, 255, 255, 0.06);
+        --glass-strong-border: rgba(255, 255, 255, 0.08);
+        --skeleton-from: #15151a;
+        --skeleton-mid: #20202a;
+        --scrollbar-thumb: #35354a;
+        --login-bg-1: rgba(181, 79, 38, 0.08);
+        --login-bg-2: rgba(181, 79, 38, 0.06);
+        --login-bg-3: rgba(181, 79, 38, 0.03);
+        --grid-line: rgba(255, 255, 255, 0.02);
+        --sidebar-hover-bg: rgba(255, 255, 255, 0.03);
+        --sidebar-active-bg: rgba(181, 79, 38, 0.08);
+        --stat-card-shadow: rgba(0, 0, 0, 0.4);
+        --card-shadow: rgba(0, 0, 0, 0.3);
+        --table-hover: rgba(255, 255, 255, 0.02);
+        --body-bg: #0a0a0c;
+        --body-color: #f0f0f5;
+      }
+      [data-theme="light"] {
+        --surface: #ffffff;
+        --surface-raised: #f8f8fa;
+        --surface-overlay: #f0f0f3;
+        --surface-hover: #e8e8ee;
+        --border: #e0e0e6;
+        --border-light: #d0d0da;
+        --text-primary: #1a1a2e;
+        --text-secondary: #5a5a72;
+        --text-muted: #9898a8;
+        --glass-bg: rgba(255, 255, 255, 0.75);
+        --glass-strong-bg: rgba(255, 255, 255, 0.9);
+        --glass-border: rgba(0, 0, 0, 0.06);
+        --glass-strong-border: rgba(0, 0, 0, 0.08);
+        --skeleton-from: #e8e8ee;
+        --skeleton-mid: #f0f0f3;
+        --scrollbar-thumb: #d0d0da;
+        --login-bg-1: rgba(181, 79, 38, 0.06);
+        --login-bg-2: rgba(181, 79, 38, 0.04);
+        --login-bg-3: rgba(181, 79, 38, 0.02);
+        --grid-line: rgba(0, 0, 0, 0.03);
+        --sidebar-hover-bg: rgba(0, 0, 0, 0.03);
+        --sidebar-active-bg: rgba(181, 79, 38, 0.08);
+        --stat-card-shadow: rgba(0, 0, 0, 0.08);
+        --card-shadow: rgba(0, 0, 0, 0.06);
+        --table-hover: rgba(0, 0, 0, 0.02);
+        --body-bg: #f5f5f7;
+        --body-color: #1a1a2e;
+      }
+
       * {
         box-sizing: border-box;
       }
       body {
         font-family: "SF Pro Text", "Inter", sans-serif;
-        background: #0a0a0c;
-        color: #f0f0f5;
+        background: var(--body-bg);
+        color: var(--body-color);
+        transition:
+          background-color 0.3s ease,
+          color 0.3s ease;
       }
       html {
         scrollbar-width: thin;
-        scrollbar-color: #b54f26 #111114;
+        scrollbar-color: var(--scrollbar-thumb) var(--surface-raised);
       }
       ::-webkit-scrollbar {
         width: 5px;
@@ -87,7 +151,7 @@
         background: transparent;
       }
       ::-webkit-scrollbar-thumb {
-        background: #35354a;
+        background: var(--scrollbar-thumb);
         border-radius: 10px;
       }
       ::-webkit-scrollbar-thumb:hover {
@@ -269,9 +333,9 @@
       .skeleton {
         background: linear-gradient(
           90deg,
-          #15151a 25%,
-          #20202a 50%,
-          #15151a 75%
+          var(--skeleton-from) 25%,
+          var(--skeleton-mid) 50%,
+          var(--skeleton-from) 75%
         );
         background-size: 200% 100%;
         animation: shimmer 1.5s infinite;
@@ -280,16 +344,22 @@
 
       /* Glassmorphism */
       .glass {
-        background: rgba(17, 17, 20, 0.7);
+        background: var(--glass-bg);
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.06);
+        border: 1px solid var(--glass-border);
+        transition:
+          background-color 0.3s ease,
+          border-color 0.3s ease;
       }
       .glass-strong {
-        background: rgba(17, 17, 20, 0.85);
+        background: var(--glass-strong-bg);
         backdrop-filter: blur(30px);
         -webkit-backdrop-filter: blur(30px);
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        border: 1px solid var(--glass-strong-border);
+        transition:
+          background-color 0.3s ease,
+          border-color 0.3s ease;
       }
 
       /* Gradient text */
@@ -326,11 +396,11 @@
         transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
       }
       .sidebar-link:hover {
-        background: rgba(255, 255, 255, 0.03);
-        color: #f0f0f5;
+        background: var(--sidebar-hover-bg);
+        color: var(--text-primary);
       }
       .sidebar-link.active {
-        background: rgba(181, 79, 38, 0.08);
+        background: var(--sidebar-active-bg);
         color: #d4724a;
       }
       .sidebar-link.active::before {
@@ -356,7 +426,7 @@
         transition: all 0.15s ease;
       }
       .table-row:hover {
-        background: rgba(255, 255, 255, 0.02);
+        background: var(--table-hover);
       }
 
       /* Cards */
@@ -381,7 +451,7 @@
       }
       .stat-card:hover {
         transform: translateY(-3px);
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 12px 40px var(--stat-card-shadow);
       }
 
       .content-card {
@@ -389,8 +459,8 @@
         position: relative;
       }
       .content-card:hover {
-        border-color: #35354a;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        border-color: var(--border-light);
+        box-shadow: 0 4px 20px var(--card-shadow);
       }
 
       /* Quick action cards */
@@ -401,7 +471,7 @@
       .quick-action:hover {
         transform: translateY(-2px);
         border-color: rgba(181, 79, 38, 0.3);
-        box-shadow: 0 8px 30px rgba(181, 79, 38, 0.08);
+        box-shadow: 0 8px 30px rgba(181, 79, 38, 0.1);
       }
       .quick-action:active {
         transform: translateY(0);
@@ -442,8 +512,8 @@
         transition: all 0.2s ease;
       }
       .btn-secondary:hover {
-        background: rgba(255, 255, 255, 0.06);
-        border-color: #35354a;
+        background: var(--surface-overlay);
+        border-color: var(--border-light);
       }
 
       /* Modal overlay */
@@ -468,17 +538,17 @@
         background-image:
           radial-gradient(
             ellipse at 20% 80%,
-            rgba(181, 79, 38, 0.08) 0%,
+            var(--login-bg-1) 0%,
             transparent 50%
           ),
           radial-gradient(
             ellipse at 80% 20%,
-            rgba(181, 79, 38, 0.06) 0%,
+            var(--login-bg-2) 0%,
             transparent 50%
           ),
           radial-gradient(
             ellipse at 50% 50%,
-            rgba(181, 79, 38, 0.03) 0%,
+            var(--login-bg-3) 0%,
             transparent 70%
           );
       }
@@ -501,7 +571,7 @@
         left: 0;
         right: 0;
         height: 1px;
-        background: linear-gradient(90deg, #252530, transparent 80%);
+        background: linear-gradient(90deg, var(--border), transparent 80%);
       }
 
       /* Login background enhancements */
@@ -555,8 +625,8 @@
         position: absolute;
         inset: 0;
         background-image:
-          linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+          linear-gradient(var(--grid-line) 1px, transparent 1px),
+          linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
         background-size: 60px 60px;
         pointer-events: none;
         mask-image: radial-gradient(
@@ -581,6 +651,72 @@
         opacity: 0;
         visibility: hidden;
       }
+
+      /* Inbox message card */
+      .message-card {
+        transition: all 0.2s ease;
+        cursor: pointer;
+      }
+      .message-card:hover {
+        border-color: var(--border-light);
+        box-shadow: 0 4px 16px var(--card-shadow);
+      }
+      .message-card.unread {
+        border-left: 3px solid #b54f26;
+      }
+      .message-unread-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #b54f26;
+        flex-shrink: 0;
+        animation: pulseGlow 2s ease-in-out infinite;
+      }
+
+      /* Theme toggle button */
+      .theme-toggle {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: pointer;
+      }
+      .theme-toggle:hover {
+        background: var(--surface-overlay);
+        color: #b54f26;
+      }
+      .theme-toggle svg {
+        transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      .theme-toggle:hover svg {
+        transform: rotate(20deg);
+      }
+
+      /* Inbox badge */
+      .inbox-badge {
+        min-width: 18px;
+        height: 18px;
+        padding: 0 5px;
+        font-size: 10px;
+        font-weight: 800;
+        line-height: 18px;
+        text-align: center;
+        border-radius: 9px;
+        background: #b54f26;
+        color: #fff;
+        position: absolute;
+        top: 4px;
+        right: 4px;
+      }
+
+      /* Transition helpers for theme switching */
+      .theme-transition,
+      .theme-transition *,
+      .theme-transition *::before,
+      .theme-transition *::after {
+        transition:
+          background-color 0.3s ease,
+          border-color 0.3s ease,
+          color 0.3s ease,
+          box-shadow 0.3s ease !important;
+      }
     </style>
   </head>
 
@@ -588,7 +724,8 @@
     <!-- ===== ADMIN LOADER ===== -->
     <div
       id="admin-loader"
-      class="admin-loader fixed inset-0 z-[9999] bg-[#0a0a0c] flex items-center justify-center"
+      class="admin-loader fixed inset-0 z-[9999] flex items-center justify-center"
+      style="background: var(--body-bg)"
     >
       <div class="relative flex items-center justify-center">
         <div
@@ -791,24 +928,58 @@
         <span class="text-sm font-bold text-text-primary tracking-tight"
           >Admin Dashboard</span
         >
-        <button
-          onclick="handleLogout()"
-          class="p-2 text-text-secondary hover:text-red-400 rounded-lg hover:bg-surface-overlay transition-colors"
-        >
-          <svg
-            class="w-4 h-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
+        <div class="flex items-center gap-1">
+          <button
+            onclick="toggleTheme()"
+            class="theme-toggle p-2 text-text-secondary rounded-lg transition-colors"
+            title="Toggle theme"
           >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
+            <svg
+              class="w-4 h-4 theme-icon-mobile-moon"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
               stroke-width="2"
-              d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-            />
-          </svg>
-        </button>
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+              />
+            </svg>
+            <svg
+              class="w-4 h-4 theme-icon-mobile-sun hidden"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+              />
+            </svg>
+          </button>
+          <button
+            onclick="handleLogout()"
+            class="p-2 text-text-secondary hover:text-red-400 rounded-lg hover:bg-surface-overlay transition-colors"
+          >
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+              />
+            </svg>
+          </button>
+        </div>
       </header>
 
       <!-- Sidebar overlay -->
@@ -871,6 +1042,28 @@
               />
             </svg>
             Overview
+          </button>
+
+          <button
+            onclick="navigateTo('inbox')"
+            class="sidebar-link w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-text-secondary relative"
+            data-page="inbox"
+          >
+            <svg
+              class="w-[18px] h-[18px] flex-shrink-0"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.8"
+                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+              />
+            </svg>
+            Inbox
+            <span id="inbox-badge" class="inbox-badge hidden">0</span>
           </button>
 
           <div class="pt-4 pb-1 px-4">
@@ -989,6 +1182,42 @@
         </nav>
 
         <div class="p-3 border-t border-border space-y-1">
+          <!-- Theme Toggle -->
+          <button
+            id="theme-toggle-desktop"
+            onclick="toggleTheme()"
+            class="theme-toggle w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-text-secondary"
+          >
+            <svg
+              id="theme-icon-sun"
+              class="w-[18px] h-[18px] hidden"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              stroke-width="1.8"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+              />
+            </svg>
+            <svg
+              id="theme-icon-moon"
+              class="w-[18px] h-[18px]"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              stroke-width="1.8"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+              />
+            </svg>
+            <span id="theme-label">Light Mode</span>
+          </button>
           <a
             href="/"
             target="_blank"
@@ -1028,11 +1257,6 @@
             </svg>
             Sign Out
           </button>
-          <p
-            class="text-[10px] text-text-muted text-center pt-2 pb-1 opacity-50"
-          >
-            Copyright &copy; 2026 Muhammad Fauzan Taufiq. All rights reserved.
-          </p>
         </div>
       </aside>
 
@@ -1496,6 +1720,95 @@
               id="competencies-list"
               class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3"
             ></div>
+          </div>
+
+          <!-- ===== INBOX PAGE ===== -->
+          <div id="page-inbox" class="page-section">
+            <div
+              class="page-header flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4"
+            >
+              <div>
+                <p
+                  class="text-text-muted text-xs uppercase tracking-widest font-semibold mb-1"
+                >
+                  Messages
+                </p>
+                <h1 class="text-2xl font-bold text-text-primary">
+                  Inbox
+                  <span
+                    id="inbox-count-header"
+                    class="text-text-muted text-base font-normal ml-2"
+                  ></span>
+                </h1>
+                <p class="text-text-secondary text-sm mt-1">
+                  Messages from your contact form
+                </p>
+              </div>
+              <div class="flex items-center gap-3">
+                <select
+                  id="inbox-filter"
+                  onchange="loadInbox()"
+                  class="form-input px-4 py-2.5 bg-surface border border-border rounded-xl text-text-primary text-sm focus:outline-none"
+                >
+                  <option value="all">All Messages</option>
+                  <option value="unread">Unread</option>
+                  <option value="read">Read</option>
+                </select>
+                <button
+                  onclick="markAllAsRead()"
+                  class="btn-secondary inline-flex items-center gap-2 px-4 py-2.5 bg-surface border border-border text-text-secondary font-semibold rounded-xl text-sm whitespace-nowrap hover:text-primary"
+                >
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  Mark All Read
+                </button>
+              </div>
+            </div>
+
+            <!-- Message List & Detail Split View -->
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-4">
+              <!-- Message List -->
+              <div id="inbox-list" class="lg:col-span-2 space-y-2">
+                <div class="skeleton h-20 rounded-2xl"></div>
+                <div class="skeleton h-20 rounded-2xl"></div>
+                <div class="skeleton h-20 rounded-2xl"></div>
+              </div>
+
+              <!-- Message Detail -->
+              <div id="inbox-detail" class="lg:col-span-3">
+                <div
+                  class="glass rounded-2xl p-8 text-center min-h-[300px] flex flex-col items-center justify-center"
+                >
+                  <svg
+                    class="w-12 h-12 mx-auto mb-3 text-text-muted opacity-30"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="1.5"
+                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    />
+                  </svg>
+                  <p class="text-text-muted text-sm">
+                    Select a message to view details
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </main>
