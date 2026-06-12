@@ -5,6 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Dashboard — Fauzan Taufiq's Portfolio</title>
     <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#0a0a0c" id="meta-theme-color" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="apple-mobile-web-app-title" content="FT Admin" />
+    <link rel="manifest" href="/manifest.json" />
+    <link
+      rel="apple-touch-icon"
+      href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%205000%205000%22%3E%3Crect%20fill%3D%22%23b54f26%22%20width%3D%225000%22%20height%3D%225000%22%20rx%3D%221000%22%2F%3E%3Cpath%20d%3D%22M4416.67%200H583.33C262.5%200%200%20262.5%200%20583.33v3833.34C0%204737.5%20262.5%205000%20583.33%205000s583.33-262.5%20583.33-583.33V3000h833.33c275%200%20500-225%20500-500v1916.67c0%20320.83%20262.5%20583.33%20583.33%20583.33s583.33-262.5%20583.33-583.33v-3250h750c320.83%200%20583.33-262.5%20583.33-583.33S4737.48.01%204416.65.01ZM2500%202500c0-275-225-500-500-500h-833.33v-833.33H2500z%22%20style%3D%22fill%3A%23fff%22%2F%3E%3C%2Fsvg%3E"
+    />
 
     <!-- FAVICON -->
     <link
@@ -717,6 +729,52 @@
           color 0.3s ease,
           box-shadow 0.3s ease !important;
       }
+
+      /* ===== MOBILE UX ENHANCEMENTS ===== */
+      @media (max-width: 1023px) {
+        /* Better mobile header */
+        .page-header {
+          padding-top: 1rem;
+        }
+        /* Full-width inbox on mobile */
+        #page-inbox .grid {
+          grid-template-columns: 1fr !important;
+        }
+        /* Touch-friendly message cards */
+        .message-card {
+          padding: 1rem !important;
+          min-height: 72px;
+        }
+        /* Better stat cards on mobile */
+        #stats-grid {
+          grid-template-columns: repeat(2, 1fr) !important;
+        }
+        /* Larger touch targets for action buttons */
+        .btn-primary,
+        .btn-secondary {
+          min-height: 44px;
+        }
+        /* Modal improvements */
+        .modal-content {
+          max-height: 90vh;
+          margin-top: 5vh;
+        }
+      }
+
+      @media (max-width: 639px) {
+        /* Single column stats on very small screens */
+        #stats-grid {
+          grid-template-columns: 1fr !important;
+        }
+        /* Improve inbox detail padding */
+        #inbox-detail .glass {
+          border-radius: 1rem;
+        }
+        /* Better page header on mobile */
+        .page-header h1 {
+          font-size: 1.375rem;
+        }
+      }
     </style>
   </head>
 
@@ -743,7 +801,7 @@
         >
           <path
             d="M4416.67 0H583.33C262.5 0 0 262.5 0 583.33v3833.34C0 4737.5 262.5 5000 583.33 5000s583.33-262.5 583.33-583.33V3000h833.33c275 0 500-225 500-500v1916.67c0 320.83 262.5 583.33 583.33 583.33s583.33-262.5 583.33-583.33v-3250h750c320.83 0 583.33-262.5 583.33-583.33S4737.48.01 4416.65.01ZM2500 2500c0-275-225-500-500-500h-833.33v-833.33H2500z"
-            fill="#ffffff"
+            fill="currentColor"
           />
         </svg>
       </div>
@@ -761,27 +819,6 @@
       <div class="login-grid"></div>
 
       <div class="w-full max-w-md animate-fadeInUp relative z-10">
-        <!-- Back to portfolio link -->
-        <a
-          href="/"
-          class="inline-flex items-center gap-2 text-text-muted hover:text-primary text-xs font-semibold uppercase tracking-wider mb-8 transition-colors duration-300 group"
-        >
-          <svg
-            class="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-300"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            stroke-width="2"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M10 19l-7-7m0 0l7-7m-7 7h18"
-            />
-          </svg>
-          Back to Portfolio
-        </a>
-
         <div class="text-center mb-10">
           <div
             class="inline-flex items-center justify-center bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/25 rounded-2xl mb-6 shadow-2xl animate-float"
@@ -794,7 +831,7 @@
             >
               <path
                 d="M4416.67 0H583.33C262.5 0 0 262.5 0 583.33v3833.34C0 4737.5 262.5 5000 583.33 5000s583.33-262.5 583.33-583.33V3000h833.33c275 0 500-225 500-500v1916.67c0 320.83 262.5 583.33 583.33 583.33s583.33-262.5 583.33-583.33v-3250h750c320.83 0 583.33-262.5 583.33-583.33S4737.48.01 4416.65.01ZM2500 2500c0-275-225-500-500-500h-833.33v-833.33H2500z"
-                fill="#ffffff"
+                fill="currentColor"
               />
             </svg>
           </div>
@@ -890,11 +927,76 @@
             >
               Sign In
             </button>
+            <div class="relative flex items-center my-4">
+              <div class="flex-1 border-t border-border"></div>
+              <span class="px-3 text-text-muted text-xs">or</span>
+              <div class="flex-1 border-t border-border"></div>
+            </div>
+            <button
+              type="button"
+              id="magic-link-btn"
+              onclick="sendMagicLink()"
+              class="w-full py-3.5 border border-border text-text-primary font-bold rounded-full text-sm uppercase tracking-wider hover:bg-surface-overlay transition-all duration-300 flex items-center justify-center gap-2"
+            >
+              <svg
+                class="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                stroke-width="1.8"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                />
+              </svg>
+              Send Magic Link
+            </button>
+            <div
+              id="magic-link-success"
+              class="hidden text-emerald-400 text-sm bg-emerald-500/8 border border-emerald-500/15 rounded-xl px-4 py-3 text-center"
+            >
+              ✓ Magic link sent! Check your email inbox.
+            </div>
           </form>
         </div>
-        <p class="text-center text-text-muted text-xs mt-8 opacity-50">
-          Copyright &copy; 2026 Muhammad Fauzan Taufiq. All Rights Reserved.
-        </p>
+
+        <!-- Login page theme toggle -->
+        <div class="flex items-center justify-center mt-6 gap-3">
+          <button
+            onclick="toggleTheme()"
+            class="inline-flex items-center gap-2 text-text-muted hover:text-text-primary text-xs font-medium transition-colors duration-300 px-3 py-2 rounded-full border border-border hover:border-border-light"
+          >
+            <svg
+              class="w-3.5 h-3.5 login-theme-moon"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+              />
+            </svg>
+            <svg
+              class="w-3.5 h-3.5 login-theme-sun hidden"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+              />
+            </svg>
+            <span class="login-theme-label">Light Mode</span>
+          </button>
+        </div>
       </div>
     </div>
 
@@ -1005,7 +1107,7 @@
             >
               <path
                 d="M4416.67 0H583.33C262.5 0 0 262.5 0 583.33v3833.34C0 4737.5 262.5 5000 583.33 5000s583.33-262.5 583.33-583.33V3000h833.33c275 0 500-225 500-500v1916.67c0 320.83 262.5 583.33 583.33 583.33s583.33-262.5 583.33-583.33v-3250h750c320.83 0 583.33-262.5 583.33-583.33S4737.48.01 4416.65.01ZM2500 2500c0-275-225-500-500-500h-833.33v-833.33H2500z"
-                fill="#ffffff"
+                fill="currentColor"
               />
             </svg>
           </div>
@@ -1954,6 +2056,68 @@
       let modalEditId = null;
       let confirmCallback = null;
       let portfolioSectionsCache = [];
+      let selectedMessageId = null;
+      let inboxCache = [];
+
+      // ========================================
+      // THEME
+      // ========================================
+      function initTheme() {
+        const saved = localStorage.getItem("admin-theme") || "dark";
+        applyTheme(saved);
+      }
+      function applyTheme(theme) {
+        document.documentElement.setAttribute("data-theme", theme);
+        // Update meta theme-color for PWA
+        const metaTheme = document.getElementById("meta-theme-color");
+        if (metaTheme)
+          metaTheme.content = theme === "light" ? "#f5f5f7" : "#0a0a0c";
+        // Desktop sidebar icons
+        const sunIcon = document.getElementById("theme-icon-sun");
+        const moonIcon = document.getElementById("theme-icon-moon");
+        const label = document.getElementById("theme-label");
+        // Mobile header icons
+        const mobileSuns = document.querySelectorAll(".theme-icon-mobile-sun");
+        const mobileMoons = document.querySelectorAll(
+          ".theme-icon-mobile-moon",
+        );
+        // Login page icons
+        const loginSuns = document.querySelectorAll(".login-theme-sun");
+        const loginMoons = document.querySelectorAll(".login-theme-moon");
+        const loginLabels = document.querySelectorAll(".login-theme-label");
+        if (theme === "light") {
+          sunIcon && sunIcon.classList.remove("hidden");
+          moonIcon && moonIcon.classList.add("hidden");
+          mobileSuns.forEach((el) => el.classList.remove("hidden"));
+          mobileMoons.forEach((el) => el.classList.add("hidden"));
+          loginSuns.forEach((el) => el.classList.remove("hidden"));
+          loginMoons.forEach((el) => el.classList.add("hidden"));
+          loginLabels.forEach((el) => (el.textContent = "Dark Mode"));
+          if (label) label.textContent = "Dark Mode";
+        } else {
+          sunIcon && sunIcon.classList.add("hidden");
+          moonIcon && moonIcon.classList.remove("hidden");
+          mobileSuns.forEach((el) => el.classList.add("hidden"));
+          mobileMoons.forEach((el) => el.classList.remove("hidden"));
+          loginSuns.forEach((el) => el.classList.add("hidden"));
+          loginMoons.forEach((el) => el.classList.remove("hidden"));
+          loginLabels.forEach((el) => (el.textContent = "Light Mode"));
+          if (label) label.textContent = "Light Mode";
+        }
+        localStorage.setItem("admin-theme", theme);
+      }
+      function toggleTheme() {
+        document.documentElement.classList.add("theme-transition");
+        const current =
+          document.documentElement.getAttribute("data-theme") || "dark";
+        applyTheme(current === "dark" ? "light" : "dark");
+        setTimeout(
+          () => document.documentElement.classList.remove("theme-transition"),
+          400,
+        );
+      }
+      // Apply theme immediately to prevent flash
+      initTheme();
 
       // ========================================
       // AUTH
@@ -1966,6 +2130,13 @@
           showDashboard(session.user);
         }
       }
+
+      // Listen for auth state changes (magic link callback)
+      sb.auth.onAuthStateChange((event, session) => {
+        if (event === "SIGNED_IN" && session) {
+          showDashboard(session.user);
+        }
+      });
 
       document
         .getElementById("login-form")
@@ -2007,6 +2178,41 @@
         document.getElementById("dashboard").classList.remove("hidden");
         document.getElementById("sidebar-user-email").textContent = user.email;
         loadOverview();
+        updateInboxBadge();
+      }
+
+      // Magic Link
+      async function sendMagicLink() {
+        const email = document.getElementById("login-email").value;
+        const btn = document.getElementById("magic-link-btn");
+        const errorEl = document.getElementById("login-error");
+        const successEl = document.getElementById("magic-link-success");
+        if (!email) {
+          errorEl.textContent = "Please enter your email address first.";
+          errorEl.classList.remove("hidden");
+          return;
+        }
+        btn.disabled = true;
+        btn.innerHTML =
+          '<svg class="w-4 h-4 animate-spin mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>';
+        errorEl.classList.add("hidden");
+        successEl.classList.add("hidden");
+        const { error } = await sb.auth.signInWithOtp({
+          email,
+          options: { emailRedirectTo: window.location.href },
+        });
+        if (error) {
+          errorEl.textContent = error.message;
+          errorEl.classList.remove("hidden");
+          btn.innerHTML =
+            '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg> Send Magic Link';
+          btn.disabled = false;
+        } else {
+          successEl.classList.remove("hidden");
+          btn.innerHTML =
+            '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg> Resend Magic Link';
+          btn.disabled = false;
+        }
       }
 
       // ========================================
@@ -2033,6 +2239,9 @@
         switch (page) {
           case "overview":
             loadOverview();
+            break;
+          case "inbox":
+            loadInbox();
             break;
           case "portfolio-sections":
             loadPortfolioSections();
@@ -2135,7 +2344,7 @@
           });
 
         try {
-          const [items, sections, exps, edus, comps] = await Promise.all([
+          const [items, sections, exps, edus, comps, msgs] = await Promise.all([
             sb
               .from("portfolio_items")
               .select("*", { count: "exact", head: true }),
@@ -2145,6 +2354,7 @@
             sb.from("experience").select("*", { count: "exact", head: true }),
             sb.from("education").select("*", { count: "exact", head: true }),
             sb.from("competencies").select("*", { count: "exact", head: true }),
+            sb.from("messages").select("*", { count: "exact", head: true }),
           ]);
 
           const sectionsCount = sections.count || 0;
@@ -2152,12 +2362,13 @@
           const expCount = exps.count || 0;
           const eduCount = edus.count || 0;
           const compCount = comps.count || 0;
+          const msgCount = msgs.count || 0;
 
           document.getElementById("stats-grid").innerHTML = `
             ${statCard("Sections", sectionsCount, "violet", '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>', 1)}
             ${statCard("Portfolio Items", itemsCount, "primary", '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>', 2)}
             ${statCard("Experience", expCount, "blue", '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>', 3)}
-            ${statCard("Education", eduCount, "emerald", '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"/>', 4)}
+            ${statCard("Messages", msgCount, "emerald", '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>', 4)}
           `;
 
           // Content summary cards
@@ -2269,6 +2480,222 @@
           </div>
           <span class="text-xs font-bold text-text-muted w-6 text-right">${count}</span>
         </div>`;
+      }
+
+      // ========================================
+      // INBOX
+      // ========================================
+      async function updateInboxBadge() {
+        try {
+          const { count } = await sb
+            .from("messages")
+            .select("*", { count: "exact", head: true })
+            .eq("is_read", false);
+          const badge = document.getElementById("inbox-badge");
+          if (badge) {
+            if (count && count > 0) {
+              badge.textContent = count > 99 ? "99+" : count;
+              badge.classList.remove("hidden");
+            } else {
+              badge.classList.add("hidden");
+            }
+          }
+        } catch (e) {
+          /* is_read column may not exist yet */
+        }
+      }
+
+      async function loadInbox() {
+        const listContainer = document.getElementById("inbox-list");
+        listContainer.innerHTML = skeletonCards(4);
+        const filter = document.getElementById("inbox-filter").value;
+        let query = sb
+          .from("messages")
+          .select("*")
+          .order("created_at", { ascending: false });
+        if (filter === "unread") query = query.eq("is_read", false);
+        else if (filter === "read") query = query.eq("is_read", true);
+        const { data, error } = await query;
+        if (error) {
+          showToast("Failed to load messages", "error");
+          listContainer.innerHTML = emptyState(
+            "Failed to load messages",
+            error.message,
+          );
+          return;
+        }
+        inboxCache = data || [];
+        const unreadCount = inboxCache.filter((m) => !m.is_read).length;
+        document.getElementById("inbox-count-header").textContent =
+          unreadCount > 0
+            ? `(${unreadCount} unread)`
+            : `(${inboxCache.length} total)`;
+        if (!data || data.length === 0) {
+          listContainer.innerHTML = emptyState(
+            "No messages yet",
+            "Messages from your contact form will appear here",
+          );
+          return;
+        }
+        listContainer.innerHTML = data
+          .map((msg, i) => {
+            const isUnread = !msg.is_read;
+            const timeAgo = getTimeAgo(msg.created_at);
+            const selected =
+              selectedMessageId === msg.id ? "border-primary/40" : "";
+            return `
+          <div class="message-card glass rounded-2xl p-4 cursor-pointer ${isUnread ? "unread" : ""} ${selected} animate-fadeIn stagger-${Math.min(i + 1, 5)}" onclick="viewMessage(${msg.id})">
+            <div class="flex items-start justify-between gap-3">
+              <div class="min-w-0 flex-1">
+                <div class="flex items-center gap-2 mb-1">
+                  ${isUnread ? '<div class="message-unread-dot"></div>' : ""}
+                  <span class="text-sm font-bold text-text-primary truncate">${esc(msg.name || "Unknown")}</span>
+                </div>
+                <p class="text-xs text-text-secondary truncate mb-1">${esc(msg.email || "")}</p>
+                <p class="text-xs text-text-muted line-clamp-2">${esc((msg.message || "").substring(0, 100))}${(msg.message || "").length > 100 ? "..." : ""}</p>
+              </div>
+              <span class="text-[10px] text-text-muted whitespace-nowrap flex-shrink-0">${timeAgo}</span>
+            </div>
+          </div>`;
+          })
+          .join("");
+        updateInboxBadge();
+      }
+
+      function viewMessage(id) {
+        selectedMessageId = id;
+        const msg = inboxCache.find((m) => m.id === id);
+        if (!msg) return;
+        if (!msg.is_read) markAsRead(id, true);
+        const d = document.getElementById("inbox-detail");
+        d.innerHTML = `
+        <div class="glass rounded-2xl overflow-hidden animate-fadeIn">
+          <div class="p-5 sm:p-6 border-b border-border">
+            <div class="flex items-start justify-between gap-4">
+              <div class="min-w-0">
+                <h3 class="text-lg font-bold text-text-primary mb-1">${esc(msg.name || "Unknown Sender")}</h3>
+                <div class="flex flex-wrap items-center gap-3 text-xs text-text-secondary">
+                  <span class="flex items-center gap-1.5">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                    ${esc(msg.email || "")}
+                  </span>
+                  ${msg.phone ? `<span class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>${esc(msg.phone)}</span>` : ""}
+                  <span class="flex items-center gap-1.5">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    ${formatDate(msg.created_at)}
+                  </span>
+                </div>
+              </div>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${msg.is_read ? "bg-surface-overlay text-text-muted border border-border" : "bg-primary/12 text-primary border border-primary/20"}">${msg.is_read ? "Read" : "Unread"}</span>
+            </div>
+          </div>
+          <div class="p-5 sm:p-6">
+            <p class="text-sm text-text-secondary leading-relaxed whitespace-pre-wrap">${esc(msg.message || "No message content")}</p>
+          </div>
+          <div class="px-5 sm:px-6 pb-5 sm:pb-6 flex flex-wrap items-center gap-2">
+            <button onclick="${msg.is_read ? `markAsUnread(${id})` : `markAsRead(${id})`}" class="inline-flex items-center gap-2 px-4 py-2 bg-surface border border-border text-text-secondary font-semibold rounded-xl text-xs hover:text-primary transition-colors">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${msg.is_read ? "M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" : "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"}"/></svg>
+              ${msg.is_read ? "Mark Unread" : "Mark Read"}
+            </button>
+            <button onclick="deleteMessage(${id})" class="inline-flex items-center gap-2 px-4 py-2 bg-surface border border-border text-text-secondary font-semibold rounded-xl text-xs hover:text-red-400 transition-colors">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+              Delete
+            </button>
+            ${
+              msg.email
+                ? `<a href="mailto:${esc(msg.email)}" class="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white font-bold rounded-xl text-xs ml-auto transition-all hover:shadow-lg hover:shadow-primary/25">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10l9 6 9-6M3 10v8a2 2 0 002 2h14a2 2 0 002-2v-8"/></svg>
+              Reply
+            </a>`
+                : ""
+            }
+          </div>
+        </div>`;
+        loadInbox();
+      }
+
+      async function markAsRead(id, silent = false) {
+        const { error } = await sb
+          .from("messages")
+          .update({ is_read: true })
+          .eq("id", id);
+        if (error && !silent) {
+          showToast("Failed to update message", "error");
+          return;
+        }
+        const msg = inboxCache.find((m) => m.id === id);
+        if (msg) msg.is_read = true;
+        if (!silent) {
+          showToast("Marked as read");
+          viewMessage(id);
+        }
+        updateInboxBadge();
+      }
+
+      async function markAsUnread(id) {
+        const { error } = await sb
+          .from("messages")
+          .update({ is_read: false })
+          .eq("id", id);
+        if (error) {
+          showToast("Failed to update message", "error");
+          return;
+        }
+        const msg = inboxCache.find((m) => m.id === id);
+        if (msg) msg.is_read = false;
+        showToast("Marked as unread");
+        viewMessage(id);
+      }
+
+      async function markAllAsRead() {
+        const { error } = await sb
+          .from("messages")
+          .update({ is_read: true })
+          .eq("is_read", false);
+        if (error) {
+          showToast("Failed to update messages", "error");
+          return;
+        }
+        showToast("All messages marked as read");
+        selectedMessageId = null;
+        loadInbox();
+      }
+
+      function deleteMessage(id) {
+        showConfirm(
+          "Delete this message?",
+          "This action cannot be undone.",
+          async () => {
+            const { error } = await sb.from("messages").delete().eq("id", id);
+            if (error) {
+              showToast("Delete failed: " + error.message, "error");
+              return;
+            }
+            showToast("Message deleted");
+            selectedMessageId = null;
+            document.getElementById("inbox-detail").innerHTML = `
+            <div class="glass rounded-2xl p-8 text-center min-h-[300px] flex flex-col items-center justify-center">
+              <svg class="w-12 h-12 mx-auto mb-3 text-text-muted opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+              <p class="text-text-muted text-sm">Select a message to view details</p>
+            </div>`;
+            loadInbox();
+          },
+        );
+      }
+
+      function getTimeAgo(dateStr) {
+        if (!dateStr) return "";
+        const now = new Date(),
+          d = new Date(dateStr);
+        const diff = Math.floor((now - d) / 1000);
+        if (diff < 60) return "Just now";
+        if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
+        if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
+        if (diff < 604800) return `${Math.floor(diff / 86400)}d ago`;
+        return d.toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+        });
       }
 
       // ========================================
@@ -3037,6 +3464,99 @@
           }
         }, 500);
       });
+
+      // ========================================
+      // PWA INSTALL PROMPT
+      // ========================================
+      let deferredPrompt = null;
+
+      window.addEventListener("beforeinstallprompt", (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        maybeShowInstallPrompt();
+      });
+
+      function isStandalone() {
+        return (
+          window.matchMedia("(display-mode: standalone)").matches ||
+          window.navigator.standalone === true
+        );
+      }
+
+      function maybeShowInstallPrompt() {
+        if (isStandalone()) return;
+        if (localStorage.getItem("pwa-install-dismissed")) return;
+        showInstallPopup();
+      }
+
+      function showInstallPopup() {
+        let existing = document.getElementById("pwa-install-popup");
+        if (existing) existing.remove();
+
+        const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
+        const popup = document.createElement("div");
+        popup.id = "pwa-install-popup";
+        popup.className =
+          "fixed bottom-4 left-4 right-4 sm:left-auto sm:right-4 sm:w-[380px] z-[9999] animate-fadeInUp";
+        popup.innerHTML = `
+          <div class="glass-strong rounded-2xl p-5 shadow-2xl border border-border">
+            <div class="flex items-start gap-4">
+              <div class="w-11 h-11 bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/25 rounded-xl flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                </svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <h4 class="text-sm font-bold text-text-primary mb-1">Install Admin Dashboard</h4>
+                <p class="text-xs text-text-secondary leading-relaxed mb-3">
+                  ${
+                    isIOS
+                      ? 'Tap <strong>Share</strong> <svg class="inline w-3 h-3 -mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg> then <strong>"Add to Home Screen"</strong> for quick access.'
+                      : "Add this app to your desktop or home screen for a native-like experience."
+                  }
+                </p>
+                <div class="flex items-center gap-2">
+                  ${!isIOS ? `<button onclick="installPWA()" class="px-4 py-2 bg-primary text-white text-xs font-bold rounded-xl hover:shadow-lg hover:shadow-primary/25 transition-all">Install App</button>` : ""}
+                  <button onclick="dismissInstallPrompt()" class="px-4 py-2 text-text-muted text-xs font-medium hover:text-text-secondary transition-colors">Not now</button>
+                </div>
+              </div>
+              <button onclick="dismissInstallPrompt()" class="p-1 text-text-muted hover:text-text-primary rounded-lg transition-colors flex-shrink-0">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+              </button>
+            </div>
+          </div>`;
+        document.body.appendChild(popup);
+      }
+
+      async function installPWA() {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          const { outcome } = await deferredPrompt.userChoice;
+          if (outcome === "accepted") {
+            showToast("App installed successfully!");
+          }
+          deferredPrompt = null;
+        }
+        dismissInstallPrompt();
+      }
+
+      function dismissInstallPrompt() {
+        localStorage.setItem("pwa-install-dismissed", "true");
+        const popup = document.getElementById("pwa-install-popup");
+        if (popup) {
+          popup.style.opacity = "0";
+          popup.style.transform = "translateY(20px)";
+          popup.style.transition = "all 0.3s ease";
+          setTimeout(() => popup.remove(), 300);
+        }
+      }
+
+      // Show install prompt after a short delay on page load
+      setTimeout(() => {
+        if (!isStandalone() && !localStorage.getItem("pwa-install-dismissed")) {
+          showInstallPopup();
+        }
+      }, 3000);
 
       // ========================================
       // INIT
