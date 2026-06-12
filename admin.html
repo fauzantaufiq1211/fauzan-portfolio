@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Dashboard — Fauzan Taufiq's Portfolio</title>
+    <title>Dashboard — Fauzan Taufiq's Portfolio</title>
     <meta name="robots" content="noindex, nofollow" />
     <meta name="theme-color" content="#0a0a0c" id="meta-theme-color" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -13,10 +13,8 @@
     />
     <meta name="apple-mobile-web-app-title" content="FT Admin" />
     <link rel="manifest" href="/manifest.json" />
-    <link
-      rel="apple-touch-icon"
-      href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%205000%205000%22%3E%3Crect%20fill%3D%22%23b54f26%22%20width%3D%225000%22%20height%3D%225000%22%20rx%3D%221000%22%2F%3E%3Cpath%20d%3D%22M4416.67%200H583.33C262.5%200%200%20262.5%200%20583.33v3833.34C0%204737.5%20262.5%205000%20583.33%205000s583.33-262.5%20583.33-583.33V3000h833.33c275%200%20500-225%20500-500v1916.67c0%20320.83%20262.5%20583.33%20583.33%20583.33s583.33-262.5%20583.33-583.33v-3250h750c320.83%200%20583.33-262.5%20583.33-583.33S4737.48.01%204416.65.01ZM2500%202500c0-275-225-500-500-500h-833.33v-833.33H2500z%22%20style%3D%22fill%3A%23fff%22%2F%3E%3C%2Fsvg%3E"
-    />
+    <link rel="apple-touch-icon" sizes="192x192" href="/images/icon-192.svg" />
+    <link rel="apple-touch-icon" sizes="512x512" href="/images/icon-512.svg" />
 
     <!-- FAVICON -->
     <link
@@ -668,6 +666,7 @@
       .message-card {
         transition: all 0.2s ease;
         cursor: pointer;
+        border: 1px solid var(--glass-border);
       }
       .message-card:hover {
         border-color: var(--border-light);
@@ -675,6 +674,16 @@
       }
       .message-card.unread {
         border-left: 3px solid #b54f26;
+        background: rgba(181, 79, 38, 0.04);
+      }
+      .message-card.unread .text-text-primary {
+        font-weight: 800;
+      }
+      .message-card:not(.unread) {
+        opacity: 0.7;
+      }
+      .message-card:not(.unread):hover {
+        opacity: 1;
       }
       .message-unread-dot {
         width: 8px;
@@ -2485,23 +2494,75 @@
       // ========================================
       // INBOX
       // ========================================
+      let hasIsReadColumn = null; // null = not checked yet
+
+      async function checkIsReadColumn() {
+        if (hasIsReadColumn !== null) return hasIsReadColumn;
+        try {
+          const { data, error } = await sb
+            .from("messages")
+            .select("is_read")
+            .limit(1);
+          hasIsReadColumn = !error;
+        } catch {
+          hasIsReadColumn = false;
+        }
+        return hasIsReadColumn;
+      }
+
+      function getLocalReadIds() {
+        try {
+          return JSON.parse(localStorage.getItem("inbox-read-ids") || "[]");
+        } catch {
+          return [];
+        }
+      }
+
+      function setLocalReadIds(ids) {
+        localStorage.setItem("inbox-read-ids", JSON.stringify(ids));
+      }
+
+      function isMessageRead(msg) {
+        if (hasIsReadColumn && msg.is_read !== undefined) return !!msg.is_read;
+        return getLocalReadIds().includes(msg.id);
+      }
+
       async function updateInboxBadge() {
         try {
-          const { count } = await sb
-            .from("messages")
-            .select("*", { count: "exact", head: true })
-            .eq("is_read", false);
-          const badge = document.getElementById("inbox-badge");
-          if (badge) {
-            if (count && count > 0) {
-              badge.textContent = count > 99 ? "99+" : count;
-              badge.classList.remove("hidden");
-            } else {
-              badge.classList.add("hidden");
+          const canUseDb = await checkIsReadColumn();
+          if (canUseDb) {
+            const { count } = await sb
+              .from("messages")
+              .select("*", { count: "exact", head: true })
+              .eq("is_read", false);
+            const badge = document.getElementById("inbox-badge");
+            if (badge) {
+              if (count && count > 0) {
+                badge.textContent = count > 99 ? "99+" : count;
+                badge.classList.remove("hidden");
+              } else {
+                badge.classList.add("hidden");
+              }
+            }
+          } else {
+            // Local fallback
+            const { count: totalCount } = await sb
+              .from("messages")
+              .select("*", { count: "exact", head: true });
+            const readIds = getLocalReadIds();
+            const unreadCount = (totalCount || 0) - readIds.length;
+            const badge = document.getElementById("inbox-badge");
+            if (badge) {
+              if (unreadCount > 0) {
+                badge.textContent = unreadCount > 99 ? "99+" : unreadCount;
+                badge.classList.remove("hidden");
+              } else {
+                badge.classList.add("hidden");
+              }
             }
           }
         } catch (e) {
-          /* is_read column may not exist yet */
+          /* silently fail */
         }
       }
 
@@ -2509,12 +2570,19 @@
         const listContainer = document.getElementById("inbox-list");
         listContainer.innerHTML = skeletonCards(4);
         const filter = document.getElementById("inbox-filter").value;
+
+        await checkIsReadColumn();
+
         let query = sb
           .from("messages")
           .select("*")
           .order("created_at", { ascending: false });
-        if (filter === "unread") query = query.eq("is_read", false);
-        else if (filter === "read") query = query.eq("is_read", true);
+
+        if (hasIsReadColumn) {
+          if (filter === "unread") query = query.eq("is_read", false);
+          else if (filter === "read") query = query.eq("is_read", true);
+        }
+
         const { data, error } = await query;
         if (error) {
           showToast("Failed to load messages", "error");
@@ -2524,27 +2592,43 @@
           );
           return;
         }
-        inboxCache = data || [];
-        const unreadCount = inboxCache.filter((m) => !m.is_read).length;
+
+        inboxCache = (data || []).map((msg) => ({
+          ...msg,
+          _isRead: isMessageRead(msg),
+        }));
+
+        // Apply local filter when DB column doesn't exist
+        let filtered = inboxCache;
+        if (!hasIsReadColumn) {
+          if (filter === "unread")
+            filtered = inboxCache.filter((m) => !m._isRead);
+          else if (filter === "read")
+            filtered = inboxCache.filter((m) => m._isRead);
+        }
+
+        const unreadCount = inboxCache.filter((m) => !m._isRead).length;
         document.getElementById("inbox-count-header").textContent =
           unreadCount > 0
             ? `(${unreadCount} unread)`
             : `(${inboxCache.length} total)`;
-        if (!data || data.length === 0) {
+
+        if (!filtered || filtered.length === 0) {
           listContainer.innerHTML = emptyState(
             "No messages yet",
             "Messages from your contact form will appear here",
           );
           return;
         }
-        listContainer.innerHTML = data
+
+        listContainer.innerHTML = filtered
           .map((msg, i) => {
-            const isUnread = !msg.is_read;
+            const isUnread = !msg._isRead;
             const timeAgo = getTimeAgo(msg.created_at);
             const selected =
               selectedMessageId === msg.id ? "border-primary/40" : "";
             return `
-          <div class="message-card glass rounded-2xl p-4 cursor-pointer ${isUnread ? "unread" : ""} ${selected} animate-fadeIn stagger-${Math.min(i + 1, 5)}" onclick="viewMessage(${msg.id})">
+          <div class="message-card glass rounded-2xl p-4 cursor-pointer ${isUnread ? "unread" : ""} ${selected} animate-fadeIn stagger-${Math.min(i + 1, 5)}" onclick="viewMessage('${msg.id}')">
             <div class="flex items-start justify-between gap-3">
               <div class="min-w-0 flex-1">
                 <div class="flex items-center gap-2 mb-1">
@@ -2563,10 +2647,31 @@
       }
 
       function viewMessage(id) {
-        selectedMessageId = id;
-        const msg = inboxCache.find((m) => m.id === id);
+        // Normalize id type (comes as string from onclick attribute)
+        const numId = isNaN(id) ? id : Number(id);
+        selectedMessageId = numId;
+        const msg = inboxCache.find((m) => m.id == numId);
         if (!msg) return;
-        if (!msg.is_read) markAsRead(id, true);
+
+        // Mark as read
+        if (!msg._isRead) {
+          msg._isRead = true;
+          // Update DB if possible
+          if (hasIsReadColumn) {
+            sb.from("messages")
+              .update({ is_read: true })
+              .eq("id", numId)
+              .then(() => {});
+          }
+          // Always update local
+          const readIds = getLocalReadIds();
+          if (!readIds.includes(numId)) {
+            readIds.push(numId);
+            setLocalReadIds(readIds);
+          }
+          updateInboxBadge();
+        }
+
         const d = document.getElementById("inbox-detail");
         d.innerHTML = `
         <div class="glass rounded-2xl overflow-hidden animate-fadeIn">
@@ -2586,18 +2691,18 @@
                   </span>
                 </div>
               </div>
-              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${msg.is_read ? "bg-surface-overlay text-text-muted border border-border" : "bg-primary/12 text-primary border border-primary/20"}">${msg.is_read ? "Read" : "Unread"}</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${msg._isRead ? "bg-surface-overlay text-text-muted border border-border" : "bg-primary/12 text-primary border border-primary/20"}">${msg._isRead ? "Read" : "Unread"}</span>
             </div>
           </div>
           <div class="p-5 sm:p-6">
             <p class="text-sm text-text-secondary leading-relaxed whitespace-pre-wrap">${esc(msg.message || "No message content")}</p>
           </div>
           <div class="px-5 sm:px-6 pb-5 sm:pb-6 flex flex-wrap items-center gap-2">
-            <button onclick="${msg.is_read ? `markAsUnread(${id})` : `markAsRead(${id})`}" class="inline-flex items-center gap-2 px-4 py-2 bg-surface border border-border text-text-secondary font-semibold rounded-xl text-xs hover:text-primary transition-colors">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${msg.is_read ? "M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" : "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"}"/></svg>
-              ${msg.is_read ? "Mark Unread" : "Mark Read"}
+            <button onclick="${msg._isRead ? `markAsUnread('${numId}')` : `markAsRead('${numId}')`}" class="inline-flex items-center gap-2 px-4 py-2 bg-surface border border-border text-text-secondary font-semibold rounded-xl text-xs hover:text-primary transition-colors">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${msg._isRead ? "M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" : "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"}"/></svg>
+              ${msg._isRead ? "Mark Unread" : "Mark Read"}
             </button>
-            <button onclick="deleteMessage(${id})" class="inline-flex items-center gap-2 px-4 py-2 bg-surface border border-border text-text-secondary font-semibold rounded-xl text-xs hover:text-red-400 transition-colors">
+            <button onclick="deleteMessage('${numId}')" class="inline-flex items-center gap-2 px-4 py-2 bg-surface border border-border text-text-secondary font-semibold rounded-xl text-xs hover:text-red-400 transition-colors">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
               Delete
             </button>
@@ -2611,74 +2716,135 @@
             }
           </div>
         </div>`;
-        loadInbox();
+        // Re-render list to update visual state (from cache, no re-fetch)
+        renderInboxList();
       }
 
-      async function markAsRead(id, silent = false) {
-        const { error } = await sb
-          .from("messages")
-          .update({ is_read: true })
-          .eq("id", id);
-        if (error && !silent) {
-          showToast("Failed to update message", "error");
+      function renderInboxList() {
+        const listContainer = document.getElementById("inbox-list");
+        const filter = document.getElementById("inbox-filter").value;
+        let filtered = inboxCache;
+        if (filter === "unread")
+          filtered = inboxCache.filter((m) => !m._isRead);
+        else if (filter === "read")
+          filtered = inboxCache.filter((m) => m._isRead);
+
+        const unreadCount = inboxCache.filter((m) => !m._isRead).length;
+        document.getElementById("inbox-count-header").textContent =
+          unreadCount > 0
+            ? `(${unreadCount} unread)`
+            : `(${inboxCache.length} total)`;
+
+        if (!filtered || filtered.length === 0) {
+          listContainer.innerHTML = emptyState(
+            "No messages yet",
+            "Messages from your contact form will appear here",
+          );
           return;
         }
-        const msg = inboxCache.find((m) => m.id === id);
-        if (msg) msg.is_read = true;
-        if (!silent) {
-          showToast("Marked as read");
-          viewMessage(id);
+
+        listContainer.innerHTML = filtered
+          .map((msg, i) => {
+            const isUnread = !msg._isRead;
+            const timeAgo = getTimeAgo(msg.created_at);
+            const selected =
+              selectedMessageId === msg.id ? "border-primary/40" : "";
+            return `
+          <div class="message-card glass rounded-2xl p-4 cursor-pointer ${isUnread ? "unread" : ""} ${selected} animate-fadeIn stagger-${Math.min(i + 1, 5)}" onclick="viewMessage('${msg.id}')">
+            <div class="flex items-start justify-between gap-3">
+              <div class="min-w-0 flex-1">
+                <div class="flex items-center gap-2 mb-1">
+                  ${isUnread ? '<div class="message-unread-dot"></div>' : ""}
+                  <span class="text-sm font-bold text-text-primary truncate">${esc(msg.name || "Unknown")}</span>
+                </div>
+                <p class="text-xs text-text-secondary truncate mb-1">${esc(msg.email || "")}</p>
+                <p class="text-xs text-text-muted line-clamp-2">${esc((msg.message || "").substring(0, 100))}${(msg.message || "").length > 100 ? "..." : ""}</p>
+              </div>
+              <span class="text-[10px] text-text-muted whitespace-nowrap flex-shrink-0">${timeAgo}</span>
+            </div>
+          </div>`;
+          })
+          .join("");
+      }
+
+      async function markAsRead(id) {
+        const numId = isNaN(id) ? id : Number(id);
+        // Update DB if possible
+        if (hasIsReadColumn) {
+          await sb.from("messages").update({ is_read: true }).eq("id", numId);
         }
+        // Always update local
+        const readIds = getLocalReadIds();
+        if (!readIds.includes(numId)) {
+          readIds.push(numId);
+          setLocalReadIds(readIds);
+        }
+        const msg = inboxCache.find((m) => m.id == numId);
+        if (msg) msg._isRead = true;
+        showToast("Marked as read");
         updateInboxBadge();
+        viewMessage(numId);
       }
 
       async function markAsUnread(id) {
-        const { error } = await sb
-          .from("messages")
-          .update({ is_read: false })
-          .eq("id", id);
-        if (error) {
-          showToast("Failed to update message", "error");
-          return;
+        const numId = isNaN(id) ? id : Number(id);
+        // Update DB if possible
+        if (hasIsReadColumn) {
+          await sb.from("messages").update({ is_read: false }).eq("id", numId);
         }
-        const msg = inboxCache.find((m) => m.id === id);
-        if (msg) msg.is_read = false;
+        // Always update local
+        const readIds = getLocalReadIds().filter((rid) => rid != numId);
+        setLocalReadIds(readIds);
+        const msg = inboxCache.find((m) => m.id == numId);
+        if (msg) msg._isRead = false;
         showToast("Marked as unread");
-        viewMessage(id);
+        updateInboxBadge();
+        viewMessage(numId);
       }
 
       async function markAllAsRead() {
-        const { error } = await sb
-          .from("messages")
-          .update({ is_read: true })
-          .eq("is_read", false);
-        if (error) {
-          showToast("Failed to update messages", "error");
-          return;
+        if (hasIsReadColumn) {
+          await sb
+            .from("messages")
+            .update({ is_read: true })
+            .eq("is_read", false);
         }
+        const readIds = inboxCache.map((m) => m.id);
+        setLocalReadIds(readIds);
+        inboxCache.forEach((m) => (m._isRead = true));
         showToast("All messages marked as read");
         selectedMessageId = null;
         loadInbox();
       }
 
       function deleteMessage(id) {
+        const numId = isNaN(id) ? id : Number(id);
         showConfirm(
           "Delete this message?",
           "This action cannot be undone.",
           async () => {
-            const { error } = await sb.from("messages").delete().eq("id", id);
+            const { error } = await sb
+              .from("messages")
+              .delete()
+              .eq("id", numId);
             if (error) {
               showToast("Delete failed: " + error.message, "error");
               return;
             }
             showToast("Message deleted");
             selectedMessageId = null;
+            // Remove from local read tracking
+            const readIds = getLocalReadIds().filter((rid) => rid != numId);
+            setLocalReadIds(readIds);
+            // Remove from cache
+            inboxCache = inboxCache.filter((m) => m.id != numId);
             document.getElementById("inbox-detail").innerHTML = `
             <div class="glass rounded-2xl p-8 text-center min-h-[300px] flex flex-col items-center justify-center">
               <svg class="w-12 h-12 mx-auto mb-3 text-text-muted opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
               <p class="text-text-muted text-sm">Select a message to view details</p>
             </div>`;
-            loadInbox();
+            renderInboxList();
+            updateInboxBadge();
           },
         );
       }
