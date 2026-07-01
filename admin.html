@@ -2621,8 +2621,13 @@
             .from("messages")
             .update({ is_read: true })
             .eq("is_read", false);
-        setLocalReadIds(inboxCache.map((m) => m.id));
-        inboxCache.forEach((m) => (m._isRead = true));
+        const readIds = new Array(inboxCache.length);
+        for (let i = 0; i < inboxCache.length; i++) {
+          const m = inboxCache[i];
+          m._isRead = true;
+          readIds[i] = m.id;
+        }
+        setLocalReadIds(readIds);
         showToast("All messages marked as read");
         selectedMessageId = null;
         loadInbox();
