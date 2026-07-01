@@ -1964,8 +1964,8 @@
         if (phoneInput) {
           phoneInput.addEventListener("input", function (e) {
             let value = this.value.replace(/[^0-9+]/g, "");
-            if (!value.startsWith("+")) {
-              value = "+" + value.replace(/\+/g, "");
+            if (value !== "") {
+                value = "+" + value.replace(/\+/g, "");
             }
             this.value = value;
           });
@@ -1975,7 +1975,7 @@
             }
           });
           phoneInput.addEventListener("blur", function () {
-            if (this.value === "+62") {
+            if (this.value === "+62" || this.value === "+") {
               this.value = "";
             }
           });
