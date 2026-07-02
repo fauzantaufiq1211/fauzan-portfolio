@@ -13,8 +13,8 @@
     />
     <meta name="apple-mobile-web-app-title" content="FT Admin" />
     <link rel="manifest" href="/manifest.json" />
-    <link rel="apple-touch-icon" sizes="192x192" href="/images/icon-192.svg" />
-    <link rel="apple-touch-icon" sizes="512x512" href="/images/icon-512.svg" />
+    <link rel="apple-touch-icon" sizes="192x192" href="/images/icon-192.png" />
+    <link rel="apple-touch-icon" sizes="512x512" href="/images/icon-512.png" />
 
     <!-- FAVICON -->
     <link
@@ -1326,6 +1326,26 @@
             </svg>
             <span id="theme-label">Light Mode</span>
           </button>
+          <button
+            id="sidebar-install-btn"
+            onclick="showInstallPopup()"
+            class="hidden w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-text-secondary hover:text-primary hover:bg-primary/8 transition-all"
+          >
+            <svg
+              class="w-[18px] h-[18px]"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              stroke-width="1.8"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+              />
+            </svg>
+            Install App
+          </button>
           <a
             href="/"
             target="_blank"
@@ -1386,7 +1406,14 @@
                   </p>
                   <h1 class="text-2xl font-bold text-text-primary">Overview</h1>
                 </div>
-                <p class="text-text-muted text-xs" id="overview-date"></p>
+                <div class="flex flex-col items-end gap-1">
+                  <p class="text-text-muted text-xs" id="overview-date"></p>
+                  <div class="flex items-center gap-2">
+                    <svg class="w-3.5 h-3.5 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <span id="overview-clock" class="text-sm font-semibold text-text-primary tabular-nums"></span>
+                    <span id="overview-timezone" class="text-[10px] text-text-muted font-medium"></span>
+                  </div>
+                </div>
               </div>
             </div>
             <div
@@ -2279,6 +2306,7 @@
       // ========================================
       // OVERVIEW
       // ========================================
+      let clockInterval = null;
       async function loadOverview() {
         const hour = new Date().getHours();
         document.getElementById("overview-greeting").textContent =
@@ -2294,6 +2322,17 @@
             month: "long",
             day: "numeric",
           });
+        // Live clock
+        if (clockInterval) clearInterval(clockInterval);
+        function updateClock() {
+          const now = new Date();
+          document.getElementById("overview-clock").textContent =
+            now.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: true });
+          const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+          document.getElementById("overview-timezone").textContent = tz;
+        }
+        updateClock();
+        clockInterval = setInterval(updateClock, 1000);
         try {
           const [items, sections, exps, edus, comps, msgs] = await Promise.all([
             sb
@@ -3365,6 +3404,7 @@
       window.addEventListener("beforeinstallprompt", (e) => {
         e.preventDefault();
         deferredPrompt = e;
+        updateInstallButton();
         maybeShowInstallPrompt();
       });
       function isStandalone() {
@@ -3373,12 +3413,20 @@
           window.navigator.standalone === true
         );
       }
+      function updateInstallButton() {
+        const btn = document.getElementById("sidebar-install-btn");
+        if (!btn) return;
+        if (isStandalone()) { btn.classList.add("hidden"); return; }
+        btn.classList.remove("hidden");
+        btn.style.display = "";
+      }
       function maybeShowInstallPrompt() {
         if (isStandalone() || localStorage.getItem("pwa-install-dismissed"))
           return;
         showInstallPopup();
       }
       function showInstallPopup() {
+        if (isStandalone()) return;
         let existing = document.getElementById("pwa-install-popup");
         if (existing) existing.remove();
         const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
@@ -3393,7 +3441,10 @@
         if (deferredPrompt) {
           deferredPrompt.prompt();
           const { outcome } = await deferredPrompt.userChoice;
-          if (outcome === "accepted") showToast("App installed successfully!");
+          if (outcome === "accepted") {
+            showToast("App installed successfully!");
+            updateInstallButton();
+          }
           deferredPrompt = null;
         }
         dismissInstallPrompt();
@@ -3409,6 +3460,7 @@
         }
       }
       setTimeout(() => {
+        updateInstallButton();
         if (!isStandalone() && !localStorage.getItem("pwa-install-dismissed"))
           showInstallPopup();
       }, 3000);

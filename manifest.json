@@ -1,6 +1,6 @@
 {
-  "name": "Dashboard — FT's Portfolio",
-  "short_name": "FT's Dashboard",
+  "name": "FT's Portfolio — Dashboard",
+  "short_name": "Admin Dashboard",
   "description": "Admin Dashboard for Fauzan Taufiq's Portfolio",
   "start_url": "/admin",
   "display": "standalone",
@@ -10,22 +10,34 @@
   "categories": ["productivity"],
   "icons": [
     {
-      "src": "/images/icon-192.svg",
+      "src": "/images/icon-192.png",
       "sizes": "192x192",
-      "type": "image/svg+xml",
+      "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/images/icon-512.svg",
+      "src": "/images/icon-512.png",
       "sizes": "512x512",
-      "type": "image/svg+xml",
+      "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/images/icon-512.svg",
+      "src": "/images/icon-512.png",
       "sizes": "512x512",
-      "type": "image/svg+xml",
+      "type": "image/png",
       "purpose": "maskable"
+    },
+    {
+      "src": "/images/icon-192.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/icon-512.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
     }
   ]
 }
