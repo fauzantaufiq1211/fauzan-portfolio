@@ -215,13 +215,24 @@
         }
         100% {
           opacity: 0;
-          transform: translate(calc((var(--random, 0.5) - 0.5) * 100px), -80px) scale(0);
+          transform: translate(calc((var(--random, 0.5) - 0.5) * 100px), -80px)
+            scale(0);
         }
       }
       @keyframes popupShake {
-        0%, 100% { transform: translateX(0); }
-        10%, 50%, 90% { transform: translateX(-4px); }
-        30%, 70% { transform: translateX(4px); }
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        10%,
+        50%,
+        90% {
+          transform: translateX(-4px);
+        }
+        30%,
+        70% {
+          transform: translateX(4px);
+        }
       }
     </style>
   </head>
@@ -1026,41 +1037,149 @@
       <div
         id="popup-content"
         class="relative w-full max-w-sm rounded-3xl p-8 shadow-2xl transform transition-all duration-500 ease-out scale-90 opacity-0 flex flex-col items-center text-center overflow-hidden"
-        style="background: rgba(10, 10, 14, 0.95); backdrop-filter: blur(40px); border: 1px solid rgba(255,255,255,0.08);"
+        style="
+          background: rgba(10, 10, 14, 0.95);
+          backdrop-filter: blur(40px);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+        "
       >
         <!-- Glow effect background -->
-        <div id="popup-glow" class="absolute inset-0 opacity-30 transition-opacity duration-700 pointer-events-none" style="background: radial-gradient(circle at 50% 30%, rgba(34,197,94,0.15) 0%, transparent 70%);"></div>
+        <div
+          id="popup-glow"
+          class="absolute inset-0 opacity-30 transition-opacity duration-700 pointer-events-none"
+          style="
+            background: radial-gradient(
+              circle at 50% 30%,
+              rgba(34, 197, 94, 0.15) 0%,
+              transparent 70%
+            );
+          "
+        ></div>
 
         <!-- Animated particles container (success only) -->
-        <div id="popup-particles" class="absolute inset-0 pointer-events-none overflow-hidden"></div>
+        <div
+          id="popup-particles"
+          class="absolute inset-0 pointer-events-none overflow-hidden"
+        ></div>
 
         <!-- Auto-dismiss progress bar -->
-        <div class="absolute top-0 left-0 right-0 h-[2px] overflow-hidden rounded-t-3xl">
-          <div id="popup-progress" class="h-full rounded-full transition-none" style="width: 100%; background: linear-gradient(90deg, #b54f26, #d4724a);"></div>
+        <div
+          class="absolute top-0 left-0 right-0 h-[2px] overflow-hidden rounded-t-3xl"
+        >
+          <div
+            id="popup-progress"
+            class="h-full rounded-full transition-none"
+            style="
+              width: 100%;
+              background: linear-gradient(90deg, #b54f26, #d4724a);
+            "
+          ></div>
         </div>
 
         <!-- Icon container -->
-        <div id="popup-icon-container" class="relative w-20 h-20 mb-5 flex items-center justify-center">
+        <div
+          id="popup-icon-container"
+          class="relative w-20 h-20 mb-5 flex items-center justify-center"
+        >
           <!-- Success icon -->
           <div id="popup-icon-success" class="absolute inset-0 hidden">
             <svg class="w-20 h-20" viewBox="0 0 80 80" fill="none">
-              <circle cx="40" cy="40" r="36" stroke="rgba(34,197,94,0.2)" stroke-width="3" fill="rgba(34,197,94,0.08)"/>
-              <circle id="popup-circle-success" cx="40" cy="40" r="36" stroke="#22c55e" stroke-width="3" fill="none" stroke-linecap="round"
-                style="stroke-dasharray: 226; stroke-dashoffset: 226; transition: stroke-dashoffset 0.8s cubic-bezier(0.65, 0, 0.35, 1);"/>
-              <path id="popup-check" d="M25 40 L35 50 L55 30" stroke="#22c55e" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"
-                style="stroke-dasharray: 50; stroke-dashoffset: 50; transition: stroke-dashoffset 0.5s cubic-bezier(0.65, 0, 0.35, 1) 0.5s;"/>
+              <circle
+                cx="40"
+                cy="40"
+                r="36"
+                stroke="rgba(34,197,94,0.2)"
+                stroke-width="3"
+                fill="rgba(34,197,94,0.08)"
+              />
+              <circle
+                id="popup-circle-success"
+                cx="40"
+                cy="40"
+                r="36"
+                stroke="#22c55e"
+                stroke-width="3"
+                fill="none"
+                stroke-linecap="round"
+                style="
+                  stroke-dasharray: 226;
+                  stroke-dashoffset: 226;
+                  transition: stroke-dashoffset 0.8s
+                    cubic-bezier(0.65, 0, 0.35, 1);
+                "
+              />
+              <path
+                id="popup-check"
+                d="M25 40 L35 50 L55 30"
+                stroke="#22c55e"
+                stroke-width="3.5"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                style="
+                  stroke-dasharray: 50;
+                  stroke-dashoffset: 50;
+                  transition: stroke-dashoffset 0.5s
+                    cubic-bezier(0.65, 0, 0.35, 1) 0.5s;
+                "
+              />
             </svg>
           </div>
           <!-- Error icon -->
           <div id="popup-icon-error" class="absolute inset-0 hidden">
             <svg class="w-20 h-20" viewBox="0 0 80 80" fill="none">
-              <circle cx="40" cy="40" r="36" stroke="rgba(239,68,68,0.2)" stroke-width="3" fill="rgba(239,68,68,0.08)"/>
-              <circle id="popup-circle-error" cx="40" cy="40" r="36" stroke="#ef4444" stroke-width="3" fill="none" stroke-linecap="round"
-                style="stroke-dasharray: 226; stroke-dashoffset: 226; transition: stroke-dashoffset 0.8s cubic-bezier(0.65, 0, 0.35, 1);"/>
-              <path id="popup-x1" d="M30 30 L50 50" stroke="#ef4444" stroke-width="3.5" fill="none" stroke-linecap="round"
-                style="stroke-dasharray: 28; stroke-dashoffset: 28; transition: stroke-dashoffset 0.4s cubic-bezier(0.65, 0, 0.35, 1) 0.4s;"/>
-              <path id="popup-x2" d="M50 30 L30 50" stroke="#ef4444" stroke-width="3.5" fill="none" stroke-linecap="round"
-                style="stroke-dasharray: 28; stroke-dashoffset: 28; transition: stroke-dashoffset 0.4s cubic-bezier(0.65, 0, 0.35, 1) 0.6s;"/>
+              <circle
+                cx="40"
+                cy="40"
+                r="36"
+                stroke="rgba(239,68,68,0.2)"
+                stroke-width="3"
+                fill="rgba(239,68,68,0.08)"
+              />
+              <circle
+                id="popup-circle-error"
+                cx="40"
+                cy="40"
+                r="36"
+                stroke="#ef4444"
+                stroke-width="3"
+                fill="none"
+                stroke-linecap="round"
+                style="
+                  stroke-dasharray: 226;
+                  stroke-dashoffset: 226;
+                  transition: stroke-dashoffset 0.8s
+                    cubic-bezier(0.65, 0, 0.35, 1);
+                "
+              />
+              <path
+                id="popup-x1"
+                d="M30 30 L50 50"
+                stroke="#ef4444"
+                stroke-width="3.5"
+                fill="none"
+                stroke-linecap="round"
+                style="
+                  stroke-dasharray: 28;
+                  stroke-dashoffset: 28;
+                  transition: stroke-dashoffset 0.4s
+                    cubic-bezier(0.65, 0, 0.35, 1) 0.4s;
+                "
+              />
+              <path
+                id="popup-x2"
+                d="M50 30 L30 50"
+                stroke="#ef4444"
+                stroke-width="3.5"
+                fill="none"
+                stroke-linecap="round"
+                style="
+                  stroke-dasharray: 28;
+                  stroke-dashoffset: 28;
+                  transition: stroke-dashoffset 0.4s
+                    cubic-bezier(0.65, 0, 0.35, 1) 0.6s;
+                "
+              />
             </svg>
           </div>
         </div>
@@ -1078,7 +1197,7 @@
           id="popup-btn"
           onclick="closePopup()"
           class="relative w-full py-3 rounded-xl font-bold text-sm transition-all duration-300 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] text-white"
-          style="background: linear-gradient(135deg, #b54f26, #d4724a);"
+          style="background: linear-gradient(135deg, #b54f26, #d4724a)"
         >
           Got it!
         </button>
@@ -1146,6 +1265,36 @@
       // ===========================================
       // 1. GLOBAL SCOPE (HELPER FUNCTIONS MUST BE HERE)
       // ===========================================
+
+      function sanitizeURL(url) {
+        if (!url) return "";
+        const trimmed = url.trim();
+        if (trimmed.toLowerCase().startsWith("javascript:"))
+          return "about:blank";
+        return trimmed;
+      }
+      function escapeHTML(str) {
+        if (typeof str !== "string") return str;
+        return str.replace(/[&<>'"]/g, function (tag) {
+          const charsToReplace = {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            "'": "&#39;",
+            '"': "&quot;",
+          };
+          return charsToReplace[tag] || tag;
+        });
+      }
+
+      function escapeJS(str) {
+        if (typeof str !== "string") return str;
+        return str
+          .replace(/\\/g, "\\\\")
+          .replace(/'/g, "\\'")
+          .replace(/"/g, '\\"')
+          .replace(/\u0000/g, "\\0");
+      }
 
       const SUPABASE_URL = "https://mrxttnlcpoixnvhngvtw.supabase.co";
       const SUPABASE_KEY =
@@ -1373,15 +1522,19 @@
         if (type === "success") {
           iconSuccess.classList.remove("hidden");
           iconError.classList.add("hidden");
-          glow.style.background = "radial-gradient(circle at 50% 30%, rgba(34,197,94,0.15) 0%, transparent 70%)";
-          progress.style.background = "linear-gradient(90deg, #22c55e, #4ade80)";
+          glow.style.background =
+            "radial-gradient(circle at 50% 30%, rgba(34,197,94,0.15) 0%, transparent 70%)";
+          progress.style.background =
+            "linear-gradient(90deg, #22c55e, #4ade80)";
           btnEl.style.background = "linear-gradient(135deg, #b54f26, #d4724a)";
           titleEl.className = "relative text-xl font-bold text-white mb-2";
         } else {
           iconSuccess.classList.add("hidden");
           iconError.classList.remove("hidden");
-          glow.style.background = "radial-gradient(circle at 50% 30%, rgba(239,68,68,0.15) 0%, transparent 70%)";
-          progress.style.background = "linear-gradient(90deg, #ef4444, #f87171)";
+          glow.style.background =
+            "radial-gradient(circle at 50% 30%, rgba(239,68,68,0.15) 0%, transparent 70%)";
+          progress.style.background =
+            "linear-gradient(90deg, #ef4444, #f87171)";
           btnEl.style.background = "linear-gradient(135deg, #b54f26, #d4724a)";
           titleEl.className = "relative text-xl font-bold text-white mb-2";
         }
@@ -1406,7 +1559,9 @@
               triggerSVGAnimation("popup-x2", 0);
               // Shake animation for error
               content.style.animation = "popupShake 0.5s ease 0.3s";
-              setTimeout(() => { content.style.animation = ""; }, 1000);
+              setTimeout(() => {
+                content.style.animation = "";
+              }, 1000);
             }
           }, 100);
         }, 10);
@@ -1457,7 +1612,14 @@
       }
 
       function spawnParticles(container) {
-        const colors = ["#b54f26", "#d4724a", "#22c55e", "#4ade80", "#fbbf24", "#f59e0b"];
+        const colors = [
+          "#b54f26",
+          "#d4724a",
+          "#22c55e",
+          "#4ade80",
+          "#fbbf24",
+          "#f59e0b",
+        ];
         for (let i = 0; i < 20; i++) {
           const p = document.createElement("div");
           const size = Math.random() * 4 + 2;
@@ -1540,14 +1702,14 @@
           arsenalContainer.innerHTML = arsenalData
             .map(
               (item) =>
-                `<div class="group flex flex-col items-center text-center gap-3 cursor-pointer"><div class="w-14 h-14 border border-gray-800 rounded-2xl flex items-center justify-center transition-all duration-300 group-hover:-translate-y-1" style="background-color: ${item.bg_color};" onmouseover="this.style.borderColor='${item.border_color}'; this.style.boxShadow='0 0 20px ${item.border_color}4D'" onmouseout="this.style.borderColor='rgb(31, 41, 55)'; this.style.boxShadow='none'"><img src="${item.icon_url}" alt="${item.name}" class="w-8 h-8 object-contain transition-transform duration-300 group-hover:scale-110" /></div><span class="text-[10px] leading-tight uppercase tracking-widest text-gray-500 font-medium transition-colors max-w-[100px]" onmouseover="this.style.color='${item.border_color}'" onmouseout="this.style.color='rgb(107, 114, 128)'">${item.name}</span></div>`,
+                `<div class="group flex flex-col items-center text-center gap-3 cursor-pointer"><div class="w-14 h-14 border border-gray-800 rounded-2xl flex items-center justify-center transition-all duration-300 group-hover:-translate-y-1" style="background-color: ${escapeHTML(item.bg_color)};" onmouseover="this.style.borderColor='${escapeHTML(escapeJS(item.border_color))}'; this.style.boxShadow='0 0 20px ${escapeHTML(escapeJS(item.border_color))}4D'" onmouseout="this.style.borderColor='rgb(31, 41, 55)'; this.style.boxShadow='none'"><img src="${escapeHTML(sanitizeURL(item.icon_url))}" alt="${escapeHTML(item.name)}" class="w-8 h-8 object-contain transition-transform duration-300 group-hover:scale-110" /></div><span class="text-[10px] leading-tight uppercase tracking-widest text-gray-500 font-medium transition-colors max-w-[100px]" onmouseover="this.style.color='${escapeHTML(escapeJS(item.border_color))}'" onmouseout="this.style.color='rgb(107, 114, 128)'">${escapeHTML(item.name)}</span></div>`,
             )
             .join("");
           const otherData = data.filter((item) => item.category === "other");
           otherContainer.innerHTML = otherData
             .map(
               (item) =>
-                `<span class="px-4 py-2 bg-gray-900 border border-gray-800 text-gray-300 rounded-lg text-sm hover:border-primary hover:text-primary transition-colors cursor-default">${item.name}</span>`,
+                `<span class="px-4 py-2 bg-gray-900 border border-gray-800 text-gray-300 rounded-lg text-sm hover:border-primary hover:text-primary transition-colors cursor-default">${escapeHTML(item.name)}</span>`,
             )
             .join("");
         } catch (err) {
@@ -1568,15 +1730,9 @@
               const dotClass = edu.is_active
                 ? "bg-primary ring-4 ring-black"
                 : "bg-gray-600 ring-4 ring-black group-hover:bg-primary transition-colors";
-              return `<div class="relative pl-8 group"><span class="absolute -left-[9px] top-1.5 h-4 w-4 rounded-full ${dotClass}"></span><h4 class="text-xl font-bold text-white leading-tight"><a href="${
-                edu.institution_link
-              }" target="_blank" class="hover:text-primary transition-all">${edu.institution}</a></h4><p class="text-${
+              return `<div class="relative pl-8 group"><span class="absolute -left-[9px] top-1.5 h-4 w-4 rounded-full ${dotClass}"></span><h4 class="text-xl font-bold text-white leading-tight"><a href="${escapeHTML(sanitizeURL(edu.institution_link))}" target="_blank" class="hover:text-primary transition-all">${escapeHTML(edu.institution)}</a></h4><p class="text-${
                 edu.is_active ? "primary font-bold" : "gray-500 font-medium"
-              } text-sm mt-1 mb-1">${edu.period}</p><div class="text-gray-400 text-sm space-y-1"><p class="font-semibold text-gray-200">${
-                edu.degree
-              }</p><p class="bg-gray-800 border border-gray-700 text-gray-300 px-2 py-0.5 rounded w-fit text-xs font-medium">${edu.score_label}: ${
-                edu.score_value
-              }</p></div><div class="text-gray-400 text-xs leading-relaxed mt-2">${edu.description || ""}</div></div>`;
+              } text-sm mt-1 mb-1">${escapeHTML(edu.period)}</p><div class="text-gray-400 text-sm space-y-1"><p class="font-semibold text-gray-200">${escapeHTML(edu.degree)}</p><p class="bg-gray-800 border border-gray-700 text-gray-300 px-2 py-0.5 rounded w-fit text-xs font-medium">${escapeHTML(edu.score_label)}: ${escapeHTML(edu.score_value)}</p></div><div class="text-gray-400 text-xs leading-relaxed mt-2">${escapeHTML(edu.description || "")}</div></div>`;
             })
             .join("");
         } catch (err) {
@@ -1604,9 +1760,11 @@
                     typeof exp.description === "string"
                       ? JSON.parse(exp.description)
                       : exp.description;
-                  descList = points.map((pt) => `<li>${pt}</li>`).join("");
+                  descList = points
+                    .map((pt) => `<li>${escapeHTML(pt)}</li>`)
+                    .join("");
                 } catch (e) {
-                  descList = `<li>${exp.description}</li>`;
+                  descList = `<li>${escapeHTML(exp.description)}</li>`;
                 }
               }
               let badgeClass = exp.type_class;
@@ -1623,7 +1781,7 @@
                   badgeClass = "badge-work-volunteer";
                 else badgeClass = "badge-work-type";
               }
-              return `<div class="${containerClass}"><div class="flex flex-col md:flex-row justify-between md:items-center mb-4 gap-2 relative z-10"><h4 class="text-xl font-bold text-black">${exp.role}</h4><div class="flex gap-2"><span class="${badgeClass}">${exp.type}</span><span class="badge-date">${exp.period}</span></div></div><p class="text-lg font-medium text-gray-700 mb-4 relative z-10"><a href="${exp.company_link}" target="_blank" class="hover:text-primary transition-colors flex items-center gap-2 w-fit">${exp.company}</a><span class="text-gray-400 text-sm font-normal ml-1">${exp.location}</span></p><ul class="list-disc list-outside ml-5 text-gray-600 space-y-2 text-sm leading-relaxed relative z-10">${descList}</ul></div>`;
+              return `<div class="${containerClass}"><div class="flex flex-col md:flex-row justify-between md:items-center mb-4 gap-2 relative z-10"><h4 class="text-xl font-bold text-black">${escapeHTML(exp.role)}</h4><div class="flex gap-2"><span class="${escapeHTML(badgeClass)}">${escapeHTML(exp.type)}</span><span class="badge-date">${escapeHTML(exp.period)}</span></div></div><p class="text-lg font-medium text-gray-700 mb-4 relative z-10"><a href="${escapeHTML(sanitizeURL(exp.company_link))}" target="_blank" class="hover:text-primary transition-colors flex items-center gap-2 w-fit">${escapeHTML(exp.company)}</a><span class="text-gray-400 text-sm font-normal ml-1">${escapeHTML(exp.location)}</span></p><ul class="list-disc list-outside ml-5 text-gray-600 space-y-2 text-sm leading-relaxed relative z-10">${descList}</ul></div>`;
             })
             .join("");
         } catch (err) {
@@ -1673,7 +1831,7 @@
           renderportfolio(formattedData);
         } catch (err) {
           console.error("Error loading portfolio:", err);
-          container.innerHTML = `<p class="text-center text-red-500">Error: ${err.message}</p>`;
+          container.innerHTML = `<p class="text-center text-red-500">Error: ${escapeHTML(err.message)}</p>`;
         }
       }
 
@@ -1697,14 +1855,14 @@
               (work.link.includes("drive.google.com") ||
                 work.link.toLowerCase().endsWith(".pdf"))
             ) {
-              return `href="#" onclick="openDocument('${work.link}', '${work.title || work.type}'); return false;"`;
+              return `href="#" onclick="openDocument('${escapeHTML(escapeJS(work.link))}', '${escapeHTML(escapeJS(work.title || work.type))}'); return false;"`;
             } else if (
               work.link &&
               (work.link.includes("http") || work.link.includes("www")) &&
               !isImageFile(work.link) &&
               work.link !== work.img
             ) {
-              return `href="${work.link}" target="_blank"`;
+              return `href="${escapeHTML(sanitizeURL(work.link))}" target="_blank"`;
             } else {
               const imgSrc = isImageFile(work.link) ? work.link : work.img;
               sectionGallery.push({
@@ -1712,7 +1870,7 @@
                 title: work.title || work.type,
               });
               const localIndex = sectionGallery.length - 1;
-              return `href="#" onclick="openLightbox('${sectionId}', ${localIndex}); return false;"`;
+              return `href="#" onclick="openLightbox('${escapeHTML(escapeJS(sectionId))}', ${localIndex}); return false;"`;
             }
           };
 
@@ -1722,14 +1880,14 @@
               (work.link.includes("drive.google.com") ||
                 work.link.toLowerCase().endsWith(".pdf"))
             ) {
-              return `<button onclick="openDocument('${work.link}', '${work.type}'); return false;" class="btn-action">${work.btnText}</button>`;
+              return `<button onclick="openDocument('${escapeHTML(escapeJS(work.link))}', '${escapeHTML(escapeJS(work.type))}'); return false;" class="btn-action">${escapeHTML(work.btnText)}</button>`;
             } else if (
               work.link &&
               (work.link.includes("http") || work.link.includes("www")) &&
               !isImageFile(work.link) &&
               work.link !== work.img
             ) {
-              return `<a href="${work.link}" target="_blank" class="btn-action">${work.btnText}</a>`;
+              return `<a href="${escapeHTML(sanitizeURL(work.link))}" target="_blank" class="btn-action">${escapeHTML(work.btnText)}</a>`;
             } else {
               const imgSrc = isImageFile(work.link) ? work.link : work.img;
               let localIndex = sectionGallery.findIndex(
@@ -1739,7 +1897,7 @@
                 sectionGallery.push({ src: imgSrc, title: work.type });
                 localIndex = sectionGallery.length - 1;
               }
-              return `<button onclick="openLightbox('${sectionId}', ${localIndex}); return false;" class="btn-action">${work.btnText}</button>`;
+              return `<button onclick="openLightbox('${escapeHTML(escapeJS(sectionId))}', ${localIndex}); return false;" class="btn-action">${escapeHTML(work.btnText)}</button>`;
             }
           };
 
@@ -1751,44 +1909,20 @@
                 work,
                 item.id,
               )} class="group relative flex flex-col bg-gray-50 rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                  <div class="h-48 sm:h-56 w-full overflow-hidden relative"><img src="${work.img}" alt="${
-                    work.title
-                  }" class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"><div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors"></div></div>
-                  <div class="p-6 flex-1 flex flex-col"><span class="text-[10px] font-bold text-primary uppercase tracking-widest mb-2">${
-                    work.category || "Portfolio"
-                  }</span><h4 class="text-lg font-bold text-black group-hover:text-primary transition-colors mb-2">${work.title}</h4><p class="text-sm text-gray-500 line-clamp-2">${
-                    work.desc || ""
-                  }</p><div class="mt-4 pt-4 border-t border-gray-100 flex items-center text-xs font-bold text-gray-400 group-hover:text-primary transition-colors">View Project <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></div></div>
+                  <div class="h-48 sm:h-56 w-full overflow-hidden relative"><img src="${escapeHTML(work.img)}" alt="${escapeHTML(work.title)}" class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"><div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors"></div></div>
+                  <div class="p-6 flex-1 flex flex-col"><span class="text-[10px] font-bold text-primary uppercase tracking-widest mb-2">${escapeHTML(work.category || "Portfolio")}</span><h4 class="text-lg font-bold text-black group-hover:text-primary transition-colors mb-2">${escapeHTML(work.title)}</h4><p class="text-sm text-gray-500 line-clamp-2">${escapeHTML(work.desc || "")}</p><div class="mt-4 pt-4 border-t border-gray-100 flex items-center text-xs font-bold text-gray-400 group-hover:text-primary transition-colors">View Project <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></div></div>
               </a>`,
               )
               .join("");
-            htmlContent += `<div><div class="py-16 md:py-24 relative flex items-center justify-center"><div class="flex-grow border-t border-gray-200 opacity-70"></div><span class="flex-shrink mx-3 md:mx-6 text-gray-400 uppercase text-[10px] md:text-xs font-bold tracking-[0.15em] md:tracking-[0.3em] flex items-center justify-center gap-2 text-center"><span class="text-primary text-base">✦</span> ${
-              item.tagline || "Explore"
-            } <span class="text-primary text-base">✦</span></span><div class="flex-grow border-t border-gray-200 opacity-70"></div></div><div class="text-center max-w-3xl mx-auto mb-12"><h4 class="text-3xl md:text-4xl font-extrabold text-black mb-4">${
-              item.title
-            }</h4><p class="text-gray-500 leading-relaxed">${item.desc}</p></div><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">${cardsHtml}</div></div>`;
+            htmlContent += `<div><div class="py-16 md:py-24 relative flex items-center justify-center"><div class="flex-grow border-t border-gray-200 opacity-70"></div><span class="flex-shrink mx-3 md:mx-6 text-gray-400 uppercase text-[10px] md:text-xs font-bold tracking-[0.15em] md:tracking-[0.3em] flex items-center justify-center gap-2 text-center"><span class="text-primary text-base">✦</span> ${escapeHTML(item.tagline || "Explore")} <span class="text-primary text-base">✦</span></span><div class="flex-grow border-t border-gray-200 opacity-70"></div></div><div class="text-center max-w-3xl mx-auto mb-12"><h4 class="text-3xl md:text-4xl font-extrabold text-black mb-4">${escapeHTML(item.title)}</h4><p class="text-gray-500 leading-relaxed">${escapeHTML(item.desc)}</p></div><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">${cardsHtml}</div></div>`;
           } else {
             const slidesHtml = item.works
               .map(
                 (work) =>
-                  `<div class="work-slide"><span class="slide-badge">${work.type}</span><img src="${work.img}" alt="${
-                    work.type
-                  }" class="slide-image"><div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-30">${createActionButton(work, item.id)}</div></div>`,
+                  `<div class="work-slide"><span class="slide-badge">${escapeHTML(work.type)}</span><img src="${escapeHTML(work.img)}" alt="${escapeHTML(work.type)}" class="slide-image"><div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-30">${createActionButton(work, item.id)}</div></div>`,
               )
               .join("");
-            htmlContent += `<div class="company-showcase"><div class="flex flex-col lg:flex-row gap-12"><div class="w-full lg:w-1/3"><div class="lg:sticky lg:top-32"><span class="text-xs font-bold ${
-              item.badgeClass || "bg-gray-100 text-gray-600"
-            } px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-4">${item.badge || "Project"}</span><h4 class="text-3xl font-bold text-black mb-2">${
-              item.company
-            }</h4><p class="text-gray-500 text-sm font-bold uppercase tracking-widest mb-6">${item.tagline}</p><p class="text-gray-600 text-sm leading-relaxed mb-8">${
-              item.desc
-            }</p></div></div><div class="w-full lg:w-2/3 relative group"><button class="nav-arrow nav-prev hidden lg:flex" onclick="moveSlide('${
-              item.id
-            }', -1)"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="nav-arrow nav-next hidden lg:flex" onclick="moveSlide('${
-              item.id
-            }', 1)"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div id="slider-${
-              item.id
-            }" class="work-slider h-[400px] lg:h-[550px] shadow-xl rounded-[2.5rem] overflow-hidden border border-gray-100 bg-gray-50/50">${slidesHtml}</div></div></div></div>`;
+            htmlContent += `<div class="company-showcase"><div class="flex flex-col lg:flex-row gap-12"><div class="w-full lg:w-1/3"><div class="lg:sticky lg:top-32"><span class="text-xs font-bold ${escapeHTML(item.badgeClass || "bg-gray-100 text-gray-600")} px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-4">${escapeHTML(item.badge || "Project")}</span><h4 class="text-3xl font-bold text-black mb-2">${escapeHTML(item.company)}</h4><p class="text-gray-500 text-sm font-bold uppercase tracking-widest mb-6">${escapeHTML(item.tagline)}</p><p class="text-gray-600 text-sm leading-relaxed mb-8">${escapeHTML(item.desc)}</p></div></div><div class="w-full lg:w-2/3 relative group"><button class="nav-arrow nav-prev hidden lg:flex" onclick="moveSlide('${escapeHTML(item.id)}', -1)"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="nav-arrow nav-next hidden lg:flex" onclick="moveSlide('${escapeHTML(item.id)}', 1)"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div id="slider-${escapeHTML(item.id)}" class="work-slider h-[400px] lg:h-[550px] shadow-xl rounded-[2.5rem] overflow-hidden border border-gray-100 bg-gray-50/50">${slidesHtml}</div></div></div></div>`;
           }
         });
         container.innerHTML = htmlContent;
