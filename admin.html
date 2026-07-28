@@ -2450,18 +2450,25 @@
       // INBOX
       // ========================================
       let hasIsReadColumn = null;
-      async function checkIsReadColumn() {
-        if (hasIsReadColumn !== null) return hasIsReadColumn;
-        try {
-          const { error } = await sb
-            .from("messages")
-            .select("is_read")
-            .limit(1);
-          hasIsReadColumn = !error;
-        } catch {
-          hasIsReadColumn = false;
-        }
-        return hasIsReadColumn;
+      let checkIsReadColumnPromise = null;
+      function checkIsReadColumn() {
+        if (hasIsReadColumn !== null) return Promise.resolve(hasIsReadColumn);
+        if (checkIsReadColumnPromise) return checkIsReadColumnPromise;
+
+        checkIsReadColumnPromise = (async () => {
+          try {
+            const { error } = await sb
+              .from("messages")
+              .select("is_read")
+              .limit(1);
+            hasIsReadColumn = !error;
+          } catch {
+            hasIsReadColumn = false;
+          }
+          checkIsReadColumnPromise = null;
+          return hasIsReadColumn;
+        })();
+        return checkIsReadColumnPromise;
       }
       function getLocalReadIds() {
         try {
