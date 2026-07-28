@@ -1534,22 +1534,17 @@
             .select("*")
             .order("sort_order", { ascending: true });
           if (error) throw error;
-          const arsenalData = data.filter(
-            (item) => item.category === "arsenal",
-          );
-          arsenalContainer.innerHTML = arsenalData
-            .map(
-              (item) =>
-                `<div class="group flex flex-col items-center text-center gap-3 cursor-pointer"><div class="w-14 h-14 border border-gray-800 rounded-2xl flex items-center justify-center transition-all duration-300 group-hover:-translate-y-1" style="background-color: ${item.bg_color};" onmouseover="this.style.borderColor='${item.border_color}'; this.style.boxShadow='0 0 20px ${item.border_color}4D'" onmouseout="this.style.borderColor='rgb(31, 41, 55)'; this.style.boxShadow='none'"><img src="${item.icon_url}" alt="${item.name}" class="w-8 h-8 object-contain transition-transform duration-300 group-hover:scale-110" /></div><span class="text-[10px] leading-tight uppercase tracking-widest text-gray-500 font-medium transition-colors max-w-[100px]" onmouseover="this.style.color='${item.border_color}'" onmouseout="this.style.color='rgb(107, 114, 128)'">${item.name}</span></div>`,
-            )
-            .join("");
-          const otherData = data.filter((item) => item.category === "other");
-          otherContainer.innerHTML = otherData
-            .map(
-              (item) =>
-                `<span class="px-4 py-2 bg-gray-900 border border-gray-800 text-gray-300 rounded-lg text-sm hover:border-primary hover:text-primary transition-colors cursor-default">${item.name}</span>`,
-            )
-            .join("");
+          const htmls = data.reduce((acc, item) => {
+            if (item.category === "arsenal") {
+              acc.arsenal += `<div class="group flex flex-col items-center text-center gap-3 cursor-pointer"><div class="w-14 h-14 border border-gray-800 rounded-2xl flex items-center justify-center transition-all duration-300 group-hover:-translate-y-1" style="background-color: ${item.bg_color};" onmouseover="this.style.borderColor='${item.border_color}'; this.style.boxShadow='0 0 20px ${item.border_color}4D'" onmouseout="this.style.borderColor='rgb(31, 41, 55)'; this.style.boxShadow='none'"><img src="${item.icon_url}" alt="${item.name}" class="w-8 h-8 object-contain transition-transform duration-300 group-hover:scale-110" /></div><span class="text-[10px] leading-tight uppercase tracking-widest text-gray-500 font-medium transition-colors max-w-[100px]" onmouseover="this.style.color='${item.border_color}'" onmouseout="this.style.color='rgb(107, 114, 128)'">${item.name}</span></div>`;
+            } else if (item.category === "other") {
+              acc.other += `<span class="px-4 py-2 bg-gray-900 border border-gray-800 text-gray-300 rounded-lg text-sm hover:border-primary hover:text-primary transition-colors cursor-default">${item.name}</span>`;
+            }
+            return acc;
+          }, { arsenal: "", other: "" });
+
+          arsenalContainer.innerHTML = htmls.arsenal;
+          otherContainer.innerHTML = htmls.other;
         } catch (err) {
           console.error("Error loading competencies:", err);
         }
