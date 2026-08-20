@@ -1409,9 +1409,27 @@
                 <div class="flex flex-col items-end gap-1">
                   <p class="text-text-muted text-xs" id="overview-date"></p>
                   <div class="flex items-center gap-2">
-                    <svg class="w-3.5 h-3.5 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    <span id="overview-clock" class="text-sm font-semibold text-text-primary tabular-nums"></span>
-                    <span id="overview-timezone" class="text-[10px] text-text-muted font-medium"></span>
+                    <svg
+                      class="w-3.5 h-3.5 text-text-muted"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                    <span
+                      id="overview-clock"
+                      class="text-sm font-semibold text-text-primary tabular-nums"
+                    ></span>
+                    <span
+                      id="overview-timezone"
+                      class="text-[10px] text-text-muted font-medium"
+                    ></span>
                   </div>
                 </div>
               </div>
@@ -2067,8 +2085,7 @@
       // GLOBAL STATE
       // ========================================
       const SUPABASE_URL = "https://mrxttnlcpoixnvhngvtw.supabase.co";
-      const SUPABASE_KEY =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yeHR0bmxjcG9peG52aG5ndnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc5MDM2MDIsImV4cCI6MjA4MzQ3OTYwMn0.1tK-18DVOokyI_uDiqkelHmALgmgeVyI9JXwPgt5sQM";
+      const SUPABASE_KEY = "sb_publishable__gxiC0ChcsPcBp9EELbowg_raTWaEzt";
       const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
       let currentPage = "overview";
@@ -2327,7 +2344,12 @@
         function updateClock() {
           const now = new Date();
           document.getElementById("overview-clock").textContent =
-            now.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: true });
+            now.toLocaleTimeString("en-US", {
+              hour: "2-digit",
+              minute: "2-digit",
+              second: "2-digit",
+              hour12: true,
+            });
           const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
           document.getElementById("overview-timezone").textContent = tz;
         }
@@ -2441,8 +2463,10 @@
       }
 
       function navCard(page, label, color, path) {
-        const bgClass = color === 'primary' ? 'bg-primary/10' : `bg-${color}-500/10`;
-        const textClass = color === 'primary' ? 'text-primary' : `text-${color}-400`;
+        const bgClass =
+          color === "primary" ? "bg-primary/10" : `bg-${color}-500/10`;
+        const textClass =
+          color === "primary" ? "text-primary" : `text-${color}-400`;
         return `<button onclick="navigateTo('${page}')" class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-surface-overlay transition-colors group"><div class="flex items-center gap-3"><div class="w-8 h-8 ${bgClass} rounded-lg flex items-center justify-center"><svg class="w-4 h-4 ${textClass}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${path}"/></svg></div><span class="text-sm text-text-secondary group-hover:text-text-primary transition-colors">${label}</span></div><svg class="w-4 h-4 text-text-muted group-hover:text-text-secondary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button>`;
       }
 
@@ -3416,7 +3440,10 @@
       function updateInstallButton() {
         const btn = document.getElementById("sidebar-install-btn");
         if (!btn) return;
-        if (isStandalone()) { btn.classList.add("hidden"); return; }
+        if (isStandalone()) {
+          btn.classList.add("hidden");
+          return;
+        }
         btn.classList.remove("hidden");
         btn.style.display = "";
       }
