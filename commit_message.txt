@@ -1,0 +1,10 @@
+🔒 Fix Missing HTML Escaping Vulnerability in Dynamic Renderings
+
+**🎯 What:**
+The dynamic rendering for experience, education, portfolio, and competencies interpolated unescaped data from the Supabase backend directly into `index.html` via template literals.
+
+**⚠️ Risk:**
+Any malicious data saved to the backend database (like user input from the admin site) could trigger cross-site scripting (XSS). Attackers could execute arbitrary JavaScript in the context of the user visiting the portfolio site, compromising user sessions and altering page content.
+
+**🛡️ Solution:**
+Added a global `escapeHTML` function and applied it across all rendering routines (like `fetchExperience`) to sanitize variable data injected into HTML elements.
