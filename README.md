@@ -76,12 +76,22 @@ Buka menu SQL Editor di Dashboard Supabase Anda, lalu jalankan perintah SQL untu
 
 ### **5\. Hubungkan API Key**
 
-Buka file index.html, cari bagian konfigurasi Supabase, dan ganti dengan milik Anda:
+1. Copy file `env.example.js` menjadi `env.js`.
+2. Buka file `env.js` dan ganti placeholder dengan kunci Supabase Anda:
 
-const SUPABASE_URL \= "https://\[PROJECT-ID\].supabase.co";  
-const SUPABASE_KEY \= "\[YOUR-ANON-PUBLIC-KEY\]";
+```javascript
+const SUPABASE_URL = "https://[PROJECT-ID].supabase.co";
+const SUPABASE_KEY = "[YOUR-ANON-PUBLIC-KEY]";
+```
 
-### **6\. Jalankan Project**
+### **6. Deployment di Vercel**
+
+Saat melakukan deploy di Vercel atau layanan hosting lain, pastikan Anda menambahkan _Environment Variables_ berikut agar script build otomatis berjalan:
+
+- `SUPABASE_URL`
+- `SUPABASE_KEY`
+
+### **7\. Jalankan Project**
 
 Gunakan ekstensi **Live Server** di VS Code untuk menjalankan index.html.
 

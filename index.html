@@ -33,6 +33,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+    <script src="env.js"></script>
     <script>
       tailwind.config = {
         theme: {
@@ -1266,9 +1267,6 @@
       // 1. GLOBAL SCOPE (HELPER FUNCTIONS MUST BE HERE)
       // ===========================================
 
-      const SUPABASE_URL = "https://mrxttnlcpoixnvhngvtw.supabase.co";
-      const SUPABASE_KEY =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yeHR0bmxjcG9peG52aG5ndnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc5MDM2MDIsImV4cCI6MjA4MzQ3OTYwMn0.1tK-18DVOokyI_uDiqkelHmALgmgeVyI9JXwPgt5sQM";
       const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
       let portfolioGalleries = {};
