@@ -1271,6 +1271,31 @@
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yeHR0bmxjcG9peG52aG5ndnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc5MDM2MDIsImV4cCI6MjA4MzQ3OTYwMn0.1tK-18DVOokyI_uDiqkelHmALgmgeVyI9JXwPgt5sQM";
       const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+      function esc(str) {
+        if (str === null || str === undefined) return "";
+        return String(str)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+
+      function escJS(str) {
+        if (str === null || str === undefined) return "";
+        return String(str)
+          .replace(/\\/g, "\\\\")
+          .replace(/'/g, "\\'")
+          .replace(/"/g, '\\"')
+          .replace(/\n/g, "\\n")
+          .replace(/\r/g, "\\r")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+
       let portfolioGalleries = {};
       let currentGalleryId = null;
       let currentImageIndex = 0;
@@ -1672,14 +1697,14 @@
           arsenalContainer.innerHTML = arsenalData
             .map(
               (item) =>
-                `<div class="group flex flex-col items-center text-center gap-3 cursor-pointer"><div class="w-14 h-14 border border-gray-800 rounded-2xl flex items-center justify-center transition-all duration-300 group-hover:-translate-y-1" style="background-color: ${item.bg_color};" onmouseover="this.style.borderColor='${item.border_color}'; this.style.boxShadow='0 0 20px ${item.border_color}4D'" onmouseout="this.style.borderColor='rgb(31, 41, 55)'; this.style.boxShadow='none'"><img src="${item.icon_url}" alt="${item.name}" class="w-8 h-8 object-contain transition-transform duration-300 group-hover:scale-110" /></div><span class="text-[10px] leading-tight uppercase tracking-widest text-gray-500 font-medium transition-colors max-w-[100px]" onmouseover="this.style.color='${item.border_color}'" onmouseout="this.style.color='rgb(107, 114, 128)'">${item.name}</span></div>`,
+                `<div class="group flex flex-col items-center text-center gap-3 cursor-pointer"><div class="w-14 h-14 border border-gray-800 rounded-2xl flex items-center justify-center transition-all duration-300 group-hover:-translate-y-1" style="background-color: ${esc(item.bg_color)};" onmouseover="this.style.borderColor='${escJS(item.border_color)}'; this.style.boxShadow='0 0 20px ${escJS(item.border_color)}4D'" onmouseout="this.style.borderColor='rgb(31, 41, 55)'; this.style.boxShadow='none'"><img src="${esc(item.icon_url)}" alt="${esc(item.name)}" class="w-8 h-8 object-contain transition-transform duration-300 group-hover:scale-110" /></div><span class="text-[10px] leading-tight uppercase tracking-widest text-gray-500 font-medium transition-colors max-w-[100px]" onmouseover="this.style.color='${escJS(item.border_color)}'" onmouseout="this.style.color='rgb(107, 114, 128)'">${esc(item.name)}</span></div>`,
             )
             .join("");
           const otherData = data.filter((item) => item.category === "other");
           otherContainer.innerHTML = otherData
             .map(
               (item) =>
-                `<span class="px-4 py-2 bg-gray-900 border border-gray-800 text-gray-300 rounded-lg text-sm hover:border-primary hover:text-primary transition-colors cursor-default">${item.name}</span>`,
+                `<span class="px-4 py-2 bg-gray-900 border border-gray-800 text-gray-300 rounded-lg text-sm hover:border-primary hover:text-primary transition-colors cursor-default">${esc(item.name)}</span>`,
             )
             .join("");
         } catch (err) {
@@ -1700,15 +1725,15 @@
               const dotClass = edu.is_active
                 ? "bg-primary ring-4 ring-black"
                 : "bg-gray-600 ring-4 ring-black group-hover:bg-primary transition-colors";
-              return `<div class="relative pl-8 group"><span class="absolute -left-[9px] top-1.5 h-4 w-4 rounded-full ${dotClass}"></span><h4 class="text-xl font-bold text-white leading-tight"><a href="${
-                edu.institution_link
-              }" target="_blank" class="hover:text-primary transition-all">${edu.institution}</a></h4><p class="text-${
+              return `<div class="relative pl-8 group"><span class="absolute -left-[9px] top-1.5 h-4 w-4 rounded-full ${dotClass}"></span><h4 class="text-xl font-bold text-white leading-tight"><a href="${esc(
+                edu.institution_link,
+              )}" target="_blank" class="hover:text-primary transition-all">${esc(edu.institution)}</a></h4><p class="text-${
                 edu.is_active ? "primary font-bold" : "gray-500 font-medium"
-              } text-sm mt-1 mb-1">${edu.period}</p><div class="text-gray-400 text-sm space-y-1"><p class="font-semibold text-gray-200">${
-                edu.degree
-              }</p><p class="bg-gray-800 border border-gray-700 text-gray-300 px-2 py-0.5 rounded w-fit text-xs font-medium">${edu.score_label}: ${
-                edu.score_value
-              }</p></div><div class="text-gray-400 text-xs leading-relaxed mt-2">${edu.description || ""}</div></div>`;
+              } text-sm mt-1 mb-1">${esc(edu.period)}</p><div class="text-gray-400 text-sm space-y-1"><p class="font-semibold text-gray-200">${esc(
+                edu.degree,
+              )}</p><p class="bg-gray-800 border border-gray-700 text-gray-300 px-2 py-0.5 rounded w-fit text-xs font-medium">${esc(edu.score_label)}: ${esc(
+                edu.score_value,
+              )}</p></div><div class="text-gray-400 text-xs leading-relaxed mt-2">${esc(edu.description || "")}</div></div>`;
             })
             .join("");
         } catch (err) {
@@ -1736,9 +1761,9 @@
                     typeof exp.description === "string"
                       ? JSON.parse(exp.description)
                       : exp.description;
-                  descList = points.map((pt) => `<li>${pt}</li>`).join("");
+                  descList = points.map((pt) => `<li>${esc(pt)}</li>`).join("");
                 } catch (e) {
-                  descList = `<li>${exp.description}</li>`;
+                  descList = `<li>${esc(exp.description)}</li>`;
                 }
               }
               let badgeClass = exp.type_class;
@@ -1755,7 +1780,7 @@
                   badgeClass = "badge-work-volunteer";
                 else badgeClass = "badge-work-type";
               }
-              return `<div class="${containerClass}"><div class="flex flex-col md:flex-row justify-between md:items-center mb-4 gap-2 relative z-10"><h4 class="text-xl font-bold text-black">${exp.role}</h4><div class="flex gap-2"><span class="${badgeClass}">${exp.type}</span><span class="badge-date">${exp.period}</span></div></div><p class="text-lg font-medium text-gray-700 mb-4 relative z-10"><a href="${exp.company_link}" target="_blank" class="hover:text-primary transition-colors flex items-center gap-2 w-fit">${exp.company}</a><span class="text-gray-400 text-sm font-normal ml-1">${exp.location}</span></p><ul class="list-disc list-outside ml-5 text-gray-600 space-y-2 text-sm leading-relaxed relative z-10">${descList}</ul></div>`;
+              return `<div class="${esc(containerClass)}"><div class="flex flex-col md:flex-row justify-between md:items-center mb-4 gap-2 relative z-10"><h4 class="text-xl font-bold text-black">${esc(exp.role)}</h4><div class="flex gap-2"><span class="${esc(badgeClass)}">${esc(exp.type)}</span><span class="badge-date">${esc(exp.period)}</span></div></div><p class="text-lg font-medium text-gray-700 mb-4 relative z-10"><a href="${esc(exp.company_link)}" target="_blank" class="hover:text-primary transition-colors flex items-center gap-2 w-fit">${esc(exp.company)}</a><span class="text-gray-400 text-sm font-normal ml-1">${esc(exp.location)}</span></p><ul class="list-disc list-outside ml-5 text-gray-600 space-y-2 text-sm leading-relaxed relative z-10">${descList}</ul></div>`;
             })
             .join("");
         } catch (err) {
@@ -1829,14 +1854,14 @@
               (work.link.includes("drive.google.com") ||
                 work.link.toLowerCase().endsWith(".pdf"))
             ) {
-              return `href="#" onclick="openDocument('${work.link}', '${work.title || work.type}'); return false;"`;
+              return `href="#" onclick="openDocument('${escJS(work.link)}', '${escJS(work.title || work.type)}'); return false;"`;
             } else if (
               work.link &&
               (work.link.includes("http") || work.link.includes("www")) &&
               !isImageFile(work.link) &&
               work.link !== work.img
             ) {
-              return `href="${work.link}" target="_blank"`;
+              return `href="${esc(work.link)}" target="_blank"`;
             } else {
               const imgSrc = isImageFile(work.link) ? work.link : work.img;
               sectionGallery.push({
@@ -1844,7 +1869,7 @@
                 title: work.title || work.type,
               });
               const localIndex = sectionGallery.length - 1;
-              return `href="#" onclick="openLightbox('${sectionId}', ${localIndex}); return false;"`;
+              return `href="#" onclick="openLightbox('${escJS(sectionId)}', ${localIndex}); return false;"`;
             }
           };
 
@@ -1854,14 +1879,14 @@
               (work.link.includes("drive.google.com") ||
                 work.link.toLowerCase().endsWith(".pdf"))
             ) {
-              return `<button onclick="openDocument('${work.link}', '${work.type}'); return false;" class="btn-action">${work.btnText}</button>`;
+              return `<button onclick="openDocument('${escJS(work.link)}', '${escJS(work.type)}'); return false;" class="btn-action">${esc(work.btnText)}</button>`;
             } else if (
               work.link &&
               (work.link.includes("http") || work.link.includes("www")) &&
               !isImageFile(work.link) &&
               work.link !== work.img
             ) {
-              return `<a href="${work.link}" target="_blank" class="btn-action">${work.btnText}</a>`;
+              return `<a href="${esc(work.link)}" target="_blank" class="btn-action">${esc(work.btnText)}</a>`;
             } else {
               const imgSrc = isImageFile(work.link) ? work.link : work.img;
               let localIndex = sectionGallery.findIndex(
@@ -1871,7 +1896,7 @@
                 sectionGallery.push({ src: imgSrc, title: work.type });
                 localIndex = sectionGallery.length - 1;
               }
-              return `<button onclick="openLightbox('${sectionId}', ${localIndex}); return false;" class="btn-action">${work.btnText}</button>`;
+              return `<button onclick="openLightbox('${escJS(sectionId)}', ${localIndex}); return false;" class="btn-action">${esc(work.btnText)}</button>`;
             }
           };
 
@@ -1883,44 +1908,44 @@
                 work,
                 item.id,
               )} class="group relative flex flex-col bg-gray-50 rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                  <div class="h-48 sm:h-56 w-full overflow-hidden relative"><img src="${work.img}" alt="${
-                    work.title
-                  }" class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"><div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors"></div></div>
-                  <div class="p-6 flex-1 flex flex-col"><span class="text-[10px] font-bold text-primary uppercase tracking-widest mb-2">${
-                    work.category || "Portfolio"
-                  }</span><h4 class="text-lg font-bold text-black group-hover:text-primary transition-colors mb-2">${work.title}</h4><p class="text-sm text-gray-500 line-clamp-2">${
-                    work.desc || ""
-                  }</p><div class="mt-4 pt-4 border-t border-gray-100 flex items-center text-xs font-bold text-gray-400 group-hover:text-primary transition-colors">View Project <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></div></div>
+                  <div class="h-48 sm:h-56 w-full overflow-hidden relative"><img src="${esc(work.img)}" alt="${esc(
+                    work.title,
+                  )}" class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"><div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors"></div></div>
+                  <div class="p-6 flex-1 flex flex-col"><span class="text-[10px] font-bold text-primary uppercase tracking-widest mb-2">${esc(
+                    work.category || "Portfolio",
+                  )}</span><h4 class="text-lg font-bold text-black group-hover:text-primary transition-colors mb-2">${esc(work.title)}</h4><p class="text-sm text-gray-500 line-clamp-2">${esc(
+                    work.desc || "",
+                  )}</p><div class="mt-4 pt-4 border-t border-gray-100 flex items-center text-xs font-bold text-gray-400 group-hover:text-primary transition-colors">View Project <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></div></div>
               </a>`,
               )
               .join("");
-            htmlContent += `<div><div class="py-16 md:py-24 relative flex items-center justify-center"><div class="flex-grow border-t border-gray-200 opacity-70"></div><span class="flex-shrink mx-3 md:mx-6 text-gray-400 uppercase text-[10px] md:text-xs font-bold tracking-[0.15em] md:tracking-[0.3em] flex items-center justify-center gap-2 text-center"><span class="text-primary text-base">✦</span> ${
-              item.tagline || "Explore"
-            } <span class="text-primary text-base">✦</span></span><div class="flex-grow border-t border-gray-200 opacity-70"></div></div><div class="text-center max-w-3xl mx-auto mb-12"><h4 class="text-3xl md:text-4xl font-extrabold text-black mb-4">${
-              item.title
-            }</h4><p class="text-gray-500 leading-relaxed">${item.desc}</p></div><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">${cardsHtml}</div></div>`;
+            htmlContent += `<div><div class="py-16 md:py-24 relative flex items-center justify-center"><div class="flex-grow border-t border-gray-200 opacity-70"></div><span class="flex-shrink mx-3 md:mx-6 text-gray-400 uppercase text-[10px] md:text-xs font-bold tracking-[0.15em] md:tracking-[0.3em] flex items-center justify-center gap-2 text-center"><span class="text-primary text-base">✦</span> ${esc(
+              item.tagline || "Explore",
+            )} <span class="text-primary text-base">✦</span></span><div class="flex-grow border-t border-gray-200 opacity-70"></div></div><div class="text-center max-w-3xl mx-auto mb-12"><h4 class="text-3xl md:text-4xl font-extrabold text-black mb-4">${esc(
+              item.title,
+            )}</h4><p class="text-gray-500 leading-relaxed">${esc(item.desc)}</p></div><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">${cardsHtml}</div></div>`;
           } else {
             const slidesHtml = item.works
               .map(
                 (work) =>
-                  `<div class="work-slide"><span class="slide-badge">${work.type}</span><img src="${work.img}" alt="${
-                    work.type
-                  }" class="slide-image"><div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-30">${createActionButton(work, item.id)}</div></div>`,
+                  `<div class="work-slide"><span class="slide-badge">${esc(work.type)}</span><img src="${esc(work.img)}" alt="${esc(
+                    work.type,
+                  )}" class="slide-image"><div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-30">${createActionButton(work, item.id)}</div></div>`,
               )
               .join("");
-            htmlContent += `<div class="company-showcase"><div class="flex flex-col lg:flex-row gap-12"><div class="w-full lg:w-1/3"><div class="lg:sticky lg:top-32"><span class="text-xs font-bold ${
-              item.badgeClass || "bg-gray-100 text-gray-600"
-            } px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-4">${item.badge || "Project"}</span><h4 class="text-3xl font-bold text-black mb-2">${
-              item.company
-            }</h4><p class="text-gray-500 text-sm font-bold uppercase tracking-widest mb-6">${item.tagline}</p><p class="text-gray-600 text-sm leading-relaxed mb-8">${
-              item.desc
-            }</p></div></div><div class="w-full lg:w-2/3 relative group"><button class="nav-arrow nav-prev hidden lg:flex" onclick="moveSlide('${
-              item.id
-            }', -1)"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="nav-arrow nav-next hidden lg:flex" onclick="moveSlide('${
-              item.id
-            }', 1)"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div id="slider-${
-              item.id
-            }" class="work-slider h-[400px] lg:h-[550px] shadow-xl rounded-[2.5rem] overflow-hidden border border-gray-100 bg-gray-50/50">${slidesHtml}</div></div></div></div>`;
+            htmlContent += `<div class="company-showcase"><div class="flex flex-col lg:flex-row gap-12"><div class="w-full lg:w-1/3"><div class="lg:sticky lg:top-32"><span class="text-xs font-bold ${esc(
+              item.badgeClass || "bg-gray-100 text-gray-600",
+            )} px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-4">${esc(item.badge || "Project")}</span><h4 class="text-3xl font-bold text-black mb-2">${esc(
+              item.company,
+            )}</h4><p class="text-gray-500 text-sm font-bold uppercase tracking-widest mb-6">${esc(item.tagline)}</p><p class="text-gray-600 text-sm leading-relaxed mb-8">${esc(
+              item.desc,
+            )}</p></div></div><div class="w-full lg:w-2/3 relative group"><button class="nav-arrow nav-prev hidden lg:flex" onclick="moveSlide('${escJS(
+              item.id,
+            )}', -1)"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="nav-arrow nav-next hidden lg:flex" onclick="moveSlide('${escJS(
+              item.id,
+            )}', 1)"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div id="slider-${esc(
+              item.id,
+            )}" class="work-slider h-[400px] lg:h-[550px] shadow-xl rounded-[2.5rem] overflow-hidden border border-gray-100 bg-gray-50/50">${slidesHtml}</div></div></div></div>`;
           }
         });
         container.innerHTML = htmlContent;
