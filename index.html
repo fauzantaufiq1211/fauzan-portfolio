@@ -1,2210 +1,615 @@
 <!doctype html>
-<html lang="id">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fauzan Taufiq's Portfolio</title>
-
-    <!-- FAVICON -->
-    <link
-      rel="icon"
-      type="image/svg+xml"
-      href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%205000%205000%22%3E%3Cpath%20d%3D%22M4416.67%200H583.33C262.5%200%200%20262.5%200%20583.33v3833.34C0%204737.5%20262.5%205000%20583.33%205000s583.33-262.5%20583.33-583.33V3000h833.33c275%200%20500-225%20500-500v1916.67c0%20320.83%20262.5%20583.33%20583.33%20583.33s583.33-262.5%20583.33-583.33v-3250h750c320.83%200%20583.33-262.5%20583.33-583.33S4737.48.01%204416.65.01ZM2500%202500c0-275-225-500-500-500h-833.33v-833.33H2500z%22%20style%3D%22fill%3A%23fff%22%2F%3E%3C%2Fsvg%3E"
+    <title>
+      Muhammad Fauzan Taufiq | Digital Creative Specialist &amp; Social Media
+      Strategist
+    </title>
+    <meta
+      name="description"
+      content="Portfolio and case studies of Muhammad Fauzan Taufiq, a Digital Creative Specialist and Social Media Strategist in Jakarta designing public health campaigns, festival identities, and editorial visual systems."
     />
+
     <link
       rel="icon"
       type="image/svg+xml"
-      href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%205000%205000%22%3E%3Cpath%20d%3D%22M4416.67%200H583.33C262.5%200%200%20262.5%200%20583.33v3833.34C0%204737.5%20262.5%205000%20583.33%205000s583.33-262.5%20583.33-583.33V3000h833.33c275%200%20500-225%20500-500v1916.67c0%20320.83%20262.5%20583.33%20583.33%20583.33s583.33-262.5%20583.33-583.33v-3250h750c320.83%200%20583.33-262.5%20583.33-583.33S4737.48.01%204416.65.01ZM2500%202500c0-275-225-500-500-500h-833.33v-833.33H2500z%22%2F%3E%3C%2Fsvg%3E"
+      href="/images/logo-original.svg"
       media="(prefers-color-scheme: light)"
     />
     <link
       rel="icon"
       type="image/svg+xml"
-      href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%205000%205000%22%3E%3Cpath%20d%3D%22M4416.67%200H583.33C262.5%200%200%20262.5%200%20583.33v3833.34C0%204737.5%20262.5%205000%20583.33%205000s583.33-262.5%20583.33-583.33V3000h833.33c275%200%20500-225%20500-500v1916.67c0%20320.83%20262.5%20583.33%20583.33%20583.33s583.33-262.5%20583.33-583.33v-3250h750c320.83%200%20583.33-262.5%20583.33-583.33S4737.48.01%204416.65.01ZM2500%202500c0-275-225-500-500-500h-833.33v-833.33H2500z%22%20style%3D%22fill%3A%23fff%22%2F%3E%3C%2Fsvg%3E"
+      href="/images/logo-white.svg"
       media="(prefers-color-scheme: dark)"
     />
+    <link rel="apple-touch-icon" sizes="192x192" href="/images/icon-192.png" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="preconnect"
+      href="https://mrxttnlcpoixnvhngvtw.supabase.co"
+      crossorigin
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Public+Sans:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              primary: "#b54f26",
-              dark: "#000000",
-              light: "#ffffff",
-            },
-            fontFamily: {
-              sans: [
-                "-apple-system",
-                "BlinkMacSystemFont",
-                "SF Pro Text",
-                "Inter",
-                "sans-serif",
-              ],
-            },
-          },
-        },
-      };
-    </script>
+    <link rel="stylesheet" href="/css/tokens.css" />
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/layout.css" />
+    <link rel="stylesheet" href="/css/components.css" />
 
-    <!-- Google tag (gtag.js) -->
     <script
       async
       src="https://www.googletagmanager.com/gtag/js?id=G-YBND9SSY72"
     ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-
-      gtag("config", "G-YBND9SSY72");
-    </script>
-
-    <style type="text/tailwindcss">
-      body {
-        -webkit-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
-      html {
-        scroll-behavior: smooth;
-        scrollbar-width: thin;
-        scrollbar-color: #b54f26 #f1f1f1;
-      }
-      ::-webkit-scrollbar {
-        width: 12px;
-      }
-      ::-webkit-scrollbar-track {
-        background: #f9fafb;
-      }
-      ::-webkit-scrollbar-thumb {
-        background-color: #b54f26;
-        border-radius: 20px;
-        border: 3px solid #f9fafb;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background-color: #9a421f;
-      }
-      body.scrollbar-black::-webkit-scrollbar-thumb {
-        background-color: #1a1a1a !important;
-        border: 3px solid #b54f26;
-      }
-      .animate-spin-slow {
-        animation: spin 8s linear infinite;
-      }
-      @keyframes spin {
-        from {
-          transform: rotate(0deg);
-        }
-        to {
-          transform: rotate(360deg);
-        }
-      }
-      .section-label {
-        @apply text-primary font-bold tracking-[0.2em] uppercase text-sm mb-4;
-      }
-      .badge-work-type,
-      .badge-work-remote {
-        @apply inline-block px-3 py-1 bg-blue-50 text-blue-600 text-xs font-bold rounded-full border border-blue-100;
-      }
-      .badge-work-onsite {
-        @apply inline-block px-3 py-1 bg-green-50 text-green-700 text-xs font-bold rounded-full border border-green-100;
-      }
-      .badge-work-volunteer {
-        @apply inline-block px-3 py-1 bg-purple-50 text-purple-700 text-xs font-bold rounded-full border border-purple-100;
-      }
-      .badge-date {
-        @apply inline-block px-3 py-1 bg-gray-100 text-gray-600 text-xs font-bold rounded-full;
-      }
-      .slide-badge {
-        @apply absolute top-6 left-8 z-20 bg-black/70 backdrop-blur-md text-white text-[10px] px-3 py-1 rounded-full font-bold uppercase tracking-widest shadow-sm;
-      }
-      .slide-image {
-        @apply max-h-[80%] w-auto rounded-xl shadow-lg border-2 border-white object-contain bg-white;
-      }
-      .btn-action {
-        @apply px-6 py-2.5 bg-primary text-white font-bold rounded-full text-xs shadow-lg hover:scale-105 transition-transform whitespace-nowrap cursor-pointer z-50 relative;
-      }
-      .work-slider {
-        display: flex !important;
-        flex-direction: row !important;
-        flex-wrap: nowrap !important;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        scrollbar-width: none;
-        cursor: grab;
-        gap: 0;
-        height: 350px;
-      }
-      @media (min-width: 1024px) {
-        .work-slider {
-          height: 550px;
-        }
-      }
-      .work-slider::-webkit-scrollbar {
-        display: none;
-      }
-      .work-slider:active {
-        cursor: grabbing;
-      }
-      .work-slide {
-        flex: 0 0 100% !important;
-        width: 100%;
-        height: 100%;
-        scroll-snap-align: center;
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 1.5rem;
-        background: #f9fafb;
-        border-radius: 1.5rem;
-      }
-      .nav-arrow {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 36px;
-        height: 36px;
-        background: rgba(255, 255, 255, 0.9);
-        border: 1px solid #f1f1f1;
-        color: #b54f26;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 50;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      }
-      .nav-prev {
-        left: 1rem;
-      }
-      .nav-next {
-        right: 1rem;
-      }
-      .company-showcase {
-        border-bottom: 0px solid #f3f4f6;
-        padding-bottom: 3rem;
-        margin-bottom: 3rem;
-      }
-      .company-showcase:last-of-type {
-        border-bottom: none;
-        padding-bottom: 0;
-        margin-bottom: 0;
-      }
-
-      /* Popup animations */
-      @keyframes popupParticle {
-        0% {
-          opacity: 1;
-          transform: translate(0, 0) scale(1);
-        }
-        100% {
-          opacity: 0;
-          transform: translate(calc((var(--random, 0.5) - 0.5) * 100px), -80px)
-            scale(0);
-        }
-      }
-      @keyframes popupShake {
-        0%,
-        100% {
-          transform: translateX(0);
-        }
-        10%,
-        50%,
-        90% {
-          transform: translateX(-4px);
-        }
-        30%,
-        70% {
-          transform: translateX(4px);
-        }
-      }
-    </style>
+    <script type="module" src="/js/public/analytics.js"></script>
   </head>
 
-  <body class="bg-light text-dark font-sans antialiased">
-    <!-- LOADER -->
-    <div
-      id="loader"
-      class="fixed inset-0 z-[9999] bg-white flex items-center justify-center transition-opacity duration-700"
-    >
-      <div class="relative flex items-center justify-center">
-        <div
-          class="absolute w-32 h-32 border-4 border-gray-100 rounded-full"
-        ></div>
-        <div
-          class="absolute w-32 h-32 border-4 border-primary border-t-transparent border-l-transparent rounded-full animate-spin"
-        ></div>
-        <img
-          src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%205000%205000%22%3E%3Cpath%20d%3D%22M4416.67%200H583.33C262.5%200%200%20262.5%200%20583.33v3833.34C0%204737.5%20262.5%205000%20583.33%205000s583.33-262.5%20583.33-583.33V3000h833.33c275%200%20500-225%20500-500v1916.67c0%20320.83%20262.5%20583.33%20583.33%20583.33s583.33-262.5%20583.33-583.33v-3250h750c320.83%200%20583.33-262.5%20583.33-583.33S4737.48.01%204416.65.01ZM2500%202500c0-275-225-500-500-500h-833.33v-833.33H2500z%22%2F%3E%3C%2Fsvg%3E"
-          alt="FT Logo"
-          class="relative z-10 w-12 h-auto object-contain animate-pulse"
-        />
-      </div>
-    </div>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
-    <!-- NAVBAR -->
-    <nav
-      class="fixed top-0 w-full z-[999] bg-white/90 backdrop-blur-md border-b border-gray-100 transition-all duration-300"
-    >
-      <div
-        class="max-w-6xl mx-auto px-6 h-20 flex justify-between items-center"
-      >
+    <header class="site-header">
+      <nav class="container site-nav" aria-label="Primary navigation">
         <a
-          href=""
-          onclick="
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            return false;
-          "
-          class="block group transition-transform hover:scale-105"
+          href="#about"
+          class="brand-monogram"
+          aria-label="Muhammad Fauzan Taufiq home"
         >
           <img
-            src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%205000%205000%22%3E%3Cpath%20d%3D%22M4416.67%200H583.33C262.5%200%200%20262.5%200%20583.33v3833.34C0%204737.5%20262.5%205000%20583.33%205000s583.33-262.5%20583.33-583.33V3000h833.33c275%200%20500-225%20500-500v1916.67c0%20320.83%20262.5%20583.33%20583.33%20583.33s583.33-262.5%20583.33-583.33v-3250h750c320.83%200%20583.33-262.5%20583.33-583.33S4737.48.01%204416.65.01ZM2500%202500c0-275-225-500-500-500h-833.33v-833.33H2500z%22%2F%3E%3C%2Fsvg%3E"
-            alt="FT Logo"
-            class="h-10 w-auto object-contain group-hover:opacity-80 transition duration-300"
+            src="/images/logo-original.svg"
+            alt="FT Monogram"
+            width="36"
+            height="36"
           />
         </a>
-        <div
-          class="hidden md:flex items-center relative bg-gray-100/50 rounded-full p-1.5"
-          id="nav-container"
-        >
-          <div
-            id="nav-pill"
-            class="absolute bg-black rounded-full transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]"
-            style="height: calc(100% - 12px); opacity: 0; pointer-events: none"
-          ></div>
-          <a
-            href="#about"
-            class="nav-link relative z-10 px-6 py-2.5 text-sm font-semibold text-gray-600 transition-colors duration-200 rounded-full text-center"
-            >About</a
-          >
-          <a
-            href="#experience"
-            class="nav-link relative z-10 px-6 py-2.5 text-sm font-semibold text-gray-600 transition-colors duration-200 rounded-full text-center"
-            >Experience</a
-          >
-          <a
-            href="#portfolio"
-            class="nav-link relative z-10 px-6 py-2.5 text-sm font-semibold text-gray-600 transition-colors duration-200 rounded-full text-center"
-            >Portfolio</a
-          >
-          <a
-            href="#contact"
-            id="default-link"
-            class="nav-link relative z-10 px-6 py-2.5 text-sm font-semibold text-gray-600 transition-colors duration-200 rounded-full text-center"
-            >Contact</a
-          >
-        </div>
+
         <button
-          id="mobile-menu-button"
-          class="md:hidden text-gray-900 focus:outline-none p-2 rounded-md hover:bg-gray-100"
+          type="button"
+          id="nav-toggle"
+          class="nav-toggle"
+          aria-expanded="false"
+          aria-controls="nav-menu"
         >
           <svg
-            class="w-6 h-6"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            viewBox="0 0 24 24"
+            stroke-width="2"
+            aria-hidden="true"
           >
             <path
               stroke-linecap="round"
               stroke-linejoin="round"
-              stroke-width="2"
-              d="M4 6h16M4 12h16M4 18h16"
-            ></path>
-          </svg>
-        </button>
-      </div>
-      <div
-        id="mobile-menu"
-        class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full left-0 top-20 shadow-lg"
-      >
-        <div class="flex flex-col px-6 py-4 space-y-4">
-          <a
-            href="#about"
-            class="mobile-link text-base font-medium text-gray-600 hover:text-primary"
-            >About</a
-          >
-          <a
-            href="#experience"
-            class="mobile-link text-base font-medium text-gray-600 hover:text-primary"
-            >Experience</a
-          >
-          <a
-            href="#portfolio"
-            class="mobile-link text-base font-medium text-gray-600 hover:text-primary"
-            >Portfolio</a
-          >
-          <a
-            href="#contact"
-            class="mobile-link text-base font-medium text-primary font-bold"
-            >Contact Me</a
-          >
-        </div>
-      </div>
-    </nav>
-
-    <!-- HERO SECTION -->
-    <section
-      class="min-h-screen flex items-center relative overflow-hidden bg-white pt-24 pb-24 md:py-0"
-    >
-      <div class="absolute inset-0 -z-20 pointer-events-none overflow-hidden">
-        <img
-          src="https://mrxttnlcpoixnvhngvtw.supabase.co/storage/v1/object/public/static/portrait/ft-portrait.png"
-          alt=""
-          class="w-full h-full object-cover grayscale opacity-10 scale-110 blur-[1px] mix-blend-luminosity"
-        />
-      </div>
-      <div
-        class="absolute top-0 right-0 -z-10 w-1/2 h-full bg-gradient-to-bl from-primary/5 to-white pointer-events-none"
-      ></div>
-      <div
-        class="absolute bottom-0 left-0 -z-10 w-64 h-64 bg-gray-50 rounded-full blur-3xl opacity-70 pointer-events-none"
-      ></div>
-      <div
-        class="max-w-6xl mx-auto px-6 flex flex-col-reverse md:flex-row items-center justify-between gap-12 lg:gap-20 relative z-10"
-      >
-        <div class="w-full md:w-1/2 text-center md:text-left space-y-6">
-          <span
-            class="inline-flex flex-col md:flex-row items-center gap-2 md:gap-2 py-2 px-5 rounded-2xl md:rounded-full bg-primary/10 text-primary text-sm font-bold tracking-wide uppercase"
-            ><span>Digital Creative Specialist</span
-            ><span class="hidden md:inline">•</span
-            ><span>Social Media Strategist</span></span
-          >
-          <h1
-            class="text-4xl lg:text-6xl font-extrabold leading-tight tracking-tight text-black"
-          >
-            Creating Visual <br />Stories with
-            <span class="text-primary relative"
-              >Impact.<svg
-                class="absolute w-full h-3 bottom-1 left-0 text-primary/20 -z-10"
-                viewBox="0 0 100 10"
-                preserveAspectRatio="none"
-              >
-                <path
-                  d="M0 5 Q 25 0, 50 5 T 100 5"
-                  stroke="currentColor"
-                  stroke-width="8"
-                  fill="none"
-                /></svg
-            ></span>
-          </h1>
-          <p
-            class="text-gray-600 text-left text-lg md:text-xl leading-relaxed max-w-xl mx-auto md:mx-0"
-          >
-            A creative planner and humble individual adaptable to dynamic
-            environments. As a
-            <strong>Digital Business Management</strong> student at BINUS
-            University, I combine high self-confidence with a passion for
-            transforming ideas into visual reality using
-            <strong>Adobe Creative Suite</strong>, <strong>Figma</strong>,
-            <strong>Canva</strong> and so on.
-          </p>
-          <p
-            class="text-gray-600 text-left text-lg md:text-xl leading-relaxed max-w-xl mx-auto md:mx-0"
-          >
-            I'm <strong>Muhammad Fauzan Taufiq</strong>, your go-to person for
-            crafting compelling digital experiences. With a knack for blending
-            creativity and strategy, I specialize in turning ideas into engaging
-            visual stories that resonate and inspire. Let's collaborate to bring
-            your vision to life!
-          </p>
-          <div
-            class="flex flex-wrap gap-4 pt-4 justify-center md:justify-start"
-          >
-            <a
-              href="#portfolio"
-              class="group relative inline-flex items-center justify-center px-8 py-3.5 text-base font-semibold text-white transition-all duration-300 bg-primary rounded-full hover:bg-primary/90 hover:shadow-lg hover:-translate-y-1"
-              >View My Works</a
-            >
-            <button
-              onclick="openResume()"
-              class="inline-flex items-center justify-center px-8 py-3.5 text-base font-semibold text-gray-900 transition-all duration-300 bg-white border-2 border-gray-200 rounded-full hover:border-primary hover:text-primary hover:shadow-md hover:-translate-y-1 cursor-pointer"
-            >
-              My Full Resume
-            </button>
-          </div>
-        </div>
-        <div
-          class="w-full md:w-5/12 flex justify-center md:justify-end relative mt-14 md:mt-0 pb-8 md:pb-0"
-        >
-          <div class="relative w-64 h-64 md:w-80 md:h-80 shrink-0">
-            <div
-              class="absolute inset-0 bg-gray-100 rounded-[2.5rem] -rotate-6 scale-105 translate-x-4 translate-y-4 transition-transform duration-500 hover:rotate-0 -z-10"
-            ></div>
-            <img
-              src="https://mrxttnlcpoixnvhngvtw.supabase.co/storage/v1/object/public/static/portrait/ft-portrait.png"
-              alt="Profile"
-              class="relative z-10 w-full h-full object-cover rounded-[2rem] shadow-2xl bg-white transition-transform duration-500 hover:-translate-y-1"
+              d="M4 7h16M4 12h16M4 17h16"
             />
-            <div class="absolute -top-6 -right-6 z-20">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                class="w-14 h-14 text-black animate-spin-slow drop-shadow-lg"
-              >
-                <path
-                  d="M12 1L14.2 9.3L22.5 11.5L14.2 13.7L12 22L9.8 13.7L1.5 11.5L9.8 9.3L12 1Z"
-                />
-              </svg>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+          </svg>
+          <span>Menu</span>
+        </button>
 
-    <!-- ABOUT SECTION -->
-    <section id="about" class="py-20 md:py-32 bg-black text-white">
-      <div class="max-w-6xl mx-auto px-6">
-        <div class="flex flex-col md:flex-row gap-16">
-          <div class="w-full md:w-1/2 space-y-6">
-            <h2 class="section-label">About Me</h2>
-            <h3
-              class="text-3xl md:text-4xl font-extrabold leading-tight text-white"
-            >
-              Problem Solver with <br />A Creative Soul.
-            </h3>
-            <p class="text-gray-400 leading-relaxed text-lg">
-              I believe there is no problem that cannot be solved if handled
-              calmly. With a background in both
-              <strong>Information Systems</strong> and
-              <strong>Digital Business</strong>, I possess a unique blend of
-              technical logic and creative flair.
-            </p>
-            <div class="pt-8">
-              <h4 class="text-white font-bold mb-6 flex items-center gap-2">
-                <span class="w-8 h-1 bg-primary rounded-full"></span>Creative
-                Arsenal
-              </h4>
-              <div
-                id="competencies-arsenal-container"
-                class="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-5 gap-6 mb-8"
+        <div id="nav-menu" class="nav-menu" data-open="false">
+          <ul class="nav-links">
+            <li>
+              <a href="#about" class="nav-link is-active" aria-current="true"
+                >About</a
               >
-                <div class="col-span-5 text-center text-gray-600 animate-pulse">
-                  Loading tools...
-                </div>
-              </div>
-              <h5
-                class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4"
-              >
-                Other Competencies
-              </h5>
-              <div
-                id="competencies-other-container"
-                class="flex flex-wrap gap-2"
-              ></div>
-            </div>
-          </div>
-          <div class="w-full md:w-1/2">
-            <h2 class="section-label">Education Journey</h2>
-            <div
-              id="education-list"
-              class="relative border-l-2 border-gray-800 ml-3 space-y-10"
-            >
-              <div class="pl-8 text-gray-500 animate-pulse">
-                Loading education history...
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- EXPERIENCE SECTION -->
-    <section id="experience" class="py-20 md:py-32 bg-white">
-      <div class="max-w-6xl mx-auto px-6">
-        <div class="mb-16 md:flex md:justify-between md:items-end">
-          <div class="max-w-2xl">
-            <h2 class="section-label">Professional Career</h2>
-            <h3
-              class="text-3xl md:text-4xl font-extrabold leading-tight text-black"
-            >
-              Work Experience
-            </h3>
-          </div>
-          <p class="mt-4 md:mt-0 text-gray-500 font-medium">
-            Focused on Creative & Digital Strategy
-          </p>
-        </div>
-        <div id="experience-list" class="grid grid-cols-1 gap-8">
-          <div
-            class="p-8 border border-gray-100 rounded-2xl bg-gray-50 text-center text-gray-400"
-          >
-            Loading work experience...
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ORGANIZATION LEADERSHIP -->
-    <section
-      id="org-leadership"
-      class="py-20 bg-primary text-white transition-colors duration-500"
-    >
-      <div class="max-w-6xl mx-auto px-6">
-        <h2
-          class="text-white/80 font-extrabold tracking-widest uppercase text-sm mb-8 text-center"
-        >
-          Organizational Leadership
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div
-            class="bg-white text-black p-8 rounded-2xl shadow-lg border border-white/20 transform hover:-translate-y-1 transition-transform duration-300"
-          >
-            <div class="flex items-start justify-between mb-4">
-              <h4 class="font-bold text-xl leading-snug">Vice Chairman</h4>
-              <span
-                class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-bold rounded-full"
-                >2020 - 2021</span
-              >
-            </div>
-            <p class="text-primary font-medium text-sm mb-4">
-              <a
-                href="https://www.instagram.com/rohissman3bogor/"
-                target="_blank"
-                >ROHIS Al-Ghufran SMAN 3 Bogor</a
-              >
-            </p>
-            <p class="text-gray-600 text-sm leading-relaxed">
-              Led student regeneration programs and revised bylaws through
-              democratic deliberation (MLB) to align with Pancasila and Islamic
-              values.
-            </p>
-          </div>
-          <div
-            class="bg-white text-black p-8 rounded-2xl shadow-lg border border-white/20 transform hover:-translate-y-1 transition-transform duration-300"
-          >
-            <div class="flex items-start justify-between mb-4">
-              <h4 class="font-bold text-xl leading-snug">
-                Vice Chairman of Public Relations
-              </h4>
-              <span
-                class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-bold rounded-full"
-                >2020 - 2021</span
-              >
-            </div>
-            <p class="text-primary font-medium text-sm mb-4">
-              <a
-                href="https://www.instagram.com/triple.magazine/"
-                target="_blank"
-                >TRIPLE Magazine SMAN 3 Bogor</a
-              >
-            </p>
-            <p class="text-gray-600 text-sm leading-relaxed">
-              Revolutionized the journalism program into an engaging
-              extracurricular activity and was elected by acclamation through
-              democratic election.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PORTFOLIO SECTION -->
-    <section id="portfolio" class="py-24 md:py-32 bg-white">
-      <div class="max-w-6xl mx-auto px-6">
-        <div class="mb-20">
-          <h2 class="section-label">Portfolio Showcase</h2>
-          <h3 class="text-4xl md:text-5xl font-extrabold text-black mb-6">
-            Where Strategy Meets Aesthetic.
-          </h3>
-          <p class="text-gray-500 max-w-2xl text-lg leading-relaxed">
-            A curated selection of digital experiences and visual storytelling.
-            Transforming complex ideas into scroll-stopping content that drives
-            real engagement.
-          </p>
-        </div>
-        <div id="portfolio-container">
-          <div class="text-center py-20 text-gray-400">Loading Projects...</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTACT SECTION -->
-    <section
-      id="contact"
-      class="py-24 md:py-32 bg-black text-white relative overflow-hidden"
-    >
-      <div
-        class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] -z-10 opacity-40 pointer-events-none"
-      ></div>
-      <div class="max-w-6xl mx-auto px-6">
-        <div
-          class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start"
-        >
-          <div class="text-left">
-            <h2
-              class="text-primary font-bold tracking-[0.2em] uppercase text-sm mb-4"
-            >
-              Get in Touch
-            </h2>
-            <h3 class="text-4xl md:text-5xl font-extrabold leading-tight mb-6">
-              Let's Create Something <br /><span class="text-primary"
-                >Iconic</span
-              >
-              Together!
-            </h3>
-            <p class="text-gray-400 text-lg leading-relaxed mb-10">
-              Open for collaborations, freelance projects, or just a casual chat
-              about creativity.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4 mb-12">
-              <a
-                href="mailto:contact@fauzantaufiq.id"
-                class="group flex-1 flex items-center gap-4 px-6 py-4 bg-white/5 border border-white/20 rounded-2xl hover:bg-white/10 hover:border-primary/50 transition-all duration-300"
-              >
-                <div
-                  class="w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-full bg-white/10 text-white group-hover:bg-primary transition-colors"
-                >
-                  <svg
-                    class="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                    ></path>
-                  </svg>
-                </div>
-                <div>
-                  <p class="text-xs text-gray-400 uppercase tracking-wider">
-                    Drop me an e-mail
-                  </p>
-                  <p class="text-white font-medium text-sm">
-                    contact@fauzantaufiq.id
-                  </p>
-                </div>
-              </a>
-              <a
-                href="https://wa.me/6285156055303"
-                target="_blank"
-                class="group flex-1 flex items-center gap-4 px-6 py-4 bg-white/5 border border-white/20 rounded-2xl hover:bg-white/10 hover:border-green-500/50 transition-all duration-300"
-              >
-                <div
-                  class="w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-full bg-white/10 text-white group-hover:bg-green-600 transition-colors"
-                >
-                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                    <path
-                      d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.008-.57-.008-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"
-                    />
-                  </svg>
-                </div>
-                <div>
-                  <p class="text-xs text-gray-400 uppercase tracking-wider">
-                    Chat on WhatsApp
-                  </p>
-                  <p class="text-white font-medium text-sm">
-                    +62 851 5605 5303
-                  </p>
-                </div>
-              </a>
-            </div>
-            <div class="text-center md:text-left">
-              <p
-                class="text-gray-500 text-sm mb-6 uppercase tracking-widest font-bold"
-              >
-                Connect on Social
-              </p>
-              <div
-                class="flex gap-6 items-center justify-center md:justify-start"
-              >
-                <a
-                  href="https://linkedin.com/in/fauzantaufiq"
-                  target="_blank"
-                  class="opacity-100 hover:scale-110 transition-all duration-300"
-                  ><svg class="h-10 w-auto" viewBox="0 0 24 24">
-                    <circle cx="12" cy="12" r="10" style="fill: #fff" />
-                    <path
-                      d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0m-2 16H8v-6h2zM9 9.11c-.61 0-1.1-.5-1.1-1.11S8.39 6.89 9 6.89s1.1.5 1.1 1.11S9.61 9.11 9 9.11M17 16h-2v-2.86c0-1.88-2-1.72-2 0V16h-2v-6h2v1.09c.87-1.62 4-1.74 4 1.55z"
-                      style="fill: #262626"
-                    /></svg
-                ></a>
-                <a
-                  href="https://behance.net/fauzantaufiq"
-                  target="_blank"
-                  class="opacity-100 hover:scale-110 transition-all duration-300"
-                  ><svg class="h-10 w-auto" viewBox="0 0 24 24">
-                    <circle cx="12" cy="12" r="10" style="fill: #fff" />
-                    <path
-                      d="M8.84 10.84H6.87V8.98h1.78c1.88 0 1.65 1.86.18 1.86Zm5.79 1.05h2.62c-.11-1.69-2.36-1.81-2.62 0m-5.9.4H6.88v1.95H8.7c1.78 0 1.67-1.95.03-1.95M24 12c0 6.63-5.37 12-12 12S0 18.63 0 12 5.37 0 12 0s12 5.37 12 12m-13.36-.73c1.67-.85 1.61-3.98-1.59-4.03H4.99v8.73h3.77c3.96 0 3.89-3.97 1.87-4.7ZM14 8.1h4v-.88h-4zm4.94 3.69c-.55-3.51-6.05-3.71-6.05.87s5.18 3.82 5.95 1.56h-1.85c-.65.75-2.51.53-2.4-1.18H19c0-.56 0-.95-.05-1.25Z"
-                      style="fill: #262626"
-                    /></svg
-                ></a>
-                <a
-                  href="https://instagram.com/fauzan.taufiqq"
-                  target="_blank"
-                  class="opacity-100 hover:scale-110 transition-all duration-300"
-                  ><svg class="h-10 w-auto" viewBox="0 0 24 24">
-                    <circle cx="12" cy="12" r="10" style="fill: #fff" />
-                    <path
-                      d="M14.83 6.3c-.74-.03-.96-.04-2.83-.04s-2.09 0-2.83.04c-1.9.09-2.78.99-2.87 2.87-.03.74-.04.96-.04 2.83s0 2.09.04 2.83c.09 1.88.97 2.78 2.87 2.87.74.03.96.04 2.83.04s2.09 0 2.83-.04c1.9-.09 2.78-.99 2.87-2.87.03-.74.04-.96.04-2.83s0-2.09-.04-2.83c-.09-1.88-.97-2.78-2.87-2.87M12 15.6c-1.98 0-3.6-1.61-3.6-3.6s1.61-3.59 3.6-3.59 3.6 1.61 3.6 3.59-1.61 3.6-3.6 3.6m3.74-6.5c-.46 0-.84-.38-.84-.84s.38-.84.84-.84.84.38.84.84-.38.84-.84.84M14.33 12c0 1.29-1.05 2.33-2.33 2.33S9.67 13.29 9.67 12 10.72 9.67 12 9.67s2.33 1.04 2.33 2.33M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0m6.96 14.89c-.11 2.55-1.53 3.95-4.07 4.07-.75.03-.99.04-2.89.04s-2.14 0-2.89-.04c-2.54-.12-3.95-1.53-4.07-4.07C5.01 14.14 5 13.91 5 12s0-2.14.04-2.89c.12-2.54 1.53-3.95 4.07-4.07.75-.03.98-.04 2.89-.04s2.14 0 2.89.04c2.54.12 3.96 1.53 4.07 4.07.03.75.04.98.04 2.89s0 2.14-.04 2.89"
-                      style="fill: #262626"
-                    /></svg
-                ></a>
-              </div>
-            </div>
-          </div>
-          <form
-            id="contact-form"
-            class="bg-white/5 border border-white/10 p-8 rounded-[2rem] backdrop-blur-md shadow-2xl"
-          >
-            <h4 class="text-xl font-bold text-white mb-6">
-              Send a message here!
-            </h4>
-            <div class="space-y-5">
-              <div>
-                <label
-                  for="name"
-                  class="block text-gray-400 text-xs font-bold uppercase tracking-wider mb-2"
-                  >Full Name</label
-                ><input
-                  type="text"
-                  name="name"
-                  id="name"
-                  required
-                  placeholder="Your Name"
-                  class="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-300"
-                />
-              </div>
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <div>
-                  <label
-                    for="email"
-                    class="block text-gray-400 text-xs font-bold uppercase tracking-wider mb-2"
-                    >E-mail</label
-                  ><input
-                    type="email"
-                    name="email"
-                    id="email"
-                    required
-                    placeholder="name@example.com"
-                    class="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-300"
-                  />
-                </div>
-                <div>
-                  <label
-                    for="phone"
-                    class="block text-gray-400 text-xs font-bold uppercase tracking-wider mb-2"
-                    >Phone Number</label
-                  ><input
-                    type="text"
-                    name="phone"
-                    id="phone"
-                    placeholder="+62..."
-                    class="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-300"
-                  />
-                </div>
-              </div>
-              <div>
-                <label
-                  for="message"
-                  class="block text-gray-400 text-xs font-bold uppercase tracking-wider mb-2"
-                  >Message</label
-                ><textarea
-                  name="message"
-                  id="message"
-                  rows="4"
-                  required
-                  placeholder="Tell me something..."
-                  class="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-300 resize-none"
-                ></textarea>
-              </div>
-              <button
-                type="submit"
-                class="w-full py-4 bg-primary text-white font-bold rounded-xl shadow-lg shadow-primary/20 hover:bg-[#9a421f] hover:shadow-primary/40 hover:-translate-y-1 transition-all duration-300 uppercase tracking-widest text-sm"
-              >
-                Send Message
-              </button>
-            </div>
-          </form>
-        </div>
-        <div
-          class="mt-20 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-center text-gray-600 text-sm text-center gap-1"
-        >
-          <p>
-            Copyright &copy; 2026
-            <a
-              href=""
-              class="text-gray-600 hover:text-primary transition-colors"
-              ><strong>Muhammad Fauzan Taufiq.</strong></a
-            >
-          </p>
-          <p>All rights reserved.</p>
-        </div>
-        <div
-          class="mt-2 pt-2 flex flex-row md:flex-row justify-center text-gray-600 text-sm text-center gap-5"
-        >
+            </li>
+            <li><a href="#work" class="nav-link">Work</a></li>
+            <li><a href="#experience" class="nav-link">Experience</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+          </ul>
           <button
-            onclick="openLegal('terms')"
-            class="text-gray-400 text-center hover:text-primary transition-colors"
+            type="button"
+            class="btn btn-primary nav-cta"
+            data-open-resume
           >
-            <strong>Terms of Service</strong></button
-          ><span>•</span
-          ><button
-            onclick="openLegal('privacy')"
-            class="text-gray-400 text-center hover:text-primary transition-colors"
-          >
-            <strong>Privacy Policy</strong>
+            Download Resume
           </button>
         </div>
-      </div>
-    </section>
+      </nav>
+    </header>
 
-    <button
-      id="back-to-top"
-      class="fixed bottom-8 right-8 z-[100] p-4 bg-primary text-white rounded-full shadow-xl opacity-0 pointer-events-none translate-y-10 transition-all duration-500 hover:bg-[#9a421f] hover:scale-110 focus:outline-none group"
-      aria-label="Back to Top"
-    >
-      <svg
-        class="w-6 h-6 animate-bounce"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
+    <main id="main-content">
+      <section
+        id="about"
+        class="section section-light hero-section"
+        aria-labelledby="hero-heading"
       >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="3"
-          d="M5 10l7-7m0 0l7 7m-7-7v18"
-        ></path>
-      </svg>
-    </button>
-
-    <!-- MODALS & POPUPS -->
-    <div id="document-modal" class="fixed inset-0 z-[9999] hidden">
-      <div
-        class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity"
-        onclick="closeDocument()"
-      ></div>
-      <!-- PERBAIKAN DI SINI: Tambah onclick pada wrapper -->
-      <div
-        class="relative w-full h-full flex items-center justify-center p-4"
-        onclick="if (event.target === this) closeDocument();"
-      >
-        <div
-          class="bg-white w-[95%] h-[85%] md:w-full md:max-w-5xl md:h-[90vh] rounded-2xl overflow-hidden shadow-2xl relative flex flex-col transition-all transform scale-100"
-        >
-          <div
-            class="flex justify-between items-center p-3 md:p-4 border-b border-gray-100 bg-gray-50 z-10 shrink-0"
-          >
-            <h3
-              id="document-title"
-              class="font-bold text-gray-800 text-sm md:text-lg truncate max-w-[60%]"
-            >
-              Document Preview
-            </h3>
-            <div class="flex items-center gap-2">
-              <button
-                onclick="closeDocument()"
-                class="p-1.5 text-gray-500 hover:text-red-500 hover:bg-red-50 rounded-full transition-all"
-              >
-                <svg
-                  class="w-5 h-5 md:w-6 md:h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M6 18L18 6M6 6l12 12"
-                  ></path>
-                </svg>
-              </button>
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <p class="hero-role">
+              Digital Creative Specialist &amp; Social Media Strategist
+            </p>
+            <h1 id="hero-heading" class="text-display hero-heading">
+              Turning complex brand briefs into clear visual systems.
+            </h1>
+            <p class="text-body hero-lead">
+              I am <strong>Muhammad Fauzan Taufiq</strong>, a Digital Creative
+              Specialist based in Jakarta. Combining a background in Information
+              Systems and Digital Business Management, I design social media
+              campaigns, event identities, and editorial visuals that
+              communicate clearly and drive measurable audience engagement.
+            </p>
+            <div class="hero-actions">
+              <a href="#work" class="btn btn-primary">Explore Selected Work</a>
+              <a href="#contact" class="btn btn-secondary">Start a Project</a>
             </div>
           </div>
-          <div
-            class="flex-1 w-full h-full bg-gray-100 relative overflow-hidden"
-          >
-            <iframe
-              id="document-frame"
-              src=""
-              class="w-full h-full border-0 absolute inset-0"
-              allow="autoplay"
-            ></iframe>
+
+          <div class="hero-media reveal reveal-delay-1">
+            <figure class="hero-portrait-card">
+              <div class="hero-portrait-frame">
+                <img
+                  src="/images/profile-fauzan.webp"
+                  alt="Editorial portrait of Muhammad Fauzan Taufiq"
+                  width="640"
+                  height="800"
+                  fetchpriority="high"
+                  decoding="async"
+                />
+              </div>
+            </figure>
           </div>
         </div>
-      </div>
-    </div>
+      </section>
 
-    <div
-      id="lightbox-modal"
-      class="fixed inset-0 z-[9999] hidden transition-all duration-300 opacity-0 pointer-events-none"
-    >
-      <div
-        class="absolute inset-0 bg-black/80 backdrop-blur-md transition-opacity duration-300"
-        onclick="closeLightbox()"
-      ></div>
-      <button
-        onclick="closeLightbox()"
-        class="absolute top-6 right-6 z-50 text-white/70 hover:text-white transition-colors bg-black/20 hover:bg-black/50 rounded-full p-2"
+      <section
+        id="work"
+        class="section section-dark"
+        aria-labelledby="spotlight-heading"
       >
-        <svg
-          class="w-8 h-8"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M6 18L18 6M6 6l12 12"
-          ></path>
-        </svg></button
-      ><button
-        onclick="changeImage(-1)"
-        class="absolute left-4 top-1/2 -translate-y-1/2 z-50 p-3 text-white/70 hover:text-white bg-black/20 hover:bg-black/50 rounded-full transition-all hover:scale-110 hidden md:block"
-      >
-        <svg
-          class="w-8 h-8"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M15 19l-7-7 7-7"
-          ></path>
-        </svg></button
-      ><button
-        onclick="changeImage(1)"
-        class="absolute right-4 top-1/2 -translate-y-1/2 z-50 p-3 text-white/70 hover:text-white bg-black/20 hover:bg-black/50 rounded-full transition-all hover:scale-110 hidden md:block"
-      >
-        <svg
-          class="w-8 h-8"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M9 5l7 7-7 7"
-          ></path>
-        </svg>
-      </button>
-      <div
-        class="relative w-full h-full flex items-center justify-center p-4"
-        onclick="closeLightbox()"
-      >
-        <img
-          id="lightbox-image"
-          src=""
-          alt="Preview"
-          onclick="event.stopPropagation()"
-          class="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl scale-95 transition-transform duration-300 select-none"
-        />
-        <div
-          class="absolute bottom-6 left-1/2 -translate-x-1/2 bg-black/50 text-white px-4 py-1 rounded-full text-sm backdrop-blur-sm pointer-events-none"
-        >
-          <span id="lightbox-counter">1 / 1</span>
-        </div>
-      </div>
-    </div>
+        <div class="container">
+          <header class="spotlight-header reveal">
+            <p class="text-caption">Flagship Impact Case Studies</p>
+            <h2 id="spotlight-heading" class="text-heading">
+              Featured Campaign Spotlight
+            </h2>
+            <p class="text-body text-secondary">
+              Large-scale public communication and festival visual systems
+              produced at Brandoctors Indonesia for Wellfest 2025, BPOM RI, and
+              HAI-FEST 2025.
+            </p>
+          </header>
 
-    <div
-      id="status-popup"
-      class="fixed inset-0 z-[10000] hidden flex items-center justify-center p-4"
-    >
-      <div
-        class="absolute inset-0 bg-black/70 backdrop-blur-md transition-opacity duration-300"
-        onclick="closePopup()"
-      ></div>
-      <div
-        id="popup-content"
-        class="relative w-full max-w-sm rounded-3xl p-8 shadow-2xl transform transition-all duration-500 ease-out scale-90 opacity-0 flex flex-col items-center text-center overflow-hidden"
-        style="
-          background: rgba(10, 10, 14, 0.95);
-          backdrop-filter: blur(40px);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-        "
-      >
-        <!-- Glow effect background -->
-        <div
-          id="popup-glow"
-          class="absolute inset-0 opacity-30 transition-opacity duration-700 pointer-events-none"
-          style="
-            background: radial-gradient(
-              circle at 50% 30%,
-              rgba(34, 197, 94, 0.15) 0%,
-              transparent 70%
-            );
-          "
-        ></div>
-
-        <!-- Animated particles container (success only) -->
-        <div
-          id="popup-particles"
-          class="absolute inset-0 pointer-events-none overflow-hidden"
-        ></div>
-
-        <!-- Auto-dismiss progress bar -->
-        <div
-          class="absolute top-0 left-0 right-0 h-[2px] overflow-hidden rounded-t-3xl"
-        >
           <div
-            id="popup-progress"
-            class="h-full rounded-full transition-none"
-            style="
-              width: 100%;
-              background: linear-gradient(90deg, #b54f26, #d4724a);
-            "
+            id="spotlight-container"
+            class="spotlight-stack"
+            aria-live="polite"
           ></div>
         </div>
+      </section>
 
-        <!-- Icon container -->
-        <div
-          id="popup-icon-container"
-          class="relative w-20 h-20 mb-5 flex items-center justify-center"
-        >
-          <!-- Success icon -->
-          <div id="popup-icon-success" class="absolute inset-0 hidden">
-            <svg class="w-20 h-20" viewBox="0 0 80 80" fill="none">
-              <circle
-                cx="40"
-                cy="40"
-                r="36"
-                stroke="rgba(34,197,94,0.2)"
-                stroke-width="3"
-                fill="rgba(34,197,94,0.08)"
-              />
-              <circle
-                id="popup-circle-success"
-                cx="40"
-                cy="40"
-                r="36"
-                stroke="#22c55e"
-                stroke-width="3"
-                fill="none"
-                stroke-linecap="round"
-                style="
-                  stroke-dasharray: 226;
-                  stroke-dashoffset: 226;
-                  transition: stroke-dashoffset 0.8s
-                    cubic-bezier(0.65, 0, 0.35, 1);
-                "
-              />
-              <path
-                id="popup-check"
-                d="M25 40 L35 50 L55 30"
-                stroke="#22c55e"
-                stroke-width="3.5"
-                fill="none"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                style="
-                  stroke-dasharray: 50;
-                  stroke-dashoffset: 50;
-                  transition: stroke-dashoffset 0.5s
-                    cubic-bezier(0.65, 0, 0.35, 1) 0.5s;
-                "
-              />
-            </svg>
-          </div>
-          <!-- Error icon -->
-          <div id="popup-icon-error" class="absolute inset-0 hidden">
-            <svg class="w-20 h-20" viewBox="0 0 80 80" fill="none">
-              <circle
-                cx="40"
-                cy="40"
-                r="36"
-                stroke="rgba(239,68,68,0.2)"
-                stroke-width="3"
-                fill="rgba(239,68,68,0.08)"
-              />
-              <circle
-                id="popup-circle-error"
-                cx="40"
-                cy="40"
-                r="36"
-                stroke="#ef4444"
-                stroke-width="3"
-                fill="none"
-                stroke-linecap="round"
-                style="
-                  stroke-dasharray: 226;
-                  stroke-dashoffset: 226;
-                  transition: stroke-dashoffset 0.8s
-                    cubic-bezier(0.65, 0, 0.35, 1);
-                "
-              />
-              <path
-                id="popup-x1"
-                d="M30 30 L50 50"
-                stroke="#ef4444"
-                stroke-width="3.5"
-                fill="none"
-                stroke-linecap="round"
-                style="
-                  stroke-dasharray: 28;
-                  stroke-dashoffset: 28;
-                  transition: stroke-dashoffset 0.4s
-                    cubic-bezier(0.65, 0, 0.35, 1) 0.4s;
-                "
-              />
-              <path
-                id="popup-x2"
-                d="M50 30 L30 50"
-                stroke="#ef4444"
-                stroke-width="3.5"
-                fill="none"
-                stroke-linecap="round"
-                style="
-                  stroke-dasharray: 28;
-                  stroke-dashoffset: 28;
-                  transition: stroke-dashoffset 0.4s
-                    cubic-bezier(0.65, 0, 0.35, 1) 0.6s;
-                "
-              />
-            </svg>
+      <section
+        id="archive"
+        class="section section-white section-border-top section-border-bottom"
+        aria-labelledby="archive-heading"
+      >
+        <div class="container">
+          <header class="archive-header reveal">
+            <div>
+              <p class="text-caption">
+                Selected Client &amp; Experimental Archive
+              </p>
+              <h2 id="archive-heading" class="text-heading">
+                Curated Work &amp; Visual Studies
+              </h2>
+            </div>
+          </header>
+
+          <div
+            id="archive-container"
+            class="archive-rows"
+            aria-live="polite"
+          ></div>
+        </div>
+      </section>
+
+      <section
+        id="experience"
+        class="section section-light"
+        aria-labelledby="experience-heading"
+      >
+        <div class="container editorial-index-grid">
+          <aside class="index-sidebar">
+            <div class="reveal">
+              <p class="text-caption">Background &amp; Capabilities</p>
+              <h2 id="experience-heading" class="text-heading">
+                Experience &amp; Education
+              </h2>
+              <p
+                class="text-body-sm text-secondary"
+                style="margin-top: var(--space-3)"
+              >
+                Bridging structured systems thinking from Information Systems
+                with commercial brand strategy from Digital Business Management.
+              </p>
+            </div>
+
+            <div id="competencies-container" aria-live="polite"></div>
+          </aside>
+
+          <div class="index-content">
+            <div class="ledger-group">
+              <div class="ledger-group-title reveal">
+                <h3 class="text-heading-sm">Work Experience</h3>
+              </div>
+              <div id="experience-container" aria-live="polite"></div>
+            </div>
+
+            <div class="ledger-group">
+              <div class="ledger-group-title reveal">
+                <h3 class="text-heading-sm">University Education</h3>
+              </div>
+              <div id="education-container" aria-live="polite"></div>
+            </div>
           </div>
         </div>
+      </section>
 
-        <h3 id="popup-title" class="relative text-xl font-bold text-white mb-2">
-          Title
-        </h3>
-        <p
-          id="popup-message"
-          class="relative text-gray-400 text-sm mb-7 leading-relaxed max-w-[280px]"
-        >
-          Message goes here.
-        </p>
+      <section
+        id="contact"
+        class="section section-black"
+        aria-labelledby="contact-heading"
+      >
+        <div class="container">
+          <div class="contact-grid">
+            <div class="contact-prompt reveal">
+              <div>
+                <p class="text-caption">Direct Collaboration</p>
+                <h2 id="contact-heading" class="text-heading">
+                  Let's discuss your next campaign or visual project.
+                </h2>
+              </div>
+              <p class="text-body text-secondary">
+                Available for full-time creative roles, freelance brand
+                identities, and social media design systems.
+              </p>
+
+              <div class="contact-channels">
+                <a
+                  href="mailto:contact@fauzantaufiq.id"
+                  class="contact-channel-card"
+                >
+                  <div class="contact-channel-meta">
+                    <span class="text-caption">Email Direct</span>
+                    <span class="text-body-sm">contact@fauzantaufiq.id</span>
+                  </div>
+                  <span class="text-caption">Send Email</span>
+                </a>
+
+                <a
+                  href="https://wa.me/6285156055303"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="contact-channel-card"
+                >
+                  <div class="contact-channel-meta">
+                    <span class="text-caption">WhatsApp Direct</span>
+                    <span class="text-body-sm">+62 851 5605 5303</span>
+                  </div>
+                  <span class="text-caption">Open Chat</span>
+                </a>
+              </div>
+
+              <div>
+                <p class="text-caption" style="margin-bottom: var(--space-3)">
+                  Design &amp; Professional Profiles
+                </p>
+                <div class="social-links">
+                  <a
+                    href="https://linkedin.com/in/fauzantaufiq"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn btn-subtle btn-compact"
+                  >
+                    LinkedIn
+                  </a>
+                  <a
+                    href="https://behance.net/fauzantaufiq"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn btn-subtle btn-compact"
+                  >
+                    Behance
+                  </a>
+                  <a
+                    href="https://instagram.com/fauzan.taufiqq"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn btn-subtle btn-compact"
+                  >
+                    Instagram
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div class="contact-form-panel reveal reveal-delay-1">
+              <form
+                id="contact-form"
+                class="contact-form-card form-stack"
+                novalidate
+              >
+                <div>
+                  <h3 class="text-heading-sm">Send Project Inquiry</h3>
+                  <p
+                    class="text-body-sm text-secondary"
+                    style="margin-top: var(--space-1)"
+                  >
+                    Share your project scope, role details, or timeline below.
+                  </p>
+                </div>
+
+                <div class="hp-field" aria-hidden="true">
+                  <label for="contact-website">Company Website</label>
+                  <input
+                    type="text"
+                    id="contact-website"
+                    name="company_website"
+                    tabindex="-1"
+                    autocomplete="off"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="contact-name" class="form-label">Full Name</label>
+                  <input
+                    type="text"
+                    id="contact-name"
+                    name="name"
+                    class="form-input"
+                    placeholder="Your Name"
+                    autocomplete="name"
+                    maxlength="100"
+                    required
+                    aria-describedby="contact-name-error"
+                  />
+                  <p id="contact-name-error" class="form-error" hidden></p>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="contact-email" class="form-label"
+                      >Email Address</label
+                    >
+                    <input
+                      type="email"
+                      id="contact-email"
+                      name="email"
+                      class="form-input"
+                      placeholder="email@example.com"
+                      autocomplete="email"
+                      maxlength="150"
+                      required
+                      aria-describedby="contact-email-error"
+                    />
+                    <p id="contact-email-error" class="form-error" hidden></p>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="contact-phone" class="form-label"
+                      >Phone or WhatsApp</label
+                    >
+                    <input
+                      type="tel"
+                      id="contact-phone"
+                      name="phone"
+                      class="form-input"
+                      placeholder="+62 812 3456 7890"
+                      autocomplete="tel"
+                      maxlength="25"
+                      required
+                      aria-describedby="contact-phone-error"
+                    />
+                    <p id="contact-phone-error" class="form-error" hidden></p>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="contact-message" class="form-label"
+                    >Project Brief or Message</label
+                  >
+                  <textarea
+                    id="contact-message"
+                    name="message"
+                    class="form-textarea"
+                    rows="4"
+                    maxlength="2000"
+                    placeholder="Outline your campaign goals, deliverables, or role opportunity..."
+                    required
+                    aria-describedby="contact-message-error"
+                  ></textarea>
+                  <p id="contact-message-error" class="form-error" hidden></p>
+                </div>
+
+                <div id="contact-status" class="form-status" hidden></div>
+
+                <div class="form-actions-end">
+                  <button
+                    type="submit"
+                    id="contact-submit"
+                    class="btn btn-primary"
+                  >
+                    Send Project Inquiry
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <footer class="site-footer">
+            <div class="footer-bar">
+              <div class="footer-brand">
+                <p class="text-caption">
+                  Copyright &copy; 2026 Muhammad Fauzan Taufiq. All rights
+                  reserved.
+                </p>
+              </div>
+
+              <div class="footer-legal">
+                <button
+                  type="button"
+                  class="text-link-btn"
+                  data-open-legal="terms"
+                >
+                  Terms of Service
+                </button>
+                <button
+                  type="button"
+                  class="text-link-btn"
+                  data-open-legal="privacy"
+                >
+                  Privacy Policy
+                </button>
+              </div>
+            </div>
+          </footer>
+        </div>
+      </section>
+    </main>
+
+    <dialog
+      id="lightbox-dialog"
+      class="modal-dialog modal-dialog--dark"
+      aria-labelledby="lightbox-title"
+    >
+      <div class="modal-header">
+        <div>
+          <p id="lightbox-meta" class="text-caption"></p>
+          <h3 id="lightbox-title" class="modal-title">Campaign Artifact</h3>
+        </div>
         <button
-          id="popup-btn"
-          onclick="closePopup()"
-          class="relative w-full py-3 rounded-xl font-bold text-sm transition-all duration-300 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] text-white"
-          style="background: linear-gradient(135deg, #b54f26, #d4724a)"
+          type="button"
+          class="btn btn-subtle lightbox-control-btn"
+          data-close-modal
+          aria-label="Close artifact preview"
         >
-          Got it!
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M18 6L6 18M6 6l12 12" />
+          </svg>
+          <span>Close</span>
         </button>
       </div>
-    </div>
-
-    <!-- LEGAL MODAL -->
-    <!-- PERBAIKAN DI SINI: Tambah onclick pada container utama -->
-    <div
-      id="legal-modal"
-      class="fixed inset-0 z-[10001] hidden flex items-center justify-center p-4"
-      onclick="if (event.target === this) closeLegal();"
-    >
-      <div
-        class="absolute inset-0 bg-black/90 backdrop-blur-md transition-opacity"
-        onclick="closeLegal()"
-      ></div>
-      <div
-        class="bg-white w-full max-w-2xl h-[80vh] rounded-2xl shadow-2xl relative z-10 flex flex-col transform transition-all duration-300 scale-95 opacity-0"
-      >
-        <div
-          class="flex justify-between items-center p-6 border-b border-gray-100"
-        >
-          <h3 id="legal-title" class="text-2xl font-bold text-gray-900">
-            Legal Title
-          </h3>
+      <div class="modal-body modal-body--media">
+        <img id="lightbox-image" src="data:," alt="Campaign artifact preview" />
+      </div>
+      <div class="modal-footer">
+        <div class="lightbox-nav-controls">
           <button
-            onclick="closeLegal()"
-            class="p-2 bg-gray-100 hover:bg-red-50 text-gray-500 hover:text-red-500 rounded-full transition-colors"
+            type="button"
+            id="lightbox-prev"
+            class="btn btn-subtle lightbox-control-btn"
+            aria-label="Previous artifact"
           >
-            <svg
-              class="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M6 18L18 6M6 6l12 12"
-              ></path>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+            <span>Previous</span>
+          </button>
+          <span id="lightbox-counter" class="text-caption" aria-live="polite">
+            1 of 1
+          </span>
+          <button
+            type="button"
+            id="lightbox-next"
+            class="btn btn-subtle lightbox-control-btn"
+            aria-label="Next artifact"
+          >
+            <span>Next</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
             </svg>
           </button>
         </div>
-
-        <div
-          id="legal-content"
-          class="flex-1 overflow-y-auto p-6 text-gray-600 text-sm leading-relaxed space-y-4"
-        ></div>
-        <div
-          class="p-4 border-t border-gray-100 bg-gray-50 rounded-b-2xl flex justify-end"
+        <a
+          id="lightbox-external-link"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-primary btn-compact"
+          hidden
         >
-          <button
-            onclick="closeLegal()"
-            class="px-6 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors text-sm font-bold"
+          Open Live Post
+        </a>
+      </div>
+    </dialog>
+
+    <dialog
+      id="document-dialog"
+      class="modal-dialog modal-dialog--document"
+      aria-labelledby="document-title"
+    >
+      <div class="modal-header">
+        <h3 id="document-title" class="modal-title">Document Preview</h3>
+        <div class="lightbox-nav-controls">
+          <a
+            id="document-download-link"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-primary btn-compact"
           >
-            I Understand
+            Open / Download PDF
+          </a>
+          <button
+            type="button"
+            class="btn btn-subtle btn-compact"
+            data-close-modal
+            aria-label="Close document preview"
+          >
+            Close
           </button>
         </div>
       </div>
-    </div>
+      <div class="modal-body modal-body--document">
+        <iframe
+          id="document-frame"
+          src="about:blank"
+          title="Document viewer"
+          sandbox="allow-scripts allow-same-origin allow-popups"
+          referrerpolicy="no-referrer"
+        ></iframe>
+      </div>
+    </dialog>
 
-    <script>
-      // ===========================================
-      // 1. GLOBAL SCOPE (HELPER FUNCTIONS MUST BE HERE)
-      // ===========================================
+    <dialog
+      id="legal-dialog"
+      class="modal-dialog"
+      aria-labelledby="legal-title"
+    >
+      <div class="modal-header">
+        <div>
+          <p id="legal-updated" class="text-caption"></p>
+          <h3 id="legal-title" class="modal-title">Legal Disclosure</h3>
+        </div>
+        <button
+          type="button"
+          class="btn btn-subtle btn-compact"
+          data-close-modal
+          aria-label="Close legal disclosure"
+        >
+          Close
+        </button>
+      </div>
+      <div id="legal-body" class="modal-body"></div>
+      <div class="modal-footer">
+        <span class="text-caption">fauzantaufiq.id</span>
+        <button
+          type="button"
+          class="btn btn-primary btn-compact"
+          data-close-modal
+        >
+          Close Window
+        </button>
+      </div>
+    </dialog>
 
-      const SUPABASE_URL = "https://mrxttnlcpoixnvhngvtw.supabase.co";
-      const SUPABASE_KEY =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yeHR0bmxjcG9peG52aG5ndnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc5MDM2MDIsImV4cCI6MjA4MzQ3OTYwMn0.1tK-18DVOokyI_uDiqkelHmALgmgeVyI9JXwPgt5sQM";
-      const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-      let portfolioGalleries = {};
-      let currentGalleryId = null;
-      let currentImageIndex = 0;
-
-      // LEGAL CONTENT (Global)
-      const legalContent = {
-        terms: `<p><strong>1. Introduction</strong>
-                  <br>Welcome to <strong>fauzantaufiq.id</strong> ("Website"). By accessing or using this Website, you agree to be bound by these Terms of Service. If you disagree with any part of these terms, please do not use my Website.</br></p>
-                <p><strong>2. Intellectual Property Rights</strong>
-                  <br>Unless otherwise stated, Muhammad Fauzan Taufiq owns the intellectual property rights for all material on this Website, including text, graphics, logos, images, and code. All intellectual property rights are reserved. You may access this Website for your personal use, subject to restrictions set in these terms.</br></p>
-                <p><strong>3. Restrictions</strong>
-                  <br>You are specifically restricted from:
-                  <ul class="list-disc list-inside ml-5">
-                    <li>Publishing any Website material in any other media without prior consent.</li>
-                    <li>Selling, sublicensing, and/or otherwise commercialising any Website material.</li>
-                    <li>Using this Website in any way that is or may be damaging to this Website.</li>
-                    <li>Using this Website contrary to applicable laws and regulations.</li>
-                  </ul></br></p>
-                <p><strong>4. Disclaimer</strong>
-                  <br>This Website is provided "as is," with all faults, and Muhammad Fauzan Taufiq expresses no representations or warranties of any kind related to this Website or the materials contained on this Website. The portfolio works displayed are for demonstration purposes only and represent my personal skills and professional experience.</br></p>
-                <p><strong>5. Limitation of Liability</strong>
-                  <br>In no event shall Muhammad Fauzan Taufiq be held liable for anything arising out of or in any way connected with your use of this Website. Muhammad Fauzan Taufiq shall not be held liable for any indirect, consequential, or special liability arising out of or in any way related to your use of this Website.</br></p>
-                <p><strong>6. Third-Party Links</strong>
-                  <br>This Website may contain links to third-party websites or services (e.g., LinkedIn, Instagram, Behance) that are not owned or controlled by Muhammad Fauzan Taufiq. We have no control over, and assume no responsibility for, the content, privacy policies, or practices of any third-party websites.</br></p>`,
-        privacy: `<p><strong>1. Introduction</strong>
-                    <br>Muhammad Fauzan Taufiq ("me") operates <strong>fauzantaufiq.id</strong>. This Privacy Policy informs you of my policies regarding the collection, use, and disclosure of personal data when you use my Website and the choices you have associated with that data.</br></p>
-                  <p><strong>2. Information Collection and Use</strong>
-                    <br>I collect several different types of information for various purposes to provide and improve our service to you:
-                    <ul class="list-disc list-inside ml-5">
-                      <li><strong>Personal Data: </strong>When you use my Contact Form, I collect personal information you provide voluntarily, such as your Name, Email Address, and Phone Number. This data is stored securely in my database and is used solely to respond to your inquiries.</li>
-                      <li><strong>Usage Data: </strong>I may collect information on how the Service is accessed and used via <strong>Google Analytics</strong>. This Usage Data may include information such as your computer's Internet Protocol address (IP address), browser type, browser version, the pages of our Service that you visit, the time and date of your visit, the time spent on those pages, and other diagnostic data.</li>
-                    </ul></br></p>
-                  <p><strong>3. Use of Data</strong>
-                    <br>I use the collected data for various purposes:
-                    <ul class="list-disc list-inside ml-5">
-                      <li>To provide and maintain the Website.</li>
-                      <li>To notify you about changes to my service.</li>
-                      <li>To provide customer care and support (responding to contact form submissions).</li>
-                      <li>To monitor the usage of the Service using Google Analytics to improve user experience.</li>
-                      <li>To detect, prevent and address technical issues via Cloudflare security services.</li>
-                    </ul></br></p>
-                  <p><strong>4. Service Providers (Third Parties)</strong>
-                    <br>I employ third-party companies and services ("Service Providers") to facilitate this Website, provide the Website on my behalf, or assist me in analysing how this Website is used. These third parties have access to your data only to perform these tasks on our behalf and are obligated not to disclose or use it for any other purpose.
-                    <ul class="list-disc list-inside ml-5">
-                      <li><strong>Vercel: </strong>Hosting and deployment provider.</li>
-                      <li><strong>Supabase: </strong>Backend database and storage provider.</li>
-                      <li><strong>Cloudflare: </strong>DNS, caching, and security provider.</li>
-                      <li><strong>Google Analytics: </strong>Web analytics service.</li>
-                    </ul></br></p>
-                  <p><strong>5. Security of Data</strong>
-                    <br>The security of your data is important. I use industry-standard security measures (SSL via Cloudflare, RLS Policies via Supabase) to protect your personal information. However, please remember that no method of transmission over the Internet or of electronic storage is 100% secure.</p>
-                  <p><strong>6. Your Rights</strong>
-                    <br>You have the right to request access to, correction of, or deletion of the personal data we hold about you (specifically data submitted via the Contact Form). Please contact me at <a href="mailto:policy@fauzantaufiq.id"><strong>policy@fauzantaufiq.id</strong></a> to make such a request.</p>`,
-      };
-
-      // HELPER FUNCTIONS (Must be Global to be called by onclick)
-      const getScrollbarWidth = () =>
-        window.innerWidth - document.documentElement.clientWidth;
-      const lockScroll = () => {
-        document.body.style.paddingRight = `${getScrollbarWidth()}px`;
-        const navbar = document.querySelector("nav");
-        if (navbar) navbar.style.paddingRight = `${getScrollbarWidth()}px`;
-        document.body.style.overflow = "hidden";
-      };
-      const unlockScroll = () => {
-        document.body.style.paddingRight = "0px";
-        const navbar = document.querySelector("nav");
-        if (navbar) navbar.style.paddingRight = "0px";
-        document.body.style.overflow = "auto";
-      };
-
-      // --- DOCUMENT MODAL ---
-      function openDocument(url, title) {
-        const modal = document.getElementById("document-modal");
-        const frame = document.getElementById("document-frame");
-        const titleElem = document.getElementById("document-title");
-        const downloadBtn = document.getElementById("document-download-btn");
-        if (titleElem) titleElem.innerText = title || "Document Preview";
-        if (downloadBtn) downloadBtn.href = url;
-        const isMobile = window.innerWidth < 768;
-        if (isMobile) {
-          frame.src = `https://docs.google.com/gview?url=${encodeURIComponent(url)}&embedded=true`;
-        } else {
-          frame.src = url + "#toolbar=0";
-        }
-        modal.classList.remove("hidden");
-        lockScroll();
-      }
-      function closeDocument() {
-        const modal = document.getElementById("document-modal");
-        const frame = document.getElementById("document-frame");
-        modal.classList.add("hidden");
-        frame.src = "";
-        unlockScroll();
-      }
-      function openResume() {
-        const resumeUrl =
-          "https://mrxttnlcpoixnvhngvtw.supabase.co/storage/v1/object/public/static/cv/cv-ats-fauzan-english.pdf";
-        openDocument(resumeUrl, "My Full Resume");
-      }
-
-      // --- LIGHTBOX MODAL ---
-      function openLightbox(sectionId, index) {
-        const modal = document.getElementById("lightbox-modal");
-        const img = document.getElementById("lightbox-image");
-        const counter = document.getElementById("lightbox-counter");
-        currentGalleryId = sectionId;
-        currentImageIndex = index;
-        const currentGallery = portfolioGalleries[currentGalleryId];
-        if (!currentGallery || currentGallery.length === 0) return;
-        img.src = currentGallery[currentImageIndex].src;
-        counter.innerText = `${currentImageIndex + 1} / ${currentGallery.length}`;
-        modal.classList.remove("hidden");
-        modal.classList.remove("pointer-events-none");
-        setTimeout(() => {
-          modal.classList.remove("opacity-0");
-          img.classList.remove("scale-95");
-          img.classList.add("scale-100");
-        }, 10);
-        lockScroll();
-      }
-      function changeImage(direction) {
-        const img = document.getElementById("lightbox-image");
-        const counter = document.getElementById("lightbox-counter");
-        const currentGallery = portfolioGalleries[currentGalleryId];
-        if (!currentGallery) return;
-        img.classList.remove("scale-100");
-        img.classList.add("scale-95", "opacity-50");
-        setTimeout(() => {
-          currentImageIndex += direction;
-          if (currentImageIndex >= currentGallery.length) currentImageIndex = 0;
-          else if (currentImageIndex < 0)
-            currentImageIndex = currentGallery.length - 1;
-          img.src = currentGallery[currentImageIndex].src;
-          counter.innerText = `${currentImageIndex + 1} / ${currentGallery.length}`;
-          img.onload = () => {
-            img.classList.remove("scale-95", "opacity-50");
-            img.classList.add("scale-100", "opacity-100");
-          };
-        }, 200);
-      }
-      function closeLightbox() {
-        const modal = document.getElementById("lightbox-modal");
-        const img = document.getElementById("lightbox-image");
-        modal.classList.add("opacity-0");
-        modal.classList.add("pointer-events-none");
-        img.classList.remove("scale-100");
-        img.classList.add("scale-95");
-        setTimeout(() => {
-          modal.classList.add("hidden");
-          img.src = "";
-          currentGalleryId = null;
-        }, 300);
-        unlockScroll();
-      }
-
-      // --- LEGAL MODAL ---
-      function openLegal(type) {
-        const modal = document.getElementById("legal-modal");
-        const titleEl = document.getElementById("legal-title");
-        const contentEl = document.getElementById("legal-content");
-        const modalBox = modal.querySelector("div[class*='transform']");
-        if (type === "terms") {
-          titleEl.innerText = "Terms of Service";
-          contentEl.innerHTML = legalContent.terms;
-        } else {
-          titleEl.innerText = "Privacy Policy";
-          contentEl.innerHTML = legalContent.privacy;
-        }
-        modal.classList.remove("hidden");
-        lockScroll();
-        setTimeout(() => {
-          modalBox.classList.remove("scale-95", "opacity-0");
-          modalBox.classList.add("scale-100", "opacity-100");
-        }, 10);
-      }
-      function closeLegal() {
-        const modal = document.getElementById("legal-modal");
-        const modalBox = modal.querySelector("div[class*='transform']");
-        modalBox.classList.remove("scale-100", "opacity-100");
-        modalBox.classList.add("scale-95", "opacity-0");
-        setTimeout(() => {
-          modal.classList.add("hidden");
-          unlockScroll();
-        }, 300);
-      }
-
-      // --- POPUP ---
-      let popupAutoCloseTimer = null;
-      let popupProgressTimer = null;
-
-      function showPopup(type, title, message) {
-        const modal = document.getElementById("status-popup");
-        const iconSuccess = document.getElementById("popup-icon-success");
-        const iconError = document.getElementById("popup-icon-error");
-        const titleEl = document.getElementById("popup-title");
-        const msgEl = document.getElementById("popup-message");
-        const btnEl = document.getElementById("popup-btn");
-        const content = document.getElementById("popup-content");
-        const glow = document.getElementById("popup-glow");
-        const progress = document.getElementById("popup-progress");
-        const particles = document.getElementById("popup-particles");
-
-        // Clear previous timers
-        if (popupAutoCloseTimer) clearTimeout(popupAutoCloseTimer);
-        if (popupProgressTimer) cancelAnimationFrame(popupProgressTimer);
-        particles.innerHTML = "";
-
-        titleEl.innerText = title;
-        msgEl.innerText = message;
-
-        // Reset SVG animations
-        resetSVGAnimation("popup-circle-success", 226);
-        resetSVGAnimation("popup-circle-error", 226);
-        resetSVGAnimation("popup-check", 50);
-        resetSVGAnimation("popup-x1", 28);
-        resetSVGAnimation("popup-x2", 28);
-
-        if (type === "success") {
-          iconSuccess.classList.remove("hidden");
-          iconError.classList.add("hidden");
-          glow.style.background =
-            "radial-gradient(circle at 50% 30%, rgba(34,197,94,0.15) 0%, transparent 70%)";
-          progress.style.background =
-            "linear-gradient(90deg, #22c55e, #4ade80)";
-          btnEl.style.background = "linear-gradient(135deg, #b54f26, #d4724a)";
-          titleEl.className = "relative text-xl font-bold text-white mb-2";
-        } else {
-          iconSuccess.classList.add("hidden");
-          iconError.classList.remove("hidden");
-          glow.style.background =
-            "radial-gradient(circle at 50% 30%, rgba(239,68,68,0.15) 0%, transparent 70%)";
-          progress.style.background =
-            "linear-gradient(90deg, #ef4444, #f87171)";
-          btnEl.style.background = "linear-gradient(135deg, #b54f26, #d4724a)";
-          titleEl.className = "relative text-xl font-bold text-white mb-2";
-        }
-
-        modal.classList.remove("hidden");
-        progress.style.width = "100%";
-
-        // Animate in
-        setTimeout(() => {
-          content.classList.remove("scale-90", "opacity-0");
-          content.classList.add("scale-100", "opacity-100");
-
-          // Trigger SVG draw animation
-          setTimeout(() => {
-            if (type === "success") {
-              triggerSVGAnimation("popup-circle-success", 0);
-              triggerSVGAnimation("popup-check", 0);
-              spawnParticles(particles);
-            } else {
-              triggerSVGAnimation("popup-circle-error", 0);
-              triggerSVGAnimation("popup-x1", 0);
-              triggerSVGAnimation("popup-x2", 0);
-              // Shake animation for error
-              content.style.animation = "popupShake 0.5s ease 0.3s";
-              setTimeout(() => {
-                content.style.animation = "";
-              }, 1000);
-            }
-          }, 100);
-        }, 10);
-
-        // Auto-dismiss progress bar (8 seconds)
-        const duration = 8000;
-        const startTime = Date.now();
-        function updateProgress() {
-          const elapsed = Date.now() - startTime;
-          const remaining = Math.max(0, 1 - elapsed / duration);
-          progress.style.width = `${remaining * 100}%`;
-          if (remaining > 0) {
-            popupProgressTimer = requestAnimationFrame(updateProgress);
-          }
-        }
-        popupProgressTimer = requestAnimationFrame(updateProgress);
-        popupAutoCloseTimer = setTimeout(() => closePopup(), duration);
-      }
-
-      function closePopup() {
-        if (popupAutoCloseTimer) clearTimeout(popupAutoCloseTimer);
-        if (popupProgressTimer) cancelAnimationFrame(popupProgressTimer);
-        const modal = document.getElementById("status-popup");
-        const content = document.getElementById("popup-content");
-        content.classList.remove("scale-100", "opacity-100");
-        content.classList.add("scale-90", "opacity-0");
-        setTimeout(() => {
-          modal.classList.add("hidden");
-          document.getElementById("popup-particles").innerHTML = "";
-        }, 500);
-      }
-
-      function resetSVGAnimation(id, dashLength) {
-        const el = document.getElementById(id);
-        if (el) {
-          el.style.transition = "none";
-          el.style.strokeDashoffset = dashLength;
-        }
-      }
-      function triggerSVGAnimation(id, offset) {
-        const el = document.getElementById(id);
-        if (el) {
-          // Force reflow
-          el.getBoundingClientRect();
-          el.style.transition = "";
-          el.style.strokeDashoffset = offset;
-        }
-      }
-
-      function spawnParticles(container) {
-        const colors = [
-          "#b54f26",
-          "#d4724a",
-          "#22c55e",
-          "#4ade80",
-          "#fbbf24",
-          "#f59e0b",
-        ];
-        for (let i = 0; i < 20; i++) {
-          const p = document.createElement("div");
-          const size = Math.random() * 4 + 2;
-          const x = Math.random() * 100;
-          const delay = Math.random() * 0.5;
-          p.style.cssText = `
-            position: absolute;
-            width: ${size}px;
-            height: ${size}px;
-            border-radius: 50%;
-            background: ${colors[Math.floor(Math.random() * colors.length)]};
-            left: ${x}%;
-            top: 35%;
-            opacity: 0;
-            animation: popupParticle ${1 + Math.random()}s ease-out ${delay}s forwards;
-          `;
-          container.appendChild(p);
-        }
-      }
-
-      // Escape key to close popup
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") {
-          const popup = document.getElementById("status-popup");
-          if (popup && !popup.classList.contains("hidden")) {
-            closePopup();
-          }
-        }
-      });
-
-      // ===========================================
-      // 6. INITIALIZATION & DATA FETCHING (DOM Ready)
-      // ===========================================
-      document.addEventListener("DOMContentLoaded", () => {
-        // --- FETCH DATA ---
-        fetchportfolioFromSupabase();
-        fetchCompetencies();
-        fetchEducation();
-        fetchExperience();
-
-        // --- UI INIT ---
-        initBackToTop();
-        initContactForm();
-        initSmoothScroll();
-        initScrollSpy();
-        initMobileMenu();
-
-        // --- LOADER ---
-        const loader = document.getElementById("loader");
-        window.addEventListener("load", () => {
-          setTimeout(() => {
-            loader.classList.add("opacity-0", "pointer-events-none");
-            setTimeout(() => {
-              loader.style.display = "none";
-            }, 700);
-          }, 1000);
-          initNavbarPill();
-        });
-      });
-
-      // ===========================================
-      // 7. FETCH FUNCTIONS (Global to be accessible)
-      // ===========================================
-      async function fetchCompetencies() {
-        const arsenalContainer = document.getElementById(
-          "competencies-arsenal-container",
-        );
-        const otherContainer = document.getElementById(
-          "competencies-other-container",
-        );
-        try {
-          const { data, error } = await supabaseClient
-            .from("competencies")
-            .select("*")
-            .order("sort_order", { ascending: true });
-          if (error) throw error;
-          const arsenalData = data.filter(
-            (item) => item.category === "arsenal",
-          );
-          arsenalContainer.innerHTML = arsenalData
-            .map(
-              (item) =>
-                `<div class="group flex flex-col items-center text-center gap-3 cursor-pointer"><div class="w-14 h-14 border border-gray-800 rounded-2xl flex items-center justify-center transition-all duration-300 group-hover:-translate-y-1" style="background-color: ${item.bg_color};" onmouseover="this.style.borderColor='${item.border_color}'; this.style.boxShadow='0 0 20px ${item.border_color}4D'" onmouseout="this.style.borderColor='rgb(31, 41, 55)'; this.style.boxShadow='none'"><img src="${item.icon_url}" alt="${item.name}" class="w-8 h-8 object-contain transition-transform duration-300 group-hover:scale-110" /></div><span class="text-[10px] leading-tight uppercase tracking-widest text-gray-500 font-medium transition-colors max-w-[100px]" onmouseover="this.style.color='${item.border_color}'" onmouseout="this.style.color='rgb(107, 114, 128)'">${item.name}</span></div>`,
-            )
-            .join("");
-          const otherData = data.filter((item) => item.category === "other");
-          otherContainer.innerHTML = otherData
-            .map(
-              (item) =>
-                `<span class="px-4 py-2 bg-gray-900 border border-gray-800 text-gray-300 rounded-lg text-sm hover:border-primary hover:text-primary transition-colors cursor-default">${item.name}</span>`,
-            )
-            .join("");
-        } catch (err) {
-          console.error("Error loading competencies:", err);
-        }
-      }
-
-      async function fetchEducation() {
-        const container = document.getElementById("education-list");
-        try {
-          const { data, error } = await supabaseClient
-            .from("education")
-            .select("*")
-            .order("sort_order", { ascending: true });
-          if (error) throw error;
-          container.innerHTML = data
-            .map((edu) => {
-              const dotClass = edu.is_active
-                ? "bg-primary ring-4 ring-black"
-                : "bg-gray-600 ring-4 ring-black group-hover:bg-primary transition-colors";
-              return `<div class="relative pl-8 group"><span class="absolute -left-[9px] top-1.5 h-4 w-4 rounded-full ${dotClass}"></span><h4 class="text-xl font-bold text-white leading-tight"><a href="${
-                edu.institution_link
-              }" target="_blank" class="hover:text-primary transition-all">${edu.institution}</a></h4><p class="text-${
-                edu.is_active ? "primary font-bold" : "gray-500 font-medium"
-              } text-sm mt-1 mb-1">${edu.period}</p><div class="text-gray-400 text-sm space-y-1"><p class="font-semibold text-gray-200">${
-                edu.degree
-              }</p><p class="bg-gray-800 border border-gray-700 text-gray-300 px-2 py-0.5 rounded w-fit text-xs font-medium">${edu.score_label}: ${
-                edu.score_value
-              }</p></div><div class="text-gray-400 text-xs leading-relaxed mt-2">${edu.description || ""}</div></div>`;
-            })
-            .join("");
-        } catch (err) {
-          console.error("Error loading education:", err);
-        }
-      }
-
-      async function fetchExperience() {
-        const container = document.getElementById("experience-list");
-        try {
-          const { data, error } = await supabaseClient
-            .from("experience")
-            .select("*")
-            .order("sort_order", { ascending: true });
-          if (error) throw error;
-          container.innerHTML = data
-            .map((exp) => {
-              const containerClass = exp.is_featured
-                ? "p-8 border-l-4 border-l-primary border-t border-r border-b border-gray-100 bg-orange-50/30 rounded-r-2xl rounded-l-md hover:shadow-xl transition-all duration-300 relative overflow-hidden"
-                : "p-8 border border-gray-100 rounded-2xl bg-white hover:shadow-xl transition-all duration-300 relative overflow-hidden";
-              let descList = "";
-              if (exp.description) {
-                try {
-                  const points =
-                    typeof exp.description === "string"
-                      ? JSON.parse(exp.description)
-                      : exp.description;
-                  descList = points.map((pt) => `<li>${pt}</li>`).join("");
-                } catch (e) {
-                  descList = `<li>${exp.description}</li>`;
-                }
-              }
-              let badgeClass = exp.type_class;
-              if (!badgeClass) {
-                const typeLower = exp.type.toLowerCase();
-                if (typeLower.includes("remote"))
-                  badgeClass = "badge-work-remote";
-                else if (
-                  typeLower.includes("on-site") ||
-                  typeLower.includes("onsite")
-                )
-                  badgeClass = "badge-work-onsite";
-                else if (typeLower.includes("volunteer"))
-                  badgeClass = "badge-work-volunteer";
-                else badgeClass = "badge-work-type";
-              }
-              return `<div class="${containerClass}"><div class="flex flex-col md:flex-row justify-between md:items-center mb-4 gap-2 relative z-10"><h4 class="text-xl font-bold text-black">${exp.role}</h4><div class="flex gap-2"><span class="${badgeClass}">${exp.type}</span><span class="badge-date">${exp.period}</span></div></div><p class="text-lg font-medium text-gray-700 mb-4 relative z-10"><a href="${exp.company_link}" target="_blank" class="hover:text-primary transition-colors flex items-center gap-2 w-fit">${exp.company}</a><span class="text-gray-400 text-sm font-normal ml-1">${exp.location}</span></p><ul class="list-disc list-outside ml-5 text-gray-600 space-y-2 text-sm leading-relaxed relative z-10">${descList}</ul></div>`;
-            })
-            .join("");
-        } catch (err) {
-          console.error("Error loading experience:", err);
-        }
-      }
-
-      async function fetchportfolioFromSupabase() {
-        const container = document.getElementById("portfolio-container");
-        container.innerHTML =
-          '<div class="text-center py-20 text-gray-500 animate-pulse">Sedang mengambil data terbaru...</div>';
-        try {
-          const { data, error } = await supabaseClient
-            .from("portfolio_sections")
-            .select(`*, works: portfolio_items(*)`)
-            .order("sort_order", { ascending: true });
-          if (error) throw error;
-          if (!data || data.length === 0) {
-            container.innerHTML =
-              '<div class="text-center py-20 text-gray-500">Belum ada data portfolio.</div>';
-            return;
-          }
-          const formattedData = data.map((section) => {
-            const sortedWorks = section.works
-              ? section.works.sort((a, b) => a.sort_order - b.sort_order)
-              : [];
-            return {
-              id: section.id,
-              title: section.title,
-              company: section.title,
-              desc: section.description,
-              tagline: section.tagline,
-              badge: section.badge,
-              badgeClass: section.badge_class,
-              layout: section.layout,
-              works: sortedWorks.map((item) => ({
-                title: item.title,
-                img: item.image_url,
-                link: item.link_url,
-                desc: item.description,
-                category: item.category,
-                type: item.type,
-                btnText: item.button_text || "View",
-              })),
-            };
-          });
-          renderportfolio(formattedData);
-        } catch (err) {
-          console.error("Error loading portfolio:", err);
-          container.innerHTML = `<p class="text-center text-red-500">Error: ${err.message}</p>`;
-        }
-      }
-
-      function renderportfolio(data) {
-        portfolioGalleries = {};
-        const container = document.getElementById("portfolio-container");
-        let htmlContent = "";
-        if (!data || data.length === 0) return;
-
-        data.forEach((item) => {
-          let sectionGallery = [];
-          portfolioGalleries[item.id] = sectionGallery;
-          const isImageFile = (url) => {
-            if (!url) return false;
-            return url.match(/\.(jpeg|jpg|gif|png|webp|svg)(\?.*)?$/i) != null;
-          };
-
-          const createCardAction = (work, sectionId) => {
-            if (
-              work.link &&
-              (work.link.includes("drive.google.com") ||
-                work.link.toLowerCase().endsWith(".pdf"))
-            ) {
-              return `href="#" onclick="openDocument('${work.link}', '${work.title || work.type}'); return false;"`;
-            } else if (
-              work.link &&
-              (work.link.includes("http") || work.link.includes("www")) &&
-              !isImageFile(work.link) &&
-              work.link !== work.img
-            ) {
-              return `href="${work.link}" target="_blank"`;
-            } else {
-              const imgSrc = isImageFile(work.link) ? work.link : work.img;
-              sectionGallery.push({
-                src: imgSrc,
-                title: work.title || work.type,
-              });
-              const localIndex = sectionGallery.length - 1;
-              return `href="#" onclick="openLightbox('${sectionId}', ${localIndex}); return false;"`;
-            }
-          };
-
-          const createActionButton = (work, sectionId) => {
-            if (
-              work.link &&
-              (work.link.includes("drive.google.com") ||
-                work.link.toLowerCase().endsWith(".pdf"))
-            ) {
-              return `<button onclick="openDocument('${work.link}', '${work.type}'); return false;" class="btn-action">${work.btnText}</button>`;
-            } else if (
-              work.link &&
-              (work.link.includes("http") || work.link.includes("www")) &&
-              !isImageFile(work.link) &&
-              work.link !== work.img
-            ) {
-              return `<a href="${work.link}" target="_blank" class="btn-action">${work.btnText}</a>`;
-            } else {
-              const imgSrc = isImageFile(work.link) ? work.link : work.img;
-              let localIndex = sectionGallery.findIndex(
-                (img) => img.src === imgSrc,
-              );
-              if (localIndex === -1) {
-                sectionGallery.push({ src: imgSrc, title: work.type });
-                localIndex = sectionGallery.length - 1;
-              }
-              return `<button onclick="openLightbox('${sectionId}', ${localIndex}); return false;" class="btn-action">${work.btnText}</button>`;
-            }
-          };
-
-          if (item.layout === "grid") {
-            const cardsHtml = item.works
-              .map(
-                (work) => `
-              <a ${createCardAction(
-                work,
-                item.id,
-              )} class="group relative flex flex-col bg-gray-50 rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                  <div class="h-48 sm:h-56 w-full overflow-hidden relative"><img src="${work.img}" alt="${
-                    work.title
-                  }" class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"><div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors"></div></div>
-                  <div class="p-6 flex-1 flex flex-col"><span class="text-[10px] font-bold text-primary uppercase tracking-widest mb-2">${
-                    work.category || "Portfolio"
-                  }</span><h4 class="text-lg font-bold text-black group-hover:text-primary transition-colors mb-2">${work.title}</h4><p class="text-sm text-gray-500 line-clamp-2">${
-                    work.desc || ""
-                  }</p><div class="mt-4 pt-4 border-t border-gray-100 flex items-center text-xs font-bold text-gray-400 group-hover:text-primary transition-colors">View Project <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></div></div>
-              </a>`,
-              )
-              .join("");
-            htmlContent += `<div><div class="py-16 md:py-24 relative flex items-center justify-center"><div class="flex-grow border-t border-gray-200 opacity-70"></div><span class="flex-shrink mx-3 md:mx-6 text-gray-400 uppercase text-[10px] md:text-xs font-bold tracking-[0.15em] md:tracking-[0.3em] flex items-center justify-center gap-2 text-center"><span class="text-primary text-base">✦</span> ${
-              item.tagline || "Explore"
-            } <span class="text-primary text-base">✦</span></span><div class="flex-grow border-t border-gray-200 opacity-70"></div></div><div class="text-center max-w-3xl mx-auto mb-12"><h4 class="text-3xl md:text-4xl font-extrabold text-black mb-4">${
-              item.title
-            }</h4><p class="text-gray-500 leading-relaxed">${item.desc}</p></div><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">${cardsHtml}</div></div>`;
-          } else {
-            const slidesHtml = item.works
-              .map(
-                (work) =>
-                  `<div class="work-slide"><span class="slide-badge">${work.type}</span><img src="${work.img}" alt="${
-                    work.type
-                  }" class="slide-image"><div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-30">${createActionButton(work, item.id)}</div></div>`,
-              )
-              .join("");
-            htmlContent += `<div class="company-showcase"><div class="flex flex-col lg:flex-row gap-12"><div class="w-full lg:w-1/3"><div class="lg:sticky lg:top-32"><span class="text-xs font-bold ${
-              item.badgeClass || "bg-gray-100 text-gray-600"
-            } px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-4">${item.badge || "Project"}</span><h4 class="text-3xl font-bold text-black mb-2">${
-              item.company
-            }</h4><p class="text-gray-500 text-sm font-bold uppercase tracking-widest mb-6">${item.tagline}</p><p class="text-gray-600 text-sm leading-relaxed mb-8">${
-              item.desc
-            }</p></div></div><div class="w-full lg:w-2/3 relative group"><button class="nav-arrow nav-prev hidden lg:flex" onclick="moveSlide('${
-              item.id
-            }', -1)"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="nav-arrow nav-next hidden lg:flex" onclick="moveSlide('${
-              item.id
-            }', 1)"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div id="slider-${
-              item.id
-            }" class="work-slider h-[400px] lg:h-[550px] shadow-xl rounded-[2.5rem] overflow-hidden border border-gray-100 bg-gray-50/50">${slidesHtml}</div></div></div></div>`;
-          }
-        });
-        container.innerHTML = htmlContent;
-        initSliders();
-      }
-
-      function initSliders() {
-        document.querySelectorAll(".work-slider").forEach((slider) => {
-          let isDown = false;
-          let startX, scrollLeft;
-          slider.addEventListener("mousedown", (e) => {
-            if (e.target.closest("button") || e.target.tagName === "BUTTON")
-              return;
-            isDown = true;
-            slider.style.cursor = "grabbing";
-            startX = e.pageX - slider.offsetLeft;
-            scrollLeft = slider.scrollLeft;
-          });
-          slider.addEventListener("mouseleave", () => {
-            isDown = false;
-            slider.style.cursor = "grab";
-          });
-          slider.addEventListener("mouseup", () => {
-            isDown = false;
-            slider.style.cursor = "grab";
-          });
-          slider.addEventListener("mousemove", (e) => {
-            if (!isDown) return;
-            e.preventDefault();
-            const x = e.pageX - slider.offsetLeft;
-            const walk = (x - startX) * 2;
-            slider.scrollLeft = scrollLeft - walk;
-          });
-        });
-      }
-      window.moveSlide = function (id, direction) {
-        const slider = document.getElementById(`slider-${id}`);
-        if (slider) {
-          const slideWidth = slider.offsetWidth;
-          slider.scrollBy({ left: direction * slideWidth, behavior: "smooth" });
-        }
-      };
-
-      // ===========================================
-      // 8. OTHER INIT FUNCTIONS (BackToTop, Menu, Contact)
-      // ===========================================
-      function initBackToTop() {
-        const backToTopBtn = document.getElementById("back-to-top");
-        if (backToTopBtn) {
-          window.addEventListener("scroll", () => {
-            if (window.scrollY > 300) {
-              backToTopBtn.classList.remove(
-                "opacity-0",
-                "pointer-events-none",
-                "translate-y-10",
-              );
-              backToTopBtn.classList.add("opacity-100", "translate-y-0");
-            } else {
-              backToTopBtn.classList.remove("opacity-100", "translate-y-0");
-              backToTopBtn.classList.add(
-                "opacity-0",
-                "pointer-events-none",
-                "translate-y-10",
-              );
-            }
-          });
-          backToTopBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: "smooth" });
-          });
-        }
-      }
-
-      function initMobileMenu() {
-        const btn = document.getElementById("mobile-menu-button");
-        const menu = document.getElementById("mobile-menu");
-        const links = document.querySelectorAll(".mobile-link");
-        if (btn && menu) {
-          btn.addEventListener("click", () => {
-            menu.classList.toggle("hidden");
-          });
-          links.forEach((link) => {
-            link.addEventListener("click", () => {
-              menu.classList.add("hidden");
-            });
-          });
-        }
-      }
-
-      function initNavbarPill() {
-        const navContainer = document.getElementById("nav-container");
-        const pill = document.getElementById("nav-pill");
-        const navLinks = document.querySelectorAll(".nav-link");
-        const defaultLink = document.getElementById("default-link");
-        if (!navContainer || !pill || !defaultLink) return;
-        function movePillTo(element) {
-          pill.style.width = `${element.offsetWidth}px`;
-          pill.style.left = `${element.offsetLeft}px`;
-          pill.style.opacity = "1";
-          navLinks.forEach((link) => {
-            link.classList.remove("text-white");
-            link.classList.add("text-gray-600");
-          });
-          element.classList.remove("text-gray-600");
-          element.classList.add("text-white");
-        }
-        setTimeout(() => {
-          pill.style.transition = "none";
-          movePillTo(defaultLink);
-          setTimeout(() => {
-            pill.style.transition = "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)";
-          }, 100);
-        }, 100);
-        navLinks.forEach((link) => {
-          link.addEventListener("mouseenter", () => movePillTo(link));
-        });
-        navContainer.addEventListener("mouseleave", () => {
-          movePillTo(defaultLink);
-        });
-        window.addEventListener("resize", () => {
-          pill.style.transition = "none";
-          movePillTo(defaultLink);
-          setTimeout(() => {
-            pill.style.transition = "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)";
-          }, 300);
-        });
-      }
-
-      function initSmoothScroll() {
-        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-          anchor.addEventListener("click", function (e) {
-            const targetId = this.getAttribute("href");
-            if (targetId === "#") return;
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-              e.preventDefault();
-              const headerOffset = 100;
-              const elementPosition = targetElement.getBoundingClientRect().top;
-              const offsetPosition =
-                elementPosition + window.pageYOffset - headerOffset;
-              window.scrollTo({ top: offsetPosition, behavior: "smooth" });
-              const mobileMenu = document.getElementById("mobile-menu");
-              if (mobileMenu && !mobileMenu.classList.contains("hidden")) {
-                mobileMenu.classList.add("hidden");
-              }
-            }
-          });
-        });
-      }
-
-      function initScrollSpy() {
-        const targetSection = document.getElementById("org-leadership");
-        if (targetSection) {
-          const observer = new IntersectionObserver(
-            (entries) => {
-              entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                  document.body.classList.add("scrollbar-black");
-                } else {
-                  document.body.classList.remove("scrollbar-black");
-                }
-              });
-            },
-            { threshold: [0.1, 0.9] },
-          );
-          observer.observe(targetSection);
-        }
-      }
-
-      function initContactForm() {
-        const contactForm = document.getElementById("contact-form");
-        const phoneInput = document.getElementById("phone");
-        if (phoneInput) {
-          phoneInput.addEventListener("input", function (e) {
-            let value = this.value.replace(/[^0-9+]/g, "");
-            if (!value.startsWith("+")) {
-              value = "+" + value.replace(/\+/g, "");
-            }
-            this.value = value;
-          });
-          phoneInput.addEventListener("focus", function () {
-            if (this.value === "") {
-              this.value = "+62";
-            }
-          });
-          phoneInput.addEventListener("blur", function () {
-            if (this.value === "+62") {
-              this.value = "";
-            }
-          });
-        }
-        if (contactForm) {
-          contactForm.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const submitBtn = contactForm.querySelector(
-              'button[type="submit"]',
-            );
-            const originalText = submitBtn.innerText;
-            const name = document.getElementById("name").value;
-            const email = document.getElementById("email").value;
-            const phone = document.getElementById("phone").value;
-            const message = document.getElementById("message").value;
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-              showPopup(
-                "error",
-                "Format Email Salah",
-                "Mohon masukkan alamat email yang valid.",
-              );
-              return;
-            }
-            if (phone.length < 10) {
-              showPopup(
-                "error",
-                "Nomor HP Tidak Valid",
-                "Mohon masukkan nomor HP lengkap dengan kode negara.",
-              );
-              return;
-            }
-            try {
-              submitBtn.innerText = "Sending...";
-              submitBtn.disabled = true;
-              const { error } = await supabaseClient
-                .from("messages")
-                .insert([{ name, email, phone, message }]);
-              if (error) throw error;
-              showPopup(
-                "success",
-                "Pesan Terkirim!",
-                "Terima kasih telah menghubungi saya. Saya akan membalas secepatnya.",
-              );
-              contactForm.reset();
-            } catch (err) {
-              console.error("Error:", err);
-              showPopup(
-                "error",
-                "Gagal Mengirim",
-                "Terjadi kesalahan sistem. Silakan coba lagi nanti.",
-              );
-            } finally {
-              submitBtn.innerText = originalText;
-              submitBtn.disabled = false;
-            }
-          });
-        }
-      }
-
-      // KEYBOARD EVENT LISTENER (Esc & Arrows)
-      document.addEventListener("keydown", function (event) {
-        const lightboxModal = document.getElementById("lightbox-modal");
-        const docModal = document.getElementById("document-modal");
-        const legalModal = document.getElementById("legal-modal"); // Tambahan baru
-
-        // Tombol Esc untuk menutup semua jenis modal
-        if (event.key === "Escape") {
-          if (docModal && !docModal.classList.contains("hidden"))
-            closeDocument();
-          if (lightboxModal && !lightboxModal.classList.contains("hidden"))
-            window.closeLightbox(); // Gunakan window.closeLightbox
-          if (legalModal && !legalModal.classList.contains("hidden"))
-            closeLegal(); // Tambahan baru
-        }
-
-        // Tombol Panah Kanan/Kiri untuk Lightbox
-        if (lightboxModal && !lightboxModal.classList.contains("hidden")) {
-          if (event.key === "ArrowRight") changeImage(1);
-          if (event.key === "ArrowLeft") changeImage(-1);
-        }
-      });
-
-      // ANTI-COPY SCRIPT
-      document.addEventListener("contextmenu", (event) =>
-        event.preventDefault(),
-      );
-      document.onkeydown = function (e) {
-        if (event.keyCode == 123) return false;
-        if (e.ctrlKey && e.shiftKey && e.keyCode == "I".charCodeAt(0))
-          return false;
-        if (e.ctrlKey && e.shiftKey && e.keyCode == "C".charCodeAt(0))
-          return false;
-        if (e.ctrlKey && e.shiftKey && e.keyCode == "J".charCodeAt(0))
-          return false;
-        if (e.ctrlKey && e.keyCode == "U".charCodeAt(0)) return false;
-      };
-    </script>
+    <script type="module" src="/js/public/main.js"></script>
   </body>
 </html>
