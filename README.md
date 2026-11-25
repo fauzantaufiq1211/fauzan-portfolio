@@ -1,8 +1,16 @@
-# Fauzan Taufiq Portfolio (`fauzantaufiq.id`)
+# **✨ Personal Portfolio Website (Dynamic Version)**
 
-Personal portfolio and admin workspace for Muhammad Fauzan Taufiq, Digital Creative Specialist and Social Media Strategist.
+![Project Status](https://img.shields.io/badge/status-active-success.svg)
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Screenshot Website](images/screenshot.png)
 
-Live site: [https://fauzantaufiq.id](https://fauzantaufiq.id)
+<p align="center">
+<strong>"Where Strategy Meets Aesthetic."</strong>
+</p>
+
+Website portofolio pribadi yang telah bertransformasi dari situs statis menjadi **Aplikasi Web Dinamis**. Ditenagai oleh **Supabase** sebagai Backend-as-a-Service (BaaS), memungkinkan pengelolaan konten (CMS) secara _real-time_ tanpa perlu mengubah kode sumber (source code) untuk setiap pembaruan konten.
+
+🔗 **Live Demo:** [https://fauzantaufiq.web.id](https://fauzantaufiq.web.id)
 
 ## Architecture
 
@@ -16,14 +24,14 @@ Live site: [https://fauzantaufiq.id](https://fauzantaufiq.id)
 
 Content and inquiries are managed through six PostgreSQL tables plus the `portfolio-images` Storage bucket:
 
-| Table | Purpose |
-| --- | --- |
-| `portfolio_sections` | Campaign spotlight and client archive group headers and ordering |
-| `portfolio_items` | Visual deliverables, captions, and WebP artwork URLs linked by `section_id` |
-| `experience` | Work history entries with optional `is_featured` highlighting |
-| `education` | Academic credentials rendered in the background ledger |
-| `competencies` | Software tools and capability groupings |
-| `messages` | Inquiries submitted from the public contact form |
+| Table                | Purpose                                                                     |
+| -------------------- | --------------------------------------------------------------------------- |
+| `portfolio_sections` | Campaign spotlight and client archive group headers and ordering            |
+| `portfolio_items`    | Visual deliverables, captions, and WebP artwork URLs linked by `section_id` |
+| `experience`         | Work history entries with optional `is_featured` highlighting               |
+| `education`          | Academic credentials rendered in the background ledger                      |
+| `competencies`       | Software tools and capability groupings                                     |
+| `messages`           | Inquiries submitted from the public contact form                            |
 
 ## Local Development & Build
 
