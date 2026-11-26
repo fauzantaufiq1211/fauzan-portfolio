@@ -17,6 +17,16 @@ let hasIsReadColumn = null;
 let inboxMessages = [];
 let activeFilter = "all";
 let selectedMessageId = null;
+let latestInboxCallbacks = {};
+let inboxEscapeBound = false;
+
+function focusInboxMessageButton(messageId) {
+  if (messageId === null) return;
+  const matchingBtn = Array.from(
+    document.querySelectorAll("#inbox-list-container [data-message-id]"),
+  ).find((el) => el.getAttribute("data-message-id") === String(messageId));
+  matchingBtn?.focus();
+}
 
 // Probes the live "messages" table first and falls back to "contact_messages" if migrated.
 async function resolveMessagesTableAndSchema() {
@@ -171,6 +181,14 @@ function renderMessageDetail({ openConfirmModal, showToast, onCountsChanged } = 
           </p>
           <p class="text-caption" style="margin-top: var(--space-1);">${escapeHtml(timestamp)}</p>
         </div>
+        <button
+          type="button"
+          class="btn btn-subtle btn-compact"
+          id="inbox-close-detail-btn"
+          aria-label="Close message preview"
+        >
+          Close
+        </button>
       </header>
 
       <div class="inbox-detail-body">${escapeHtml(current.message || "")}</div>
@@ -200,6 +218,17 @@ function renderMessageDetail({ openConfirmModal, showToast, onCountsChanged } = 
       </footer>
     </article>
   `;
+
+  const closeDetailBtn = document.getElementById("inbox-close-detail-btn");
+  if (closeDetailBtn) {
+    closeDetailBtn.addEventListener("click", () => {
+      const previousId = selectedMessageId;
+      selectedMessageId = null;
+      renderInboxListView({ openConfirmModal, showToast, onCountsChanged });
+      renderMessageDetail({ openConfirmModal, showToast, onCountsChanged });
+      focusInboxMessageButton(previousId);
+    });
+  }
 
   const toggleReadBtn = document.getElementById("inbox-toggle-read-btn");
   if (toggleReadBtn) {
@@ -304,7 +333,8 @@ function renderInboxListView(callbacks = {}) {
 
   listContainer.innerHTML = filtered
     .map((msg) => {
-      const isSelected = String(msg.id) === String(selectedMessageId);
+      const isSelected =
+        selectedMessageId !== null && String(msg.id) === String(selectedMessageId);
       const isUnread = !msg._isRead;
       const snippet = (msg.message || "").slice(0, 110);
 
@@ -313,6 +343,7 @@ function renderInboxListView(callbacks = {}) {
           type="button"
           class="inbox-item-btn ${isSelected ? "is-selected" : ""}"
           data-message-id="${escapeHtml(msg.id)}"
+          aria-pressed="${String(isSelected)}"
         >
           <div class="inbox-item-top">
             <span class="inbox-sender text-body-sm">
@@ -331,6 +362,13 @@ function renderInboxListView(callbacks = {}) {
   listContainer.querySelectorAll("[data-message-id]").forEach((btn) => {
     btn.addEventListener("click", async () => {
       const id = btn.getAttribute("data-message-id");
+      if (selectedMessageId !== null && String(id) === String(selectedMessageId)) {
+        selectedMessageId = null;
+        renderInboxListView(callbacks);
+        renderMessageDetail(callbacks);
+        return;
+      }
+
       selectedMessageId = id;
       const msg = inboxMessages.find((m) => String(m.id) === String(id));
       if (msg && !msg._isRead) {
@@ -344,6 +382,7 @@ function renderInboxListView(callbacks = {}) {
 }
 
 export async function loadInbox(callbacks = {}) {
+  latestInboxCallbacks = callbacks;
   const listContainer = document.getElementById("inbox-list-container");
   if (!listContainer) return;
 
@@ -379,8 +418,39 @@ export async function loadInbox(callbacks = {}) {
 }
 
 export function initInboxControls(callbacks = {}) {
+  latestInboxCallbacks = callbacks;
   const filterBtns = document.querySelectorAll("[data-inbox-filter]");
   const markAllBtn = document.getElementById("inbox-mark-all-btn");
+
+  if (!inboxEscapeBound) {
+    inboxEscapeBound = true;
+    document.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape" || selectedMessageId === null) return;
+      const inboxView = document.getElementById("view-inbox");
+      const isInboxActive = Boolean(
+        inboxView &&
+          !inboxView.hidden &&
+          inboxView.classList.contains("is-active"),
+      );
+      if (!isInboxActive) return;
+      if (document.querySelector("dialog[open], .modal-dialog[open]")) return;
+
+      const sidebarOpen =
+        document.getElementById("admin-sidebar")?.getAttribute("data-open") ===
+        "true";
+      const accountOpen =
+        document
+          .getElementById("admin-account-menu")
+          ?.getAttribute("data-open") === "true";
+      if (sidebarOpen || accountOpen) return;
+
+      const previousId = selectedMessageId;
+      selectedMessageId = null;
+      renderInboxListView(latestInboxCallbacks);
+      renderMessageDetail(latestInboxCallbacks);
+      focusInboxMessageButton(previousId);
+    });
+  }
 
   filterBtns.forEach((btn) => {
     btn.addEventListener("click", () => {

@@ -46,13 +46,15 @@ const ALLOWED_RICH_TAGS = new Set([
   "A",
   "B",
   "BR",
+  "DEL",
   "EM",
   "I",
   "LI",
   "OL",
   "P",
-  "SPAN",
+  "S",
   "STRONG",
+  "U",
   "UL",
 ]);
 
@@ -70,7 +72,8 @@ export function sanitizeRichText(dirtyHtml) {
       return document.createDocumentFragment();
     }
 
-    const tagName = node.tagName.toUpperCase();
+    const rawTagName = node.tagName.toUpperCase();
+    const tagName = rawTagName === "STRIKE" ? "S" : rawTagName;
     if (["SCRIPT", "STYLE", "IFRAME", "OBJECT", "EMBED"].includes(tagName)) {
       return document.createDocumentFragment();
     }
@@ -80,9 +83,11 @@ export function sanitizeRichText(dirtyHtml) {
       : document.createDocumentFragment();
 
     if (tagName === "A" && container instanceof HTMLElement) {
-      const safeHref = sanitizeUrl(node.getAttribute("href"), "#");
+      const safeHref = sanitizeUrl(node.getAttribute("href"), "#", {
+        allowContactProtocols: true,
+      });
       container.setAttribute("href", safeHref);
-      if (safeHref.startsWith("http")) {
+      if (!safeHref.startsWith("#")) {
         container.setAttribute("target", "_blank");
         container.setAttribute("rel", "noopener noreferrer");
       }
@@ -99,6 +104,27 @@ export function sanitizeRichText(dirtyHtml) {
     wrapper.appendChild(cleanNode(child));
   });
   return wrapper.innerHTML;
+}
+
+// Preserves existing block HTML and wraps plain newline-separated paragraphs in <p> tags.
+export function formatRichTextHtml(rawText) {
+  if (!rawText) return "";
+  const trimmed = String(rawText).trim();
+  if (!trimmed) return "";
+
+  if (/<(?:p|ul|ol|li)\b/i.test(trimmed)) {
+    return sanitizeRichText(trimmed);
+  }
+
+  const normalized = trimmed.replace(/<br\s*\/?>\s*<br\s*\/?>/gi, "\n\n");
+  const paragraphs = normalized
+    .split(/\r?\n\s*\r?\n|\r?\n/)
+    .map((chunk) => chunk.trim())
+    .filter(Boolean);
+
+  if (paragraphs.length === 0) return "";
+  const wrapped = paragraphs.map((chunk) => `<p>${chunk}</p>`).join("");
+  return sanitizeRichText(wrapped);
 }
 
 // Experience descriptions are stored either as a JSON array string or plain text.
@@ -161,6 +187,7 @@ const FOCUSABLE_SELECTOR = [
   "input:not([disabled]):not([type='hidden'])",
   "select:not([disabled])",
   "textarea:not([disabled])",
+  "[contenteditable='true']",
   "[tabindex]:not([tabindex='-1'])",
 ].join(", ");
 

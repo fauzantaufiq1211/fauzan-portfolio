@@ -151,26 +151,77 @@ export function openLightbox(galleryId, index = 0, triggerEl = document.activeEl
   openModalDialog(dialog, triggerEl);
 }
 
-// Mobile browsers often download PDFs instead of rendering them inline; fall back to Google Docs viewer below 768px.
-export function openDocumentModal(url, title = "Document Preview", triggerEl = document.activeElement) {
+function isSafariOrWebKitBrowser() {
+  const ua = window.navigator?.userAgent || "";
+  const isSafari =
+    /Safari/i.test(ua) &&
+    !/Chrome|Chromium|CriOS|Edg|OPR|FxiOS|Firefox/i.test(ua);
+  const isIOS =
+    /iPad|iPhone|iPod/i.test(ua) ||
+    (window.navigator?.platform === "MacIntel" &&
+      (window.navigator?.maxTouchPoints || 0) > 1);
+  return isSafari || isIOS;
+}
+
+function toGoogleDrivePreviewUrl(url) {
+  return url.replace(/\/view(?:\?[^#]*)?$/i, "/preview");
+}
+
+// Opens dialog before binding <object> data so WebKit PDFKit measures non-zero dimensions on Safari.
+export function openDocumentModal(
+  url,
+  title = "Document Preview",
+  triggerEl = document.activeElement,
+) {
   const dialog = document.getElementById("document-dialog");
+  const objectEl = document.getElementById("document-object");
   const frame = document.getElementById("document-frame");
   const titleEl = document.getElementById("document-title");
   const downloadLink = document.getElementById("document-download-link");
+  const openLink = document.getElementById("document-open-link");
 
   const safeUrl = sanitizeUrl(url);
   if (!dialog || !frame || !safeUrl) return;
 
   if (titleEl) titleEl.textContent = title;
   if (downloadLink) downloadLink.href = safeUrl;
-
-  const isMobileViewport = window.innerWidth < 768;
-  const absoluteUrl = new URL(safeUrl, window.location.origin).href;
-  frame.src = isMobileViewport
-    ? `https://docs.google.com/gview?url=${encodeURIComponent(absoluteUrl)}&embedded=true`
-    : `${safeUrl}#toolbar=0`;
+  if (openLink) openLink.href = safeUrl;
 
   openModalDialog(dialog, triggerEl);
+  void dialog.offsetHeight;
+
+  let parsedHost = "";
+  try {
+    parsedHost = new URL(safeUrl, window.location.origin).hostname.toLowerCase();
+  } catch {
+    parsedHost = "";
+  }
+
+  const isGoogleDriveHost =
+    parsedHost === "drive.google.com" ||
+    parsedHost.endsWith(".drive.google.com");
+
+  if (isGoogleDriveHost) {
+    const previewUrl = toGoogleDrivePreviewUrl(safeUrl);
+    if (objectEl) {
+      objectEl.removeAttribute("data");
+      objectEl.removeAttribute("type");
+    }
+    frame.src = previewUrl;
+    return;
+  }
+
+  const isSameOrigin =
+    safeUrl.startsWith("/") || safeUrl.startsWith(window.location.origin);
+  const usePlainPdfUrl = isSafariOrWebKitBrowser() || window.innerWidth < 768;
+  const viewerUrl =
+    !usePlainPdfUrl && isSameOrigin ? `${safeUrl}#view=FitH` : safeUrl;
+
+  frame.src = viewerUrl;
+  if (objectEl) {
+    objectEl.setAttribute("type", "application/pdf");
+    objectEl.setAttribute("data", viewerUrl);
+  }
 }
 
 export function openResumeModal(triggerEl = document.activeElement) {
@@ -241,7 +292,9 @@ export function initModals() {
 
   if (documentDialog) {
     documentDialog.addEventListener("close", () => {
+      const objectEl = document.getElementById("document-object");
       const frame = document.getElementById("document-frame");
+      if (objectEl) objectEl.removeAttribute("data");
       if (frame) frame.src = "about:blank";
     });
   }

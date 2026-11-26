@@ -56,6 +56,29 @@
   background-color: var(--surface-pill);
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  .hero-section .hero-actions a.btn {
+    transition:
+      transform 220ms var(--ease-editorial),
+      box-shadow 220ms var(--ease-editorial),
+      background-color 180ms ease,
+      border-color 180ms ease,
+      color 180ms ease;
+  }
+}
+
+@media (any-hover: hover) and (prefers-reduced-motion: no-preference) {
+  .hero-section .hero-actions a.btn:hover:not(:disabled) {
+    transform: translateY(-4px) scale(1.04);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.28);
+  }
+
+  .hero-section .hero-actions a.btn:active:not(:disabled) {
+    transform: translateY(-1px) scale(0.99);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22);
+  }
+}
+
 .btn-subtle {
   background-color: var(--surface-pill);
   color: var(--ink-current);
@@ -262,6 +285,7 @@ hr.hairline {
   width: 100%;
   border-radius: var(--radius-card);
   overflow: hidden;
+  isolation: isolate;
   background-color: var(--surface-elevated);
   border: 1px solid var(--border-current);
 }
@@ -277,6 +301,8 @@ hr.hairline {
 /* Spotlight frames wrap each artifact's natural aspect ratio so no empty black letterbox bars appear. */
 .media-frame--natural {
   height: auto;
+  overflow: hidden;
+  border-radius: var(--radius-card);
   background-color: transparent;
 }
 
@@ -322,6 +348,13 @@ hr.hairline {
 
 .case-card:hover .media-frame img {
   transform: scale(1.02);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .showcase-item .media-frame:hover img,
+  .showcase-item .media-trigger:focus-visible img {
+    transform: scale(1.03);
+  }
 }
 
 .case-card-body {
@@ -419,10 +452,19 @@ hr.hairline {
   opacity: 1;
 }
 
-.form-input:hover,
-.form-textarea:hover,
-.form-select:hover {
+.form-input:hover:not(:disabled):not([readonly]),
+.form-textarea:hover:not(:disabled):not([readonly]),
+.form-select:hover:not(:disabled) {
   border-color: var(--ink-current);
+}
+
+.form-input:disabled,
+.form-textarea:disabled,
+.form-select:disabled {
+  background-color: var(--surface-pill);
+  color: var(--ink-muted-current);
+  border-color: var(--border-current);
+  cursor: not-allowed;
 }
 
 .form-input[aria-invalid="true"],
@@ -629,6 +671,9 @@ hr.hairline {
   overflow-y: auto;
   flex: 1 1 auto;
   min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
 }
 
 .modal-dialog--document {
@@ -637,7 +682,8 @@ hr.hairline {
   max-height: 92vh;
 }
 
-.modal-body--document iframe {
+.modal-body--document object.document-embed,
+.modal-body--document iframe.document-embed {
   display: block;
   width: 100%;
   height: min(76vh, 680px);
@@ -647,8 +693,22 @@ hr.hairline {
   background-color: var(--color-surface-white);
 }
 
+.document-fallback {
+  margin-top: var(--space-3);
+  padding: var(--space-5);
+  border-radius: 8px;
+  border: 1px solid var(--color-border-hairline);
+  background-color: var(--color-surface-white);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
 @media (max-width: 768px) {
-  .modal-body--document iframe {
+  .modal-body--document object.document-embed,
+  .modal-body--document iframe.document-embed {
     height: 68dvh;
     min-height: 300px;
   }
@@ -713,7 +773,7 @@ hr.hairline {
 .modal-dialog--dark .modal-footer .btn-secondary {
   background-color: #333333;
   color: #ffffff;
-  border: 1px solid #666666;
+  border: 1px solid var(--color-border-control-dark);
 }
 
 .modal-dialog--dark .lightbox-control-btn:hover:not(:disabled),
@@ -826,7 +886,39 @@ hr.hairline {
 .social-links {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-2);
+  gap: var(--space-3);
+}
+
+.social-icon-btn {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-surface-dark);
+  color: var(--color-ink-on-dark);
+  border: 1px solid var(--color-border-control-dark);
+  text-decoration: none;
+  transition:
+    border-color var(--duration-fast) ease,
+    background-color var(--duration-fast) ease,
+    color var(--duration-fast) ease;
+}
+
+.social-icon-btn svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  fill: currentColor;
+}
+
+.social-icon-btn:hover {
+  border-color: var(--color-ink-on-dark);
+  background-color: #333333;
+  color: var(--color-ink-on-dark);
 }
 
 .contact-form-card {

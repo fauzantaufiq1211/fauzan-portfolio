@@ -23,7 +23,7 @@ export const DB_TABLES = Object.freeze({
 export const STATIC_ASSETS = Object.freeze({
   LOGO_BLACK: "/images/logo-original.svg",
   LOGO_WHITE: "/images/logo-white.svg",
-  PORTRAIT: "/images/profile-fauzan.webp",
+  PORTRAIT: "/images/profile-fauzan-cutout.webp",
   RESUME_PDF: "/files/cv-fauzan-taufiq.pdf",
 });
 

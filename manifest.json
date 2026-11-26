@@ -5,7 +5,7 @@
   "start_url": "/admin",
   "display": "standalone",
   "background_color": "#f5f5f7",
-  "theme_color": "#b54f26",
+  "theme_color": "#1d1d1f",
   "orientation": "any",
   "categories": ["productivity"],
   "icons": [

@@ -12,6 +12,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { minify as minifyHtml } from "html-minifier-terser";
 import { transform as esbuildTransform } from "esbuild";
+import { buildCities } from "./build-cities.mjs";
 import { buildVendor } from "./vendor.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -26,7 +27,9 @@ const EXCLUDED_PDF_SCAN_DIRS = new Set([
   ".git",
   ".vercel",
   ".vscode",
+  "api",
   "css",
+  "data",
   "db",
   "dist",
   "js",
@@ -154,6 +157,10 @@ async function build() {
     minifyHtmlFiles(),
     minifyAssetDirectory("css", ".css", "css"),
     minifyAssetDirectory("js", ".js", "js"),
+    buildCities([
+      path.join(rootDir, "data", "cities"),
+      path.join(distDir, "data", "cities"),
+    ]),
   ]);
 
   console.log("Built minified output in dist/");

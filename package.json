@@ -2,12 +2,14 @@
   "type": "module",
   "scripts": {
     "vendor": "node scripts/vendor.mjs",
+    "build:cities": "node scripts/build-cities.mjs",
     "build": "node scripts/build.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.119.2"
   },
   "devDependencies": {
+    "@countrystatecity/countries": "^3.0.1",
     "esbuild": "^0.28.2",
     "html-minifier-terser": "^7.2.0"
   }

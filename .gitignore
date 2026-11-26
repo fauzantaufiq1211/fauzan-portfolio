@@ -1,5 +1,18 @@
+# Dependencies & Build Output
 node_modules/
-.vercel/
 dist/
+data/cities/
+
+# Vercel & Environment Secrets
+.vercel
+.env*
+!.env.example
+*.pem
+
+# Internal Working Notes
 SCHEMA-NOTES.md
 rules/SCHEMA-NOTES.md
+
+# OS & Editor Artifacts
+.DS_Store
+Thumbs.db

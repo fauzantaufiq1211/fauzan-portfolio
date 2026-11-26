@@ -1,4 +1,5 @@
 import { DB_TABLES, supabase } from "../config/supabase-client.js";
+import { uploadCompetencyIcon } from "./crud-portfolio.js";
 import {
   escapeHtml,
   normalizeDashes,
@@ -392,3 +393,5 @@ export async function loadAdminCompetencies({
     });
   }
 }
+
+export { uploadCompetencyIcon };

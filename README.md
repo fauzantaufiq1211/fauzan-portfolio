@@ -1,64 +1,105 @@
-# **✨ Personal Portfolio Website (Dynamic Version)**
+# Muhammad Fauzan Taufiq Portfolio
 
-![Project Status](https://img.shields.io/badge/status-active-success.svg)
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Screenshot Website](images/screenshot.png)
+Personal portfolio, campaign case study archive, and content management workspace for Muhammad Fauzan Taufiq.
 
-<p align="center">
-<strong>"Where Strategy Meets Aesthetic."</strong>
-</p>
+Production URL: [https://fauzantaufiq.id](https://fauzantaufiq.id)
 
-Website portofolio pribadi yang telah bertransformasi dari situs statis menjadi **Aplikasi Web Dinamis**. Ditenagai oleh **Supabase** sebagai Backend-as-a-Service (BaaS), memungkinkan pengelolaan konten (CMS) secara _real-time_ tanpa perlu mengubah kode sumber (source code) untuk setiap pembaruan konten.
+## Technology Stack
 
-🔗 **Live Demo:** [https://fauzantaufiq.web.id](https://fauzantaufiq.web.id)
+| Layer | Implementation |
+| --- | --- |
+| Markup | Semantic HTML5 (`index.html` public portfolio and `admin.html` CMS workspace) with native `<dialog>` modals |
+| Styling | Modular CSS3 (`css/tokens.css`, `css/reset.css`, `css/layout.css`, `css/components.css`, `css/admin.css`) with zero runtime CSS framework |
+| Client Scripts | Modular Vanilla JavaScript ES Modules (`js/public/`, `js/admin/`, `js/config/`, `js/utils/`) |
+| Database & Storage | Supabase PostgreSQL, Supabase Auth, and `portfolio-images` Storage via a locally bundled `@supabase/supabase-js` client (`js/vendor/supabase-js.js`) |
+| Serverless API | Vercel Serverless Function (`api/analytics.js`) aggregating authenticated 30-day usage and deployment telemetry |
+| Edge & Delivery | Vercel static hosting (`dist/`) fronted by Cloudflare DNS, CDN caching, and WAF |
 
-## Architecture
+## Project Structure
 
-- **Markup:** Semantic HTML5 (`index.html` public showcase and `admin.html` workspace) using native `<dialog>` modals.
-- **Styling:** Modular CSS3 (`css/tokens.css`, `css/reset.css`, `css/layout.css`, `css/components.css`, `css/admin.css`) with zero CSS framework runtime dependency.
-- **Scripts:** Modular Vanilla JavaScript ES Modules (`js/public/`, `js/admin/`, `js/config/`, `js/utils/`) importing a local `esbuild`-bundled `@supabase/supabase-js` client (`js/vendor/supabase-js.js`).
-- **Typography:** `Bricolage Grotesque` for display headings alongside an OS-aware text stack (`SF Pro Text` on Apple platforms and `Public Sans` elsewhere).
-- **Static Assets & Security:** Brand logos (`images/logo-original.svg`, `images/logo-white.svg`), WebP portrait (`images/profile-fauzan.webp`), and resume PDF (`files/cv-fauzan-taufiq.pdf`) served from local static routes under Vercel security and caching headers configured in `vercel.json`.
+- `index.html`: Public portfolio, spotlight case studies, client archive, experience/education index, and contact form.
+- `admin.html`: Password and Magic Link authenticated CMS workspace (`/admin` rewrites to `/admin.html` in `vercel.json`).
+- `api/analytics.js`: Authenticated `GET /api/analytics` endpoint verifying Supabase Bearer tokens against the admin email allowlist before querying Cloudflare, GA4, Search Console, and Vercel.
+- `images/`: Local brand monograms (`logo-original.svg`, `logo-white.svg`), compressed hero cutout portrait (`profile-fauzan-cutout.webp`), PWA icons, and self-hosted software icons (`images/icons/`).
+- `files/cv-fauzan-taufiq.pdf`: Downloadable and inline-previewable PDF resume.
+- `scripts/vendor.mjs`: Bundles `@supabase/supabase-js` into `js/vendor/supabase-js.js`.
+- `scripts/build-cities.mjs`: Generates 27 static alphabetical city shards (`a.json` through `z.json` plus `other.json`) from `@countrystatecity/countries` for the Admin Experience location combobox.
+- `scripts/build.mjs`: Produces the minified `dist/` deployment directory using `esbuild` and `html-minifier-terser`.
+- `rules/DESIGN.md`: Design tokens, contrast guardrails, responsive layout rhythm, and component purpose statements.
 
 ## Supabase Schema
 
-Content and inquiries are managed through six PostgreSQL tables plus the `portfolio-images` Storage bucket:
+| Table | Purpose |
+| --- | --- |
+| `portfolio_sections` | Campaign spotlight (`layout = 'spotlight'`) and archive (`slider` / `grid`) sections, narratives, badges, and highlight metrics |
+| `portfolio_items` | Visual artifacts, external links, captions, and WebP artwork URLs linked via `section_id` |
+| `experience` | Work history entries with structured month/year periods, searchable worldwide city locations, work types, and `is_featured` flags |
+| `education` | University and high school credentials with optional GPA metadata |
+| `competencies` | Core Creative Software (`arsenal`, with icon upload/URL) and Strategic & Production Capabilities (`other`) |
+| `messages` | Inquiries submitted from the public contact form and managed in the Admin Inbox |
 
-| Table                | Purpose                                                                     |
-| -------------------- | --------------------------------------------------------------------------- |
-| `portfolio_sections` | Campaign spotlight and client archive group headers and ordering            |
-| `portfolio_items`    | Visual deliverables, captions, and WebP artwork URLs linked by `section_id` |
-| `experience`         | Work history entries with optional `is_featured` highlighting               |
-| `education`          | Academic credentials rendered in the background ledger                      |
-| `competencies`       | Software tools and capability groupings                                     |
-| `messages`           | Inquiries submitted from the public contact form                            |
+## Build Pipeline
 
-## Local Development & Build
+Install dependencies:
 
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
-2. Regenerate the vendored Supabase ES module bundle when updating `@supabase/supabase-js`:
-   ```bash
-   npm run vendor
-   ```
-3. Build minified production HTML, CSS, JS, and copied static assets into `dist/`:
-   ```bash
-   npm run build
-   ```
-4. Preview the compiled production output locally:
-   ```bash
-   npx serve dist
-   ```
+```bash
+npm install
+```
 
-## Admin Workspace
+Run the production build (bundles `js/vendor/supabase-js.js`, minifies HTML/CSS/JS via `html-minifier-terser` and `esbuild`, copies static assets into `dist/`, and writes the 27 city JSON shards into `dist/data/cities/`):
 
-Open `/admin` (rewritten to `admin.html` via `vercel.json`) to sign in with an allowlisted Supabase Auth administrator account via password or Magic Link and manage overview metrics, inquiry inbox state, portfolio WebP uploads, and profile records.
+```bash
+npm run build
+```
+
+Regenerate only the 27 static city shards (`data/cities/` and, if present, `dist/data/cities/`):
+
+```bash
+npm run build:cities
+```
+
+Rebuild only the vendored Supabase client bundle:
+
+```bash
+npm run vendor
+```
+
+## Admin Telemetry & Environment Variables
+
+The Overview tab in `/admin` calls `GET /api/analytics` with the signed-in administrator's Supabase Bearer token. Each provider degrades independently to a `Not Configured` card until its environment variables are added in Vercel Project Settings:
+
+| Variable | Provider | Purpose |
+| --- | --- | --- |
+| `CLOUDFLARE_API_TOKEN` | Cloudflare | API token with Zone Analytics read permission for GraphQL `httpRequests1dGroups` |
+| `CLOUDFLARE_ZONE_ID` | Cloudflare | Target Cloudflare Zone ID for `fauzantaufiq.id` |
+| `VERCEL_API_TOKEN` | Vercel | Bearer token for querying recent deployment states and build durations |
+| `VERCEL_PROJECT_ID` | Vercel | Vercel Project ID (`prj_...`) filtered on `/v6/deployments` |
+| `GOOGLE_CLIENT_EMAIL` | Google (GA4 & GSC) | Service account client email granted Viewer access on GA4 and Search Console |
+| `GOOGLE_PRIVATE_KEY` | Google (GA4 & GSC) | PEM private key used to sign short-lived RS256 OAuth JWTs via `node:crypto` |
+| `GA4_PROPERTY_ID` | Google Analytics 4 | Numeric GA4 Property ID queried for 30-day active users, sessions, views, and engagement |
+| `GSC_SITE_URL` | Google Search Console | Verified Search Console property URL (for example `sc-domain:fauzantaufiq.id` or `https://fauzantaufiq.id/`) |
+
+Optional server overrides supported by `api/analytics.js`: `VERCEL_TEAM_ID`, `ADMIN_ALLOWED_EMAILS`, `SUPABASE_URL`, and `SUPABASE_ANON_KEY`.
+
+## Local Development
+
+Pull project environment variables from Vercel and start the local Vercel runtime (serves both static routes and `/api/analytics`):
+
+```bash
+npx vercel env pull .env.local
+npx vercel dev
+```
+
+To preview only the compiled static `dist/` directory without serverless functions:
+
+```bash
+npm run build
+npx serve dist -l 4173
+```
 
 ## Contact
 
 - Email: [contact@fauzantaufiq.id](mailto:contact@fauzantaufiq.id)
 - LinkedIn: [linkedin.com/in/fauzantaufiq](https://linkedin.com/in/fauzantaufiq)
 - Behance: [behance.net/fauzantaufiq](https://behance.net/fauzantaufiq)
-- Instagram: [@fauzan.taufiqq](https://instagram.com/fauzan.taufiqq)
+- Instagram: [instagram.com/fauzan.taufiqq](https://instagram.com/fauzan.taufiqq)

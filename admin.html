@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Workspace | Muhammad Fauzan Taufiq Portfolio</title>
     <meta name="robots" content="noindex, nofollow" />
-    <meta name="theme-color" content="#f5f5f7" />
+    <meta name="theme-color" content="#1d1d1f" />
 
     <link rel="manifest" href="/manifest.json" />
     <link rel="apple-touch-icon" sizes="192x192" href="/images/icon-192.png" />
@@ -130,7 +130,7 @@
         <div class="admin-topbar-inner">
           <div class="admin-brand">
             <img
-              src="/images/logo-original.svg"
+              src="/images/logo-white.svg"
               alt="FT Monogram"
               width="28"
               height="28"
@@ -296,6 +296,38 @@
             </div>
 
             <div id="overview-stats-container" aria-live="polite"></div>
+
+            <section
+              class="infra-section"
+              aria-labelledby="overview-infra-heading"
+            >
+              <div class="infra-section-header">
+                <div>
+                  <p class="text-caption">
+                    Edge, Search &amp; Deployment Telemetry
+                  </p>
+                  <h2 id="overview-infra-heading" class="text-heading-sm">
+                    Infrastructure &amp; Usage
+                  </h2>
+                </div>
+                <div class="infra-header-actions">
+                  <span
+                    id="overview-infra-synced"
+                    class="text-caption"
+                    aria-live="polite"
+                  ></span>
+                  <button
+                    type="button"
+                    id="overview-infra-refresh-btn"
+                    class="btn btn-secondary btn-compact"
+                  >
+                    Refresh Metrics
+                  </button>
+                </div>
+              </div>
+
+              <div id="overview-infra-container" aria-live="polite"></div>
+            </section>
           </section>
 
           <section
@@ -419,8 +451,7 @@
                 >
                 <select
                   id="items-section-filter"
-                  class="form-select"
-                  style="width: auto; min-width: 12rem"
+                  class="form-select admin-section-filter"
                 >
                   <option value="">All Sections</option>
                 </select>
@@ -534,13 +565,6 @@
     >
       <div class="modal-header">
         <h3 id="crud-dialog-title" class="modal-title">Edit Record</h3>
-        <button
-          type="button"
-          class="btn btn-subtle btn-compact"
-          data-close-dialog
-        >
-          Cancel
-        </button>
       </div>
       <form id="crud-form" class="modal-form" novalidate>
         <div id="crud-form-fields" class="modal-body form-stack"></div>
@@ -557,19 +581,11 @@
 
     <dialog
       id="confirm-dialog"
-      class="modal-dialog"
-      style="max-width: 28rem"
+      class="modal-dialog modal-dialog--compact"
       aria-labelledby="confirm-dialog-title"
     >
       <div class="modal-header">
         <h3 id="confirm-dialog-title" class="modal-title">Confirm Action</h3>
-        <button
-          type="button"
-          class="btn btn-subtle btn-compact"
-          data-close-dialog
-        >
-          Close
-        </button>
       </div>
       <div class="modal-body">
         <p id="confirm-dialog-message" class="text-body-sm text-secondary">

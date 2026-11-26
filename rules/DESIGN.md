@@ -1,86 +1,80 @@
 # DESIGN.md: Fauzan Taufiq Portfolio (`fauzantaufiq.id`)
 
-## 1\. Identity \& Design Read
+## 1. Identity & Design Read
 
-* **Project:** Personal Portfolio \& Case Study Showcase for Muhammad Fauzan Taufiq (Digital Creative Specialist \& Social Media Strategist).
-* **Audience:** Hiring managers, creative directors, brand managers, and prospective freelance clients.
-* **Visual Language:** Editorial precision with high-contrast monochrome structure, Apple-inspired typographic discipline, and a single terracotta accent.
-* **Theme Lock:** Light mode is permanently locked as the primary canvas (`#f5f5f7` and `#ffffff`), punctuated by deliberate dark sections (`#1d1d1f` and `#000000`) to prevent visual monotony. Do not build a light/dark theme switcher.
-* **Dial:** `ENERGY 2 / RHYTHM 3 / MOTION 2`
+- Project: Personal portfolio, campaign archive, and authenticated CMS workspace for Muhammad Fauzan Taufiq (Digital Creative Specialist & Social Media Strategist).
+- Audience: Hiring managers, creative directors, brand managers, and freelance clients.
+- Visual Language: Editorial precision with high-contrast monochrome structure, disciplined grotesque-and-neo-grotesque typography, and a single terracotta accent.
+- Theme Lock: Light mode is permanently locked as the primary canvas (`#f5f5f7` and `#ffffff`), punctuated by deliberate dark sections (`#1d1d1f` and `#000000`) and unified `#1d1d1f` studio/admin chrome. Do not build a light/dark theme switcher.
+- Dial: `ENERGY 3 / RHYTHM 3 / MOTION 2` (public showcase) and `ENERGY 1 / RHYTHM 1 / MOTION 1` (admin workspace).
+  - ENERGY 3 (Public) / ENERGY 1 (Admin): Studio terracotta-to-charcoal hero statement on entry for the portfolio, paired with calm, utilitarian surfaces inside `/admin`.
+  - RHYTHM 3 (Asymmetric & Varied): Public sections alternate in surface polarity (`#b54f26 -> #1d1d1f` studio hero, `#1d1d1f` spotlight, `#ffffff` archive, `#f5f5f7` experience index, `#000000` contact) and grid ratios (`7:5`, `35:65`, `4:8`, `7:5 / 5:7`, `5:7`).
+  - MOTION 2 (Purposeful Scroll-Reveal & Tactile Hover): Hardware-accelerated scroll reveals (`opacity` and `translateY(20px)`, `540ms cubic-bezier(0.22, 1, 0.36, 1)`), subtle hero CTA elevation (`translateY(-4px) scale(1.04)` under `any-hover: hover`), and `prefers-reduced-motion` overrides.
 
-  * **ENERGY 2 (Balanced):** Confident editorial presence without loud gradients, neon glows, or visual clutter.
-  * **RHYTHM 3 (Asymmetric \& Varied):** Sections must visibly alternate in composition, grid ratio, and surface polarity (light canvas vs. dark accent blocks). Never stack identical centered card grids consecutively.
-  * **MOTION 2 (Purposeful Scroll-Reveal):** Subtle, hardware-accelerated scroll-reveal transitions (`opacity` and `translateY` within `16px-24px`, `cubic-bezier(0.22, 1, 0.36, 1)`) plus crisp hover states. Respect `prefers-reduced-motion`.
+## 2. Color Tokens & Contrast Rules
 
-## 2\. Color Tokens \& Contrast Rules
+### Core & Accent Palette
 
-### Core \& Accent Palette
-
-|Token|Hex|Role \& Strict Usage Rules|
-|-|-|-|
-|`--color-accent-primary`|`#b54f26`|**Terracotta Primary:** Filled primary CTA buttons (with `#ffffff` text), active filter states, and key focal indicators.|
-|`--color-accent-hover`|`#963f1c`|**Terracotta Deep:** Hover and active press state for primary buttons.|
-|`--color-canvas-light`|`#f5f5f7`|**Primary Canvas:** Main page background (Apple Frost neutral).|
-|`--color-surface-white`|`#ffffff`|**Elevated Surface:** Clean editorial blocks, case study containers, and modal surfaces on light sections.|
-|`--color-surface-subtle`|`#e8e8ed`|**Subtle Fill:** Secondary pill button fills and tag backgrounds on light surfaces.|
-|`--color-ink-primary`|`#1d1d1f`|**Primary Ink:** Headlines, primary body copy, and strong structural borders on light surfaces.|
-|`--color-ink-secondary`|`#474747`|**Secondary Ink:** Subheadings, role metadata, and supporting descriptions on light surfaces.|
-|`--color-ink-muted`|`#595959`|**Muted Ink:** Captions, timestamps, and footer metadata (calibrated to maintain >6.0:1 contrast on `#f5f5f7`).|
-|`--color-border-hairline`|`#d2d2d7`|**Light Hairline:** 1px structural dividers on light surfaces.|
-|`--color-surface-dark`|`#1d1d1f`|**Dark Accent Section:** Alternating high-contrast showcase sections (e.g., Featured Campaign Spotlight or Contact Footer).|
-|`--color-surface-black`|`#000000`|**True Onyx:** Deep contrast framing for visual artifacts and brand monogram lockups.|
-|`--color-ink-on-dark`|`#f5f5f7`|**Dark Section Primary Text:** Headlines and body copy inside dark sections.|
-|`--color-ink-on-dark-muted`|`#a1a1a6`|**Dark Section Secondary Text:** Metadata and secondary copy inside dark sections.|
-|`--color-border-dark`|`#333333`|**Dark Hairline:** 1px structural dividers inside dark sections.|
+| Token | Hex | Role & Strict Usage Rules |
+| --- | --- | --- |
+| `--color-accent-primary` | `#b54f26` | Terracotta primary fill for CTAs (`#ffffff` text, `5.11:1`), studio hero focal light, active filter/tab states, and focus rings (`5.11:1` on `#ffffff`). |
+| `--color-accent-hover` | `#963f1c` | Deep terracotta hover/active state (`6.94:1` on `#ffffff`) and city-search match text highlight (`6.38:1` on `#f5f5f7`). |
+| `--color-canvas-light` | `#f5f5f7` | Primary page background on public index and admin workspace. |
+| `--color-surface-white` | `#ffffff` | Elevated cards, featured experience rows, tables, and light modal surfaces. |
+| `--color-surface-subtle` | `#e8e8ed` | Secondary pill fills and subtle hover backgrounds on light surfaces. |
+| `--color-ink-primary` | `#1d1d1f` | Headlines, body copy, and primary hover borders on light surfaces (`16.97:1` on `#ffffff`). |
+| `--color-ink-secondary` | `#474747` | Subheadings, metadata, and supporting copy on light surfaces (`9.35:1` on `#ffffff`). |
+| `--color-ink-muted` | `#595959` | Captions and form hints on light surfaces (`6.38:1` on `#f5f5f7`). |
+| `--color-border-hairline` | `#d2d2d7` | `1px` architectural section and row dividers on light surfaces. |
+| `--color-border-control-light` | `#76767b` | Form input, pill, and icon-button borders on light surfaces (`4.54:1` on `#ffffff`, passing WCAG 1.4.11 `3:1`). |
+| `--color-surface-dark` | `#1d1d1f` | Featured Spotlight section, lightbox modal surface, and admin sticky topbar. |
+| `--color-surface-dark-elevated` | `#2c2c2e` | Interactive pills and subtle buttons inside the `#1d1d1f` admin topbar. |
+| `--color-surface-black` | `#000000` | Contact & Footer band and lightbox media stage. |
+| `--color-ink-on-dark` | `#f5f5f7` | Primary headlines and body copy inside `#1d1d1f` and `#000000` surfaces (`15.58:1` on `#1d1d1f`). |
+| `--color-ink-on-dark-muted` | `#a1a1a6` | Secondary metadata and captions inside dark sections (`6.76:1` on `#1d1d1f`). |
+| `--color-border-dark` | `#333333` | `1px` structural dividers inside `#1d1d1f` and `#000000` sections. |
+| `--color-border-control-dark` | `#6e6e73` | Interactive button and input borders inside `#1d1d1f` dark sections and modals (`3.32:1` on `#1d1d1f`, passing WCAG 1.4.11 `3:1`). |
 
 ### Accessibility Contrast Guardrails
 
-* All normal text (<18px) must maintain at least a **4.5:1** contrast ratio; large text (18px+) at least **3.0:1**.
-* **Critical Dark Section Rule:** Inside `#1d1d1f` or `#000000` sections, never use `#b54f26` for small body text or thin text links (contrast is below 4.5:1). Use `#b54f26` strictly as a filled button background with `#ffffff` text (5.11:1 ratio) or as a non-text accent border.
-* Text overlaid on photography or campaign visuals must sit behind a solid dark scrim (`rgba(0, 0, 0, 0.65)`) or within an adjacent solid container.
+- Normal text (`< 18px`) maintains at least `4.5:1` contrast; large text (`>= 18px`) and interactive component boundaries maintain at least `3.0:1`.
+- Inside `#1d1d1f` or `#000000` sections, never use `#b54f26` for body text or inline links. Use `#b54f26` only as a filled button/chip surface with `#ffffff` text (`5.11:1`) or as a focus indicator where contrast clears `3:1`.
+- Over the terracotta hero (`#b54f26 -> #963f1c -> #5e2611 -> #1d1d1f`), copy uses `#ffffff` (`>= 5.11:1`) and `#f5f5f7` (`>= 4.68:1`), `:focus-visible` uses `#ffffff`, the primary CTA inverts to `#ffffff` fill with `#1d1d1f` ink (`16.83:1`), and the mobile `Menu` toggle border uses `rgba(255, 255, 255, 0.88)` (`4.33:1`).
+- Text overlaid on campaign photography sits inside a solid dark scrim (`rgba(0, 0, 0, 0.65)`).
 
-## 3\. Typography System
+## 3. Typography System
 
-### Font Stack
+- `--font-display`: `"Bricolage Grotesque", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif` for `h1`, `h2`, `h3`, `.hero-heading`, `.section-heading`, and metric numerals.
+- `--font-text`: `-apple-system, BlinkMacSystemFont, "SF Pro Text", "Public Sans", "Segoe UI", Roboto, sans-serif` (renders native SF Pro Text on Apple devices and Public Sans on Windows, Android, and Linux).
+- Scale (fluid `rem` / `clamp()` so 200% browser text zoom never clips):
+  - `--text-display`: `clamp(2.25rem, 5vw, 3.5rem)`, line-height `1.05`, weight `800`, tracking `-0.025em`.
+  - `.hero-role`: `0.9375rem` (`15px`), line-height `1.35`, weight `600`, `#ffffff` on the studio hero with a `1.75rem x 2px` horizontal rule (`0.9` opacity `#ffffff`), avoiding capsule eyebrow pills.
+  - `--text-heading`: `clamp(1.75rem, 3.5vw, 2.5rem)`, line-height `1.14`, weight `600`, tracking `-0.02em`.
+  - `--text-heading-sm`: `clamp(1.375rem, 2.5vw, 1.75rem)`, line-height `1.18`, weight `600`, tracking `-0.015em`.
+  - `--text-subheading`: `clamp(1.125rem, 1.6vw, 1.3125rem)`, line-height `1.32`, weight `400`, tracking `-0.005em`.
+  - `--text-body`: `1.0625rem` (`17px`), line-height `1.5`, weight `400`.
+  - `--text-body-sm`: `0.875rem` (`14px`), line-height `1.35`, weight `500`.
+  - `--text-caption`: `0.75rem` (`12px`), line-height `1.33`, weight `500`, tracking `0.02em` (sentence or title case, never wide-tracked ALL CAPS).
 
-* `--font-display`: `"Bricolage Grotesque", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif` (expressive editorial grotesque for H1, H2, H3, `.hero-heading`, and `.section-heading`).
-* `--font-text`: `-apple-system, BlinkMacSystemFont, "SF Pro Text", "Public Sans", "Segoe UI", Roboto, sans-serif` (OS-aware stack that renders native Apple SF Pro Text on iOS/iPadOS/macOS and Public Sans on Windows/Android/Linux).
+## 4. Layout Architecture & Section Rhythm
 
-### Type Scale \& Tracking Discipline
+1. **Adaptive Navigation (`.site-header`):** Fixed transparent at `top: 0` when `scrollY <= 24` over the studio hero (white FT monogram `/images/logo-white.svg`, `#ffffff` links ordered `About, Work, Experience, Contact`, and inverted `#ffffff` `See Resume` CTA). On scroll (`scrollY > 24`), transitions (`280ms cubic-bezier(0.22, 1, 0.36, 1)`) into the single floating Liquid Glass capsule (`top: 12px`, `width: min(92%, 1120px)`, `980px` radius, `rgba(245, 245, 247, 0.78)` with `blur(20px) saturate(180%)`), switching to `/images/logo-original.svg`, `#1d1d1f` links, and `#b54f26` CTA fill.
+2. **Hero Section (`#about`, `.hero-section--studio`):** Terracotta-dominant radial studio backdrop (`#b54f26 -> #963f1c -> #5e2611 -> #1d1d1f`, centered at `72% 56%` on desktop/tablet and `50% 58%` on mobile) radiating behind the frameless `43.3 KB` WebP cutout portrait (`/images/profile-fauzan-cutout.webp`). Uses a 2-row `7:5` grid on desktop (`>= 1024px`, `max-height: clamp(380px, 42vw, 540px)`), a balanced `1.15fr / 0.85fr` 2-column grid on tablet (`769px` to `1023px`, `max-height: 400px`), and a single-column mobile stack (`<= 768px`, `max-height: 360px` centered above side-by-side CTAs).
+3. **Featured Campaign Spotlight (`#work`, `#1d1d1f`):** Full-bleed dark band rendering any CMS section promoted to `layout === "spotlight"` (plus legacy `brandoctors*` slider rows unless set to `grid`) ordered by `sort_order`. Uses a `35:65` split with sticky narrative and optional highlight metrics on the left and natural-aspect visual artifacts on the right.
+4. **Curated Client & Visual Studies Archive (`#archive`, `#ffffff`):** Pairs `4:8` client carousels (`Open Gallery` + `44px` circular prev/next buttons) with `7:5` and `5:7` asymmetric experimental study cards.
+5. **Experience & Education (`#experience`, `#f5f5f7`):** `4:8` editorial index with sticky Core Creative Software (`images/icons/*` local SVGs and WebP) and Strategic & Production Capabilities tags on the left. On the right, Work Experience highlights active or featured roles inside elevated `#ffffff` cards (`.ledger-row--featured`, `12px` radius, `1px solid #d2d2d7`) with terracotta status chips (`Current Role` / `Featured`), followed by the `"Education"` group covering both university and high school records, with no trailing divider rule on the final row (`.ledger-row:last-child`).
+6. **Contact & Footer (`#contact`, `#000000`):** `5:7` split pairing direct email/WhatsApp cards and `44px` circular social icon buttons with the validated inquiry form (`12px` inputs, honeypot field, right-aligned submit button) above a single-row legal footer (`Terms of Service`, `Privacy Policy`).
+7. **Admin Workspace Chrome (`admin.html`, `css/admin.css`):** Unifies authentication and navigation with the public dark palette via a `#1d1d1f` + terracotta radial login screen (`#963f1c -> #4d1f0e -> #1d1d1f` behind a `#ffffff` auth card) and a sticky `#1d1d1f` topbar (`/images/logo-white.svg`, `#2c2c2e` pills/buttons), paired with high-readability `#f5f5f7` / `#ffffff` CRUD tables, modals, rich-text editor, worldwide sharded city combobox, and live `/api/analytics` telemetry cards (`>= 44x44px` tap targets throughout).
 
-* **Hero Display (`--text-display`):** `clamp(36px, 5vw, 56px)`, line-height `1.05`, weight `800`, letter-spacing `-0.025em`.
-* **Hero Role Kicker (`.hero-role`):** `15px`, line-height `1.35`, weight `600`, color `#b54f26`, letter-spacing `0em`, paired with a subtle structural horizontal rule (never an AI capsule pill badge).
-* **Section Heading (`--text-heading`):** `clamp(28px, 3.5vw, 40px)`, line-height `1.14`, weight `600`, letter-spacing `-0.02em`.
-* **Case Study Title (`--text-heading-sm`):** `clamp(22px, 2.5vw, 28px)`, line-height `1.18`, weight `600`, letter-spacing `-0.015em`.
-* **Editorial Lead / Subhead (`--text-subheading`):** `21px`, line-height `1.32`, weight `400`, letter-spacing `-0.005em`.
-* **Body Copy (`--text-body`):** `17px`, line-height `1.5`, weight `400`, letter-spacing `0em`.
-* **Metadata / UI Controls (`--text-body-sm`):** `14px`, line-height `1.35`, weight `500`, letter-spacing `0em`.
-* **Caption / Micro-label (`--text-caption`):** `12px`, line-height `1.33`, weight `500`, letter-spacing `0.02em` (sentence case or clean title case; avoid wide-tracked ALL CAPS labels).
+## 5. Major Visual Decisions & Purpose Statements (R-31)
 
-## 4\. Layout Architecture \& Asymmetric Rhythm
-
-### Spatial Rules
-
-* **Container Max-Width:** `1280px` for asymmetric editorial grids; `100%` full-bleed for dark accent bands.
-* **Section Vertical Rhythm:** Minimum `80px` to `112px` vertical padding between major sections on desktop (`56px` on mobile).
-* **Elevation Philosophy:** Flat, architectural hierarchy built via surface contrast (`#f5f5f7` vs `#ffffff` vs `#1d1d1f`) and `1px` hairline borders (`#d2d2d7` / `#333333`). Avoid heavy drop shadows on cards or buttons.
-* **Border Radius Discipline:**
-
-  * Primary \& Secondary Action Buttons, Filter Pills: `980px` (full capsule, echoing the bold rounded geometry of the `FT` monogram).
-  * Case Study Media Frames, Containers, Form Inputs: `12px` (controlled architectural rounding).
-
-### Section-by-Section Rhythm Map (RHYTHM 3)
-
-1. **Top Navigation (Dynamic Expanded to Floating Liquid Glass):** At the top of the page (`scrollY <= 24`), full-width `#f5f5f7` bar with `1px` `#d2d2d7` bottom border and `18px 0` padding. When scrolled (`scrollY > 24`), transitions smoothly (`280ms cubic-bezier(0.22, 1, 0.36, 1)`) into a compact floating Liquid Glass capsule (`top: 12px`, `width: min(92%, 1120px)`, `980px` radius, `rgba(245, 245, 247, 0.74)`, `blur(20px) saturate(180%)`). Left: local `FT` monogram. Center/Right: 4 links (`About`, `Experience`, `Work`, `Contact`) plus `Download Resume` CTA.
-2. **Hero Section (Light `#f5f5f7`, Asymmetric 7:5 Split):** Left column (7 cols): `.hero-role` kicker in `#b54f26` with left rule, bold value proposition H1 (`weight 800`, `-0.025em`), positioning paragraph (`17px`), and paired CTAs (one filled `#b54f26` pill + one outlined `#1d1d1f` pill). Right column (5 cols): clean edge-to-edge editorial portrait frame (`12px` radius) with no footer caption strip. On mobile (`<= 768px`), reorders so portrait sits between bio and side-by-side CTA buttons.
-3. **Featured Impact Spotlight (Dark Accent Section `#1d1d1f` Full-Bleed):** High-contrast band highlighting flagship campaigns (Wellfest 2025, BPOM RI, HAI FEST 2025). Asymmetric two-column split: sticky narrative \& verified metrics on the left (`35%`), staggered natural-aspect visual showcase on the right (`65%`).
-4. **Curated Client \& Experimental Work (Light `#ffffff` Surface):** Asymmetric archive pairing 4:8 client showcase carousels (`Open Gallery` + circular prev/next arrows) with 7:5 / 5:7 experimental visual identity cards.
-5. **Experience \& Capabilities (Light `#f5f5f7` Surface, Editorial Index Layout):** Two-column asymmetric layout (`4:8` ratio). Left column: sticky section title and core toolset grouped cleanly without progress bars. Right column: chronological experience list separated by `1px` `#d2d2d7` hairline rules (no boxed cards), followed by university education entries.
-6. **Contact \& Footer (Dark Accent Section `#000000` Full-Bleed):** Direct collaboration prompt on the left, functional contact form (`12px` radius inputs with `#b54f26` focus ring and right-aligned submit CTA) on the right, and a single-row legal footer below a `1px` `#333333` divider (centered on mobile).
-
-## 5\. Component Specifications
-
-* **Primary Button:** `border-radius: 980px`, `background: #b54f26`, `color: #ffffff`, `padding: 12px 22px`, `font-size: 15px`, `font-weight: 500`, minimum height `44px` for mobile tap targets.
-* **Secondary Button:** `border-radius: 980px`, `background: transparent`, `border: 1px solid #1d1d1f` (or `#f5f5f7` on dark sections), `padding: 12px 22px`, minimum height `44px`.
-* **Keyboard Focus Indicator:** Every interactive element must display a visible `:focus-visible` ring (`2px solid #b54f26`, `outline-offset: 3px`). Never remove focus outlines without this replacement.
-
+| Element / Technique | One-Line Purpose Statement |
+| --- | --- |
+| Terracotta radial studio hero (`#b54f26 -> #1d1d1f`) | Concentrates studio warmth behind the frameless cutout portrait to create a single entry focal point while keeping `>= 4.68:1` copy contrast (R-01). |
+| Floating Liquid Glass navbar on scroll (`R-10`) | Separates persistent navigation from scrolling light and dark bands without occupying a full-width opaque banner, capped to one surface (R-10). |
+| `Bricolage Grotesque` + `SF Pro Text` / `Public Sans` | Pairs expressive editorial display headlines with native-grade UI legibility across Apple, Windows, and Android screens (R-06). |
+| Alternating surface polarity (`Hero -> #1d1d1f -> #ffffff -> #f5f5f7 -> #000000`) | Marks transitions between flagship campaigns, archive work, credentials, and contact without relying on decorative dividers or card shadows (R-05, R-12). |
+| Dual border-radius scale (`980px` actions, `12px` containers/inputs, `6px` metadata chips) | Distinguishes clickable action pills from static metadata tags and structural frames at a glance (R-11). |
+| Elevated `#ffffff` `.ledger-row--featured` card + terracotta chip | Highlights current or flagship roles inside the chronological `#f5f5f7` ledger without adding decorative left-edge stripes (R-14, R-31). |
+| Self-hosted `/images/icons/*` SVGs & WebP | Displays recognizable creative tool marks at `18px` while keeping `img-src` locked to `'self'` and Supabase Storage (R-04). |
+| Unified `#1d1d1f` Admin login & topbar with `#f5f5f7` / `#ffffff` workspace | Connects `/admin` visually to the public brand chrome while keeping dense forms, tables, and telemetry cards comfortable to scan and edit (R-20, C-3). |

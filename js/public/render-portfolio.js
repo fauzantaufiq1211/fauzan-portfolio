@@ -1,11 +1,11 @@
 import { DB_TABLES, supabase } from "../config/supabase-client.js";
 import {
   escapeHtml,
+  formatRichTextHtml,
   normalizeDashes,
   renderEmptyState,
   renderErrorState,
   renderLoadingState,
-  sanitizeRichText,
   sanitizeUrl,
 } from "../utils/dom.js";
 import {
@@ -14,11 +14,15 @@ import {
   registerGallery,
 } from "./modal-lightbox.js";
 
-const PORTFOLIO_CACHE_KEY = "ft_portfolio_sections_v1";
-const SPOTLIGHT_IDS = ["brandoctors-2", "brandoctors", "brandoctors-3"];
+const PORTFOLIO_CACHE_KEY = "ft_portfolio_sections_v2";
 const INITIAL_SPOTLIGHT_LIMIT = 6;
+const LEGACY_SPOTLIGHT_IDS = new Set([
+  "brandoctors-2",
+  "brandoctors",
+  "brandoctors-3",
+]);
 
-// Campaign titles and verified metrics for sections whose title is blank in legacy Supabase rows.
+// Optional metadata fallback only when legacy brandoctors* rows lack title, badge, or metrics.
 const SPOTLIGHT_META = {
   "brandoctors-2": {
     title: "Wellfest 2025",
@@ -91,6 +95,29 @@ function getAspectTreatment(item) {
   };
 }
 
+function normalizeSectionMetrics(rawMetrics) {
+  if (rawMetrics === null || rawMetrics === undefined) return null;
+  let parsed = rawMetrics;
+  if (typeof rawMetrics === "string") {
+    const trimmed = rawMetrics.trim();
+    if (!trimmed) return null;
+    try {
+      parsed = JSON.parse(trimmed);
+    } catch {
+      return null;
+    }
+  }
+  if (!Array.isArray(parsed)) return null;
+  if (parsed.length === 0) return [];
+  return parsed
+    .filter((item) => item && typeof item === "object")
+    .map((item) => ({
+      label: normalizeDashes(item.label || "").trim(),
+      value: normalizeDashes(item.value || "").trim(),
+    }))
+    .filter((item) => item.label || item.value);
+}
+
 function normalizeSections(rawSections) {
   return (rawSections || []).map((section) => {
     const works = Array.isArray(section.works)
@@ -101,11 +128,12 @@ function normalizeSections(rawSections) {
 
     return {
       id: String(section.id || ""),
-      title: normalizeDashes(section.title || ""),
-      tagline: normalizeDashes(section.tagline || ""),
+      title: normalizeDashes(section.title || "").trim(),
+      tagline: normalizeDashes(section.tagline || "").trim(),
       description: normalizeDashes(section.description || ""),
-      badge: normalizeDashes(section.badge || ""),
-      layout: section.layout || "slider",
+      badge: normalizeDashes(section.badge || "").trim(),
+      metrics: normalizeSectionMetrics(section.metrics),
+      layout: String(section.layout || "slider").trim().toLowerCase(),
       sort_order: section.sort_order ?? 0,
       works: works.map((item) => ({
         title: normalizeDashes(item.title || ""),
@@ -171,12 +199,18 @@ function buildGalleryAndRegister(galleryId, sectionTitle, works) {
   return galleryItems;
 }
 
+export function isSpotlightSection(section) {
+  if (!section) return false;
+  if (section.layout === "spotlight") return true;
+  return LEGACY_SPOTLIGHT_IDS.has(section.id) && section.layout !== "grid";
+}
+
 function renderSpotlightSection(sections, container, revealController) {
   if (!container) return;
 
-  const spotlightSections = SPOTLIGHT_IDS.map((id) =>
-    sections.find((s) => s.id === id),
-  ).filter(Boolean);
+  const spotlightSections = [...sections]
+    .filter((s) => isSpotlightSection(s))
+    .sort((a, b) => (a.sort_order ?? 0) - (b.sort_order ?? 0));
 
   if (spotlightSections.length === 0) {
     renderEmptyState(container, {
@@ -188,22 +222,33 @@ function renderSpotlightSection(sections, container, revealController) {
 
   container.innerHTML = spotlightSections
     .map((section) => {
-      const meta = SPOTLIGHT_META[section.id] || {
-        title: section.title || "Featured Campaign",
-        client: section.title || "Campaign Spotlight",
-        role: section.badge || "Lead Creative",
-        metrics: [],
-      };
-      const displayTitle = meta.title;
+      const fallbackMeta = SPOTLIGHT_META[section.id] || null;
+      const displayTitle =
+        section.title || fallbackMeta?.title || "Featured Campaign";
+      const roleLabel = section.badge || fallbackMeta?.role || "";
+      const metaChipsHtml = [
+        fallbackMeta?.client
+          ? `<span class="tag-chip">${escapeHtml(fallbackMeta.client)}</span>`
+          : "",
+        roleLabel
+          ? `<span class="tag-chip">${escapeHtml(roleLabel)}</span>`
+          : "",
+      ]
+        .filter(Boolean)
+        .join("");
       const galleryId = `spotlight-${section.id}`;
       buildGalleryAndRegister(galleryId, displayTitle, section.works);
 
       const visibleWorks = section.works.slice(0, INITIAL_SPOTLIGHT_LIMIT);
-      const resolvedMetrics = (meta.metrics || []).map((metric) =>
-        metric.dynamicWorkCount || (section.id === "brandoctors" && metric.label === "Multi-Format Campaign Visuals")
-          ? { ...metric, value: String(section.works.length) }
-          : metric,
-      );
+      const resolvedMetrics = Array.isArray(section.metrics)
+        ? section.metrics
+        : (fallbackMeta?.metrics || []).map((metric) =>
+            metric.dynamicWorkCount ||
+            (section.id === "brandoctors" &&
+              metric.label === "Multi-Format Campaign Visuals")
+              ? { ...metric, value: String(section.works.length) }
+              : metric,
+          );
 
       const metricsHtml =
         resolvedMetrics.length > 0
@@ -266,16 +311,13 @@ function renderSpotlightSection(sections, container, revealController) {
       return `
         <article class="spotlight-campaign reveal" data-campaign-id="${escapeHtml(section.id)}">
           <div class="spotlight-narrative">
-            <div class="spotlight-meta">
-              <span class="tag-chip">${escapeHtml(meta.client)}</span>
-              <span class="tag-chip">${escapeHtml(meta.role)}</span>
-            </div>
+            ${metaChipsHtml ? `<div class="spotlight-meta">${metaChipsHtml}</div>` : ""}
             <div>
               <p class="text-caption spotlight-tagline">${escapeHtml(section.tagline)}</p>
               <h3 class="text-heading">${escapeHtml(displayTitle)}</h3>
             </div>
             <div class="text-body text-secondary spotlight-description">
-              ${sanitizeRichText(section.description)}
+              ${formatRichTextHtml(section.description)}
             </div>
             ${metricsHtml}
             <div class="spotlight-actions">
@@ -304,9 +346,9 @@ function renderSpotlightSection(sections, container, revealController) {
 function renderArchiveSection(sections, container, revealController) {
   if (!container) return;
 
-  const archiveSections = sections.filter(
-    (s) => !SPOTLIGHT_IDS.includes(s.id),
-  );
+  const archiveSections = [...sections]
+    .filter((s) => !isSpotlightSection(s))
+    .sort((a, b) => (a.sort_order ?? 0) - (b.sort_order ?? 0));
 
   const clientSections = [];
   const gridWorks = [];
@@ -314,7 +356,7 @@ function renderArchiveSection(sections, container, revealController) {
   archiveSections.forEach((section) => {
     if (!section.works || section.works.length === 0) return;
 
-    if (section.layout === "grid" || section.id === "personal") {
+    if (section.layout === "grid") {
       section.works.forEach((work) => {
         gridWorks.push({ section, work });
       });
@@ -400,8 +442,8 @@ function renderArchiveSection(sections, container, revealController) {
                 <p class="text-caption">${escapeHtml(section.tagline)}</p>
                 <h3 class="text-heading-sm">${escapeHtml(section.title)}</h3>
               </div>
-              <div class="text-body-sm text-secondary">
-                ${sanitizeRichText(section.description)}
+              <div class="text-body-sm text-secondary ledger-description">
+                ${formatRichTextHtml(section.description)}
               </div>
               <div class="archive-featured-controls">
                 <button

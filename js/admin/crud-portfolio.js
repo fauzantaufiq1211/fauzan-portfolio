@@ -12,9 +12,32 @@ import {
   sanitizeUrl,
 } from "../utils/dom.js";
 
-const PORTFOLIO_CACHE_KEY = "ft_portfolio_sections_v1";
+const PORTFOLIO_CACHE_KEY = "ft_portfolio_sections_v2";
+const LEGACY_PORTFOLIO_CACHE_KEY = "ft_portfolio_sections_v1";
 const MAX_WEBP_WIDTH = 1600;
 const MAX_WEBP_BYTES = 200 * 1024;
+const MAX_ICON_DIMENSION = 128;
+const MAX_ICON_WEBP_BYTES = 40 * 1024;
+const MAX_ICON_SVG_BYTES = 100 * 1024;
+
+const BLOCKED_SVG_TAGS = new Set([
+  "script",
+  "iframe",
+  "foreignobject",
+  "object",
+  "embed",
+  "audio",
+  "video",
+  "canvas",
+  "applet",
+  "meta",
+  "link",
+  "base",
+  "animate",
+  "animatemotion",
+  "animatetransform",
+  "set",
+]);
 
 // Fallback display titles for legacy Supabase section rows whose title column is empty.
 const SECTION_TITLE_FALLBACKS = {
@@ -41,6 +64,7 @@ export function getSectionDisplayTitle(section) {
 function invalidatePublicPortfolioCache() {
   try {
     sessionStorage.removeItem(PORTFOLIO_CACHE_KEY);
+    sessionStorage.removeItem(LEGACY_PORTFOLIO_CACHE_KEY);
   } catch {
     // Ignore storage access errors.
   }
@@ -157,6 +181,186 @@ export async function uploadPortfolioWebP(file, sectionId = "general") {
   };
 }
 
+// Strips active scripts, event attributes, and unsafe URIs from uploaded SVG icons before storage.
+export function sanitizeSvgMarkup(rawSvgText) {
+  const raw = String(rawSvgText || "").trim();
+  if (!raw) throw new Error("SVG file is empty.");
+  if (new Blob([raw]).size > MAX_ICON_SVG_BYTES) {
+    throw new Error("SVG icon must be under 100 KB.");
+  }
+
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(raw, "image/svg+xml");
+  const parseError = doc.querySelector("parsererror");
+  const root = doc.documentElement;
+
+  if (parseError || !root || root.tagName.toLowerCase() !== "svg") {
+    throw new Error("Invalid SVG file structure.");
+  }
+
+  Array.from(root.querySelectorAll("*")).forEach((el) => {
+    const tag = el.tagName.toLowerCase();
+    if (BLOCKED_SVG_TAGS.has(tag)) {
+      el.remove();
+      return;
+    }
+    if (tag === "style") {
+      el.textContent = (el.textContent || "").replace(
+        /@import[^;]+;|url\s*\(\s*['"]?\s*(?:javascript:|vbscript:|data:text|https?:|\/\/)[^)]*\)/gi,
+        "",
+      );
+    }
+  });
+
+  [root, ...Array.from(root.querySelectorAll("*"))].forEach((el) => {
+    Array.from(el.attributes).forEach((attr) => {
+      const name = attr.name.toLowerCase();
+      const val = String(attr.value || "").trim();
+
+      if (name.startsWith("on")) {
+        el.removeAttribute(attr.name);
+        return;
+      }
+
+      if (
+        name === "href" ||
+        name === "xlink:href" ||
+        name === "src" ||
+        name === "action" ||
+        name === "formaction"
+      ) {
+        const isInternalRef = val.startsWith("#");
+        const isSafeRasterData = /^data:image\/(?:png|jpeg|webp);base64,/i.test(
+          val,
+        );
+        if (!isInternalRef && !isSafeRasterData) {
+          el.removeAttribute(attr.name);
+        }
+        return;
+      }
+
+      if (
+        name === "style" &&
+        /javascript:|vbscript:|expression\s*\(|url\s*\(\s*['"]?\s*(?:javascript:|vbscript:|data:text|https?:|\/\/)/i.test(
+          val,
+        )
+      ) {
+        el.removeAttribute(attr.name);
+      }
+    });
+  });
+
+  if (!root.getAttribute("xmlns")) {
+    root.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+  }
+
+  const serialized = new XMLSerializer().serializeToString(root);
+  if (new Blob([serialized]).size > MAX_ICON_SVG_BYTES) {
+    throw new Error("Sanitized SVG exceeds the 100 KB limit.");
+  }
+  return serialized;
+}
+
+async function compressRasterIconToWebP(file) {
+  const img = await loadImageElement(file);
+  const srcW = img.naturalWidth || img.width || 1;
+  const srcH = img.naturalHeight || img.height || 1;
+  const baseScale = Math.min(1, MAX_ICON_DIMENSION / Math.max(srcW, srcH));
+
+  let targetW = Math.max(1, Math.round(srcW * baseScale));
+  let targetH = Math.max(1, Math.round(srcH * baseScale));
+
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
+  if (!ctx) throw new Error("2D canvas context unavailable.");
+
+  const qualitySteps = [0.88, 0.78, 0.68, 0.56, 0.44, 0.32];
+  let scalePass = 1;
+
+  for (let pass = 0; pass < 3; pass += 1) {
+    const w = Math.max(1, Math.round(targetW * scalePass));
+    const h = Math.max(1, Math.round(targetH * scalePass));
+    canvas.width = w;
+    canvas.height = h;
+    ctx.clearRect(0, 0, w, h);
+    ctx.drawImage(img, 0, 0, w, h);
+
+    for (const quality of qualitySteps) {
+      const blob = await canvasToWebPBlob(canvas, quality);
+      if (blob.size <= MAX_ICON_WEBP_BYTES) {
+        return { blob, width: w, height: h };
+      }
+    }
+    scalePass *= 0.8;
+  }
+
+  throw new Error("Icon could not be compressed under 40 KB.");
+}
+
+export async function uploadCompetencyIcon(file) {
+  if (!file) throw new Error("No icon file selected.");
+  const fileName = String(file.name || "icon");
+  const mime = String(file.type || "").toLowerCase();
+  const isSvg = mime === "image/svg+xml" || /\.svg$/i.test(fileName);
+  const isRaster =
+    ["image/webp", "image/png", "image/jpeg"].includes(mime) ||
+    /\.(webp|png|jpe?g)$/i.test(fileName);
+
+  if (!isSvg && !isRaster) {
+    throw new Error("Upload an SVG, WebP, PNG, or JPG icon file.");
+  }
+
+  const baseName = fileName
+    .replace(/\.[^.]+$/, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9-_]/g, "-")
+    .slice(0, 40);
+
+  let uploadBlob;
+  let contentType;
+  let ext;
+  let width = null;
+  let height = null;
+
+  if (isSvg) {
+    const rawText = await file.text();
+    const cleanSvg = sanitizeSvgMarkup(rawText);
+    uploadBlob = new Blob([cleanSvg], { type: "image/svg+xml" });
+    contentType = "image/svg+xml";
+    ext = "svg";
+  } else {
+    const compressed = await compressRasterIconToWebP(file);
+    uploadBlob = compressed.blob;
+    contentType = "image/webp";
+    ext = "webp";
+    width = compressed.width;
+    height = compressed.height;
+  }
+
+  const storagePath = `icons/${Date.now()}-${baseName || "tool-icon"}.${ext}`;
+  const { error } = await supabase.storage
+    .from(STORAGE_BUCKETS.PORTFOLIO_IMAGES)
+    .upload(storagePath, uploadBlob, {
+      cacheControl: "31536000",
+      contentType,
+      upsert: false,
+    });
+
+  if (error) throw error;
+
+  const { data } = supabase.storage
+    .from(STORAGE_BUCKETS.PORTFOLIO_IMAGES)
+    .getPublicUrl(storagePath);
+
+  return {
+    publicUrl: data?.publicUrl || "",
+    sizeKb: Math.max(0.1, Math.round((uploadBlob.size / 1024) * 10) / 10),
+    format: isSvg ? "SVG" : "WebP",
+    width,
+    height,
+  };
+}
+
 export function getSectionsCache() {
   return sectionsCache;
 }
@@ -222,9 +426,10 @@ export async function loadPortfolioSections({
             <div class="admin-record-info">
               <div class="admin-record-header">
                 <h3 class="text-heading-sm">${escapeHtml(getSectionDisplayTitle(section))}</h3>
-                <span class="tag-chip">${escapeHtml(section.layout || "slider")}</span>
+                <span class="tag-chip ${section.layout === "spotlight" ? "tag-chip--accent" : ""}">${escapeHtml(section.layout || "slider")}</span>
                 <span class="tag-chip">ID: ${escapeHtml(section.id)}</span>
-                ${section.badge ? `<span class="tag-chip">${escapeHtml(normalizeDashes(section.badge))}</span>` : ""}
+                ${section.badge ? `<span class="tag-chip">${escapeHtml(normalizeDashes(section.badge).trim())}</span>` : ""}
+                ${Array.isArray(section.metrics) && section.metrics.length > 0 ? `<span class="tag-chip">${section.metrics.length} Metrics</span>` : ""}
               </div>
               ${section.tagline ? `<p class="text-body-sm"><strong>${escapeHtml(normalizeDashes(section.tagline))}</strong></p>` : ""}
               ${summary ? `<p class="text-body-sm text-secondary">${escapeHtml(summary)}</p>` : ""}

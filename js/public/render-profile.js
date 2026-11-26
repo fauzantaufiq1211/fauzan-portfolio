@@ -1,6 +1,7 @@
 import { DB_TABLES, supabase } from "../config/supabase-client.js";
 import {
   escapeHtml,
+  formatRichTextHtml,
   normalizeDashes,
   parseDescriptionList,
   renderEmptyState,
@@ -10,12 +11,11 @@ import {
   sanitizeUrl,
 } from "../utils/dom.js";
 
-const HIGH_SCHOOL_PATTERN = /sman\s*3|sma\s+negeri|high\s*school|rohis|triple\s*magazine/i;
-
-function isHighSchoolEntry(record) {
-  const combined = `${record.institution || ""} ${record.company || ""} ${record.degree || ""} ${record.role || ""}`;
-  return HIGH_SCHOOL_PATTERN.test(combined);
-}
+// Edit these labels to rename the two competency groups on the public portfolio.
+export const COMPETENCY_GROUP_HEADINGS = Object.freeze({
+  arsenal: "Core Creative Software",
+  other: "Strategic & Production Capabilities",
+});
 
 export async function loadExperience(container, revealController) {
   if (!container) return;
@@ -32,8 +32,8 @@ export async function loadExperience(container, revealController) {
 
     if (error) throw error;
 
-    const filtered = (data || []).filter((item) => !isHighSchoolEntry(item));
-    if (filtered.length === 0) {
+    const entries = data || [];
+    if (entries.length === 0) {
       renderEmptyState(container, {
         title: "No experience records published yet",
         message: "Professional roles and creative engagements will appear here once added.",
@@ -41,17 +41,32 @@ export async function loadExperience(container, revealController) {
       return;
     }
 
-    container.innerHTML = filtered
+    container.innerHTML = entries
       .map((exp) => {
         const role = normalizeDashes(exp.role || "Creative Specialist");
         const company = normalizeDashes(exp.company || "");
         const companyUrl = sanitizeUrl(exp.company_link);
         const location = normalizeDashes(exp.location || "");
         const period = normalizeDashes(exp.period || "");
-        const type = normalizeDashes(exp.type || "");
+        const type = normalizeDashes(exp.type || "").trim();
         const points = parseDescriptionList(exp.description).map((pt) =>
           normalizeDashes(pt),
         );
+
+        const isCurrentRole = /\bpresent\b/i.test(period);
+        const isFeatured = Boolean(exp.is_featured) || isCurrentRole;
+        const statusChip = isCurrentRole
+          ? '<span class="tag-chip tag-chip--accent">Current Role</span>'
+          : exp.is_featured
+            ? '<span class="tag-chip tag-chip--accent">Featured</span>'
+            : "";
+        const typeChip = type
+          ? `<span class="tag-chip">${escapeHtml(type)}</span>`
+          : "";
+        const badgesHtml =
+          statusChip || typeChip
+            ? `<div class="spotlight-meta">${statusChip}${typeChip}</div>`
+            : "";
 
         const companyHtml = companyUrl
           ? `<a href="${escapeHtml(companyUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(company)}</a>`
@@ -65,11 +80,11 @@ export async function loadExperience(container, revealController) {
             : "";
 
         return `
-          <article class="ledger-row reveal">
+          <article class="ledger-row ${isFeatured ? "ledger-row--featured " : ""}reveal">
             <div class="ledger-meta">
               <p class="text-body-sm">${escapeHtml(period)}</p>
               ${location ? `<p class="text-caption">${escapeHtml(location)}</p>` : ""}
-              ${type ? `<div><span class="tag-chip">${escapeHtml(type)}</span></div>` : ""}
+              ${badgesHtml}
             </div>
             <div class="ledger-body">
               <h4 class="text-heading-sm">${escapeHtml(role)}</h4>
@@ -91,11 +106,10 @@ export async function loadExperience(container, revealController) {
   }
 }
 
-// Excludes SMAN 3 Bogor high school records so only university degrees (BINUS & Brawijaya University) render.
 export async function loadEducation(container, revealController) {
   if (!container) return;
   renderLoadingState(container, {
-    title: "Loading university education",
+    title: "Loading education",
     count: 2,
   });
 
@@ -107,16 +121,16 @@ export async function loadEducation(container, revealController) {
 
     if (error) throw error;
 
-    const universities = (data || []).filter((edu) => !isHighSchoolEntry(edu));
-    if (universities.length === 0) {
+    const educationRecords = data || [];
+    if (educationRecords.length === 0) {
       renderEmptyState(container, {
-        title: "No university records published yet",
-        message: "Academic degrees and university credentials will appear here.",
+        title: "No education records published yet",
+        message: "Academic degrees and credentials will appear here.",
       });
       return;
     }
 
-    container.innerHTML = universities
+    container.innerHTML = educationRecords
       .map((edu) => {
         const institution = normalizeDashes(edu.institution || "");
         const institutionUrl = sanitizeUrl(edu.institution_link);
@@ -147,7 +161,7 @@ export async function loadEducation(container, revealController) {
             <div class="ledger-body">
               <h4 class="text-heading-sm">${institutionHtml}</h4>
               <p class="text-body-sm text-secondary">${escapeHtml(degree)}</p>
-              ${description ? `<div class="text-body-sm text-secondary">${sanitizeRichText(description)}</div>` : ""}
+              ${description ? `<div class="text-body-sm text-secondary ledger-description">${formatRichTextHtml(description)}</div>` : ""}
             </div>
           </article>
         `;
@@ -157,7 +171,7 @@ export async function loadEducation(container, revealController) {
     if (revealController) revealController.observeNew(container);
   } catch (error) {
     renderErrorState(container, {
-      title: "Unable to load university education",
+      title: "Unable to load education",
       message: error?.message || "Check your connection and retry.",
       onRetry: () => loadEducation(container, revealController),
     });
@@ -195,8 +209,8 @@ export async function loadCompetencies(container, revealController) {
       arsenal.length > 0
         ? `
           <div class="toolset-group reveal">
-            <h3 class="text-body-sm">Core Creative Software</h3>
-            <ul class="toolset-grid" aria-label="Core creative software">
+            <h3 class="text-body-sm">${escapeHtml(COMPETENCY_GROUP_HEADINGS.arsenal)}</h3>
+            <ul class="toolset-grid" aria-label="${escapeHtml(COMPETENCY_GROUP_HEADINGS.arsenal)}">
               ${arsenal
                 .map((item) => {
                   const name = normalizeDashes(item.name || "");
@@ -216,8 +230,8 @@ export async function loadCompetencies(container, revealController) {
       other.length > 0
         ? `
           <div class="toolset-group reveal">
-            <h3 class="text-body-sm">Strategic &amp; Production Capabilities</h3>
-            <ul class="toolset-grid" aria-label="Strategic and production capabilities">
+            <h3 class="text-body-sm">${escapeHtml(COMPETENCY_GROUP_HEADINGS.other)}</h3>
+            <ul class="toolset-grid" aria-label="${escapeHtml(COMPETENCY_GROUP_HEADINGS.other)}">
               ${other
                 .map(
                   (item) =>

@@ -1,11 +1,8 @@
 import { supabase } from "../config/supabase-client.js";
 import { escapeHtml } from "../utils/dom.js";
 
-// Keep only the active Supabase Auth administrator emails in this allowlist.
-const ALLOWED_ADMIN_EMAILS = new Set([
-  "admin@fauzantaufiq.id",
-  "fauzantaufiq1211@gmail.com",
-]);
+// Restrict client-side admin workspace entry to the single active Supabase Auth administrator.
+export const ALLOWED_ADMIN_EMAILS = new Set(["admin@fauzantaufiq.id"]);
 
 const AUTH_ICONS = {
   error: `

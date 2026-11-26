@@ -61,8 +61,17 @@
           aria-label="Muhammad Fauzan Taufiq home"
         >
           <img
-            src="/images/logo-original.svg"
+            src="/images/logo-white.svg"
             alt="FT Monogram"
+            class="brand-logo brand-logo--hero"
+            width="36"
+            height="36"
+          />
+          <img
+            src="/images/logo-original.svg"
+            alt=""
+            aria-hidden="true"
+            class="brand-logo brand-logo--scrolled"
             width="36"
             height="36"
           />
@@ -109,7 +118,7 @@
             class="btn btn-primary nav-cta"
             data-open-resume
           >
-            Download Resume
+            See Resume
           </button>
         </div>
       </nav>
@@ -118,7 +127,7 @@
     <main id="main-content">
       <section
         id="about"
-        class="section section-light hero-section"
+        class="section hero-section hero-section--studio"
         aria-labelledby="hero-heading"
       >
         <div class="container hero-grid">
@@ -126,35 +135,39 @@
             <p class="hero-role">
               Digital Creative Specialist &amp; Social Media Strategist
             </p>
-            <h1 id="hero-heading" class="text-display hero-heading">
-              Turning complex brand briefs into clear visual systems.
-            </h1>
-            <p class="text-body hero-lead">
-              I am <strong>Muhammad Fauzan Taufiq</strong>, a Digital Creative
-              Specialist based in Jakarta. Combining a background in Information
-              Systems and Digital Business Management, I design social media
-              campaigns, event identities, and editorial visuals that
-              communicate clearly and drive measurable audience engagement.
-            </p>
-            <div class="hero-actions">
-              <a href="#work" class="btn btn-primary">Explore Selected Work</a>
-              <a href="#contact" class="btn btn-secondary">Start a Project</a>
+            <div class="hero-main-copy">
+              <h1 id="hero-heading" class="text-display hero-heading">
+                Turning complex brand briefs into clear visual systems.
+              </h1>
+              <p class="text-body hero-lead">
+                I'm <strong>Muhammad Fauzan Taufiq</strong>. With a background in
+                Information Systems and Digital Business Management, I design
+                social media campaigns and on-site event graphics for public
+                institutions and commercial brands.
+              </p>
+              <div class="hero-actions">
+                <a href="#work" class="btn btn-primary">Explore Selected Work</a>
+                <a href="#contact" class="btn btn-secondary">Start a Project</a>
+              </div>
             </div>
           </div>
 
-          <div class="hero-media reveal reveal-delay-1">
-            <figure class="hero-portrait-card">
-              <div class="hero-portrait-frame">
-                <img
-                  src="/images/profile-fauzan.webp"
-                  alt="Editorial portrait of Muhammad Fauzan Taufiq"
-                  width="640"
-                  height="800"
-                  fetchpriority="high"
-                  decoding="async"
-                />
-              </div>
-            </figure>
+          <div class="hero-media">
+            <picture class="hero-cutout-wrap">
+              <source
+                srcset="/images/profile-fauzan-cutout.webp"
+                type="image/webp"
+              />
+              <img
+                src="/images/profile-fauzan-cutout.webp"
+                alt="Editorial portrait of Muhammad Fauzan Taufiq"
+                class="hero-cutout-img"
+                width="879"
+                height="825"
+                fetchpriority="high"
+                decoding="async"
+              />
+            </picture>
           </div>
         </div>
       </section>
@@ -171,9 +184,8 @@
               Featured Campaign Spotlight
             </h2>
             <p class="text-body text-secondary">
-              Large-scale public communication and festival visual systems
-              produced at Brandoctors Indonesia for Wellfest 2025, BPOM RI, and
-              HAI-FEST 2025.
+              Campaign graphics and event identities built for social channels
+              and physical venues.
             </p>
           </header>
 
@@ -222,12 +234,10 @@
               <h2 id="experience-heading" class="text-heading">
                 Experience &amp; Education
               </h2>
-              <p
-                class="text-body-sm text-secondary"
-                style="margin-top: var(--space-3)"
-              >
-                Bridging structured systems thinking from Information Systems
-                with commercial brand strategy from Digital Business Management.
+              <p class="text-body-sm text-secondary index-sidebar-lead">
+                My background spans Information Systems and Digital Business
+                Management, so every visual system starts with clear structure
+                and business goals.
               </p>
             </div>
 
@@ -244,7 +254,7 @@
 
             <div class="ledger-group">
               <div class="ledger-group-title reveal">
-                <h3 class="text-heading-sm">University Education</h3>
+                <h3 class="text-heading-sm">Education</h3>
               </div>
               <div id="education-container" aria-live="polite"></div>
             </div>
@@ -266,21 +276,21 @@
                   Let's discuss your next campaign or visual project.
                 </h2>
               </div>
-              <p class="text-body text-secondary">
-                Available for full-time creative roles, freelance brand
-                identities, and social media design systems.
+              <p class="text-body text-secondary contact-lead">
+                Open to full-time creative roles and freelance design work.
+                Reach out directly or send a brief below.
               </p>
 
               <div class="contact-channels">
                 <a
                   href="mailto:contact@fauzantaufiq.id"
                   class="contact-channel-card"
+                  aria-label="Send email to contact@fauzantaufiq.id"
                 >
                   <div class="contact-channel-meta">
                     <span class="text-caption">Email Direct</span>
                     <span class="text-body-sm">contact@fauzantaufiq.id</span>
                   </div>
-                  <span class="text-caption">Send Email</span>
                 </a>
 
                 <a
@@ -288,17 +298,17 @@
                   target="_blank"
                   rel="noopener noreferrer"
                   class="contact-channel-card"
+                  aria-label="Open WhatsApp chat with +62 851 5605 5303"
                 >
                   <div class="contact-channel-meta">
                     <span class="text-caption">WhatsApp Direct</span>
                     <span class="text-body-sm">+62 851 5605 5303</span>
                   </div>
-                  <span class="text-caption">Open Chat</span>
                 </a>
               </div>
 
               <div>
-                <p class="text-caption" style="margin-bottom: var(--space-3)">
+                <p class="text-caption contact-profiles-label">
                   Design &amp; Professional Profiles
                 </p>
                 <div class="social-links">
@@ -306,25 +316,37 @@
                     href="https://linkedin.com/in/fauzantaufiq"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="btn btn-subtle btn-compact"
+                    class="social-icon-btn"
+                    aria-label="LinkedIn"
+                    title="LinkedIn"
                   >
-                    LinkedIn
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19ZM8.34 17.34V10.67H6.12V17.34H8.34ZM7.23 9.75C7.97 9.75 8.52 9.21 8.52 8.5C8.52 7.78 7.97 7.25 7.23 7.25C6.49 7.25 5.94 7.78 5.94 8.5C5.94 9.21 6.49 9.75 7.23 9.75ZM18.06 17.34V13.56C18.06 11.53 16.98 10.5 15.46 10.5C14.28 10.5 13.73 11.15 13.43 11.62V10.67H11.21C11.24 11.3 11.21 17.34 11.21 17.34H13.43V13.62C13.43 13.42 13.45 13.22 13.52 13.08C13.69 12.68 14.07 12.27 14.72 12.27C15.54 12.27 15.87 12.88 15.87 13.79V17.34H18.06Z" />
+                    </svg>
                   </a>
                   <a
                     href="https://behance.net/fauzantaufiq"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="btn btn-subtle btn-compact"
+                    class="social-icon-btn"
+                    aria-label="Behance"
+                    title="Behance"
                   >
-                    Behance
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M22 7H15V5H22V7ZM17.26 10.66C15.88 10.66 14.95 11.55 14.82 12.92H19.55C19.44 11.52 18.61 10.66 17.26 10.66ZM17.43 16.59C18.42 16.59 19.19 16.12 19.53 15.32H21.78C21.18 17.26 19.58 18.47 17.34 18.47C14.54 18.47 12.63 16.61 12.63 13.68C12.63 10.72 14.58 8.78 17.3 8.78C20.14 8.78 21.92 10.77 21.92 13.84V14.43H14.81C14.9 15.8 15.9 16.59 17.43 16.59ZM7.41 12.62H4.53V16.19H7.5C8.69 16.19 9.42 15.63 9.42 14.42C9.42 13.19 8.66 12.62 7.41 12.62ZM7.18 7.81H4.53V10.89H7.12C8.16 10.89 8.83 10.39 8.83 9.33C8.83 8.27 8.15 7.81 7.18 7.81ZM8.04 18.18H2V5.82H7.65C9.88 5.82 11.27 6.95 11.27 8.91C11.27 10.17 10.59 11.11 9.46 11.57C10.92 11.98 11.83 13.11 11.83 14.77C11.83 16.99 10.27 18.18 8.04 18.18Z" />
+                    </svg>
                   </a>
                   <a
                     href="https://instagram.com/fauzan.taufiqq"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="btn btn-subtle btn-compact"
+                    class="social-icon-btn"
+                    aria-label="Instagram"
+                    title="Instagram"
                   >
-                    Instagram
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M7.8 2H16.2C19.4 2 22 4.6 22 7.8V16.2A5.8 5.8 0 0 1 16.2 22H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2ZM7.6 4A3.6 3.6 0 0 0 4 7.6V16.4C4 18.39 5.61 20 7.6 20H16.4A3.6 3.6 0 0 0 20 16.4V7.6C20 5.61 18.39 4 16.4 4H7.6ZM17.25 5.5A1.25 1.25 0 0 1 18.5 6.75A1.25 1.25 0 0 1 17.25 8A1.25 1.25 0 0 1 16 6.75A1.25 1.25 0 0 1 17.25 5.5ZM12 7A5 5 0 0 1 17 12A5 5 0 0 1 12 17A5 5 0 0 1 7 12A5 5 0 0 1 12 7ZM12 9A3 3 0 0 0 9 12A3 3 0 0 0 12 15A3 3 0 0 0 15 12A3 3 0 0 0 12 9Z" />
+                    </svg>
                   </a>
                 </div>
               </div>
@@ -338,11 +360,8 @@
               >
                 <div>
                   <h3 class="text-heading-sm">Send Project Inquiry</h3>
-                  <p
-                    class="text-body-sm text-secondary"
-                    style="margin-top: var(--space-1)"
-                  >
-                    Share your project scope, role details, or timeline below.
+                  <p class="text-body-sm text-secondary contact-form-subtitle">
+                    Share your project scope or role details.
                   </p>
                 </div>
 
@@ -421,7 +440,7 @@
                     class="form-textarea"
                     rows="4"
                     maxlength="2000"
-                    placeholder="Outline your campaign goals, deliverables, or role opportunity..."
+                    placeholder="Tell me about the project or role you have in mind..."
                     required
                     aria-describedby="contact-message-error"
                   ></textarea>
@@ -490,10 +509,7 @@
           data-close-modal
           aria-label="Close artifact preview"
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M18 6L6 18M6 6l12 12" />
-          </svg>
-          <span>Close</span>
+          Close
         </button>
       </div>
       <div class="modal-body modal-body--media">
@@ -551,11 +567,12 @@
           <a
             id="document-download-link"
             href="#"
+            download="Muhammad-Fauzan-Taufiq-Resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
             class="btn btn-primary btn-compact"
           >
-            Open / Download PDF
+            Download PDF Resume
           </a>
           <button
             type="button"
@@ -568,13 +585,34 @@
         </div>
       </div>
       <div class="modal-body modal-body--document">
-        <iframe
-          id="document-frame"
-          src="about:blank"
-          title="Document viewer"
-          sandbox="allow-scripts allow-same-origin allow-popups"
-          referrerpolicy="no-referrer"
-        ></iframe>
+        <object
+          id="document-object"
+          class="document-embed"
+          type="application/pdf"
+          data=""
+        >
+          <iframe
+            id="document-frame"
+            class="document-embed"
+            src="about:blank"
+            title="Document viewer"
+            referrerpolicy="no-referrer"
+          ></iframe>
+          <div class="document-fallback">
+            <p class="text-body-sm text-secondary">
+              Your browser could not display the inline PDF preview.
+            </p>
+            <a
+              id="document-open-link"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-secondary btn-compact"
+            >
+              Open PDF in New Tab
+            </a>
+          </div>
+        </object>
       </div>
     </dialog>
 
@@ -598,16 +636,6 @@
         </button>
       </div>
       <div id="legal-body" class="modal-body"></div>
-      <div class="modal-footer">
-        <span class="text-caption">fauzantaufiq.id</span>
-        <button
-          type="button"
-          class="btn btn-primary btn-compact"
-          data-close-modal
-        >
-          Close Window
-        </button>
-      </div>
     </dialog>
 
     <script type="module" src="/js/public/main.js"></script>
