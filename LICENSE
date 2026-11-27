@@ -3,7 +3,7 @@ Copyright (c) 2026 Muhammad Fauzan Taufiq
 
 This repository is governed by two separate licenses depending on the file type:
 
-1. Source Code: GNU General Public License v3.0 (GPL-3.0-only)
+1. Source Code: GNU Affero General Public License v3.0 (AGPL-3.0-only)
    Applies to the source code in this repository, including HTML, CSS, JavaScript,
    build scripts, SQL migrations, and serverless API functions.
    See the full, unmodified license text in: LICENSE-CODE
