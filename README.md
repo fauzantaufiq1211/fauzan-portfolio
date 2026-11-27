@@ -6,14 +6,14 @@ Production URL: [https://fauzantaufiq.id](https://fauzantaufiq.id)
 
 ## Technology Stack
 
-| Layer | Implementation |
-| --- | --- |
-| Markup | Semantic HTML5 (`index.html` public portfolio and `admin.html` CMS workspace) with native `<dialog>` modals |
-| Styling | Modular CSS3 (`css/tokens.css`, `css/reset.css`, `css/layout.css`, `css/components.css`, `css/admin.css`) with zero runtime CSS framework |
-| Client Scripts | Modular Vanilla JavaScript ES Modules (`js/public/`, `js/admin/`, `js/config/`, `js/utils/`) |
+| Layer              | Implementation                                                                                                                                       |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Markup             | Semantic HTML5 (`index.html` public portfolio and `admin.html` CMS workspace) with native `<dialog>` modals                                          |
+| Styling            | Modular CSS3 (`css/tokens.css`, `css/reset.css`, `css/layout.css`, `css/components.css`, `css/admin.css`) with zero runtime CSS framework            |
+| Client Scripts     | Modular Vanilla JavaScript ES Modules (`js/public/`, `js/admin/`, `js/config/`, `js/utils/`)                                                         |
 | Database & Storage | Supabase PostgreSQL, Supabase Auth, and `portfolio-images` Storage via a locally bundled `@supabase/supabase-js` client (`js/vendor/supabase-js.js`) |
-| Serverless API | Vercel Serverless Function (`api/analytics.js`) aggregating authenticated 30-day usage and deployment telemetry |
-| Edge & Delivery | Vercel static hosting (`dist/`) fronted by Cloudflare DNS, CDN caching, and WAF |
+| Serverless API     | Vercel Serverless Function (`api/analytics.js`) aggregating authenticated 30-day usage and deployment telemetry                                      |
+| Edge & Delivery    | Vercel static hosting (`dist/`) fronted by Cloudflare DNS, CDN caching, and WAF                                                                      |
 
 ## Project Structure
 
@@ -29,14 +29,14 @@ Production URL: [https://fauzantaufiq.id](https://fauzantaufiq.id)
 
 ## Supabase Schema
 
-| Table | Purpose |
-| --- | --- |
-| `portfolio_sections` | Campaign spotlight (`layout = 'spotlight'`) and archive (`slider` / `grid`) sections, narratives, badges, and highlight metrics |
-| `portfolio_items` | Visual artifacts, external links, captions, and WebP artwork URLs linked via `section_id` |
-| `experience` | Work history entries with structured month/year periods, searchable worldwide city locations, work types, and `is_featured` flags |
-| `education` | University and high school credentials with optional GPA metadata |
-| `competencies` | Core Creative Software (`arsenal`, with icon upload/URL) and Strategic & Production Capabilities (`other`) |
-| `messages` | Inquiries submitted from the public contact form and managed in the Admin Inbox |
+| Table                | Purpose                                                                                                                           |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `portfolio_sections` | Campaign spotlight (`layout = 'spotlight'`) and archive (`slider` / `grid`) sections, narratives, badges, and highlight metrics   |
+| `portfolio_items`    | Visual artifacts, external links, captions, and WebP artwork URLs linked via `section_id`                                         |
+| `experience`         | Work history entries with structured month/year periods, searchable worldwide city locations, work types, and `is_featured` flags |
+| `education`          | University and high school credentials with optional GPA metadata                                                                 |
+| `competencies`       | Core Creative Software (`arsenal`, with icon upload/URL) and Strategic & Production Capabilities (`other`)                        |
+| `messages`           | Inquiries submitted from the public contact form and managed in the Admin Inbox                                                   |
 
 ## Build Pipeline
 
@@ -68,16 +68,16 @@ npm run vendor
 
 The Overview tab in `/admin` calls `GET /api/analytics` with the signed-in administrator's Supabase Bearer token. Each provider degrades independently to a `Not Configured` card until its environment variables are added in Vercel Project Settings:
 
-| Variable | Provider | Purpose |
-| --- | --- | --- |
-| `CLOUDFLARE_API_TOKEN` | Cloudflare | API token with Zone Analytics read permission for GraphQL `httpRequests1dGroups` |
-| `CLOUDFLARE_ZONE_ID` | Cloudflare | Target Cloudflare Zone ID for `fauzantaufiq.id` |
-| `VERCEL_API_TOKEN` | Vercel | Bearer token for querying recent deployment states and build durations |
-| `VERCEL_PROJECT_ID` | Vercel | Vercel Project ID (`prj_...`) filtered on `/v6/deployments` |
-| `GOOGLE_CLIENT_EMAIL` | Google (GA4 & GSC) | Service account client email granted Viewer access on GA4 and Search Console |
-| `GOOGLE_PRIVATE_KEY` | Google (GA4 & GSC) | PEM private key used to sign short-lived RS256 OAuth JWTs via `node:crypto` |
-| `GA4_PROPERTY_ID` | Google Analytics 4 | Numeric GA4 Property ID queried for 30-day active users, sessions, views, and engagement |
-| `GSC_SITE_URL` | Google Search Console | Verified Search Console property URL (for example `sc-domain:fauzantaufiq.id` or `https://fauzantaufiq.id/`) |
+| Variable               | Provider              | Purpose                                                                                                      |
+| ---------------------- | --------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `CLOUDFLARE_API_TOKEN` | Cloudflare            | API token with Zone Analytics read permission for GraphQL `httpRequests1dGroups`                             |
+| `CLOUDFLARE_ZONE_ID`   | Cloudflare            | Target Cloudflare Zone ID for `fauzantaufiq.id`                                                              |
+| `VERCEL_API_TOKEN`     | Vercel                | Bearer token for querying recent deployment states and build durations                                       |
+| `VERCEL_PROJECT_ID`    | Vercel                | Vercel Project ID (`prj_...`) filtered on `/v6/deployments`                                                  |
+| `GOOGLE_CLIENT_EMAIL`  | Google (GA4 & GSC)    | Service account client email granted Viewer access on GA4 and Search Console                                 |
+| `GOOGLE_PRIVATE_KEY`   | Google (GA4 & GSC)    | PEM private key used to sign short-lived RS256 OAuth JWTs via `node:crypto`                                  |
+| `GA4_PROPERTY_ID`      | Google Analytics 4    | Numeric GA4 Property ID queried for 30-day active users, sessions, views, and engagement                     |
+| `GSC_SITE_URL`         | Google Search Console | Verified Search Console property URL (for example `sc-domain:fauzantaufiq.id` or `https://fauzantaufiq.id/`) |
 
 Optional server overrides supported by `api/analytics.js`: `VERCEL_TEAM_ID`, `ADMIN_ALLOWED_EMAILS`, `SUPABASE_URL`, and `SUPABASE_ANON_KEY`.
 
@@ -96,6 +96,10 @@ To preview only the compiled static `dist/` directory without serverless functio
 npm run build
 npx serve dist -l 4173
 ```
+
+## License
+
+Copyright (c) 2026 Muhammad Fauzan Taufiq. All rights reserved. See [LICENSE](./LICENSE) for details.
 
 ## Contact
 
