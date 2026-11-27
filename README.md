@@ -106,4 +106,7 @@ npx serve dist -l 4173
 
 ## License
 
-Copyright (c) 2026 Muhammad Fauzan Taufiq. All rights reserved. See [LICENSE](./LICENSE) for details.
+This repository uses a dual-scope license structure (see [LICENSE](./LICENSE)):
+
+- **Source Code:** Licensed under the GNU General Public License v3.0. See [LICENSE-CODE](./LICENSE-CODE).
+- **Content, Branding & Media Assets:** Copyright (c) 2026 Muhammad Fauzan Taufiq. All rights reserved. See [LICENSE-CONTENT](./LICENSE-CONTENT).

@@ -1,6 +1,6 @@
 {
   "private": true,
-  "license": "UNLICENSED",
+  "license": "SEE LICENSE IN LICENSE",
   "type": "module",
   "scripts": {
     "vendor": "node scripts/vendor.mjs",
