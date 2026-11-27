@@ -97,13 +97,13 @@ npm run build
 npx serve dist -l 4173
 ```
 
-## License
-
-Copyright (c) 2026 Muhammad Fauzan Taufiq. All rights reserved. See [LICENSE](./LICENSE) for details.
-
 ## Contact
 
 - Email: [contact@fauzantaufiq.id](mailto:contact@fauzantaufiq.id)
 - LinkedIn: [linkedin.com/in/fauzantaufiq](https://linkedin.com/in/fauzantaufiq)
 - Behance: [behance.net/fauzantaufiq](https://behance.net/fauzantaufiq)
 - Instagram: [instagram.com/fauzan.taufiqq](https://instagram.com/fauzan.taufiqq)
+
+## License
+
+Copyright (c) 2026 Muhammad Fauzan Taufiq. All rights reserved. See [LICENSE](./LICENSE) for details.
